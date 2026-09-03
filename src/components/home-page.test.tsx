@@ -55,8 +55,18 @@ describe('home', () => {
   it('mostra a estante inteira, que é a promessa do produto', () => {
     render(<HomePage locale="en" />);
 
-    for (const book of BOOKS) {
+    for (const book of BOOKS.filter((item) => item.kind === 'book')) {
       expect(screen.getByText(book.title), book.id).toBeInTheDocument();
+    }
+  });
+
+  it('não apresenta material de curso nem fonte oficial como bibliografia', () => {
+    // A estante são obras publicadas. A planilha do gelato e o NCHFP são
+    // citados dentro das calculadoras que os usam, não aqui.
+    render(<HomePage locale="pt-BR" />);
+
+    for (const book of BOOKS.filter((item) => item.kind !== 'book')) {
+      expect(screen.queryByText(book.title), book.id).toBeNull();
     }
   });
 

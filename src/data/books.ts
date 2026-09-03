@@ -18,7 +18,9 @@ export type BookId =
   | 'bwf'
   | 'zielonka'
   | 'hazan'
-  | 'ruhlman';
+  | 'ruhlman'
+  | 'nchfp'
+  | 'gelato-course';
 
 export interface Book {
   id: BookId;
@@ -30,9 +32,11 @@ export interface Book {
   locator: 'page' | 'chapter';
   /**
    * `book` = obra da estante; `official` = fonte oficial complementar
-   * (NCHFP/USDA), usada só em regras de segurança alimentar (TD-004).
+   * (NCHFP/USDA), usada só em regras de segurança alimentar (TD-004);
+   * `course` = material de curso, que não é bibliografia e não deve se
+   * disfarçar de uma.
    */
-  kind: 'book' | 'official';
+  kind: 'book' | 'official' | 'course';
 }
 
 export const BOOKS: readonly Book[] = [
@@ -100,6 +104,27 @@ export const BOOKS: readonly Book[] = [
     publisher: 'Scribner',
     locator: 'chapter',
     kind: 'book',
+  },
+  {
+    // Fonte oficial complementar (TD-004). Nenhum dos livros fixa a acidez
+    // mínima de conserva segura, e segurança alimentar não admite número sem
+    // fonte — por isso a exceção às obras da estante.
+    id: 'nchfp',
+    title: 'National Center for Home Food Preservation',
+    authors: ['University of Georgia'],
+    publisher: 'USDA',
+    locator: 'chapter',
+    kind: 'official',
+  },
+  {
+    // A calculadora de gelato nasceu de uma planilha de curso, não de um livro.
+    // Fica declarada como o que é, em vez de ganhar ares de bibliografia.
+    id: 'gelato-course',
+    title: 'Planilha gelato do Curso 4.0',
+    authors: ['Material de curso'],
+    publisher: 'Acervo pessoal',
+    locator: 'chapter',
+    kind: 'course',
   },
 ];
 

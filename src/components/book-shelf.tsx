@@ -6,9 +6,14 @@ import { BOOKS, formatAuthors } from '@/data/books';
  * exibido nas calculadoras aponta para uma destas entradas.
  */
 export function BookShelf() {
+  // A estante são as obras. Fontes oficiais de segurança e material de curso
+  // são citados dentro das calculadoras que os usam, mas não se apresentam
+  // como bibliografia aqui.
+  const shelf = BOOKS.filter((book) => book.kind === 'book');
+
   return (
     <ul className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2">
-      {BOOKS.map((book) => (
+      {shelf.map((book) => (
         <li key={book.id} className="flex gap-3 border-t border-rule pt-4">
           <span
             aria-hidden="true"

@@ -1,7 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const PORT = 3100;
-const baseURL = `http://127.0.0.1:${PORT}`;
+
+// Precisa ser `localhost`, e não 127.0.0.1: o dev server do Next bloqueia
+// recursos de /_next vindos de outra origem, e sem eles a página carrega mas
+// nunca hidrata — o que faz todo teste de interação falhar por engano.
+const baseURL = `http://localhost:${PORT}`;
 
 export default defineConfig({
   testDir: './e2e',
