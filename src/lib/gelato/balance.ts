@@ -5,7 +5,7 @@ export interface BalanceInput {
   readonly items: readonly RecipeItem[];
   readonly catalog: ReadonlyMap<string, Ingredient>;
   readonly recipeType: RecipeType;
-  /** Linhas que não podem ser mexidas — normalmente a que o usuário acabou de editar. */
+  /** Linhas que não podem ser mexidas, normalmente a que o usuário acabou de editar. */
   readonly fixedItemIds: ReadonlySet<string>;
   readonly targetGrams: number;
 }
@@ -35,7 +35,7 @@ const MAX_PASSES_PER_STEP = 40;
 
 /**
  * Quanto cada linha pode encolher e crescer em relação ao valor original.
- * O piso existe para o otimizador não zerar ingredientes funcionais — um
+ * O piso existe para o otimizador não zerar ingredientes funcionais: um
  * estabilizante quase não move as métricas, então sem isso ele é o primeiro a
  * ser descartado, o que arruinaria a receita na prática.
  */
@@ -155,7 +155,7 @@ function sweep(
 
 /**
  * Descida por coordenadas: varre as linhas com passos cada vez mais finos até
- * nenhuma varredura melhorar. Determinística de propósito — a mesma receita
+ * nenhuma varredura melhorar. Determinística de propósito: a mesma receita
  * sempre produz o mesmo resultado. Muta `grams` no lugar.
  */
 function descend(

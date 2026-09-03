@@ -32,7 +32,7 @@ interface NutritionPanelProps {
 }
 
 /**
- * Estimativa derivada da composição da planilha — orientação, não rotulagem.
+ * Estimativa derivada da composição da planilha: orientação, não rotulagem.
  * O painel diz isso na cara, e não numa nota de rodapé.
  */
 export function NutritionPanel({ nutrition, dict, locale, unit }: NutritionPanelProps) {
@@ -63,7 +63,7 @@ export function NutritionPanel({ nutrition, dict, locale, unit }: NutritionPanel
 
   return (
     <section className="mt-12">
-      <h2 className="label-caps text-brand-deep">{dict.nutrition.title}</h2>
+      <h2 className="label-caps text-accent-deep">{dict.nutrition.title}</h2>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-soft">
         {dict.nutrition.lead}
       </p>

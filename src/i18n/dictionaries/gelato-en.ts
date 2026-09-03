@@ -4,19 +4,19 @@ import type { gelatoPtBR } from './gelato-pt-BR';
  * Tradução da calculadora de gelato. O tipo vem do português, então uma chave
  * nova lá quebra a compilação aqui até ser traduzida.
  *
- * Os ids dos ingredientes continuam sendo os slugs em português — são a chave
+ * Os ids dos ingredientes continuam sendo os slugs em português, que são a chave
  * estrangeira do dado da planilha. O que muda é só o rótulo.
  */
 export const gelatoEn: typeof gelatoPtBR = {
   meta: {
-    title: 'Gelato calculator — base balancing',
+    title: 'Gelato calculator: base balancing',
     description:
       'Build a gelato recipe in grams and see sugars, fat, MSNF, solids, POD and PAC against the range for your base type. Batch sizing in litres, 164 ingredients and a nutrition estimate.',
   },
 
   eyebrow: 'Gelato calculator',
   title: 'Gelato balanced before it goes into the machine',
-  lead: 'Build the recipe in grams and the calculator shows, line by line, what it does to the sugars, the fat, the solids and the freezing point. Every metric is compared with the range for your base type — and when one falls outside, the screen says what to do about it.',
+  lead: 'Build the recipe in grams and the calculator shows, line by line, what it does to the sugars, the fat, the solids and the freezing point. Every metric is compared with the range for your base type, and when one falls outside, the screen says what to do about it.',
 
   presetLabel: 'Starting recipe',
 
@@ -44,7 +44,7 @@ export const gelatoEn: typeof gelatoPtBR = {
       description: 'Water and fruit, no dairy.',
     },
     'chocolate-agua': {
-      name: 'Chocolate — water base',
+      name: 'Chocolate on a water base',
       description: 'Dairy-free chocolate, structured by cocoa.',
     },
     'base-vegana': {
@@ -75,7 +75,7 @@ export const gelatoEn: typeof gelatoPtBR = {
     placeholder: 'Type part of the name',
     hint: '164 ingredients from the spreadsheet, grouped by category. Arrow keys to move, Enter to add.',
     empty: 'No ingredient by that name.',
-    truncated: 'Showing the first matches — narrow the search to see the rest.',
+    truncated: 'Showing the first matches. Narrow the search to see the rest.',
     listLabel: 'Matching ingredients',
   },
 
@@ -132,7 +132,7 @@ export const gelatoEn: typeof gelatoPtBR = {
     protein: 'Protein',
     autoBalance: 'Balance automatically',
     autoBalanceHint:
-      'The optimiser adjusts the other lines and aims total mass at the batch target. Each line may only move between a quarter and four times its current amount — without that floor it would zero the stabiliser, which barely moves the metrics and therefore looks disposable.',
+      'The optimiser adjusts the other lines and aims total mass at the batch target. Each line may only move between a quarter and four times its current amount. Without that floor it would zero the stabiliser, which barely moves the metrics and therefore looks disposable.',
     keptFixed: 'Holding the line you edited last:',
     solved: 'Done: all eight metrics are back inside the range for this base type.',
     partial: 'Adjusted what could be adjusted. Still out of range:',
@@ -186,7 +186,7 @@ export const gelatoEn: typeof gelatoPtBR = {
     },
     msnf: {
       below: 'Add skimmed milk powder.',
-      above: 'Cut the milk powder — too much turns the texture sandy.',
+      above: 'Cut the milk powder: too much turns the texture sandy.',
     },
     otherSolids: {
       below: 'Add fibre, cocoa or stabiliser.',
@@ -221,7 +221,7 @@ export const gelatoEn: typeof gelatoPtBR = {
       'no-composition':
         'Solids and water add up to zero: the ingredient enters as pure mass and dilutes every metric without showing up in any of them.',
       'solids-contradicted':
-        'The parts declare solids, but the total solids figure is zero — a solid recorded as 100% water. The engine reads the total, so the real composition never enters the calculation.',
+        'The parts declare solids, but the total solids figure is zero: a solid recorded as 100% water. The engine reads the total, so the real composition never enters the calculation.',
       closure: 'Solids plus water do not add up to 100% of the ingredient mass.',
       parts:
         'Sugars, fat, MSNF and other solids do not add up to the declared total solids.',
@@ -230,7 +230,7 @@ export const gelatoEn: typeof gelatoPtBR = {
 
   nutrition: {
     title: 'Nutrition estimate',
-    lead: 'Derived from the composition in the spreadsheet, not from lab analysis. It is guidance for whoever is building the recipe — not a label, and no substitute for a report.',
+    lead: 'Derived from the composition in the spreadsheet, not from lab analysis. It is guidance for whoever is building the recipe, not a label, and no substitute for a report.',
     nutrient: 'Nutrient',
     portion: 'Portion of',
     portionHint: 'a small scoop',
@@ -243,7 +243,7 @@ export const gelatoEn: typeof gelatoPtBR = {
     fats: 'Fat',
     protein: 'Protein',
     method:
-      'Carbohydrate comes out by difference (total solids minus fat and protein), the way labelling does it, and therefore includes fibre and polyols. Energy uses Atwater — 4 kcal/g for carbohydrate and protein, 9 for fat.',
+      'Carbohydrate comes out by difference (total solids minus fat and protein), the way labelling does it, and therefore includes fibre and polyols. Energy uses Atwater: 4 kcal/g for carbohydrate and protein, 9 for fat.',
     adjusted:
       'Using their own energy factor instead of Atwater (polyol, fibre or alcohol):',
   },
@@ -254,7 +254,7 @@ export const gelatoEn: typeof gelatoPtBR = {
       'Every ingredient in the spreadsheet is described as the composition of one gram of it: how much is sugar, how much is fat, how much is milk solids, how much is other solids, how much is water. The whole recipe is those fractions multiplied by the grams on each line, and nothing else. That is why swapping 50 g of milk for 50 g of cream moves four metrics at once.',
       'Six of the eight metrics are fractions of total mass, so they read as a percentage of the mix. POD and PAC are different: they are normalised per kilo of mix, because they measure intensity rather than quantity. Two recipes with the same amount of sugar can be very differently sweet depending on which sugar it is.',
       'The range for each metric changes with the base type. A sorbet works with more sugar and more PAC than a milk gelato precisely because it has no fat and no milk solids holding the water: without that support, the antifreeze has to do the job alone. Changing the base type does not touch the recipe, only the ruler it is measured with.',
-      'The batch is sized in litres and converted to mass by an adjustable density, defaulting to 1.10 g/mL. Changing the volume rescales every line by the same factor — the recipe stays the same, just bigger. If you edit a line by hand and total mass drifts off target, a button appears to scale it back.',
+      'The batch is sized in litres and converted to mass by an adjustable density, defaulting to 1.10 g/mL. Changing the volume rescales every line by the same factor: the recipe stays the same, just bigger. If you edit a line by hand and total mass drifts off target, a button appears to scale it back.',
     ],
   },
 
@@ -288,7 +288,7 @@ export const gelatoEn: typeof gelatoPtBR = {
       {
         term: 'Total solids',
         definition:
-          'Everything that is not water, adding up sugars, fat, MSNF and other solids. The more solids, the better the gelato resists melting — and the less free water is left to become ice crystals.',
+          'Everything that is not water, adding up sugars, fat, MSNF and other solids. The more solids, the better the gelato resists melting, and the less free water is left to become ice crystals.',
       },
       {
         term: 'Overrun',
@@ -303,7 +303,7 @@ export const gelatoEn: typeof gelatoPtBR = {
       {
         term: 'Serving temperature',
         definition:
-          'Estimated here as PAC ÷ 25, with a negative sign. It is the temperature at which the base scoops — colder and it hardens, warmer and it melts.',
+          'Estimated here as PAC ÷ 25, with a negative sign. It is the temperature at which the base scoops: colder and it hardens, warmer and it melts.',
       },
       {
         term: 'Mix density',
@@ -315,7 +315,7 @@ export const gelatoEn: typeof gelatoPtBR = {
 
   sources: {
     title: 'Sources for this calculator',
-    lead: 'This is the only calculator on the site that does not rest on a published work. The 164 ingredients, the POD and PAC coefficients and the ranges for the five base types come from a gelato course spreadsheet — teaching material, not a bibliography, with no page or chapter to cite. It is declared as such rather than dressed up as a book.',
+    lead: 'This is the only calculator on the site that does not rest on a published work. The 164 ingredients, the POD and PAC coefficients and the ranges for the five base types come from a gelato course spreadsheet, which is teaching material rather than a bibliography, with no page or chapter to cite. It is declared as such rather than dressed up as a book.',
     page: 'p.',
     section: 'section',
   },
@@ -324,12 +324,12 @@ export const gelatoEn: typeof gelatoPtBR = {
     abacate: 'Avocado',
     abacaxi: 'Pineapple',
     acerola: 'Acerola cherry',
-    'acucar-dextrose': 'Sugar — dextrose',
-    'acucar-frutose': 'Sugar — fructose',
-    'acucar-glucose-em-po': 'Sugar — glucose powder',
-    'acucar-glucose-liquida': 'Sugar — liquid glucose',
-    'acucar-lactose': 'Sugar — lactose',
-    'acucar-maltodextrina': 'Sugar — maltodextrin',
+    'acucar-dextrose': 'Sugar (dextrose)',
+    'acucar-frutose': 'Sugar (fructose)',
+    'acucar-glucose-em-po': 'Sugar (glucose powder)',
+    'acucar-glucose-liquida': 'Sugar (liquid glucose)',
+    'acucar-lactose': 'Sugar (lactose)',
+    'acucar-maltodextrina': 'Sugar (maltodextrin)',
     'acucar-de-maca-66-acucar': 'Apple sugar (66% sugar)',
     'acucar-invertido': 'Invert sugar',
     'acucar-sacarose': 'Sucrose',
@@ -373,13 +373,13 @@ export const gelatoEn: typeof gelatoPtBR = {
     'creme-de-leite-de-castanha-20': 'Cashew cream 20%',
     'creme-de-leite-fresco-35': 'Fresh cream 35%',
     'creme-de-leite-fresco-38': 'Fresh cream 38%',
-    'creme-de-leite-uht-17-piracanjuba': 'UHT cream 17% — Piracanjuba',
+    'creme-de-leite-uht-17-piracanjuba': 'UHT cream 17% (Piracanjuba)',
     'creme-de-leite-uht-25': 'UHT cream 25%',
     croissant: 'Croissant',
     damasco: 'Apricot',
-    'doce-de-leite-lata': 'Dulce de leche — tinned',
+    'doce-de-leite-lata': 'Dulce de leche (tinned)',
     'doce-de-leite-rocca': 'Dulce de leche Rocca',
-    'dpo-165-premium-aroma-italia': 'DPO 165 Premium — Aroma Italia',
+    'dpo-165-premium-aroma-italia': 'DPO 165 Premium (Aroma Italia)',
     eritritol: 'Erythritol',
     'ervilha-cozida': 'Cooked peas',
     'ervilha-seca': 'Dried peas',
@@ -404,7 +404,7 @@ export const gelatoEn: typeof gelatoPtBR = {
     'goma-xantana': 'Xanthan gum',
     hortela: 'Mint',
     'imo-900-taumatina-moonsugar': 'IMO 900 + thaumatin (moonsugar)',
-    'inulina-fibra-vegetal': 'Inulin — plant fibre',
+    'inulina-fibra-vegetal': 'Inulin (plant fibre)',
     'iogurte-desnatado': 'Skimmed yoghurt',
     'iogurte-grego': 'Greek yoghurt',
     'iogurte-integral': 'Whole-milk yoghurt',
@@ -416,7 +416,7 @@ export const gelatoEn: typeof gelatoPtBR = {
     'leite-condensado-vegetal': 'Plant-based condensed milk',
     'leite-de-castanha': 'Cashew milk',
     'leite-de-coco': 'Coconut milk',
-    'leite-de-coco-em-po-io': 'Coconut milk powder — IO',
+    'leite-de-coco-em-po-io': 'Coconut milk powder (IO)',
     'leite-de-coco-sococo': 'Coconut milk, Sococo',
     'leite-desnatado': 'Skimmed milk',
     'leite-em-po-desnatado': 'Skimmed milk powder',
@@ -452,7 +452,7 @@ export const gelatoEn: typeof gelatoPtBR = {
     'ovo-galinha': 'Whole egg',
     pacoca: 'Paçoca (peanut fudge)',
     parmesao: 'Parmesan',
-    'pasta-baunilha-vanilla-brasil': 'Vanilla paste — Vanilla Brasil',
+    'pasta-baunilha-vanilla-brasil': 'Vanilla paste (Vanilla Brasil)',
     'pasta-de-amendoas-s-acucar': 'Almond paste, unsweetened',
     'pasta-de-amendoim-c-acucar': 'Peanut butter, sweetened',
     'pasta-de-amendoim-100': 'Peanut butter 100%',
@@ -466,7 +466,7 @@ export const gelatoEn: typeof gelatoPtBR = {
     pera: 'Pear',
     pessego: 'Peach',
     pitaya: 'Dragon fruit',
-    'polidextrose-fibra': 'Polydextrose — fibre',
+    'polidextrose-fibra': 'Polydextrose (fibre)',
     'polpa-de-acai-10-14': 'Açaí pulp (10 to 14%)',
     pudim: 'Crème caramel',
     'raspa-de-limao-casca': 'Lemon zest (peel)',

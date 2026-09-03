@@ -4,9 +4,9 @@
  * A planilha do curso declara, para cada ingrediente, duas coisas que deveriam
  * fechar entre si:
  *
- * 1. `totalSolids + water = 1` — tudo é sólido ou água;
- * 2. `sugars + fats + msnf + otherSolids = totalSolids` — as parcelas de sólido
- *    somam o total de sólidos.
+ * 1. `totalSolids + water = 1`, ou seja, tudo é sólido ou água;
+ * 2. `sugars + fats + msnf + otherSolids = totalSolids`, ou seja, as parcelas
+ *    de sólido somam o total de sólidos.
  *
  * Em 14 dos 164 ingredientes isso não fecha. **O dado não é corrigido aqui**: a
  * procedência é a planilha e mudar número de fonte sem aviso é exatamente o que
@@ -99,7 +99,7 @@ export function inspectIngredient(ingredient: Ingredient): CompositionFlaw | nul
   };
 }
 
-/** Varre um catálogo inteiro — usado pelo teste que fixa o retrato da planilha. */
+/** Varre um catálogo inteiro, usado pelo teste que fixa o retrato da planilha. */
 export function auditCatalog(
   ingredients: Iterable<Ingredient>,
 ): readonly CompositionFlaw[] {

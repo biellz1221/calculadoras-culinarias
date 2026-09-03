@@ -24,8 +24,8 @@ import { getPastaDictionary } from '@/i18n/dictionaries/pasta';
 import type { Locale } from '@/i18n/locales';
 
 /**
- * Todas as citações que sustentam a tela — presets, faixas, formatos, pratos e
- * cozimento — para a seção "Fontes" listar exatamente o que está em uso, sem
+ * Todas as citações que sustentam a tela (presets, faixas, formatos, pratos e
+ * cozimento) para a seção "Fontes" listar exatamente o que está em uso, sem
  * sobrar nem faltar obra.
  */
 function collectCitations(): Citation[] {
@@ -45,7 +45,7 @@ export function PastaPage({ locale }: { locale: Locale }) {
   const dict = getPastaDictionary(locale);
 
   return (
-    <CalculatorLayout eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
+    <CalculatorLayout locale={locale} eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
       <PastaCalculator dict={dict} locale={locale} />
 
       <CalculatorSection label={dict.shapes.title} lead={dict.shapes.lead}>
@@ -56,18 +56,18 @@ export function PastaPage({ locale }: { locale: Locale }) {
         <DishTable dict={dict} locale={locale} />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.method.title}>
+      <CalculatorSection label={dict.method.title} educational>
         <Prose paragraphs={dict.method.body} />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.divergence.title} lead={dict.divergence.lead}>
+      <CalculatorSection label={dict.divergence.title} educational lead={dict.divergence.lead}>
         <DivergenceTable
           columns={dict.divergence.columns}
           items={dict.divergence.items}
         />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.glossary.title}>
+      <CalculatorSection label={dict.glossary.title} educational>
         <GlossaryList terms={dict.glossary.terms} />
       </CalculatorSection>
 

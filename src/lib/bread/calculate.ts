@@ -39,7 +39,7 @@ export function declaredHydration(formula: BreadFormula): number {
 /**
  * Farinha e água escondidas dentro dos pré-fermentos, em pontos percentuais da
  * farinha da receita. Um levain líquido a 20% carrega 10 de farinha e 10 de
- * água — ignorar isso subestima a hidratação real da massa (Kayser, p. 24).
+ * água. Ignorar isso subestima a hidratação real da massa (Kayser, p. 24).
  */
 export function preFermentSplit(formula: BreadFormula): {
   flour: number;

@@ -1,10 +1,11 @@
 'use client';
 
-import { useId, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { BalancePanel } from './balance-panel';
 import { RecipeTable } from './recipe-table';
 import { CitationRef } from '@/components/citation';
+import { MassField, NumberField } from '@/components/field';
 import { BREAD_PRESETS, DEFAULT_PRESET_ID, getPreset } from '@/data/bread/presets';
 import type { BreadFormula, BreadTarget, IngredientKey } from '@/data/bread/types';
 import type { BreadDictionary } from '@/i18n/dictionaries/bread';
@@ -81,7 +82,7 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
                 'rounded-full border px-3.5 py-1.5 text-sm transition-colors',
                 item.id === presetId
                   ? 'border-ink bg-ink text-paper'
-                  : 'border-rule bg-surface text-ink-soft hover:border-brand hover:text-brand-deep',
+                  : 'border-rule bg-surface text-ink-soft hover:border-accent hover:text-accent-deep',
               )}
             >
               {dict.presets[item.id as keyof BreadDictionary['presets']]}
@@ -103,8 +104,8 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
               className={cn(
                 'rounded-full border px-3.5 py-1.5 text-sm transition-colors',
                 option === mode
-                  ? 'border-brand-deep bg-brand-tint text-brand-deep'
-                  : 'border-rule bg-surface text-ink-soft hover:border-brand',
+                  ? 'border-accent-deep bg-accent-tint text-accent-deep'
+                  : 'border-rule bg-surface text-ink-soft hover:border-accent',
               )}
             >
               {dict.target[option]}
@@ -114,19 +115,17 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
 
         <div className="mt-4 flex flex-wrap items-end gap-4">
           {mode === 'flour' && (
-            <NumberField
+            <MassField
               label={dict.target.flourHint}
-              value={flourGrams}
+              grams={flourGrams}
               onChange={setFlourGrams}
-              suffix="g"
             />
           )}
           {mode === 'dough' && (
-            <NumberField
+            <MassField
               label={dict.target.doughHint}
-              value={doughGrams}
+              grams={doughGrams}
               onChange={setDoughGrams}
-              suffix="g"
             />
           )}
           {mode === 'units' && (
@@ -137,11 +136,10 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
                 onChange={setUnitCount}
                 step={1}
               />
-              <NumberField
+              <MassField
                 label={dict.target.unitWeight}
-                value={unitGrams}
+                grams={unitGrams}
                 onChange={setUnitGrams}
-                suffix="g"
               />
             </>
           )}
@@ -159,7 +157,7 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
 
       {preset && (
         <section className="mt-10 border-t border-rule pt-6">
-          <h2 className="label-caps text-brand-deep">{dict.process.title}</h2>
+          <h2 className="label-caps text-accent-deep">{dict.process.title}</h2>
           <dl className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
             <ProcessItem
               label={dict.process.firstRise}
@@ -249,45 +247,3 @@ function ProcessItem({ label, value }: { label: string; value?: string }) {
   );
 }
 
-function NumberField({
-  label,
-  value,
-  onChange,
-  suffix,
-  step = 5,
-}: {
-  label: string;
-  value: number;
-  onChange: (value: number) => void;
-  suffix?: string;
-  step?: number;
-}) {
-  const id = useId();
-
-  // O sufixo de unidade fica fora do <label> e escondido do leitor de tela:
-  // dentro dele, viraria parte do nome do campo ("Peso da massa g").
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm text-ink-muted">
-        {label}
-      </label>
-      <span className="flex items-center gap-2">
-        <input
-          id={id}
-          type="number"
-          inputMode="decimal"
-          min={0}
-          step={step}
-          value={value}
-          onChange={(event) => onChange(Math.max(0, Number(event.target.value)))}
-          className="w-32 rounded-sm border border-rule bg-surface px-3 py-2 tabular-nums text-ink focus:border-brand focus:outline-none"
-        />
-        {suffix && (
-          <span aria-hidden="true" className="text-ink-muted">
-            {suffix}
-          </span>
-        )}
-      </span>
-    </div>
-  );
-}

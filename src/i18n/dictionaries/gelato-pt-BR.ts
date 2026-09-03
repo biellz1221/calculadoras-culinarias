@@ -1,7 +1,7 @@
 /**
  * Dicionário canônico da calculadora de gelato.
  *
- * As chaves de `ingredients` são os 164 ids da planilha de origem — que são
+ * As chaves de `ingredients` são os 164 ids da planilha de origem, que são
  * slugs em português porque a planilha é brasileira. O id é dado; o rótulo é
  * texto de interface e existe nos dois idiomas.
  *
@@ -11,14 +11,14 @@
  */
 export const gelatoPtBR = {
   meta: {
-    title: 'Calculadora de gelato — balanceamento de base',
+    title: 'Calculadora de gelato: balanceamento de base',
     description:
       'Monte a receita de gelato em gramas e veja açúcares, gorduras, SNGL, sólidos, POD e PAC contra a faixa do tipo de base. Lote em litros, 164 ingredientes e estimativa nutricional.',
   },
 
   eyebrow: 'Calculadora de gelato',
   title: 'Gelato equilibrado antes de ir para a máquina',
-  lead: 'Monte a receita em gramas e a calculadora mostra, linha a linha, o que ela faz com os açúcares, a gordura, os sólidos e o ponto de congelamento. Cada métrica é comparada com a faixa do tipo de base — e quando alguma sai da faixa, a tela diz o que fazer.',
+  lead: 'Monte a receita em gramas e a calculadora mostra, linha a linha, o que ela faz com os açúcares, a gordura, os sólidos e o ponto de congelamento. Cada métrica é comparada com a faixa do tipo de base, e quando alguma sai da faixa, a tela diz o que fazer.',
 
   presetLabel: 'Receita de partida',
 
@@ -46,7 +46,7 @@ export const gelatoPtBR = {
       description: 'Base de água com fruta, sem laticínios.',
     },
     'chocolate-agua': {
-      name: 'Chocolate — base de água',
+      name: 'Chocolate em base de água',
       description: 'Chocolate sem leite, estruturado por cacau.',
     },
     'base-vegana': {
@@ -77,7 +77,7 @@ export const gelatoPtBR = {
     placeholder: 'Digite parte do nome',
     hint: 'São 164 ingredientes da planilha, agrupados por categoria. Setas para navegar, Enter para adicionar.',
     empty: 'Nenhum ingrediente com esse nome.',
-    truncated: 'Mostrando os primeiros resultados — refine a busca para ver o resto.',
+    truncated: 'Mostrando os primeiros resultados. Refine a busca para ver o resto.',
     listLabel: 'Ingredientes encontrados',
   },
 
@@ -134,7 +134,7 @@ export const gelatoPtBR = {
     protein: 'Proteína',
     autoBalance: 'Equilibrar automaticamente',
     autoBalanceHint:
-      'O otimizador ajusta as outras linhas e mira a massa total na meta do lote. Cada linha só pode variar de um quarto a quatro vezes a quantidade atual — sem esse piso ele zeraria o estabilizante, que quase não mexe nas métricas e por isso parece descartável.',
+      'O otimizador ajusta as outras linhas e mira a massa total na meta do lote. Cada linha só pode variar de um quarto a quatro vezes a quantidade atual. Sem esse piso ele zeraria o estabilizante, que quase não mexe nas métricas e por isso parece descartável.',
     keptFixed: 'Mantendo fixa a linha que você editou por último:',
     solved: 'Pronto: as oito métricas voltaram para a faixa do tipo de base.',
     partial: 'Ajustei o que deu. Continuam fora da faixa:',
@@ -188,7 +188,7 @@ export const gelatoPtBR = {
     },
     msnf: {
       below: 'Acrescente leite em pó desnatado.',
-      above: 'Reduza o leite em pó — o excesso deixa a textura arenosa.',
+      above: 'Reduza o leite em pó: o excesso deixa a textura arenosa.',
     },
     otherSolids: {
       below: 'Acrescente fibra, cacau ou neutro.',
@@ -223,7 +223,7 @@ export const gelatoPtBR = {
       'no-composition':
         'Sólidos e água somam zero: o ingrediente entra como massa pura e dilui todas as métricas sem aparecer em nenhuma delas.',
       'solids-contradicted':
-        'As parcelas declaram sólidos, mas o total de sólidos está zerado — um sólido cadastrado como 100% água. O motor lê o total, então a composição real não entra na conta.',
+        'As parcelas declaram sólidos, mas o total de sólidos está zerado: é um sólido cadastrado como 100% água. O motor lê o total, então a composição real não entra na conta.',
       closure: 'Sólidos mais água não somam 100% da massa do ingrediente.',
       parts:
         'Açúcares, gorduras, SNGL e outros sólidos não somam o total de sólidos declarado.',
@@ -232,7 +232,7 @@ export const gelatoPtBR = {
 
   nutrition: {
     title: 'Estimativa nutricional',
-    lead: 'Derivada da composição da planilha, não de análise laboratorial. Serve para orientar quem monta a receita — não é rotulagem e não substitui laudo.',
+    lead: 'Derivada da composição da planilha, não de análise laboratorial. Serve para orientar quem monta a receita, mas não é rotulagem e não substitui laudo.',
     nutrient: 'Nutriente',
     portion: 'Porção de',
     portionHint: 'uma bola pequena',
@@ -245,7 +245,7 @@ export const gelatoPtBR = {
     fats: 'Gorduras',
     protein: 'Proteínas',
     method:
-      'Carboidratos saem por diferença (sólidos totais menos gordura e proteína), como se faz em rotulagem, e por isso incluem fibras e polióis. A energia usa Atwater — 4 kcal/g para carboidrato e proteína, 9 para gordura.',
+      'Carboidratos saem por diferença (sólidos totais menos gordura e proteína), como se faz em rotulagem, e por isso incluem fibras e polióis. A energia usa Atwater: 4 kcal/g para carboidrato e proteína, 9 para gordura.',
     adjusted:
       'Com fator de energia próprio, em vez de Atwater (poliol, fibra ou álcool):',
   },
@@ -253,10 +253,10 @@ export const gelatoPtBR = {
   method: {
     title: 'Como o balanceamento funciona',
     body: [
-      'Cada ingrediente da planilha é descrito como a composição de 1 grama dele: quanto é açúcar, quanto é gordura, quanto é sólido do leite, quanto é outro sólido, quanto é água. A receita inteira é a soma dessas frações vezes os gramas de cada linha — nada além disso. É por isso que trocar 50 g de leite por 50 g de creme mexe em quatro métricas ao mesmo tempo.',
+      'Cada ingrediente da planilha é descrito como a composição de 1 grama dele: quanto é açúcar, quanto é gordura, quanto é sólido do leite, quanto é outro sólido, quanto é água. A receita inteira é a soma dessas frações vezes os gramas de cada linha, nada além disso. É por isso que trocar 50 g de leite por 50 g de creme mexe em quatro métricas ao mesmo tempo.',
       'Seis das oito métricas são frações da massa total, então elas se leem como porcentagem da calda. POD e PAC são diferentes: são normalizados por quilo de mistura, porque medem intensidade, não quantidade. Duas receitas com a mesma quantidade de açúcar podem ter doçuras bem diferentes conforme o açúcar usado.',
       'A faixa de cada métrica muda com o tipo de base. Um sorbet trabalha com mais açúcar e mais PAC que um gelato de leite justamente porque não tem gordura nem sólidos do leite segurando a água: sem esse reforço, o anticongelante precisa fazer o trabalho sozinho. Trocar o tipo de base não mexe na receita, só na régua com que ela é medida.',
-      'O lote é dimensionado em litros e convertido em massa por uma densidade ajustável, com padrão de 1,10 g/mL. Mexer no volume reescala todas as linhas na mesma proporção — a receita continua a mesma, só maior. Se você editar uma linha à mão e a massa total sair da meta, aparece o botão de ajustar ao lote.',
+      'O lote é dimensionado em litros e convertido em massa por uma densidade ajustável, com padrão de 1,10 g/mL. Mexer no volume reescala todas as linhas na mesma proporção: a receita continua a mesma, só maior. Se você editar uma linha à mão e a massa total sair da meta, aparece o botão de ajustar ao lote.',
     ],
   },
 
@@ -290,7 +290,7 @@ export const gelatoPtBR = {
       {
         term: 'Sólidos totais',
         definition:
-          'Tudo que não é água, somando açúcares, gorduras, SNGL e outros sólidos. Quanto mais sólidos, mais o gelato resiste ao derretimento — e menos água sobra livre para virar cristal de gelo.',
+          'Tudo que não é água, somando açúcares, gorduras, SNGL e outros sólidos. Quanto mais sólidos, mais o gelato resiste ao derretimento, e menos água sobra livre para virar cristal de gelo.',
       },
       {
         term: 'Overrun',
@@ -305,7 +305,7 @@ export const gelatoPtBR = {
       {
         term: 'Temperatura de serviço',
         definition:
-          'Estimada aqui como PAC ÷ 25, com sinal negativo. É a temperatura em que a base fica boleável — mais fria e ela endurece, mais quente e derrete.',
+          'Estimada aqui como PAC ÷ 25, com sinal negativo. É a temperatura em que a base fica boleável: mais fria e ela endurece, mais quente e derrete.',
       },
       {
         term: 'Densidade da calda',
@@ -317,7 +317,7 @@ export const gelatoPtBR = {
 
   sources: {
     title: 'Fontes desta calculadora',
-    lead: 'Esta é a única calculadora do site que não se apoia em obra publicada. Os 164 ingredientes, os coeficientes de POD e PAC e as faixas dos cinco tipos de base vêm de uma planilha de curso de gelato — material didático, não bibliografia, e sem página ou capítulo para citar. Está declarado como tal em vez de ganhar ares de livro.',
+    lead: 'Esta é a única calculadora do site que não se apoia em obra publicada. Os 164 ingredientes, os coeficientes de POD e PAC e as faixas dos cinco tipos de base vêm de uma planilha de curso de gelato, que é material didático e não bibliografia, sem página ou capítulo para citar. Está declarado como tal em vez de ganhar ares de livro.',
     page: 'p.',
     section: 'seção',
   },
@@ -326,12 +326,12 @@ export const gelatoPtBR = {
     abacate: 'Abacate',
     abacaxi: 'Abacaxi',
     acerola: 'Acerola',
-    'acucar-dextrose': 'Açúcar — dextrose',
-    'acucar-frutose': 'Açúcar — frutose',
-    'acucar-glucose-em-po': 'Açúcar — glucose em pó',
-    'acucar-glucose-liquida': 'Açúcar — glucose líquida',
-    'acucar-lactose': 'Açúcar — lactose',
-    'acucar-maltodextrina': 'Açúcar — maltodextrina',
+    'acucar-dextrose': 'Açúcar (dextrose)',
+    'acucar-frutose': 'Açúcar (frutose)',
+    'acucar-glucose-em-po': 'Açúcar (glucose em pó)',
+    'acucar-glucose-liquida': 'Açúcar (glucose líquida)',
+    'acucar-lactose': 'Açúcar (lactose)',
+    'acucar-maltodextrina': 'Açúcar (maltodextrina)',
     'acucar-de-maca-66-acucar': 'Açúcar de maçã (66% açúcar)',
     'acucar-invertido': 'Açúcar invertido',
     'acucar-sacarose': 'Açúcar sacarose',
@@ -375,13 +375,13 @@ export const gelatoPtBR = {
     'creme-de-leite-de-castanha-20': 'Creme de leite de castanha 20%',
     'creme-de-leite-fresco-35': 'Creme de leite fresco 35%',
     'creme-de-leite-fresco-38': 'Creme de leite fresco 38%',
-    'creme-de-leite-uht-17-piracanjuba': 'Creme de leite UHT 17% — Piracanjuba',
+    'creme-de-leite-uht-17-piracanjuba': 'Creme de leite UHT 17% (Piracanjuba)',
     'creme-de-leite-uht-25': 'Creme de leite UHT 25%',
     croissant: 'Croissant',
     damasco: 'Damasco',
-    'doce-de-leite-lata': 'Doce de leite — lata',
+    'doce-de-leite-lata': 'Doce de leite (lata)',
     'doce-de-leite-rocca': 'Doce de leite Rocca',
-    'dpo-165-premium-aroma-italia': 'DPO 165 Premium — Aroma Italia',
+    'dpo-165-premium-aroma-italia': 'DPO 165 Premium (Aroma Italia)',
     eritritol: 'Eritritol',
     'ervilha-cozida': 'Ervilha cozida',
     'ervilha-seca': 'Ervilha seca',
@@ -406,7 +406,7 @@ export const gelatoPtBR = {
     'goma-xantana': 'Goma xantana',
     hortela: 'Hortelã',
     'imo-900-taumatina-moonsugar': 'IMO 900 + taumatina (moonsugar)',
-    'inulina-fibra-vegetal': 'Inulina — fibra vegetal',
+    'inulina-fibra-vegetal': 'Inulina (fibra vegetal)',
     'iogurte-desnatado': 'Iogurte desnatado',
     'iogurte-grego': 'Iogurte grego',
     'iogurte-integral': 'Iogurte integral',
@@ -418,7 +418,7 @@ export const gelatoPtBR = {
     'leite-condensado-vegetal': 'Leite condensado vegetal',
     'leite-de-castanha': 'Leite de castanha',
     'leite-de-coco': 'Leite de coco',
-    'leite-de-coco-em-po-io': 'Leite de coco em pó — IO',
+    'leite-de-coco-em-po-io': 'Leite de coco em pó (IO)',
     'leite-de-coco-sococo': 'Leite de coco Sococo',
     'leite-desnatado': 'Leite desnatado',
     'leite-em-po-desnatado': 'Leite em pó desnatado',
@@ -454,7 +454,7 @@ export const gelatoPtBR = {
     'ovo-galinha': 'Ovo de galinha',
     pacoca: 'Paçoca',
     parmesao: 'Parmesão',
-    'pasta-baunilha-vanilla-brasil': 'Pasta de baunilha — Vanilla Brasil',
+    'pasta-baunilha-vanilla-brasil': 'Pasta de baunilha (Vanilla Brasil)',
     'pasta-de-amendoas-s-acucar': 'Pasta de amêndoas sem açúcar',
     'pasta-de-amendoim-c-acucar': 'Pasta de amendoim com açúcar',
     'pasta-de-amendoim-100': 'Pasta de amendoim 100%',
@@ -468,7 +468,7 @@ export const gelatoPtBR = {
     pera: 'Pera',
     pessego: 'Pêssego',
     pitaya: 'Pitaya',
-    'polidextrose-fibra': 'Polidextrose — fibra',
+    'polidextrose-fibra': 'Polidextrose (fibra)',
     'polpa-de-acai-10-14': 'Polpa de açaí (10 a 14%)',
     pudim: 'Pudim',
     'raspa-de-limao-casca': 'Raspa de limão (casca)',

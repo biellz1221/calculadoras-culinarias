@@ -30,8 +30,8 @@ interface Metric {
 }
 
 /**
- * Painel de balanço: cada métrica com o valor, a faixa das fontes, o estado e
- * — o que importa de verdade — a consequência de estar fora dela.
+ * Painel de balanço: cada métrica com o valor, a faixa das fontes, o estado e a
+ * consequência de estar fora dela, que é o que importa de verdade.
  */
 export function BalancePanel({ recipe, dict, locale }: BalancePanelProps) {
   const metrics = collectMetrics(recipe, dict, locale);
@@ -40,7 +40,7 @@ export function BalancePanel({ recipe, dict, locale }: BalancePanelProps) {
 
   return (
     <section aria-live="polite" className="mt-10">
-      <h2 className="label-caps text-brand-deep">{dict.balance.title}</h2>
+      <h2 className="label-caps text-accent-deep">{dict.balance.title}</h2>
 
       <div className="mt-4">
         {metrics.map((metric) => {

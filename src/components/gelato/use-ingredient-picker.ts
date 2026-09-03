@@ -58,7 +58,7 @@ export function useIngredientPicker(
     return () => document.removeEventListener('pointerdown', close);
   }, [open, rootRef]);
 
-  /** Buscar de novo recomeça a navegação do topo — sem efeito no meio. */
+  /** Buscar de novo recomeça a navegação do topo, sem efeito no meio. */
   function changeQuery(value: string) {
     setQuery(value);
     setHighlight(0);

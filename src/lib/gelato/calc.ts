@@ -10,7 +10,7 @@ import type {
   RowResult,
 } from './types';
 
-/** Ordem canônica das métricas — igual à da planilha. */
+/** Ordem canônica das métricas, igual à da planilha. */
 export const METRIC_KEYS: readonly MetricKey[] = [
   'sugars',
   'fats',
@@ -43,7 +43,7 @@ export function gramsToLiters(grams: number, density = DEFAULT_DENSITY): number 
   return grams / (1000 * density);
 }
 
-/** Arredonda para 0,1 g — a menor unidade prática numa balança de bancada. */
+/** Arredonda para 0,1 g, a menor unidade prática numa balança de bancada. */
 export function roundGrams(grams: number): number {
   return Math.round(grams * 10) / 10;
 }

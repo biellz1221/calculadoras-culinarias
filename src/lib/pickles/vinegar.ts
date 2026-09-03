@@ -7,12 +7,12 @@ import type { VinegarParams, VinegarResult } from '@/data/pickles/types';
  * Aqui não há fermentação: a conserva vem da acidez que a pessoa adiciona, e
  * diluir vinagre é diluir a proteção. A proporção de referência é 1 parte de
  * água para 1 parte de vinagre de ~5% de acidez (Noma, cap. "Vinegar"), o que
- * dá 2,5% de ácido acético no líquido de cobertura — o piso que a calculadora
+ * dá 2,5% de ácido acético no líquido de cobertura, o piso que a calculadora
  * usa (`MIN_BRINE_ACIDITY`).
  *
  * Se o vinagre da pessoa for mais fraco, a conta não é "avisar e seguir": é
  * recalcular quanto vinagre o líquido precisa ter. Abaixo de 2,5% de acidez no
- * próprio vinagre, nem sem água nenhuma o líquido alcança o piso — aí a resposta
+ * próprio vinagre, nem sem água nenhuma o líquido alcança o piso. Aí a resposta
  * honesta é dizer que aquela combinação não serve.
  */
 
@@ -64,7 +64,7 @@ export function calculateVinegarPickle(params: VinegarParams): VinegarResult {
 /**
  * Quantas partes de água por parte de vinagre a proporção mínima admite.
  * `undefined` quando a resposta é "vinagre puro" ou "não tem proporção que
- * resolva" — casos em que exibir um número seria pior que não exibir nada.
+ * resolva": casos em que exibir um número seria pior que não exibir nada.
  */
 function waterPerVinegarFor(minimumShare: number): number | undefined {
   if (!Number.isFinite(minimumShare)) return undefined;

@@ -88,7 +88,7 @@ export function GelatoCalculator({ dict, locale }: GelatoCalculatorProps) {
   );
 }
 
-/** Receita de partida e tipo de base — as duas escolhas que enquadram o resto. */
+/** Receita de partida e tipo de base: as duas escolhas que enquadram o resto. */
 function Choosers({
   dict,
   recipe,

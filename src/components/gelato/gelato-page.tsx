@@ -12,7 +12,7 @@ import { getGelatoDictionary } from '@/i18n/dictionaries/gelato';
 import type { Locale } from '@/i18n/locales';
 
 /**
- * Tudo que sustenta a tela vem da mesma planilha de curso — por isso a lista é
+ * Tudo que sustenta a tela vem da mesma planilha de curso, por isso a lista é
  * curta e a chamada da seção diz, sem rodeio, que aqui não há obra publicada.
  */
 function collectCitations(): Citation[] {
@@ -23,10 +23,10 @@ export function GelatoPage({ locale }: { locale: Locale }) {
   const dict = getGelatoDictionary(locale);
 
   return (
-    <CalculatorLayout eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
+    <CalculatorLayout locale={locale} eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
       <GelatoCalculator dict={dict} locale={locale} />
 
-      <CalculatorSection label={dict.method.title}>
+      <CalculatorSection label={dict.method.title} educational>
         <Prose paragraphs={dict.method.body} />
       </CalculatorSection>
 
@@ -34,7 +34,7 @@ export function GelatoPage({ locale }: { locale: Locale }) {
         <Prose paragraphs={dict.podPac.body} />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.glossary.title}>
+      <CalculatorSection label={dict.glossary.title} educational>
         <GlossaryList terms={dict.glossary.terms} />
       </CalculatorSection>
 

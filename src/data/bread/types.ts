@@ -123,7 +123,7 @@ export interface BreadRecipe {
    * pré-fermento (Kayser, p. 24). Sem pré-fermento é igual à declarada.
    */
   effectiveHydration: number;
-  /** Sal em % da farinha declarada — é assim que se escala a receita. */
+  /** Sal em % da farinha declarada: é assim que se escala a receita. */
   salt: number;
   /**
    * Sal sobre a farinha total, incluindo a que vem dentro do pré-fermento. É o

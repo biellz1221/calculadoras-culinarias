@@ -17,7 +17,7 @@ function ingredient(id: string): Ingredient {
 }
 
 /**
- * Retrato da planilha de origem. Se o número mudar, foi a planilha que mudou —
+ * Retrato da planilha de origem. Se o número mudar, foi a planilha que mudou,
  * e aí a mudança precisa ser lida, não silenciada.
  */
 const FLAWED_IDS = [

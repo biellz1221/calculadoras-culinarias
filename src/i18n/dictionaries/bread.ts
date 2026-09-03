@@ -4,8 +4,8 @@ import type { Locale } from '../locales';
 
 /**
  * Cada calculadora tem o seu próprio dicionário, separado do dicionário do
- * site. É muito texto específico — nomes de ingredientes, notas de faixa,
- * conteúdo educativo — e misturar tudo num arquivo só deixaria o dicionário
+ * site. É muito texto específico (nomes de ingredientes, notas de faixa,
+ * conteúdo educativo) e misturar tudo num arquivo só deixaria o dicionário
  * principal ingovernável.
  *
  * O padrão é sempre o mesmo: o arquivo pt-BR é canônico e o inglês é tipado

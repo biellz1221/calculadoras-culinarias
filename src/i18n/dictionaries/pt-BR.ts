@@ -3,14 +3,14 @@ import type { CalculatorId } from '@/data/calculators';
 /**
  * Dicionário canônico do site. O tipo `Dictionary` é derivado deste arquivo,
  * então acrescentar uma chave aqui quebra a compilação do inglês até que ela
- * seja traduzida — é o que garante que os dois idiomas andem juntos (FR-002).
+ * seja traduzida. É o que garante que os dois idiomas andem juntos (FR-002).
  */
 export const ptBR = {
   site: {
     name: 'Calculadoras Culinárias',
-    homeTitle: 'Calculadoras Culinárias — pães, picles e massa fresca em gramas',
+    homeTitle: 'Calculadoras Culinárias: pães, picles e massa fresca em gramas',
     description:
-      'Calculadoras de cozinha em gramas — pães, picles e massa fresca — com as proporções tiradas de livros de referência e citadas com autor e página.',
+      'Calculadoras de cozinha em gramas para pães, picles e massa fresca, com as proporções tiradas de livros de referência e citadas com autor e página.',
   },
 
   nav: {
@@ -18,14 +18,30 @@ export const ptBR = {
   },
 
   preferences: {
+    open: 'Configurações',
+    title: 'Configurações',
+    lead: 'Fica tudo guardado neste navegador, sem conta e sem cookie de rastreamento.',
+    close: 'Fechar',
+    done: 'Pronto',
+
+    language: 'Idioma',
     units: 'Unidades',
-    metric: 'Gramas',
-    imperial: 'Onças',
-    metricTitle: 'Métrico — gramas e quilos',
-    imperialTitle: 'Imperial — onças e libras, sempre por peso',
+    metric: 'Gramas e quilos',
+    imperial: 'Onças e libras',
+    unitsNote:
+      'O modo imperial é por peso. Xícaras e colheres ficam de fora nos dois sistemas: o que torna uma receita repetível é a balança.',
     temperature: 'Temperatura',
     celsius: 'Celsius',
     fahrenheit: 'Fahrenheit',
+    temperatureNote:
+      'Vale para os números calculados. O texto das explicações segue em Celsius, que é como as fontes escrevem.',
+
+    display: 'Exibição',
+    simplified: 'Interface simplificada',
+    simplifiedOn: 'Só a calculadora',
+    simplifiedOff: 'Com as explicações',
+    simplifiedNote:
+      'Esconde as seções de método, divergências, glossário e fontes, deixando a página só com a ferramenta.',
   },
 
   a11y: {
@@ -37,7 +53,7 @@ export const ptBR = {
   home: {
     eyebrow: 'Proporções de cozinha com fonte declarada',
     title: 'As proporções que fazem a receita funcionar',
-    lead: 'Pão, picles e massa fresca calculados em gramas, na quantidade que você precisa. Cada número vem de um livro — com autor e página.',
+    lead: 'Pão, picles e massa fresca calculados em gramas, na quantidade que você precisa. Cada número vem de um livro, com autor e página.',
 
     principles: {
       grams: {
@@ -46,7 +62,7 @@ export const ptBR = {
       },
       sources: {
         title: 'Cada número tem fonte',
-        body: 'As proporções saem de livros de referência e aparecem citadas com autor e página — dá para conferir e para se aprofundar.',
+        body: 'As proporções saem de livros de referência e aparecem citadas com autor e página. Dá para conferir e para se aprofundar.',
       },
       divergence: {
         title: 'Quando as fontes discordam, a gente mostra',
@@ -101,7 +117,7 @@ export const ptBR = {
 
   notFound: {
     title: 'Página não encontrada',
-    body: 'O endereço que você abriu não existe — talvez a calculadora ainda esteja por vir.',
+    body: 'O endereço que você abriu não existe. Talvez a calculadora ainda esteja por vir.',
     back: 'Voltar para a home',
   },
 };

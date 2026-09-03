@@ -9,7 +9,7 @@ import { pathFor } from '@/i18n/routes';
 
 /**
  * 404 global. Resolvido no nível de roteamento, então não depende de nenhum
- * root layout — o que importa aqui, já que o site tem um por idioma.
+ * root layout, o que importa aqui, já que o site tem um por idioma.
  * Responde no idioma canônico do domínio (pt-BR).
  */
 const LOCALE = 'pt-BR' as const;

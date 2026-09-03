@@ -4,8 +4,8 @@ import type { ServingStyle } from './types';
 /**
  * Faixas e porções da calculadora de massa fresca.
  *
- * Como no pão, `min`/`max` é a faixa recomendada — fora dela a tela sinaliza,
- * mas não impede — e `hardMin`/`hardMax` marcam o ponto onde nenhuma das
+ * Como no pão, `min`/`max` é a faixa recomendada: fora dela a tela sinaliza,
+ * mas não impede. `hardMin`/`hardMax` marcam o ponto onde nenhuma das
  * fontes dá respaldo. Consolidação em docs/research/massas.md, seções 3 e 4.
  */
 
@@ -87,7 +87,7 @@ export function isBeyondHardLimit(value: number, rule: RangeRule): boolean {
  * O padrão é o prato principal: 100 g é o número redondo do Zielonka (400 g
  * servem 4 em todas as receitas dele) e cai dentro da faixa da Hazan. A
  * entrada são as 4 porções que ela tira de ¾ lb; a porção generosa é o topo
- * da faixa consolidada — as 3 porções dela dão ~113 g.
+ * da faixa consolidada: as 3 porções dela dão ~113 g.
  */
 export const SERVING_GRAMS: Record<ServingStyle, number> = {
   starter: 85,

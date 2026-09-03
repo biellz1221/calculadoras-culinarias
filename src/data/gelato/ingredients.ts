@@ -3,7 +3,7 @@
 //
 // Todos os campos de composição são frações de 1 g do ingrediente (0 a 1).
 // pod/pac são coeficientes relativos à sacarose (POD 1 = sacarose).
-// costPerKg em R$/kg — 0 significa "sem custo cadastrado na planilha".
+// costPerKg em R$/kg, onde 0 significa "sem custo cadastrado na planilha".
 //
 // Os `id` são os slugs da planilha e funcionam como chave estrangeira dos
 // presets e dos fatores calóricos: renomear um id quebra essas referências.

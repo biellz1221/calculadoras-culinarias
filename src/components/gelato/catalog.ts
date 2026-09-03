@@ -4,7 +4,7 @@ import type { GelatoDictionary } from '@/i18n/dictionaries/gelato';
 import type { Locale } from '@/i18n/locales';
 import type { Ingredient } from '@/lib/gelato/types';
 
-/** Catálogo indexado por id — o motor de cálculo recebe sempre este mapa. */
+/** Catálogo indexado por id: o motor de cálculo recebe sempre este mapa. */
 export const CATALOG: ReadonlyMap<string, Ingredient> = new Map(
   INGREDIENTS.map((ingredient) => [ingredient.id, ingredient]),
 );
@@ -28,7 +28,7 @@ export function ingredientLabel(
   return labels[ingredientId];
 }
 
-/** Rótulo, ou o aviso de ingrediente fora do catálogo — nunca um id cru na tela. */
+/** Rótulo, ou o aviso de ingrediente fora do catálogo. Nunca um id cru na tela. */
 export function ingredientLabelOrFallback(
   dict: GelatoDictionary,
   ingredientId: string,
@@ -42,7 +42,7 @@ function groupOf(ingredient: Ingredient): IngredientGroup {
 
 /**
  * Opções do seletor, na ordem em que aparecem: categoria primeiro, depois o
- * rótulo em ordem alfabética do idioma da tela — em inglês "Water" não cai no
+ * rótulo em ordem alfabética do idioma da tela: em inglês "Water" não cai no
  * mesmo lugar que "Água".
  */
 export function buildOptions(

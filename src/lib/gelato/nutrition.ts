@@ -31,7 +31,7 @@ const EMPTY: NutritionFacts = { kcal: 0, carbs: 0, sugars: 0, fats: 0, protein: 
 /**
  * Carboidratos por diferença, como se faz em rotulagem: o que sobra dos sólidos
  * totais depois de tirar gordura e proteína. Inclui açúcares, lactose, fibras e
- * polióis — que aparecem como carboidrato mesmo quando rendem pouca energia.
+ * polióis, que aparecem como carboidrato mesmo quando rendem pouca energia.
  */
 function carbsPerGram(ingredient: Ingredient): number {
   return Math.max(0, ingredient.totalSolids - ingredient.fats - ingredient.protein);

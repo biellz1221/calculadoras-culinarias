@@ -48,7 +48,7 @@ export function LanguageSwitcher({ locale, routeKey }: LanguageSwitcherProps) {
                   'label-caps rounded-full px-2.5 py-1.5 transition-colors',
                   isCurrent
                     ? 'bg-ink text-paper'
-                    : 'text-ink-muted hover:bg-brand-tint hover:text-brand-deep',
+                    : 'text-ink-muted hover:bg-accent-tint hover:text-accent-deep',
                 )}
               >
                 {LOCALE_SHORT[option]}

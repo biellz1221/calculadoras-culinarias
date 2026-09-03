@@ -54,7 +54,7 @@ interface SalinityMetricProps {
  * Salinidade com faixa e estado.
  *
  * Abaixo do mínimo seguro o aviso deixa de ser sinalização de faixa e vira
- * alerta de segurança — cor, símbolo e texto diferentes, porque aqui não é
+ * alerta de segurança, com cor, símbolo e texto diferentes, porque aqui não é
  * questão de sabor (FR-020).
  */
 export function SalinityMetric({

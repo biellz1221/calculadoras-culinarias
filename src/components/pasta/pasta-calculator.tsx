@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 
 import { BalancePanel } from './balance-panel';
 import { ResultPanel } from './result-panel';
-import { NumberField, Segmented } from '@/components/field';
+import { MassField, NumberField, Segmented } from '@/components/field';
 import {
   DEFAULT_PASTA_PRESET_ID,
   PASTA_PRESETS,
@@ -96,30 +96,27 @@ export function PastaCalculator({ dict, locale }: PastaCalculatorProps) {
           step={1}
           min={1}
         />
-        <NumberField
+        <MassField
           label={dict.target.gramsPerServing}
-          value={gramsPerServing}
+          grams={gramsPerServing}
           onChange={setGramsPerServing}
-          suffix="g"
-          step={5}
+                    step={5}
         />
         {usesEggs && (
-          <NumberField
+          <MassField
             label={dict.target.eggWeight}
-            value={eggGrams}
+            grams={eggGrams}
             onChange={setEggGrams}
-            suffix="g"
-            step={1}
+                        step={1}
             hint={dict.target.eggHint}
           />
         )}
         {usesYolks && (
-          <NumberField
+          <MassField
             label={dict.target.yolkWeight}
-            value={yolkGrams}
+            grams={yolkGrams}
             onChange={setYolkGrams}
-            suffix="g"
-            step={1}
+                        step={1}
           />
         )}
       </div>
@@ -135,7 +132,7 @@ export function PastaCalculator({ dict, locale }: PastaCalculatorProps) {
       />
 
       <section className="mt-10 border-t border-rule pt-6">
-        <h2 className="label-caps text-brand-deep">{dict.process.title}</h2>
+        <h2 className="label-caps text-accent-deep">{dict.process.title}</h2>
         <p className="mt-3 max-w-prose leading-relaxed text-ink-soft">
           {dict.process.notes[preset.noteKey as keyof PastaDictionary['process']['notes']]}
         </p>

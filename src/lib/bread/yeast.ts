@@ -4,10 +4,10 @@ import type { YeastKey } from '@/data/bread/types';
 /**
  * Conversão entre fermentos.
  *
- * As duas fontes parecem discordar — Kayser divide o fresco por 2, Camargo por
- * 3 — mas não discordam: falam de fermentos diferentes. Kayser trata do seco
- * ativo (que precisa ser hidratado antes) e Camargo do seco instantâneo (que
- * vai direto na farinha). Por isso a tabela tem os dois fatores, por tipo, em
+ * As duas fontes parecem discordar, já que Kayser divide o fresco por 2 e
+ * Camargo por 3, mas não discordam de fato: falam de fermentos diferentes.
+ * Kayser trata do seco ativo (que precisa ser hidratado antes) e Camargo do
+ * seco instantâneo (que vai direto na farinha). Por isso a tabela tem os dois fatores, por tipo, em
  * vez de escolher um "vencedor".
  */
 const POWER_RELATIVE_TO_FRESH: Record<YeastKey, number> = {
@@ -51,7 +51,7 @@ export interface LevainSubstitution {
  * Troca de fermento biológico por levain líquido.
  *
  * Não existe fator de conversão entre os dois: o levain trabalha por dose sobre
- * a farinha — 20 a 50%, sendo 20% o padrão das massas magras (Kayser, p. 24).
+ * a farinha: 20 a 50%, sendo 20% o padrão das massas magras (Kayser, p. 24).
  * Como o levain é metade farinha e metade água, entrar com ele sem descontar
  * essas partes muda a hidratação da massa; daí os dois ajustes devolvidos aqui.
  */
@@ -72,7 +72,7 @@ export function levainSubstitution(
 /**
  * Quanto o tempo da primeira fermentação muda ao alterar a dose de fermento.
  *
- * Regra prática do Camargo: cortar o fermento pela metade dobra o tempo — ou
+ * Regra prática do Camargo: cortar o fermento pela metade dobra o tempo, ou
  * seja, tempo é inversamente proporcional à dose. É orientação de planejamento,
  * não promessa: temperatura ambiente e força da farinha mexem no resultado.
  */

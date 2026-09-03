@@ -3,7 +3,7 @@
 /**
  * Barreira de erro de último recurso: entra em cena quando o próprio root
  * layout falha, então precisa trazer o seu próprio <html>/<body> e não pode
- * depender do CSS do site ter carregado — daí os estilos inline.
+ * depender do CSS do site ter carregado, daí os estilos inline.
  *
  * O site tem um root layout por idioma; sem este arquivo, o global-error
  * padrão do Next não encontra layout algum para renderizar.
@@ -42,7 +42,7 @@ export default function GlobalError({
             Alguma coisa quebrou por aqui
           </h1>
           <p style={{ marginTop: '1rem', lineHeight: 1.6, color: '#574d43' }}>
-            O erro foi inesperado e nenhum dado seu foi perdido — tudo o que você
+            O erro foi inesperado e nenhum dado seu foi perdido. Tudo o que você
             calcula fica no seu navegador.
           </p>
           {error.digest ? (

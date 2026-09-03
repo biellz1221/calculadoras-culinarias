@@ -2,7 +2,7 @@ import type { pastaPtBR } from './pasta-pt-BR';
 
 export const pastaEn: typeof pastaPtBR = {
   meta: {
-    title: 'Fresh pasta calculator — flour, eggs and servings',
+    title: 'Fresh pasta calculator: flour, eggs and servings',
     description:
       'How much flour and how many eggs for the people at your table: 13 fresh pasta doughs in grams, an adjustment for odd-sized eggs and a thickness guide by shape. Every number cited with book and chapter.',
   },
@@ -111,14 +111,14 @@ export const pastaEn: typeof pastaPtBR = {
     status: { below: 'Below range', in: 'In range', above: 'Above range' },
     hardLimit: 'Outside what the sources support',
     colourNote:
-      'In coloured doughs the purée replaces part of the egg and the source has already corrected the flour — 250 g in the spinach one, 320 g in the squid ink one. That is why the flour-to-egg ratio does not apply here.',
+      'In coloured doughs the purée replaces part of the egg and the source has already corrected the flour: 250 g in the spinach one, 320 g in the squid ink one. That is why the flour-to-egg ratio does not apply here.',
   },
 
   notes: {
     servingGrams:
       'Below 85 g a head the pasta is a starter; above 115 g it is a Sunday portion. Both sources work inside that band.',
     flourPerEggMass:
-      'Less flour per gram of egg gives a soft dough that sticks to the rollers and needs flour worked in while kneading — which is exactly how Hazan works, on purpose. More flour gives a stiff dough that cracks as you roll it.',
+      'Less flour per gram of egg gives a soft dough that sticks to the rollers and needs flour worked in while kneading, which is exactly how Hazan works, on purpose. More flour gives a stiff dough that cracks as you roll it.',
     waterHydration:
       'Semolina-and-water dough lives between 46 and 50% hydration. Below that it will not come together; above it, it sticks to the machine and loses the shape.',
   },
@@ -131,13 +131,13 @@ export const pastaEn: typeof pastaPtBR = {
       'This dough will not close a raviolo: without gluten it crumbles at the fold. Keep it to ribbons.',
     notes: {
       classica:
-        'Knead by hand for 8 to 10 minutes. Rest at least 30 minutes in the fridge — overnight is better — and take it out 30 minutes before rolling.',
+        'Knead by hand for 8 to 10 minutes. Rest at least 30 minutes in the fridge, or overnight if you can, and take it out 30 minutes before rolling.',
       'rica-em-gemas':
         'The yolks give a golden colour and a dough that is suppler to knead and slightly drier to roll.',
       'hazan-amarela':
         'The flour in the list is only the start: work in more while kneading until the dough no longer sticks to your thumb. Knead a full 8 minutes and rest 15 minutes to 2 hours at room temperature.',
       'hazan-recheada':
-        'The half spoon of milk keeps the dough soft and sticky — that tack is what seals the raviolo. Roll one piece at a time and never let it dry before closing.',
+        'The half spoon of milk keeps the dough soft and sticky: that tack is what seals the raviolo. Roll one piece at a time and never let it dry before closing.',
       'hazan-verde':
         'Spinach cooked, squeezed and chopped with a knife: a processor draws out too much moisture. The flour already rises to 1½ cups to take the spinach water.',
       'hazan-tortellini':
@@ -145,11 +145,11 @@ export const pastaEn: typeof pastaPtBR = {
       'semola-vegana':
         'Knead 10 to 15 minutes, cook 5 to 6. Hazan advises against semolina at home: with a rolling pin it is a nearly hopeless fight, so count on a machine or on strong arms.',
       'espinafre-ovo':
-        'Blanch the spinach for 30 to 45 seconds, squeeze it hard and blend it with 1 egg: the purée has to weigh 100 to 110 g on the scale. That purée is the liquid — the egg is already inside it.',
+        'Blanch the spinach for 30 to 45 seconds, squeeze it hard and blend it with 1 egg: the purée has to weigh 100 to 110 g on the scale. That purée is the liquid, and the egg is already inside it.',
       'espinafre-vegana':
         'Blend the blanched spinach with 150 g of water and strain. Weigh out 140 to 150 g of the green liquid, topping up with water if it falls short.',
       'beterraba-ovo':
-        'Blend the raw beetroot with 60 g of water and strain; weigh 40 g of the juice. Cooked as a ribbon it turns pink — this dough is at its best stuffed or striped.',
+        'Blend the raw beetroot with 60 g of water and strain; weigh 40 g of the juice. Cooked as a ribbon it turns pink. This dough is at its best stuffed or striped.',
       'beterraba-vegana':
         'Blend the raw beetroot with 140 g of water, strain and weigh out 150 g of the liquid.',
       'tinta-de-lula':
@@ -161,7 +161,7 @@ export const pastaEn: typeof pastaPtBR = {
 
   shapes: {
     title: 'Where to stop rolling',
-    lead: 'The numbers are those of Zielonka’s machine, where 0 is the widest setting and 8 the tightest — machines numbered the other way round want the opposite number. Neither book publishes a thickness in millimetres, so neither does this page.',
+    lead: 'The numbers are those of Zielonka’s machine, where 0 is the widest setting and 8 the tightest. Machines numbered the other way round want the opposite number. Neither book publishes a thickness in millimetres, so neither does this page.',
     columns: { shape: 'Shape', setting: 'Rolling', use: 'What it is for' },
     setting: 'Setting',
     or: 'or',
@@ -183,7 +183,7 @@ export const pastaEn: typeof pastaPtBR = {
       chitarra: {
         name: 'Chitarra / tonnarelli',
         thickness:
-          'Zielonka stops at 7, or 6 for more bite. Hazan stops at the next-to-last notch and matches the sheet thickness to the cutter width — the strand has to come out square.',
+          'Zielonka stops at 7, or 6 for more bite. Hazan stops at the next-to-last notch and matches the sheet thickness to the cutter width: the strand has to come out square.',
         use: 'A square-sectioned strand, off the narrow cutter or the chitarra itself.',
       },
       garganelli: {
@@ -214,7 +214,7 @@ export const pastaEn: typeof pastaPtBR = {
         name: 'Maltagliati',
         thickness:
           'No setting of its own: these are the trimmings from whatever you have already rolled, cut into uneven diamonds.',
-        use: 'Bean soups and minestrone — "badly cut" on purpose.',
+        use: 'Bean soups and minestrone, "badly cut" on purpose.',
       },
     },
   },
@@ -235,7 +235,7 @@ export const pastaEn: typeof pastaPtBR = {
       },
       tortelliniHazan: {
         name: 'Tortellini in brodo (Hazan)',
-        note: 'About 100 tortellini with 2.5 L of broth — roughly 17 a head. With sauce, count 24 a head.',
+        note: 'About 100 tortellini with 2.5 L of broth, roughly 17 a head. With sauce, count 24 a head.',
       },
     },
   },
@@ -250,8 +250,8 @@ export const pastaEn: typeof pastaPtBR = {
   method: {
     title: 'How the calculation works',
     body: [
-      'The arithmetic starts at the egg, not the flour. Zielonka’s classic dough is 300 g of 00 flour to 3 eggs, yielding 400 g and serving four — that is 100 g of flour and one egg a head. Pick the number of people and what the meal is, and the calculator scales that recipe and hands it back in grams.',
-      'The catch is that eggs do not halve. For six people the scale would ask for 4.5 eggs, so the calculator suggests the nearest whole combination — and, on a tie, the larger one, because leftover dough beats running short — then shows how much flour that moves. If your eggs are not 50 g, type the real weight: the flour follows, because what the recipe fixes is the ratio between the two.',
+      'The arithmetic starts at the egg, not the flour. Zielonka’s classic dough is 300 g of 00 flour to 3 eggs, yielding 400 g and serving four, which is 100 g of flour and one egg a head. Pick the number of people and what the meal is, and the calculator scales that recipe and hands it back in grams.',
+      'The catch is that eggs do not halve. For six people the scale would ask for 4.5 eggs, so the calculator suggests the nearest whole combination (on a tie, the larger one, because leftover dough beats running short) and then shows how much flour that moves. If your eggs are not 50 g, type the real weight: the flour follows, because what the recipe fixes is the ratio between the two.',
       'That ratio is the number the sources argue about. Zielonka starts at 2 g of flour per gram of egg; Ratio says flour is 1.5× the egg weight; Hazan starts at 1.4 and climbs to about 2.4 as flour is worked in while kneading. None of it applies to coloured doughs: there the purée is the liquid, weighed on the scale, and the source has already corrected the flour.',
     ],
   },
@@ -270,7 +270,7 @@ export const pastaEn: typeof pastaPtBR = {
         sources:
           'Zielonka: 100 g of 00 flour per medium egg (300 g for three). Ruhlman: flour equal to 1.5× the weight of the eggs. Hazan: one cup to two eggs, but with instructions to work in flour until the thumb test comes away clean.',
         decision:
-          'A default of 100 g per egg. It is the classic Italian rule and the only one that starts out settled in grams — Hazan’s is deliberately wet, to be corrected on the board, and the yield she herself declares (¾ lb) only adds up with far more flour than the list shows.',
+          'A default of 100 g per egg. It is the classic Italian rule and the only one that starts out settled in grams. Hazan’s is deliberately wet, to be corrected on the board, and the yield she herself declares (¾ lb) only adds up with far more flour than the list shows.',
       },
       {
         topic: 'Pasta per person',
@@ -284,12 +284,12 @@ export const pastaEn: typeof pastaPtBR = {
         sources:
           'Zielonka gives spinach, beetroot and squid ink with the liquid weighed in grams. Hazan accepts only spinach and calls squid ink deplorable.',
         decision:
-          'We follow Zielonka, because he is the only one who quantifies the adjustment — 40 g of beetroot juice, 140 to 150 g of spinach liquid, flour up to 320 g for the ink. Hazan’s objection is a matter of taste rather than technique, and it is recorded as a note.',
+          'We follow Zielonka, because he is the only one who quantifies the adjustment: 40 g of beetroot juice, 140 to 150 g of spinach liquid, flour up to 320 g for the ink. Hazan’s objection is a matter of taste rather than technique, and it is recorded as a note.',
       },
       {
         topic: 'Semolina at home',
         sources:
-          'Zielonka makes vegan dough from fine semolina and water at 46%. Hazan advises against it: it tends to be gritty and rolling it by pin is a nearly hopeless fight — "leave semolina to the factories".',
+          'Zielonka makes vegan dough from fine semolina and water at 46%. Hazan advises against it: it tends to be gritty and rolling it by pin is a nearly hopeless fight. "Leave semolina to the factories".',
         decision:
           'The semolina dough stays, with the warning attached. Her criticism is about the rolling pin; with a machine, or a long knead, the recipe works. What does swap one for one, by weight, is 00 flour and all-purpose.',
       },
@@ -329,7 +329,7 @@ export const pastaEn: typeof pastaPtBR = {
       {
         term: 'Matterello',
         definition:
-          'The long pin of the hand method. The dough is stretched rather than compressed, ending up with a textured surface that soaks up sauce — a craft that takes practice.',
+          'The long pin of the hand method. The dough is stretched rather than compressed, ending up with a textured surface that soaks up sauce. It is a craft that takes practice.',
       },
       {
         term: 'Dough for stuffing',
@@ -339,7 +339,7 @@ export const pastaEn: typeof pastaPtBR = {
       {
         term: 'Tonnarelli',
         definition:
-          'A strand of square section, as thick as it is wide, cut on the narrow cutter or on the chitarra — the string frame that looks like an old-fashioned egg slicer.',
+          'A strand of square section, as thick as it is wide, cut on the narrow cutter or on the chitarra, the string frame that looks like an old-fashioned egg slicer.',
       },
       {
         term: 'Maltagliati',

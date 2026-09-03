@@ -14,8 +14,8 @@ import type {
  * (o total do pote, ou só a água, ou só o vegetal), nunca sobre base + sal
  * (Noma, "Primer", "Salt and Baker's Percentages"; BWF, p. 198).
  *
- * A saída traz sempre as **duas** salinidades efetivas — sobre o total e sobre
- * a água — porque é a diferença entre elas que a página existe para mostrar. É
+ * A saída traz sempre as **duas** salinidades efetivas, sobre o total e sobre
+ * a água, porque é a diferença entre elas que a página existe para mostrar. É
  * também o que revela o erro que o BWF demonstra na p. 199: 1 kg de rabanete +
  * 20 g de sal + 1 L de água não são 2%, são 1%.
  *
@@ -39,13 +39,28 @@ export interface BrineAmounts {
 
 /**
  * Converte a entrada em gramas. No modo por volume, o pote é estimado a 1 g/ml
- * e repartido pela proporção vegetal/água informada — estimativa declarada, que
+ * e repartido pela proporção vegetal/água informada: estimativa declarada, que
  * a interface mostra como tal.
  */
 export function resolveAmounts(input: BrineInput): BrineAmounts {
   if (input.kind === 'weights') {
     const vegetableGrams = positive(input.vegetableGrams);
     const waterGrams = positive(input.waterGrams);
+    return { vegetableGrams, waterGrams, totalGrams: vegetableGrams + waterGrams };
+  }
+
+  // Lista livre: a conta é a mesma de sempre, só que os dois pesos vêm de
+  // somar as linhas por papel. Nada aqui sabe o que é cada ingrediente.
+  if (input.kind === 'ingredients') {
+    let vegetableGrams = 0;
+    let waterGrams = 0;
+
+    for (const line of input.lines) {
+      const grams = positive(line.grams);
+      if (line.role === 'liquid') waterGrams += grams;
+      else vegetableGrams += grams;
+    }
+
     return { vegetableGrams, waterGrams, totalGrams: vegetableGrams + waterGrams };
   }
 

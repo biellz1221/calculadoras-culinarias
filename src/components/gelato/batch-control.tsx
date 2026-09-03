@@ -37,7 +37,7 @@ export function BatchControl(props: BatchControlProps) {
     <section className="mt-8 rounded-card border border-rule bg-surface p-5 sm:p-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="label-caps text-brand-deep">{dict.batch.title}</h2>
+          <h2 className="label-caps text-accent-deep">{dict.batch.title}</h2>
           <p data-numeric className="mt-2 font-display text-3xl leading-none font-semibold">
             {formatLiters(liters, locale)}
           </p>

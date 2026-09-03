@@ -45,7 +45,7 @@ describe('salmoura do Katz como caso-verdade', () => {
   });
 
   it('revela a salinidade menor que o produto realmente terá', () => {
-    // 50 g num pote de 1,6 kg dão pouco mais de 3% — não os 5% do rótulo.
+    // 50 g num pote de 1,6 kg dão pouco mais de 3%, não os 5% do rótulo.
     expect(result.percentOfTotal).toBeCloseTo(3.125, 3);
   });
 });
@@ -105,6 +105,76 @@ describe('entrada por volume do pote', () => {
     // Proporções degeneradas não devolvem Infinity nem NaN.
     expect(waterForShare(600, 1)).toBe(0);
     expect(waterForShare(600, 0)).toBe(0);
+  });
+});
+
+describe('lista livre de ingredientes', () => {
+  const lines = [
+    { id: '1', name: 'Cenoura', grams: 400, role: 'solid' as const },
+    { id: '2', name: 'Pepino', grams: 300, role: 'solid' as const },
+    { id: '3', name: 'Alho', grams: 20, role: 'solid' as const },
+    { id: '4', name: 'Água', grams: 800, role: 'liquid' as const },
+  ];
+
+  it('soma as linhas por papel', () => {
+    const amounts = resolveAmounts({ kind: 'ingredients', lines });
+
+    expect(amounts.vegetableGrams).toBeCloseTo(720, 6);
+    expect(amounts.waterGrams).toBeCloseTo(800, 6);
+    expect(amounts.totalGrams).toBeCloseTo(1520, 6);
+  });
+
+  it('conta o aromático no total, como qualquer sólido', () => {
+    // Os 20 g de alho não são decoração: eles ocupam o pote e diluem o sal.
+    const semAlho = resolveAmounts({
+      kind: 'ingredients',
+      lines: lines.filter((line) => line.name !== 'Alho'),
+    });
+
+    expect(semAlho.totalGrams).toBeCloseTo(1500, 6);
+  });
+
+  it('chega ao mesmo sal que a entrada por pesos', () => {
+    const porLista = calculateBrine({
+      input: { kind: 'ingredients', lines },
+      saltPercent: 2,
+      basis: 'total',
+    });
+    const porPesos = calculateBrine({
+      input: { kind: 'weights', vegetableGrams: 720, waterGrams: 800 },
+      saltPercent: 2,
+      basis: 'total',
+    });
+
+    expect(porLista.saltGrams).toBeCloseTo(porPesos.saltGrams, 9);
+    expect(porLista.saltGrams).toBeCloseTo(30.4, 6);
+  });
+
+  it('ignora linha vazia ou com peso inválido', () => {
+    const amounts = resolveAmounts({
+      kind: 'ingredients',
+      lines: [
+        { id: '1', name: 'Repolho', grams: 500, role: 'solid' },
+        { id: '2', name: '', grams: Number.NaN, role: 'solid' },
+        { id: '3', name: 'Nada', grams: -50, role: 'liquid' },
+      ],
+    });
+
+    expect(amounts.vegetableGrams).toBeCloseTo(500, 6);
+    expect(amounts.waterGrams).toBe(0);
+  });
+
+  it('funciona na salga direta, sem líquido nenhum', () => {
+    const amounts = resolveAmounts({
+      kind: 'ingredients',
+      lines: [
+        { id: '1', name: 'Repolho', grams: 1000, role: 'solid' },
+        { id: '2', name: 'Cenoura', grams: 200, role: 'solid' },
+      ],
+    });
+
+    expect(amounts.waterGrams).toBe(0);
+    expect(amounts.totalGrams).toBeCloseTo(1200, 6);
   });
 });
 

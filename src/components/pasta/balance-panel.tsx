@@ -45,7 +45,7 @@ export function BalancePanel({
 
   return (
     <section className="mt-10">
-      <h2 className="label-caps text-brand-deep">{dict.balance.title}</h2>
+      <h2 className="label-caps text-accent-deep">{dict.balance.title}</h2>
 
       <div className="mt-4">
         <Metric
@@ -97,7 +97,7 @@ export function BalancePanel({
   );
 }
 
-/** "2" e "1,5" — a razão nunca precisa de mais de duas casas. */
+/** "2" e "1,5": a razão nunca precisa de mais de duas casas. */
 function ratioText(value: number, fmt: Formatters): string {
   return fmt.number(value, { maximumFractionDigits: 2 });
 }

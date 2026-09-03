@@ -140,7 +140,7 @@ function Row({ row, dict, locale, unit, flagged, onGramsChange, onRemove }: RowP
           onChange={(event) =>
             onGramsChange(row.itemId, fromInputMass(Number(event.target.value), unit))
           }
-          className="w-24 rounded-sm border border-rule bg-paper px-2 py-1 text-right tabular-nums text-ink focus:border-brand focus:outline-none"
+          className="w-24 rounded-sm border border-rule bg-paper px-2 py-1 text-right tabular-nums text-ink focus:border-accent focus:outline-none"
         />
       </td>
 

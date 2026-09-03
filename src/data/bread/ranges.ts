@@ -3,7 +3,7 @@ import { cite, type Citation } from '../citations';
 /**
  * Faixas recomendadas da calculadora de pães.
  *
- * `min`/`max` são a faixa recomendada — fora dela a calculadora sinaliza, mas
+ * `min`/`max` são a faixa recomendada: fora dela a calculadora sinaliza, mas
  * não impede: receita boa às vezes mora na borda. `hardMin`/`hardMax` marcam o
  * ponto em que o resultado deixa de ser questão de gosto e passa a ser
  * problema (massa que não fecha, fermentação que não anda).
@@ -134,7 +134,7 @@ export function statusFor(value: number, rule: RangeRule): RangeStatus {
   return 'in';
 }
 
-/** Passou do limite duro — aqui o aviso deixa de ser sugestão. */
+/** Passou do limite duro: aqui o aviso deixa de ser sugestão. */
 export function isBeyondHardLimit(value: number, rule: RangeRule): boolean {
   if (rule.hardMin !== undefined && value < rule.hardMin) return true;
   if (rule.hardMax !== undefined && value > rule.hardMax) return true;

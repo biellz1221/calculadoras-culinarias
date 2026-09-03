@@ -87,7 +87,7 @@ describe('hidratação', () => {
 describe('sal sobre a farinha total', () => {
   it('desconta a farinha que entra pelo pré-fermento', () => {
     // A ciabatta leva 2% de sal sobre a farinha da massa, que viram 1,7% quando
-    // se conta também a farinha da poolish — é o número que a pesquisa publica.
+    // se conta também a farinha da poolish. É o número que a pesquisa publica.
     const recipe = calculateRecipe(formulaOf('ciabatta'), {
       kind: 'flour',
       grams: 400,

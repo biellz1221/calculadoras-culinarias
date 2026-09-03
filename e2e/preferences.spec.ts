@@ -1,4 +1,15 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+/** Abre o modal de configurações e escolhe uma opção. */
+async function choose(page: Page, option: string) {
+  await expect(async () => {
+    await page.getByRole('button', { name: 'Configurações' }).click();
+    await expect(page.getByRole('button', { name: option })).toBeVisible();
+  }).toPass({ timeout: 15_000 });
+
+  await page.getByRole('button', { name: option }).click();
+  await page.getByRole('button', { name: 'Pronto' }).click();
+}
 
 test('a escolha de unidades muda os números e sobrevive ao recarregar', async ({
   page,
@@ -8,11 +19,10 @@ test('a escolha de unidades muda os números e sobrevive ao recarregar', async (
   const waterRow = page.getByRole('row').filter({ hasText: 'Água' }).first();
   await expect(waterRow).toContainText('300,0 g');
 
-  await expect(async () => {
-    await page.getByRole('button', { name: /unidades: on(ç|c)as/i }).click();
-    // 300 g de água viram 10,58 oz.
-    await expect(waterRow).toContainText('10,58 oz');
-  }).toPass({ timeout: 15_000 });
+  await choose(page, 'Onças e libras');
+
+  // 300 g de água viram 10,58 oz.
+  await expect(waterRow).toContainText('10,58 oz');
 
   await page.reload();
   await expect(
@@ -25,10 +35,38 @@ test('a escolha de temperatura converte a faixa de fermentação', async ({ page
 
   await expect(page.getByText('10–21 °C')).toBeVisible();
 
+  await choose(page, 'Fahrenheit');
+
+  await expect(page.getByText('50–70 °F')).toBeVisible();
+});
+
+test('a interface simplificada recolhe as explicações', async ({ page }) => {
+  await page.goto('/paes');
+
+  const glossary = page.getByRole('heading', { name: 'Glossário' });
+  await expect(glossary).toBeVisible();
+
   await expect(async () => {
-    await page.getByRole('button', { name: /temperatura: fahrenheit/i }).click();
-    await expect(page.getByText('50–70 °F')).toBeVisible();
+    await page.getByRole('button', { name: /interface simplificada/i }).click();
+    // Recolhido, e não removido: o conteúdo vira um bloco que abre num clique.
+    await expect(page.locator('details').filter({ hasText: 'Glossário' })).toHaveCount(1);
   }).toPass({ timeout: 15_000 });
+});
+
+test('cada calculadora tem a sua própria paleta', async ({ page }) => {
+  const accents = new Map<string, string>();
+
+  for (const path of ['/paes', '/picles', '/massas', '/gelato']) {
+    await page.goto(path);
+    const accent = await page.evaluate(() =>
+      getComputedStyle(document.querySelector('[data-calculator]') as Element)
+        .getPropertyValue('--color-accent')
+        .trim(),
+    );
+    accents.set(path, accent);
+  }
+
+  expect(new Set(accents.values()).size).toBe(4);
 });
 
 test('a farinha não tem porcentagem editável', async ({ page }) => {

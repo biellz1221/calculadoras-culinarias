@@ -7,11 +7,14 @@ import type { TemperatureScale, UnitSystem } from './units';
 export interface Preferences {
   units: UnitSystem;
   temperature: TemperatureScale;
+  /** Esconde as seções explicativas para sobrar só a calculadora. */
+  simplified: boolean;
 }
 
 export const DEFAULT_PREFERENCES: Preferences = {
   units: 'metric',
   temperature: 'celsius',
+  simplified: false,
 };
 
 const STORAGE_KEY = 'cc:preferences';
@@ -43,6 +46,7 @@ function parse(raw: string | null): Preferences {
     return {
       units: record.units === 'imperial' ? 'imperial' : 'metric',
       temperature: record.temperature === 'fahrenheit' ? 'fahrenheit' : 'celsius',
+      simplified: record.simplified === true,
     };
   } catch {
     return DEFAULT_PREFERENCES;
@@ -100,6 +104,7 @@ function write(next: Preferences): void {
 export interface PreferencesValue extends Preferences {
   setUnits: (units: UnitSystem) => void;
   setTemperature: (scale: TemperatureScale) => void;
+  setSimplified: (simplified: boolean) => void;
 }
 
 export function usePreferences(): PreferencesValue {
@@ -115,8 +120,13 @@ export function usePreferences(): PreferencesValue {
     [],
   );
 
+  const setSimplified = useCallback(
+    (simplified: boolean) => write({ ...getSnapshot(), simplified }),
+    [],
+  );
+
   return useMemo(
-    () => ({ ...preferences, setUnits, setTemperature }),
-    [preferences, setUnits, setTemperature],
+    () => ({ ...preferences, setUnits, setTemperature, setSimplified }),
+    [preferences, setUnits, setTemperature, setSimplified],
   );
 }

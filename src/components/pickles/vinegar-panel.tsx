@@ -90,7 +90,7 @@ export function VinegarPanel({ preset, dict, locale }: VinegarPanelProps) {
       </div>
 
       <section aria-live="polite" className="mt-8">
-        <h2 className="label-caps text-brand-deep">{dict.result.title}</h2>
+        <h2 className="label-caps text-accent-deep">{dict.result.title}</h2>
 
         <dl className="mt-4 rounded-card border border-rule bg-surface px-5 py-2">
           <ResultRow

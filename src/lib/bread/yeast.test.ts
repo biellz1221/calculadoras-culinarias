@@ -11,7 +11,7 @@ import {
 
 describe('conversão entre fermentos', () => {
   it('usa o fator do Camargo para o instantâneo (um terço do fresco)', () => {
-    // "um tablete de 15 g corresponde a 5 g do seco" — cap. 1.
+    // "um tablete de 15 g corresponde a 5 g do seco", cap. 1.
     expect(convertYeast(15, 'yeast-fresh', 'yeast-instant')).toBeCloseTo(5, 6);
   });
 
@@ -74,7 +74,7 @@ describe('fermento e tempo', () => {
   });
 
   it('explica a fermentação longa da napoletana', () => {
-    // De 1% para 0,04% o tempo se multiplica por 25 — é por isso que a
+    // De 1% para 0,04% o tempo se multiplica por 25, e é por isso que a
     // napoletana do Camargo dorme de 5 a 8 h na segunda fermentação.
     expect(riseTimeFactor(1, 0.04)).toBeCloseTo(25, 6);
   });

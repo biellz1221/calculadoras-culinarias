@@ -4,16 +4,18 @@ import { useState } from 'react';
 
 import { ResultRow, SalinityMetric } from './result-row';
 import { CitationRef } from '@/components/citation';
-import { NumberField, Segmented } from '@/components/field';
+import { MassField, NumberField, Segmented } from '@/components/field';
 import {
   CLIMATES,
   DEFAULT_VEGETABLE_SHARE,
   RANGES,
 } from '@/data/pickles/ranges';
+import { IngredientLines } from './ingredient-lines';
 import type {
   BrineInput,
   BrinePreset,
   DrySaltPreset,
+  IngredientLine,
   SaltBasis,
 } from '@/data/pickles/types';
 import type { PicklesDictionary } from '@/i18n/dictionaries/pickles';
@@ -25,6 +27,23 @@ interface BrinePanelProps {
   preset: BrinePreset | DrySaltPreset;
   dict: PicklesDictionary;
   locale: Locale;
+}
+
+/**
+ * A lista livre começa preenchida com o mesmo lote dos campos de peso, para a
+ * troca de modo não zerar o resultado que a pessoa estava vendo.
+ */
+function startingLines(isBrine: boolean): IngredientLine[] {
+  const solid: IngredientLine = {
+    id: 'solid-1',
+    name: '',
+    grams: 1000,
+    role: 'solid',
+  };
+
+  if (!isBrine) return [solid];
+
+  return [solid, { id: 'liquid-1', name: '', grams: 1000, role: 'liquid' }];
 }
 
 export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
@@ -43,30 +62,49 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
   const [basis, setBasis] = useState<SaltBasis>(
     isBrine ? preset.basis : 'total',
   );
+  const [lines, setLines] = useState<readonly IngredientLine[]>(() =>
+    startingLines(isBrine),
+  );
 
   const input: BrineInput =
-    inputKind === 'weights'
-      ? { kind: 'weights', vegetableGrams, waterGrams }
-      : { kind: 'jar', jarMilliliters, vegetableShare };
+    inputKind === 'ingredients'
+      ? { kind: 'ingredients', lines }
+      : inputKind === 'weights'
+        ? { kind: 'weights', vegetableGrams, waterGrams }
+        : { kind: 'jar', jarMilliliters, vegetableShare };
 
   const brine = calculateBrine({ input, saltPercent, basis });
-  const dry = calculateDrySalt(vegetableGrams, saltPercent);
+
+  // Na salga direta o peso do vegetal pode vir do campo único ou da soma da
+  // lista; o resto da conta é o mesmo.
+  const dry = calculateDrySalt(
+    inputKind === 'ingredients' ? brine.vegetableGrams : vegetableGrams,
+    saltPercent,
+  );
   const climate = CLIMATES[preset.climate];
 
   return (
     <div className="mt-8">
-      {isBrine && (
-        <div className="flex flex-col gap-6">
-          <Segmented
-            legend={dict.input.label}
-            value={inputKind}
-            onChange={setInputKind}
-            options={[
-              { value: 'weights', label: dict.input.byWeights },
-              { value: 'jar', label: dict.input.byJar },
-            ]}
-          />
+      <div className="flex flex-col gap-6">
+        <Segmented
+          legend={dict.input.label}
+          value={inputKind}
+          onChange={setInputKind}
+          options={
+            isBrine
+              ? [
+                  { value: 'weights', label: dict.input.byWeights },
+                  { value: 'jar', label: dict.input.byJar },
+                  { value: 'ingredients', label: dict.input.byIngredients },
+                ]
+              : [
+                  { value: 'weights', label: dict.input.byWeights },
+                  { value: 'ingredients', label: dict.input.byIngredients },
+                ]
+          }
+        />
 
+        {isBrine && (
           <Segmented
             legend={dict.basis.label}
             value={basis}
@@ -76,26 +114,34 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
               { value: 'water', label: dict.basis.water },
             ]}
           />
-        </div>
+        )}
+      </div>
+
+      {inputKind === 'ingredients' && (
+        <IngredientLines
+          lines={lines}
+          onChange={setLines}
+          dict={dict}
+          locale={locale}
+          allowLiquid={isBrine}
+        />
       )}
 
       <div className="mt-6 flex flex-wrap items-start gap-5">
-        {(!isBrine || inputKind === 'weights') && (
-          <NumberField
+        {inputKind === 'weights' && (
+          <MassField
             label={dict.input.vegetable}
-            value={vegetableGrams}
+            grams={vegetableGrams}
             onChange={setVegetableGrams}
-            suffix="g"
             step={50}
           />
         )}
 
         {isBrine && inputKind === 'weights' && (
-          <NumberField
+          <MassField
             label={dict.input.water}
-            value={waterGrams}
+            grams={waterGrams}
             onChange={setWaterGrams}
-            suffix="g"
             step={50}
           />
         )}
@@ -131,7 +177,7 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
       </div>
 
       <section aria-live="polite" className="mt-8">
-        <h2 className="label-caps text-brand-deep">{dict.result.title}</h2>
+        <h2 className="label-caps text-accent-deep">{dict.result.title}</h2>
 
         <dl className="mt-4 rounded-card border border-rule bg-surface px-5 py-2">
           <ResultRow
@@ -171,7 +217,7 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
           {isBrine ? (
             <>
               <SalinityMetric
-                label={`${dict.result.salt} — ${dict.result.ofTotal}`}
+                label={`${dict.result.salt} ${dict.result.ofTotal}`}
                 percent={brine.percentOfTotal}
                 rule={RANGES['brine-total']}
                 note={dict.notes.brineTotal}
@@ -179,7 +225,7 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
                 locale={locale}
               />
               <SalinityMetric
-                label={`${dict.result.salt} — ${dict.result.ofWater}`}
+                label={`${dict.result.salt} ${dict.result.ofWater}`}
                 percent={brine.percentOfWater}
                 rule={RANGES['brine-water']}
                 note={dict.notes.brineWater}
@@ -189,7 +235,7 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
             </>
           ) : (
             <SalinityMetric
-              label={`${dict.result.salt} — ${dict.result.ofVegetable}`}
+              label={`${dict.result.salt} ${dict.result.ofVegetable}`}
               percent={dry.percentOfVegetable}
               rule={RANGES[preset.rangeKey]}
               note={dict.notes.drySalt}

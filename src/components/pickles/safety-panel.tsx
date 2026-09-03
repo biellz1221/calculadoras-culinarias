@@ -29,7 +29,7 @@ export function SafetyPanel({ dict }: { dict: PicklesDictionary }) {
 
   return (
     <section className="mt-10 rounded-card border border-rule-strong bg-surface p-5 sm:p-6">
-      <h2 className="label-caps text-brand-deep">{dict.safety.title}</h2>
+      <h2 className="label-caps text-accent-deep">{dict.safety.title}</h2>
       <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">
         {dict.safety.lead}
       </p>

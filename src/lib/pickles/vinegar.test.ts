@@ -47,7 +47,7 @@ describe('vinagre mais fraco que o de referência', () => {
   });
 
   it('diz qual proporção mínima resolve', () => {
-    // Com vinagre de 4%, é preciso que 62,5% do líquido seja vinagre —
+    // Com vinagre de 4%, é preciso que 62,5% do líquido seja vinagre,
     // ou seja, 0,6 parte de água para cada parte de vinagre.
     const result = calculateVinegarPickle({ ...BASE, vinegarAcidity: 4 });
 

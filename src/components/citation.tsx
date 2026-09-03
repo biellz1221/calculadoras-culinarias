@@ -105,7 +105,7 @@ export function SourceList({ citations, labels, title, lead }: SourceListProps) 
 
   return (
     <section className="mt-20 sm:mt-28">
-      <h2 className="label-caps text-brand-deep">{title}</h2>
+      <h2 className="label-caps text-accent-deep">{title}</h2>
       {lead && (
         <p className="mt-3 max-w-xl text-base leading-relaxed text-ink-soft">{lead}</p>
       )}

@@ -2,14 +2,14 @@ import type { breadPtBR } from './bread-pt-BR';
 
 export const breadEn: typeof breadPtBR = {
   meta: {
-    title: "Bread calculator — baker's percentage",
+    title: "Bread calculator: baker's percentage",
     description:
       "Work out bread in grams from the flour you have: 16 presets, editable baker's percentages, safe ranges and yeast conversion. Every number cited with book and page.",
   },
 
   eyebrow: 'Bread calculator',
   title: 'Bread scaled to the flour you actually have',
-  lead: "Pick the bread, say how much flour you're using, and the recipe comes out in grams. Change the percentages freely: the calculator flags anything outside the range the sources give — and tells you what happens if you push past it.",
+  lead: "Pick the bread, say how much flour you're using, and the recipe comes out in grams. Change the percentages freely: the calculator flags anything outside the range the sources give, and tells you what happens if you push past it.",
 
   presetLabel: 'Type of bread',
 
@@ -127,13 +127,13 @@ export const breadEn: typeof breadPtBR = {
     yieldValue: 'units of',
     notes: {
       steam: 'Steam the oven when loading: about 50 g of water into a preheated tray.',
-      autolyse: 'One hour of autolyse before kneading — a more elastic dough for less work.',
+      autolyse: 'One hour of autolyse before kneading: a more elastic dough for less work.',
       folds: 'Twenty minutes of autolyse and two sets of folds during the first rise.',
       ryeWatch: 'Rye overproofs quickly: do not let the second rise run long.',
       poolishAhead:
         'The poolish is made four hours ahead, with part of the yeast, and goes into the dough whole.',
       napoletana:
-        'The long second rise is the point — 0.04% yeast working for five to eight hours.',
+        'The long second rise is the point: 0.04% yeast working for five to eight hours.',
       pizzaHydration:
         'The recipe as printed uses 52% hydration, which contradicts the conversion table in the same book (p. 301, 68%). We use 62%, inside the range Camargo gives.',
       brioche:
@@ -172,7 +172,7 @@ export const breadEn: typeof breadPtBR = {
   method: {
     title: 'How the calculation works',
     body: [
-      "The whole calculator runs on baker's percentage: flour is 100% and every other ingredient is a percentage of its weight. That is why the same recipe serves 300 g or 3 kg of flour — the proportions hold, only the scale changes.",
+      "The whole calculator runs on baker's percentage: flour is 100% and every other ingredient is a percentage of its weight. That is why the same recipe serves 300 g or 3 kg of flour. The proportions hold, only the scale changes.",
       'When a pre-ferment is involved the arithmetic gains a wrinkle. Liquid levain is half flour and half water, so 20% levain adds ten points of flour and ten of water to the totals. Ignoring that understates the hydration: Kayser’s boule declares 70% water, but the dough actually works at 73%. The calculator shows both numbers.',
       'The same goes for salt. Ciabatta’s 2% is measured against the dough’s flour; count the flour that arrived inside the poolish and the real figure is 1.7%. The first number is what you weigh, the second is what explains the fermentation.',
     ],
@@ -180,7 +180,7 @@ export const breadEn: typeof breadPtBR = {
 
   divergence: {
     title: 'Where the sources disagree',
-    lead: 'The three sources behind this calculator do not agree on everything — which is normal. Wherever a choice had to be made, it is spelled out here.',
+    lead: 'The three sources behind this calculator do not agree on everything, which is normal. Wherever a choice had to be made, it is spelled out here.',
     columns: {
       topic: 'Topic',
       sources: 'What each source says',
@@ -192,7 +192,7 @@ export const breadEn: typeof breadPtBR = {
         sources:
           'Kayser works at 70% in the boule; Camargo uses 60% for pão francês; the course notes record about 50%.',
         decision:
-          'A 60–70% range, with 65% as the reference. The 50% figure describes machine-kneaded bakery dough with a tight crumb — a legitimate lower bound, not a default. Kayser works with levain and a steamed oven, which supports the 70%.',
+          'A 60–70% range, with 65% as the reference. The 50% figure describes machine-kneaded bakery dough with a tight crumb: a legitimate lower bound, not a default. Kayser works with levain and a steamed oven, which supports the 70%.',
       },
       {
         topic: 'Fresh to dry yeast',
@@ -205,7 +205,7 @@ export const breadEn: typeof breadPtBR = {
         sources:
           'Kayser’s home recipe prints 52%, but the conversion table in the same book (p. 301) gives 68%. Camargo uses 65%, with a 59–70% range.',
         decision:
-          'The preset sits at 62%. The 52% is out of step with everything, including the rest of that same book — we treat it as an editing slip.',
+          'The preset sits at 62%. The 52% is out of step with everything, including the rest of that same book, so we treat it as an editing slip.',
       },
       {
         topic: 'How much yeast',

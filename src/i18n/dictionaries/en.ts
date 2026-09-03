@@ -3,9 +3,9 @@ import type { Dictionary } from './pt-BR';
 export const en: Dictionary = {
   site: {
     name: 'Culinary Calculators',
-    homeTitle: 'Culinary Calculators — bread, pickles and fresh pasta in grams',
+    homeTitle: 'Culinary Calculators: bread, pickles and fresh pasta in grams',
     description:
-      'Kitchen calculators in grams — bread, pickles and fresh pasta — with ratios taken from reference cookbooks and cited by author and page.',
+      'Kitchen calculators in grams for bread, pickles and fresh pasta, with ratios taken from reference cookbooks and cited by author and page.',
   },
 
   nav: {
@@ -13,14 +13,30 @@ export const en: Dictionary = {
   },
 
   preferences: {
+    open: 'Settings',
+    title: 'Settings',
+    lead: 'All of it is kept in this browser, with no account and no tracking cookie.',
+    close: 'Close',
+    done: 'Done',
+
+    language: 'Language',
     units: 'Units',
-    metric: 'Grams',
-    imperial: 'Ounces',
-    metricTitle: 'Metric — grams and kilos',
-    imperialTitle: 'Imperial — ounces and pounds, always by weight',
+    metric: 'Grams and kilos',
+    imperial: 'Ounces and pounds',
+    unitsNote:
+      'Imperial here is by weight. Cups and spoons stay out in either system: what makes a recipe repeatable is the scale.',
     temperature: 'Temperature',
     celsius: 'Celsius',
     fahrenheit: 'Fahrenheit',
+    temperatureNote:
+      'This applies to the calculated numbers. The explanatory text stays in Celsius, which is how the sources write it.',
+
+    display: 'Display',
+    simplified: 'Simplified interface',
+    simplifiedOn: 'Calculator only',
+    simplifiedOff: 'With the explanations',
+    simplifiedNote:
+      'Hides the method, divergence, glossary and sources sections, leaving the page with just the tool.',
   },
 
   a11y: {
@@ -32,7 +48,7 @@ export const en: Dictionary = {
   home: {
     eyebrow: 'Kitchen ratios with a cited source',
     title: 'The ratios that make a recipe work',
-    lead: 'Bread, pickles and fresh pasta worked out in grams, scaled to what you actually need. Every number comes from a book — with author and page.',
+    lead: 'Bread, pickles and fresh pasta worked out in grams, scaled to what you actually need. Every number comes from a book, with author and page.',
 
     principles: {
       grams: {
@@ -41,7 +57,7 @@ export const en: Dictionary = {
       },
       sources: {
         title: 'Every number has a source',
-        body: 'Ratios come from reference cookbooks and are cited by author and page — so you can check them and read further.',
+        body: 'Ratios come from reference cookbooks and are cited by author and page, so you can check them and read further.',
       },
       divergence: {
         title: 'When sources disagree, we say so',
@@ -96,7 +112,7 @@ export const en: Dictionary = {
 
   notFound: {
     title: 'Page not found',
-    body: 'The address you opened does not exist — that calculator may still be on its way.',
+    body: 'The address you opened does not exist. That calculator may still be on its way.',
     back: 'Back to the home page',
   },
 };

@@ -1,13 +1,13 @@
 export const picklesPtBR = {
   meta: {
-    title: 'Calculadora de picles e fermentação — salmoura e sal',
+    title: 'Calculadora de picles e fermentação: salmoura e sal',
     description:
-      'Quanto sal usar em salmoura, chucrute e picles de vinagre. Faixas seguras de cada preparo, os dois métodos de cálculo que os livros usam e a acidez mínima do quick pickle — tudo citado com livro e página.',
+      'Quanto sal usar em salmoura, chucrute e picles de vinagre. Faixas seguras de cada preparo, os dois métodos de cálculo que os livros usam e a acidez mínima do quick pickle, tudo citado com livro e página.',
   },
 
   eyebrow: 'Calculadora de picles',
   title: 'Quanto sal o seu pote pede',
-  lead: 'Diga o que vai fermentar e a calculadora devolve o sal em gramas, dentro da faixa que as fontes sustentam. Ela mostra sempre as duas leituras da mesma salmoura — sobre o pote e sobre a água — porque é aí que os livros discordam e onde mais se erra.',
+  lead: 'Diga o que vai fermentar e a calculadora devolve o sal em gramas, dentro da faixa que as fontes sustentam. Ela mostra sempre as duas leituras da mesma salmoura, sobre o pote e sobre a água, porque é aí que os livros discordam e onde mais se erra.',
 
   modes: {
     label: 'O que você vai fazer',
@@ -16,7 +16,7 @@ export const picklesPtBR = {
     vinegar: 'Picles de vinagre',
     brineHint: 'Vegetais inteiros submersos em água salgada, fermentando.',
     drySaltHint:
-      'Vegetal picado e salgado, que solta a própria salmoura — chucrute, kimchi.',
+      'Vegetal picado e salgado, que solta a própria salmoura: chucrute, kimchi.',
     vinegarHint:
       'Conserva de geladeira por acidez adicionada. Não fermenta.',
   },
@@ -44,10 +44,27 @@ export const picklesPtBR = {
     'flores-vinagre': 'Flores em vinagre',
   },
 
+  ingredients: {
+    add: 'Acrescentar ingrediente',
+    remove: 'Remover',
+    name: 'Ingrediente',
+    amount: 'Peso',
+    role: 'Papel',
+    solid: 'Sólido',
+    liquid: 'Líquido',
+    namePlaceholder: 'Cenoura, alho, louro...',
+    roleHint:
+      'Sólidos são os vegetais e os aromáticos: alho, especiarias, folhas. Tudo isso ocupa o pote e entra na conta do peso total. Líquido é a água que você acrescenta.',
+    totalSolids: 'Sólidos',
+    totalLiquids: 'Líquidos',
+    empty: 'Acrescente o que vai para o pote e a calculadora soma sozinha.',
+  },
+
   input: {
     label: 'Tamanho do lote',
     byWeights: 'Pesando os dois',
     byJar: 'Pelo volume do pote',
+    byIngredients: 'Lista de ingredientes',
     vegetable: 'Vegetais (g)',
     water: 'Água (g)',
     jar: 'Volume do pote (ml)',
@@ -70,7 +87,7 @@ export const picklesPtBR = {
     totalHint: 'Método do Noma e do Fermentação à Brasileira.',
     waterHint: 'Método do Katz.',
     explain:
-      'A mesma quantidade de sal tem dois nomes. Sobre o pote inteiro é a salinidade que o produto vai ter no equilíbrio; sobre a água é a concentração da salmoura no primeiro dia. Trocar o método aqui não muda a receita — muda só como ela é descrita.',
+      'A mesma quantidade de sal tem dois nomes. Sobre o pote inteiro é a salinidade que o produto vai ter no equilíbrio; sobre a água é a concentração da salmoura no primeiro dia. Trocar o método aqui não muda a receita, muda só como ela é descrita.',
   },
 
   result: {
@@ -119,7 +136,7 @@ export const picklesPtBR = {
     lead: 'Fermentar é seguro quando algumas condições são respeitadas. Estas não são detalhes de acabamento.',
     ph: {
       title: 'O alvo é pH abaixo de 4,6',
-      body: 'É o limite em que as bactérias perigosas param de se multiplicar. Uma fermentação que anda chega lá sozinha nos primeiros dias, ficando ácida e cheirando a picles — não a podre.',
+      body: 'É o limite em que as bactérias perigosas param de se multiplicar. Uma fermentação que anda chega lá sozinha nos primeiros dias, ficando ácida e cheirando a picles, não a podre.',
     },
     submerged: {
       title: 'Tudo submerso, sempre',
@@ -127,15 +144,15 @@ export const picklesPtBR = {
     },
     mold: {
       title: 'Kahm não é mofo',
-      body: 'Uma película branca, fina e lisa na superfície é levedura Kahm: inofensiva, é só retirar. Manchas peludas, coloridas ou aveludadas são mofo — aí o lote vai fora.',
+      body: 'Uma película branca, fina e lisa na superfície é levedura Kahm: inofensiva, é só retirar. Manchas peludas, coloridas ou aveludadas são mofo, e aí o lote vai fora.',
     },
     botulism: {
       title: 'Onde o risco de botulismo mora de verdade',
-      body: 'Não é na fermentação, que é ácida por natureza. O risco está em conserva não fermentada e não acidificada em ambiente sem oxigênio — palmito mal processado, alho cru em azeite. Se o preparo não fermenta e não leva ácido, ele não é seguro em temperatura ambiente.',
+      body: 'Não é na fermentação, que é ácida por natureza. O risco está em conserva não fermentada e não acidificada em ambiente sem oxigênio: palmito mal processado, alho cru em azeite. Se o preparo não fermenta e não leva ácido, ele não é seguro em temperatura ambiente.',
     },
     shelf: {
       title: 'Geladeira, não prateleira',
-      body: 'Esta calculadora dimensiona conserva de geladeira. Conserva de prateleira exige processamento térmico com tempo e temperatura próprios de cada alimento, que não cabem numa calculadora de proporções — consulte a orientação oficial.',
+      body: 'Esta calculadora dimensiona conserva de geladeira. Conserva de prateleira exige processamento térmico com tempo e temperatura próprios de cada alimento, que não cabem numa calculadora de proporções. Consulte a orientação oficial.',
     },
   },
 
@@ -146,7 +163,7 @@ export const picklesPtBR = {
     fastBody:
       'Fermentação em poucos dias, ácido mais direto. É como o Noma trabalha, com controle de temperatura.',
     slowBody:
-      'Fermentação de semanas, sabor mais complexo e mais margem de erro. É o que Katz e o Fermentação à Brasileira recomendam para casa — e o que faz sentido no calor brasileiro, buscando o ponto mais fresco da casa.',
+      'Fermentação de semanas, sabor mais complexo e mais margem de erro. É o que Katz e o Fermentação à Brasileira recomendam para casa, e o que faz sentido no calor brasileiro, buscando o ponto mais fresco da casa.',
   },
 
   vinegarStatus: {
@@ -172,9 +189,9 @@ export const picklesPtBR = {
   method: {
     title: 'Como o cálculo funciona',
     body: [
-      'Fermentar vegetal é uma disputa: as bactérias láticas precisam dominar antes que outra coisa domine. O sal é o que inclina o jogo, porque elas toleram salinidade que a concorrência não tolera. Por isso a porcentagem de sal não é tempero — é a variável de controle.',
+      'Fermentar vegetal é uma disputa: as bactérias láticas precisam dominar antes que outra coisa domine. O sal é o que inclina o jogo, porque elas toleram salinidade que a concorrência não tolera. Por isso a porcentagem de sal não é tempero: é a variável de controle.',
       'A parte confusa é a base de cálculo. Um mesmo pote com 40 g de sal, 1 kg de couve-flor e 1 litro de água pode ser descrito como 2% ou como 4%, e as duas descrições estão certas: a primeira é sobre o conteúdo todo, a segunda só sobre a água. A calculadora sempre mostra as duas, porque é exatamente aí que uma receita de um livro vira o dobro ou a metade do sal quando lida com a régua do outro.',
-      'Na salga direta não há água adicionada: o sal puxa o líquido do próprio vegetal, então a porcentagem aplicada já é a salinidade final. E no picles de vinagre nada disso vale — ele não fermenta. O que conserva ali é a acidez que você adiciona, e a conta passa a ser quanto do líquido precisa ser vinagre.',
+      'Na salga direta não há água adicionada: o sal puxa o líquido do próprio vegetal, então a porcentagem aplicada já é a salinidade final. E no picles de vinagre nada disso vale, porque ele não fermenta. O que conserva ali é a acidez que você adiciona, e a conta passa a ser quanto do líquido precisa ser vinagre.',
     ],
   },
 
@@ -199,7 +216,7 @@ export const picklesPtBR = {
         sources:
           'Noma fermenta a 28 °C e conta os dias. Katz e o Fermentação à Brasileira preferem entre 10 e 21 °C e contam as semanas.',
         decision:
-          'Os dois regimes estão disponíveis, com o tempo de cada um. Não é discordância técnica: é objetivo diferente, velocidade contra complexidade — e no clima brasileiro o regime lento pede o ponto mais fresco da casa.',
+          'Os dois regimes estão disponíveis, com o tempo de cada um. Não é discordância técnica: é objetivo diferente, velocidade contra complexidade. No clima brasileiro, o regime lento pede o ponto mais fresco da casa.',
       },
       {
         topic: 'Acidez mínima do picles de vinagre',
@@ -213,7 +230,7 @@ export const picklesPtBR = {
         sources:
           'Katz e Noma tratam a levedura Kahm como inofensiva, é só retirar. O Fermentação à Brasileira é mais conservador com qualquer crescimento na superfície.',
         decision:
-          'Explicamos como distinguir Kahm de mofo, com a orientação de descartar quando houver dúvida — num alimento, o erro barato é jogar fora.',
+          'Explicamos como distinguir Kahm de mofo, com a orientação de descartar quando houver dúvida. Num alimento, o erro barato é jogar fora.',
       },
     ],
   },
@@ -239,7 +256,7 @@ export const picklesPtBR = {
       {
         term: 'Anaerobiose',
         definition:
-          'Ausência de oxigênio. As bactérias láticas trabalham sem ele, e os mofos precisam dele — por isso manter tudo submerso é o que decide quem ganha.',
+          'Ausência de oxigênio. As bactérias láticas trabalham sem ele, e os mofos precisam dele, por isso manter tudo submerso é o que decide quem ganha.',
       },
       {
         term: 'Levedura Kahm',

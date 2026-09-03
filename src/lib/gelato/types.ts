@@ -8,7 +8,7 @@
 /**
  * Categorias usadas apenas para agrupar o seletor de ingredientes.
  *
- * Os valores são os slugs da planilha de origem — são dados, não texto de
+ * Os valores são os slugs da planilha de origem: são dados, não texto de
  * interface. O rótulo exibido vem do dicionário de idioma.
  */
 export type IngredientCategory =

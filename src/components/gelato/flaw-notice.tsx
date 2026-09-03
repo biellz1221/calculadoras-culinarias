@@ -8,7 +8,7 @@ import type { CompositionFlaw } from '@/lib/gelato/composition';
  *
  * O dado NÃO é corrigido: a procedência é a planilha, e alterar número de fonte
  * em silêncio é exatamente o que este site promete não fazer. O que a interface
- * pode fazer é dizer onde o resultado ficou menos confiável — e por quê.
+ * pode fazer é dizer onde o resultado ficou menos confiável, e por quê.
  */
 export function FlawNotice({
   flaws,

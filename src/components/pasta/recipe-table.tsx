@@ -14,7 +14,7 @@ interface RecipeTableProps {
 /**
  * A receita calculada, em gramas.
  *
- * Ovo aparece nas duas moedas ao mesmo tempo — "3 un · 150,0 g" — porque é a
+ * Ovo aparece nas duas moedas ao mesmo tempo ("3 un · 150,0 g") porque é a
  * unidade que se compra e o peso que manda na proporção. Sem coluna editável:
  * aqui quem escala a receita é o número de pessoas, não a porcentagem.
  */

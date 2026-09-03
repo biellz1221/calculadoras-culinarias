@@ -7,7 +7,7 @@ import type { Citation } from '../citations';
  * publicam as massas em gramas fechados (300 g de farinha + 3 ovos → 400 g,
  * serve 4) e o que escala a receita é o **ovo**, que só existe em unidades
  * inteiras. Por isso o preset guarda a receita como publicada e o motor ancora
- * tudo na massa de ovo — é o que permite mexer no peso real do ovo sem
+ * tudo na massa de ovo, que é o que permite mexer no peso real do ovo sem
  * desmontar a proporção da fonte.
  *
  * Conferência item a item em docs/research/massas.md.
@@ -49,7 +49,7 @@ export function isPastaEgg(key: PastaIngredientKey): key is PastaEggKey {
 /**
  * Líquidos que dão cor à massa. Onde eles entram, a fonte já mexeu na farinha
  * (250 g na de espinafre, 320 g na de tinta) e a razão farinha:ovo deixa de
- * ser comparável — quem manda na hidratação ali é o purê, não o ovo.
+ * ser comparável: quem manda na hidratação ali é o purê, não o ovo.
  */
 export const PASTA_COLOUR_KEYS: readonly PastaIngredientKey[] = [
   'spinach',
@@ -65,7 +65,7 @@ export function isColourLiquid(key: PastaIngredientKey): boolean {
 /**
  * Pesos de referência do ovo, sem casca. Zielonka trabalha com ovo médio (UK),
  * que é o que sustenta os 150 g de ovo dos 3 ovos da massa clássica; a gema de
- * 18 g sai das 4 gemas ≈ 72 g da massa rica. São as âncoras da conversão — o
+ * 18 g sai das 4 gemas ≈ 72 g da massa rica. São as âncoras da conversão, e o
  * usuário pode trocá-las pelo peso real do ovo dele.
  */
 export const REFERENCE_EGG_GRAMS = 50;
@@ -108,7 +108,7 @@ export interface PastaPreset {
   lines: readonly PastaLine[];
   /**
    * Rendimento publicado (massa pronta). Quando a fonte não publica, o motor
-   * usa a soma dos ingredientes — nunca um número inventado.
+   * usa a soma dos ingredientes, nunca um número inventado.
    */
   yieldGrams?: number;
   /** Porções declaradas pela fonte para o rendimento acima. */
@@ -191,7 +191,7 @@ export interface PastaRecipe {
   targetYieldGrams: number;
   servingsAchieved: number;
   hydrationPercent: number;
-  /** Gramas de farinha por grama de ovo — a razão que as fontes disputam. */
+  /** Gramas de farinha por grama de ovo: a razão que as fontes disputam. */
   flourPerEggMass: number;
   /** A mesma razão contando a farinha incorporada na sova (Hazan). */
   flourMaxPerEggMass: number;

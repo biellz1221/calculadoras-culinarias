@@ -8,7 +8,7 @@ import type { PastaShape } from './types';
  * O `setting` é o da máquina do Zielonka, em que 0 é o cilindro mais aberto e
  * 8 o mais fechado; ele mesmo avisa que máquinas com numeração invertida pedem
  * o número contrário. **Nenhuma das duas fontes publica espessura em
- * milímetros** — por isso a coluna de espessura é descritiva. Inventar "0,8 mm"
+ * milímetros**, por isso a coluna de espessura é descritiva. Inventar "0,8 mm"
  * aqui seria dar ao leitor uma precisão que o livro não tem.
  *
  * `divergent` marca os dois formatos em que os autores não param no mesmo

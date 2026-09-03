@@ -3,10 +3,10 @@
  *
  * A planilha de origem não traz dados calóricos, então a estimativa padrão usa
  * Atwater (carboidrato e proteína 4 kcal/g, gordura 9). Para polióis, fibras e
- * álcool esse cálculo erra muito — eritritol daria 4 kcal/g em vez de 0,2 — e a
+ * álcool esse cálculo erra muito (eritritol daria 4 kcal/g em vez de 0,2) e a
  * planilha é cheia desses ingredientes. A receita-exemplo da própria planilha
  * usa eritritol, polidextrose e sucralose: com Atwater puro ela daria o dobro
- * das calorias reais — 134,1 contra 66,7 kcal/100 g (números conferidos com o
+ * das calorias reais, 134,1 contra 66,7 kcal/100 g (números conferidos com o
  * motor portado; o README da calculadora original arredonda o valor Atwater
  * para "~150").
  *

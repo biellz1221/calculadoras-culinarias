@@ -48,8 +48,8 @@ test('mostra a mesma salmoura nas duas bases de cálculo', async ({ page }) => {
       await page.getByLabel('Sal (%)').fill('2');
     },
     async () => {
-      await expect(metric(page, 'Sal — sobre o pote')).toHaveText('2%');
-      await expect(metric(page, 'Sal — sobre a água')).toHaveText('4%');
+      await expect(metric(page, 'Sal sobre o pote')).toHaveText('2%');
+      await expect(metric(page, 'Sal sobre a água')).toHaveText('4%');
     },
   );
 });

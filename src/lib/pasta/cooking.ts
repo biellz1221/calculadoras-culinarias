@@ -14,8 +14,8 @@ import type { PastaFamily } from '@/data/pasta/types';
  * O que fazer com a massa depois de pronta: quanta água, quanto tempo e, na
  * massa recheada, quantas peças por pessoa (docs/research/massas.md, §4.2 e 4.3).
  *
- * As duas fontes quase coincidem na água — 1 L por 100 g (Zielonka) contra 4
- * quarts por libra (~0,84 L/100 g) da Hazan — então vale a regra mais simples,
+ * As duas fontes quase coincidem na água: 1 L por 100 g (Zielonka) contra 4
+ * quarts por libra (~0,84 L/100 g) da Hazan. Vale então a regra mais simples,
  * com o piso de 3 quarts que ela impõe para não abaixar demais em panela
  * pequena.
  */

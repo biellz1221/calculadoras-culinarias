@@ -52,7 +52,7 @@ export function BalancePanel({
   return (
     <section aria-live="polite" className="mt-12">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="label-caps text-brand-deep">{dict.balance.title}</h2>
+        <h2 className="label-caps text-accent-deep">{dict.balance.title}</h2>
         <Verdict result={result} dict={dict} count={outOfRange.length} />
       </div>
 

@@ -26,7 +26,7 @@ export function ResultPanel({ preset, recipe, dict, locale }: ResultPanelProps) 
 
   return (
     <section aria-live="polite" className="mt-10">
-      <h2 className="label-caps text-brand-deep">{dict.result.title}</h2>
+      <h2 className="label-caps text-accent-deep">{dict.result.title}</h2>
 
       <RecipeTable recipe={recipe} dict={dict} locale={locale} />
 
@@ -77,8 +77,8 @@ export function ResultPanel({ preset, recipe, dict, locale }: ResultPanelProps) 
 
 /**
  * A frase do arredondamento: quantos ovos a escala pediria e para onde a
- * farinha andou por causa do ovo inteiro. É o coração do FR-030 — o número
- * sozinho esconderia a decisão.
+ * farinha andou por causa do ovo inteiro. É o coração do FR-030, porque o
+ * número sozinho esconderia a decisão.
  */
 function adjustmentText(
   recipe: PastaRecipe,

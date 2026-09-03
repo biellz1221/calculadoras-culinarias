@@ -15,7 +15,7 @@ function Section({
   return (
     <section className="mt-20 sm:mt-28">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:gap-10">
-        <h2 className="label-caps shrink-0 pt-1 text-brand-deep">{label}</h2>
+        <h2 className="label-caps shrink-0 pt-1 text-accent-deep">{label}</h2>
         <p className="max-w-xl text-base leading-relaxed text-ink-soft">{intro}</p>
       </div>
       {children}
@@ -35,7 +35,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     <div className="mx-auto w-full max-w-5xl px-5 pt-14 sm:px-8 sm:pt-20">
       <section>
         <p
-          className="animate-rise label-caps text-brand-deep"
+          className="animate-rise label-caps text-accent-deep"
           style={{ animationDelay: '0ms' }}
         >
           {dict.home.eyebrow}

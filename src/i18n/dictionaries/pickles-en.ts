@@ -2,14 +2,14 @@ import type { picklesPtBR } from './pickles-pt-BR';
 
 export const picklesEn: typeof picklesPtBR = {
   meta: {
-    title: 'Pickle & fermentation calculator — brine and salt',
+    title: 'Pickle & fermentation calculator: brine and salt',
     description:
-      'How much salt for brine, sauerkraut and vinegar pickles. Safe ranges for each preparation, the two ways the books measure salt, and the minimum acidity for a quick pickle — all cited with book and page.',
+      'How much salt for brine, sauerkraut and vinegar pickles. Safe ranges for each preparation, the two ways the books measure salt, and the minimum acidity for a quick pickle, all cited with book and page.',
   },
 
   eyebrow: 'Pickle calculator',
   title: 'How much salt your jar is asking for',
-  lead: 'Say what you are fermenting and the calculator gives you the salt in grams, inside the range the sources support. It always shows both readings of the same brine — over the jar and over the water — because that is where the books disagree and where most of the mistakes happen.',
+  lead: 'Say what you are fermenting and the calculator gives you the salt in grams, inside the range the sources support. It always shows both readings of the same brine, over the jar and over the water, because that is where the books disagree and where most of the mistakes happen.',
 
   modes: {
     label: 'What you are making',
@@ -18,7 +18,7 @@ export const picklesEn: typeof picklesPtBR = {
     vinegar: 'Vinegar pickle',
     brineHint: 'Whole vegetables submerged in salted water, fermenting.',
     drySaltHint:
-      'Chopped vegetable salted so it releases its own brine — sauerkraut, kimchi.',
+      'Chopped vegetable salted so it releases its own brine: sauerkraut, kimchi.',
     vinegarHint: 'A fridge pickle preserved by added acidity. It does not ferment.',
   },
 
@@ -45,10 +45,27 @@ export const picklesEn: typeof picklesPtBR = {
     'flores-vinagre': 'Flowers in vinegar',
   },
 
+  ingredients: {
+    add: 'Add ingredient',
+    remove: 'Remove',
+    name: 'Ingredient',
+    amount: 'Weight',
+    role: 'Role',
+    solid: 'Solid',
+    liquid: 'Liquid',
+    namePlaceholder: 'Carrot, garlic, bay leaf...',
+    roleHint:
+      'Solids are the vegetables and the aromatics: garlic, spices, leaves. All of it takes up room in the jar and counts towards the total weight. Liquid is the water you add.',
+    totalSolids: 'Solids',
+    totalLiquids: 'Liquids',
+    empty: 'Add what goes into the jar and the calculator adds it up.',
+  },
+
   input: {
     label: 'Batch size',
     byWeights: 'Weighing both',
     byJar: 'By jar volume',
+    byIngredients: 'Ingredient list',
     vegetable: 'Vegetables (g)',
     water: 'Water (g)',
     jar: 'Jar volume (ml)',
@@ -70,7 +87,7 @@ export const picklesEn: typeof picklesPtBR = {
     totalHint: 'The Noma and Brazilian Way Fermentation method.',
     waterHint: 'The Katz method.',
     explain:
-      'The same amount of salt has two names. Measured against the whole jar it is the salinity the product settles at; measured against the water it is the strength of the brine on day one. Switching here does not change the recipe — only how it is described.',
+      'The same amount of salt has two names. Measured against the whole jar it is the salinity the product settles at; measured against the water it is the strength of the brine on day one. Switching here does not change the recipe, only how it is described.',
   },
 
   result: {
@@ -81,9 +98,9 @@ export const picklesEn: typeof picklesPtBR = {
     vinegar: 'Vinegar',
     sugar: 'Sugar',
     total: 'Total in the jar',
-    ofTotal: 'of the jar',
-    ofWater: 'of the water',
-    ofVegetable: 'of the vegetable',
+    ofTotal: 'over the jar',
+    ofWater: 'over the water',
+    ofVegetable: 'over the vegetable',
     acidity: 'Acidity of the liquid',
     days: 'Time in the source',
     daysUnit: 'days',
@@ -119,7 +136,7 @@ export const picklesEn: typeof picklesPtBR = {
     lead: 'Fermenting is safe when a few conditions are respected. These are not finishing touches.',
     ph: {
       title: 'The target is pH below 4.6',
-      body: 'That is the line where dangerous bacteria stop multiplying. A ferment that is working gets there on its own in the first few days, turning sour and smelling of pickles — not of rot.',
+      body: 'That is the line where dangerous bacteria stop multiplying. A ferment that is working gets there on its own in the first few days, turning sour and smelling of pickles, not of rot.',
     },
     submerged: {
       title: 'Everything submerged, always',
@@ -127,15 +144,15 @@ export const picklesEn: typeof picklesPtBR = {
     },
     mold: {
       title: 'Kahm is not mould',
-      body: 'A thin, smooth white film on the surface is Kahm yeast: harmless, just lift it off. Fuzzy, coloured or velvety patches are mould — that batch goes in the bin.',
+      body: 'A thin, smooth white film on the surface is Kahm yeast: harmless, just lift it off. Fuzzy, coloured or velvety patches are mould, and that batch goes in the bin.',
     },
     botulism: {
       title: 'Where the botulism risk actually lives',
-      body: 'Not in fermentation, which is acidic by nature. The risk is in preserves that neither ferment nor get acidified, sealed away from oxygen — badly processed palm hearts, raw garlic in oil. If a preparation neither ferments nor takes acid, it is not safe at room temperature.',
+      body: 'Not in fermentation, which is acidic by nature. The risk is in preserves that neither ferment nor get acidified, sealed away from oxygen: badly processed palm hearts, raw garlic in oil. If a preparation neither ferments nor takes acid, it is not safe at room temperature.',
     },
     shelf: {
       title: 'Fridge, not pantry',
-      body: 'This calculator sizes fridge preserves. Shelf-stable canning requires heat processing with times and temperatures specific to each food, which do not fit in a ratio calculator — follow official guidance for that.',
+      body: 'This calculator sizes fridge preserves. Shelf-stable canning requires heat processing with times and temperatures specific to each food, which do not fit in a ratio calculator. Follow official guidance for that.',
     },
   },
 
@@ -146,7 +163,7 @@ export const picklesEn: typeof picklesPtBR = {
     fastBody:
       'Ready in days, with a straighter acidity. It is how Noma works, with temperature control.',
     slowBody:
-      'Weeks rather than days, more complex flavour and more room for error. It is what Katz and Brazilian Way Fermentation recommend at home — and in a warm climate it means hunting for the coolest spot in the house.',
+      'Weeks rather than days, more complex flavour and more room for error. It is what Katz and Brazilian Way Fermentation recommend at home, and in a warm climate it means hunting for the coolest spot in the house.',
   },
 
   vinegarStatus: {
@@ -172,9 +189,9 @@ export const picklesEn: typeof picklesPtBR = {
   method: {
     title: 'How the calculation works',
     body: [
-      'Fermenting a vegetable is a contest: lactic bacteria have to take over before anything else does. Salt is what tilts it, because they tolerate a salinity their competition does not. That is why the salt percentage is not seasoning — it is the control variable.',
+      'Fermenting a vegetable is a contest: lactic bacteria have to take over before anything else does. Salt is what tilts it, because they tolerate a salinity their competition does not. That is why the salt percentage is not seasoning: it is the control variable.',
       'The confusing part is what the percentage is measured against. One jar holding 40 g of salt, 1 kg of cauliflower and a litre of water can be described as 2% or as 4%, and both are correct: the first counts the whole contents, the second only the water. The calculator always shows both, because this is exactly where a recipe from one book becomes double or half the salt when read with the other book’s ruler.',
-      'In dry salting no water is added: the salt draws liquid out of the vegetable, so the percentage you apply is already the final salinity. And in a vinegar pickle none of this applies — it does not ferment. What preserves it is the acid you add, and the question becomes how much of the liquid has to be vinegar.',
+      'In dry salting no water is added: the salt draws liquid out of the vegetable, so the percentage you apply is already the final salinity. And in a vinegar pickle none of this applies, because it does not ferment. What preserves it is the acid you add, and the question becomes how much of the liquid has to be vinegar.',
     ],
   },
 
@@ -199,7 +216,7 @@ export const picklesEn: typeof picklesPtBR = {
         sources:
           'Noma ferments at 28 °C and counts days. Katz and Brazilian Way Fermentation prefer 10 to 21 °C and count weeks.',
         decision:
-          'Both regimes are offered, each with its own timing. This is not a technical disagreement but a different goal — speed against complexity — and in a warm climate the slow route means finding the coolest spot in the house.',
+          'Both regimes are offered, each with its own timing. This is not a technical disagreement but a different goal: speed against complexity. In a warm climate the slow route means finding the coolest spot in the house.',
       },
       {
         topic: 'Minimum acidity for a vinegar pickle',
@@ -213,7 +230,7 @@ export const picklesEn: typeof picklesPtBR = {
         sources:
           'Katz and Noma treat Kahm yeast as harmless, to be lifted off. Brazilian Way Fermentation is more cautious about any surface growth.',
         decision:
-          'We explain how to tell Kahm from mould, and advise discarding whenever there is doubt — with food, the cheap mistake is throwing it away.',
+          'We explain how to tell Kahm from mould, and advise discarding whenever there is doubt. With food, the cheap mistake is throwing it away.',
       },
     ],
   },
@@ -239,7 +256,7 @@ export const picklesEn: typeof picklesPtBR = {
       {
         term: 'Anaerobic',
         definition:
-          'Without oxygen. Lactic bacteria work without it and moulds need it — which is why keeping everything submerged decides who wins.',
+          'Without oxygen. Lactic bacteria work without it and moulds need it, which is why keeping everything submerged decides who wins.',
       },
       {
         term: 'Kahm yeast',
@@ -259,7 +276,7 @@ export const picklesEn: typeof picklesPtBR = {
       {
         term: 'Quick pickle',
         definition:
-          'A fridge preserve made with acidic liquid, without fermentation. Ready in hours and good for weeks in the fridge — not on the shelf.',
+          'A fridge preserve made with acidic liquid, without fermentation. Ready in hours and good for weeks in the fridge, not on the shelf.',
       },
     ],
   },

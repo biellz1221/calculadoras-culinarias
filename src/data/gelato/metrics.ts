@@ -3,7 +3,7 @@
 // Os textos aqui são referência em pt-BR, herdada da calculadora original: a
 // interface bilíngue deve buscar rótulo e ajuda no dicionário de idioma usando a
 // MetricKey (ou o slug de categoria) como chave. O que é estrutural e não muda
-// com o idioma é a ORDEM — METRIC_KEYS em lib/gelato/calc.ts e CATEGORY_ORDER
+// com o idioma é a ORDEM: METRIC_KEYS em lib/gelato/calc.ts e CATEGORY_ORDER
 // aqui embaixo.
 
 import type { IngredientCategory, MetricKey } from '@/lib/gelato/types';

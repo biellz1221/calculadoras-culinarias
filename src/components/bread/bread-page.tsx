@@ -16,7 +16,7 @@ import type { Locale } from '@/i18n/locales';
 import { RISE_TIME_CITATION, YEAST_CITATIONS } from '@/lib/bread/yeast';
 
 /**
- * Reúne todas as citações que a página usa — presets, faixas e conversões — para
+ * Reúne todas as citações que a página usa (presets, faixas e conversões) para
  * a seção "Fontes" listar exatamente o que sustenta a tela, sem sobrar nem
  * faltar obra.
  */
@@ -33,25 +33,25 @@ export function BreadPage({ locale }: { locale: Locale }) {
   const dict = getBreadDictionary(locale);
 
   return (
-    <CalculatorLayout eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
+    <CalculatorLayout locale={locale} eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
       <BreadCalculator dict={dict} locale={locale} />
 
       <CalculatorSection label={dict.yeastTool.title} lead={dict.yeastTool.lead}>
         <YeastConverter dict={dict} locale={locale} />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.method.title}>
+      <CalculatorSection label={dict.method.title} educational>
         <Prose paragraphs={dict.method.body} />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.divergence.title} lead={dict.divergence.lead}>
+      <CalculatorSection label={dict.divergence.title} educational lead={dict.divergence.lead}>
         <DivergenceTable
           columns={dict.divergence.columns}
           items={dict.divergence.items}
         />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.glossary.title}>
+      <CalculatorSection label={dict.glossary.title} educational>
         <GlossaryList terms={dict.glossary.terms} />
       </CalculatorSection>
 

@@ -1,13 +1,13 @@
 export const breadPtBR = {
   meta: {
-    title: 'Calculadora de pão — porcentagem de padeiro',
+    title: 'Calculadora de pão: porcentagem de padeiro',
     description:
       'Calcule pão em gramas a partir da farinha que você tem: presets de 16 pães, porcentagem de padeiro editável, faixas seguras e conversão entre fermentos. Cada número citado com livro e página.',
   },
 
   eyebrow: 'Calculadora de pães',
   title: 'Pão na quantidade que você tem em casa',
-  lead: 'Escolha o pão, diga quanta farinha vai usar e a receita sai em gramas. Ajuste as porcentagens à vontade: a calculadora avisa quando um valor sai da faixa das fontes — e explica o que acontece se você insistir.',
+  lead: 'Escolha o pão, diga quanta farinha vai usar e a receita sai em gramas. Ajuste as porcentagens à vontade: a calculadora avisa quando um valor sai da faixa das fontes e explica o que acontece se você insistir.',
 
   presetLabel: 'Tipo de pão',
 
@@ -128,14 +128,14 @@ export const breadPtBR = {
     yieldValue: 'unidades de',
     notes: {
       steam: 'Vapor no forno ao enfornar: cerca de 50 g de água numa assadeira preaquecida.',
-      autolyse: 'Autólise de 1 hora antes de sovar — a massa fica mais elástica com menos trabalho.',
+      autolyse: 'Autólise de 1 hora antes de sovar: a massa fica mais elástica com menos trabalho.',
       folds: 'Autólise de 20 minutos e duas sessões de dobras durante a primeira fermentação.',
       ryeWatch:
         'Centeio passa do ponto rápido: não deixe a segunda fermentação esticar.',
       poolishAhead:
         'A poolish é feita 4 horas antes, com parte do fermento, e vai inteira para a massa.',
       napoletana:
-        'A segunda fermentação é longa de propósito — são 0,04% de fermento trabalhando de 5 a 8 horas.',
+        'A segunda fermentação é longa de propósito: são 0,04% de fermento trabalhando de 5 a 8 horas.',
       pizzaHydration:
         'A receita impressa no livro traz 52% de hidratação, valor que destoa da tabela do próprio Kayser (p. 301, 68%). Usamos 62%, dentro da faixa que o Camargo indica.',
       brioche:
@@ -175,7 +175,7 @@ export const breadPtBR = {
   method: {
     title: 'Como o cálculo funciona',
     body: [
-      'Toda a calculadora trabalha em porcentagem de padeiro: a farinha é 100% e cada ingrediente é uma porcentagem do peso dela. É por isso que a mesma receita serve para 300 g ou 3 kg de farinha — as proporções não mudam, só a escala.',
+      'Toda a calculadora trabalha em porcentagem de padeiro: a farinha é 100% e cada ingrediente é uma porcentagem do peso dela. É por isso que a mesma receita serve para 300 g ou 3 kg de farinha. As proporções não mudam, só a escala.',
       'Quando a receita leva um pré-fermento, a conta ganha um detalhe. Um levain líquido é metade farinha e metade água, então 20% de levain acrescentam 10 pontos de farinha e 10 de água ao total. Ignorar isso subestima a hidratação: a boule do Kayser tem 70% de água declarada, mas a massa trabalha a 73%. A calculadora mostra os dois números.',
       'O mesmo vale para o sal. Os 2% da ciabatta são sobre a farinha da massa; contando a farinha que veio dentro da poolish, o sal real é 1,7%. O primeiro número serve para você pesar, o segundo para entender a fermentação.',
     ],
@@ -183,7 +183,7 @@ export const breadPtBR = {
 
   divergence: {
     title: 'Quando as fontes discordam',
-    lead: 'As três fontes desta calculadora não concordam em tudo — e isso é normal. Onde houve escolha, ela está explicada aqui.',
+    lead: 'As três fontes desta calculadora não concordam em tudo, e isso é normal. Onde houve escolha, ela está explicada aqui.',
     columns: {
       topic: 'Assunto',
       sources: 'O que cada fonte diz',
@@ -195,7 +195,7 @@ export const breadPtBR = {
         sources:
           'Kayser trabalha a 70% na boule; Camargo usa 60% no pão francês; a anotação de curso registra ~50%.',
         decision:
-          'Faixa de 60 a 70%, com 65% como referência. Os 50% descrevem massa de padaria sovada em cilindro, de miolo fechado — é limite inferior legítimo, não padrão. Kayser trabalha com levain e forno com vapor, o que sustenta os 70%.',
+          'Faixa de 60 a 70%, com 65% como referência. Os 50% descrevem massa de padaria sovada em cilindro, de miolo fechado. É limite inferior legítimo, não padrão. Kayser trabalha com levain e forno com vapor, o que sustenta os 70%.',
       },
       {
         topic: 'Fresco para seco',
@@ -209,7 +209,7 @@ export const breadPtBR = {
         sources:
           'A receita caseira do Kayser imprime 52%, mas a tabela de conversão do próprio livro (p. 301) traz 68%. Camargo usa 65%, com faixa de 59 a 70%.',
         decision:
-          'Preset em 62%. Os 52% destoam de tudo, inclusive do próprio livro — tratamos como erro de edição.',
+          'Preset em 62%. Os 52% destoam de tudo, inclusive do próprio livro. Tratamos como erro de edição.',
       },
       {
         topic: 'Quantidade de fermento',

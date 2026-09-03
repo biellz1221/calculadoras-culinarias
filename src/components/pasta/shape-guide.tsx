@@ -16,8 +16,8 @@ interface GuideProps {
 /**
  * Guia de formatos (FR-032): onde parar de abrir e para que serve cada corte.
  *
- * A coluna de abertura traz o setting da máquina e a descrição em palavras —
- * nenhum dos dois livros publica milímetros, e inventar um número aqui seria
+ * A coluna de abertura traz o setting da máquina e a descrição em palavras.
+ * Nenhum dos dois livros publica milímetros, e inventar um número aqui seria
  * dar precisão que a fonte não tem. Onde os autores param em pontos
  * diferentes, a linha diz isso por escrito, não só por cor.
  */
@@ -61,7 +61,7 @@ export function ShapeGuide({ dict, locale }: GuideProps) {
                 <td className="w-2/5 py-4 pr-6 align-top leading-relaxed text-ink-muted">
                   <span
                     data-numeric
-                    className="label-caps block text-brand-deep tabular-nums"
+                    className="label-caps block text-accent-deep tabular-nums"
                   >
                     {settingText(shape, dict, fmt)}
                   </span>

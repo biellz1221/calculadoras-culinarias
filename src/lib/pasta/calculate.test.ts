@@ -48,7 +48,7 @@ function gramsOf(recipe: PastaRecipe, key: PastaIngredientKey): number {
 
 describe('massa clássica do Zielonka como caso-verdade', () => {
   // "The Doughs", Classic Egg Dough: 300 g de farinha 00 + 3 ovos → 400 g,
-  // serve 4 — ou seja, 100 g de massa por pessoa.
+  // serve 4, ou seja, 100 g de massa por pessoa.
   const recipe = calculatePasta(presetOf('classica'), {
     servings: 4,
     gramsPerServing: 100,
@@ -71,7 +71,7 @@ describe('massa clássica do Zielonka como caso-verdade', () => {
 
   it('confirma os 100 g de farinha por ovo', () => {
     expect(recipe.flourPerEgg).toBeCloseTo(100, 6);
-    // 2 g de farinha por grama de ovo; o Ratio pede 1,5 — a divergência que a
+    // 2 g de farinha por grama de ovo; o Ratio pede 1,5, a divergência que a
     // página explica.
     expect(recipe.flourPerEggMass).toBeCloseTo(2, 6);
   });
@@ -191,7 +191,7 @@ describe('massa amarela da Hazan', () => {
 
   it('separa a farinha pesada da farinha incorporada na sova', () => {
     expect(recipe.flourMaxGrams).toBeCloseTo(240, 6);
-    // 1,4 na lista, 2,4 depois do teste do polegar — os dois extremos da faixa.
+    // 1,4 na lista, 2,4 depois do teste do polegar: os dois extremos da faixa.
     expect(recipe.flourPerEggMass).toBeCloseTo(1.4, 6);
     expect(recipe.flourMaxPerEggMass).toBeCloseTo(2.4, 6);
   });
@@ -271,7 +271,7 @@ describe('massas sem ovo e coloridas', () => {
 
   it('pesa o purê de espinafre inteiro, com o ovo dentro dele', () => {
     // Z, Spinach Egg Dough: 150 g de espinafre cru + 1 ovo dão 100–110 g de
-    // purê — o ovo não pode ser contado de novo por fora.
+    // purê, e o ovo não pode ser contado de novo por fora.
     const preset = presetOf('espinafre-ovo');
     const recipe = calculatePasta(preset, targetFor(preset, 1));
 

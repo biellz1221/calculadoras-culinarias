@@ -4,7 +4,7 @@ import type { ClimateKey, PickleRangeKey } from './types';
 /**
  * Faixas, pisos e constantes da calculadora de picles.
  *
- * `min`/`max` é a faixa usual das fontes — fora dela a calculadora sinaliza,
+ * `min`/`max` é a faixa usual das fontes: fora dela a calculadora sinaliza,
  * porque conserva boa às vezes mora na borda. `hardMin`/`hardMax` marcam o ponto
  * em que as fontes deixam de dar respaldo.
  *
@@ -30,7 +30,7 @@ export interface RangeRule {
  *
  * 1,5% é o menor valor que qualquer uma das fontes endossa: Katz registra
  * 1,5–2% como padrão comercial da salga seca. Abaixo disso a calculadora emite
- * aviso de segurança, e não apenas sinalização de faixa — o NCHFP é explícito em
+ * aviso de segurança, e não apenas sinalização de faixa. O NCHFP é explícito em
  * não reduzir o sal de chucrute e picles fermentados.
  *
  * A verificação roda sempre sobre a salinidade **efetiva no peso total**, mesmo
@@ -50,7 +50,7 @@ export const LAB_SALT_CEILING = 8;
  * diluído 1:1 em água (Noma). O NCHFP recomenda vinagre de 5% e é categórico em
  * não alterar a proporção vinagre:água:alimento das receitas testadas, porque
  * precisa haver um nível mínimo e uniforme de ácido em todo o produto. Katz
- * registra 2% como o ponto em que outros micro-organismos passam a dominar — os
+ * registra 2% como o ponto em que outros micro-organismos passam a dominar, e os
  * 2,5% ficam acima desse colapso, com margem.
  */
 export const MIN_BRINE_ACIDITY = 2.5;
@@ -63,7 +63,7 @@ export const TARGET_PH = 4.6;
 
 /**
  * Conversão do volume do pote em peso. Água é ~1 g/ml e vegetais picados ficam
- * perto disso — é estimativa declarada, não número de fonte, e a interface diz
+ * perto disso. É estimativa declarada, não número de fonte, e a interface diz
  * isso na tela. Quem quiser precisão pesa.
  */
 export const JAR_GRAMS_PER_MILLILITER = 1;

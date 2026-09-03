@@ -15,8 +15,8 @@ import {
  *
  * Contrato: a receita da fonte é publicada em gramas fechados e escala inteira
  * pelo **peso de ovo**. Como ovo só existe em unidade inteira, o motor primeiro
- * decide quantos ovos e gemas usar e só então deriva a escala real da receita —
- * é o contrário do pão, onde a farinha manda.
+ * decide quantos ovos e gemas usar e só então deriva a escala real da receita.
+ * É o contrário do pão, onde a farinha manda.
  *
  * Tudo aqui é número puro, sem arredondar: arredondamento é apresentação e
  * acontece só na formatação (NFR-007).
@@ -46,7 +46,7 @@ export function presetEggUnits(preset: PastaPreset): {
   };
 }
 
-/** Peso de ovo da receita publicada — a âncora de toda a escala. */
+/** Peso de ovo da receita publicada: a âncora de toda a escala. */
 export function presetEggMass(preset: PastaPreset): number {
   const { eggs, yolks } = presetEggUnits(preset);
   return eggs * REFERENCE_EGG_GRAMS + yolks * REFERENCE_YOLK_GRAMS;
@@ -55,7 +55,7 @@ export function presetEggMass(preset: PastaPreset): number {
 /**
  * A razão farinha:ovo só descreve a massa quando o ovo é o líquido. Nas massas
  * coloridas o purê entra no lugar de parte do ovo e a própria fonte já mexeu na
- * farinha — comparar com a faixa ali diria bobagem.
+ * farinha. Comparar com a faixa ali diria bobagem.
  */
 export function usesEggRatio(preset: PastaPreset): boolean {
   return (
@@ -72,7 +72,7 @@ export function presetFlourGrams(preset: PastaPreset): number {
 
 /**
  * Rendimento da receita publicada. Quando a fonte declara (400 g, ¾ lb), é o
- * declarado; quando não declara, é a soma das parcelas — incluindo a farinha
+ * declarado; quando não declara, é a soma das parcelas, incluindo a farinha
  * que ainda vai ser incorporada na sova.
  */
 export function presetYieldGrams(preset: PastaPreset): number {
@@ -101,7 +101,7 @@ function candidatesFor(ideal: number, required: boolean): number[] {
 /**
  * A combinação inteira de ovos e gemas mais próxima do que a escala pediria.
  *
- * Empate — 4,5 ovos, entre 4 e 5 — vai para a combinação maior: sobrar massa
+ * Empate (4,5 ovos, entre 4 e 5) vai para a combinação maior: sobrar massa
  * é menos ruim do que faltar, e a massa que sobra congela.
  */
 export function planEggs(

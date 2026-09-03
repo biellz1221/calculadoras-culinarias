@@ -3,6 +3,8 @@
 import { useId } from 'react';
 
 import { cn } from '@/lib/cn';
+import { usePreferences } from '@/lib/preferences';
+import { GRAMS_PER_OUNCE, gramsToOunces } from '@/lib/units';
 
 interface NumberFieldProps {
   label: string;
@@ -55,7 +57,7 @@ export function NumberField({
           aria-describedby={hint ? hintId : undefined}
           onChange={(event) => onChange(clamp(Number(event.target.value), min, max))}
           className={cn(
-            'rounded-sm border border-rule bg-surface px-3 py-2 tabular-nums text-ink focus:border-brand focus:outline-none',
+            'rounded-sm border border-rule bg-surface px-3 py-2 tabular-nums text-ink focus:border-accent focus:outline-none',
             width,
           )}
         />
@@ -78,6 +80,54 @@ function clamp(value: number, min: number, max?: number): number {
   if (!Number.isFinite(value)) return min;
   const lower = Math.max(min, value);
   return max === undefined ? lower : Math.min(max, lower);
+}
+
+interface MassFieldProps {
+  label: string;
+  /** O valor real, sempre em gramas: é o que a calculadora usa. */
+  grams: number;
+  onChange: (grams: number) => void;
+  /** Passo no sistema métrico; no imperial usamos um passo próprio de onça. */
+  step?: number;
+  hint?: string;
+  width?: string;
+}
+
+/**
+ * Campo de massa que fala a unidade do visitante.
+ *
+ * O estado continua em gramas. Este componente só traduz na entrada e na saída,
+ * porque um campo que exibe onças e exige que a pessoa digite gramas é pior do
+ * que não ter a opção de onças.
+ */
+export function MassField({
+  label,
+  grams,
+  onChange,
+  step = 10,
+  hint,
+  width,
+}: MassFieldProps) {
+  const { units } = usePreferences();
+  const imperial = units === 'imperial';
+
+  const display = imperial
+    ? Math.round(gramsToOunces(grams) * 100) / 100
+    : Math.round(grams * 10) / 10;
+
+  return (
+    <NumberField
+      label={label}
+      value={display}
+      onChange={(value) =>
+        onChange(imperial ? value * GRAMS_PER_OUNCE : value)
+      }
+      suffix={imperial ? 'oz' : 'g'}
+      step={imperial ? 0.25 : step}
+      hint={hint}
+      width={width}
+    />
+  );
 }
 
 interface SegmentedProps<T extends string> {
@@ -113,9 +163,9 @@ export function Segmented<T extends string>({
               className={cn(
                 'rounded-full border px-3.5 py-1.5 text-sm transition-colors',
                 selected && emphasis && 'border-ink bg-ink text-paper',
-                selected && !emphasis && 'border-brand-deep bg-brand-tint text-brand-deep',
+                selected && !emphasis && 'border-accent-deep bg-accent-tint text-accent-deep',
                 !selected &&
-                  'border-rule bg-surface text-ink-soft hover:border-brand hover:text-brand-deep',
+                  'border-rule bg-surface text-ink-soft hover:border-accent hover:text-accent-deep',
               )}
             >
               {option.label}

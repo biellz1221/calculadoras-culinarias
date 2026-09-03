@@ -16,7 +16,7 @@ interface RecipeTableProps {
  * A receita calculada, com a coluna de porcentagem editável.
  *
  * Editar a porcentagem aqui é o "modo livre" (FR-011): não existe uma tela
- * separada para isso — a mesma tabela que mostra a receita é a que se ajusta.
+ * separada para isso: a mesma tabela que mostra a receita é a que se ajusta.
  */
 export function RecipeTable({
   recipe,
@@ -91,7 +91,7 @@ export function RecipeTable({
                         onChange={(event) =>
                           onPercentChange(line.key, Number(event.target.value))
                         }
-                        className="w-20 rounded-sm border border-rule bg-paper px-2 py-1 text-right tabular-nums text-ink focus:border-brand focus:outline-none"
+                        className="w-20 rounded-sm border border-rule bg-paper px-2 py-1 text-right tabular-nums text-ink focus:border-accent focus:outline-none"
                       />
                       <span aria-hidden="true" className="text-ink-muted">
                         %

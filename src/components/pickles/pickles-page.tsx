@@ -27,13 +27,13 @@ export function PicklesPage({ locale }: { locale: Locale }) {
   const dict = getPicklesDictionary(locale);
 
   return (
-    <CalculatorLayout eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
+    <CalculatorLayout locale={locale} eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
       <PicklesCalculator dict={dict} locale={locale} />
 
       {/* Segurança vem logo depois do resultado, não no fim da página. */}
       <SafetyPanel dict={dict} />
 
-      <CalculatorSection label={dict.climate.title}>
+      <CalculatorSection label={dict.climate.title} educational>
         <div className="mt-8 grid gap-8 border-t border-rule pt-6 sm:grid-cols-2">
           <div>
             <h3 className="font-display text-base font-semibold text-ink">
@@ -54,18 +54,18 @@ export function PicklesPage({ locale }: { locale: Locale }) {
         </div>
       </CalculatorSection>
 
-      <CalculatorSection label={dict.method.title}>
+      <CalculatorSection label={dict.method.title} educational>
         <Prose paragraphs={dict.method.body} />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.divergence.title} lead={dict.divergence.lead}>
+      <CalculatorSection label={dict.divergence.title} educational lead={dict.divergence.lead}>
         <DivergenceTable
           columns={dict.divergence.columns}
           items={dict.divergence.items}
         />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.glossary.title}>
+      <CalculatorSection label={dict.glossary.title} educational>
         <GlossaryList terms={dict.glossary.terms} />
       </CalculatorSection>
 

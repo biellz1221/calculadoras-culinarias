@@ -1,11 +1,11 @@
 /**
- * Estado da receita de gelato. Puro e sempre em gramas — a interface só despacha
+ * Estado da receita de gelato. Puro e sempre em gramas: a interface só despacha
  * ações e formata o que sai daqui.
  *
  * O `id` da linha é o próprio `ingredientId`: acrescentar um ingrediente que já
  * está na receita soma na linha existente em vez de duplicar, então o par é
  * único por construção. Isso mantém o estado determinístico, o que importa num
- * site estático — id sorteado no servidor e outro no cliente quebraria a
+ * site estático, porque id sorteado no servidor e outro no cliente quebraria a
  * hidratação.
  */
 
@@ -38,7 +38,7 @@ export const MAX_LITERS = 20;
 export const MIN_DENSITY = 0.8;
 export const MAX_DENSITY = 1.4;
 
-/** Quantidade inicial de uma linha nova — quem monta a receita ajusta depois. */
+/** Quantidade inicial de uma linha nova. Quem monta a receita ajusta depois. */
 export const DEFAULT_ADD_GRAMS = 100;
 
 export function targetGrams(state: GelatoState): number {

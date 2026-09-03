@@ -52,7 +52,7 @@ describe('calculadora de pães', () => {
       target: { value: '95' },
     });
 
-    // 95% passa do limite duro de 90% — o aviso muda de tom.
+    // 95% passa do limite duro de 90%, então o aviso muda de tom.
     expect(screen.getByText(dict.balance.hardLimit)).toBeInTheDocument();
   });
 
@@ -73,7 +73,7 @@ describe('calculadora de pães', () => {
       target: { value: '842' },
     });
 
-    // O pão francês soma 168,4% — 842 g de massa vêm de 500 g de farinha.
+    // O pão francês soma 168,4%: 842 g de massa vêm de 500 g de farinha.
     expect(within(rowFor('Farinha de trigo branca')).getByText('500,0 g')).toBeInTheDocument();
   });
 

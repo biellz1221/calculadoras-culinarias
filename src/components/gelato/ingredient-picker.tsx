@@ -55,7 +55,7 @@ export function IngredientPicker({ options, dict, onSelect }: IngredientPickerPr
           onChange={(event) => changeQuery(event.target.value)}
           onFocus={() => setOpen(true)}
           onKeyDown={onKeyDown}
-          className="w-full rounded-sm border border-rule bg-surface px-3 py-2 text-ink focus:border-brand focus:outline-none"
+          className="w-full rounded-sm border border-rule bg-surface px-3 py-2 text-ink focus:border-accent focus:outline-none"
         />
 
         {open && (

@@ -2,11 +2,11 @@
  * Busca do seletor de ingredientes.
  *
  * São 164 ingredientes: sem busca, a lista é inutilizável. E como os rótulos
- * são traduzidos, quem busca digita no idioma da tela — por isso o que entra
+ * são traduzidos, quem busca digita no idioma da tela, por isso o que entra
  * aqui é o rótulo exibido, não o `name` em pt-BR da planilha.
  */
 
-/** Minúsculas, sem acento e sem espaço nas pontas — "açúcar" acha por "acucar". */
+/** Minúsculas, sem acento e sem espaço nas pontas: "açúcar" acha por "acucar". */
 export function normalize(value: string): string {
   return value
     .normalize('NFD')

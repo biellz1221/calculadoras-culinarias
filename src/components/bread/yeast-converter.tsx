@@ -53,9 +53,9 @@ export function YeastConverter({ dict, locale }: YeastConverterProps) {
 
         <p
           aria-live="polite"
-          className="mt-6 rounded-card bg-brand-tint px-4 py-3 text-ink"
+          className="mt-6 rounded-card bg-accent-tint px-4 py-3 text-ink"
         >
-          <span className="label-caps text-brand-deep">{dict.yeastTool.result}</span>
+          <span className="label-caps text-accent-deep">{dict.yeastTool.result}</span>
           <span
             data-numeric
             className="mt-1 block font-display text-2xl font-semibold tabular-nums"
@@ -147,7 +147,7 @@ function GramsField({
           value={value}
           onChange={(event) => onChange(Math.max(0, Number(event.target.value)))}
           className={cn(
-            'rounded-sm border border-rule bg-surface px-3 py-2 tabular-nums text-ink focus:border-brand focus:outline-none',
+            'rounded-sm border border-rule bg-surface px-3 py-2 tabular-nums text-ink focus:border-accent focus:outline-none',
             width,
           )}
         />
@@ -201,7 +201,7 @@ function YeastSelect({
       <select
         value={value}
         onChange={(event) => onChange(event.target.value as YeastKey)}
-        className="rounded-sm border border-rule bg-surface px-3 py-2 text-ink focus:border-brand focus:outline-none"
+        className="rounded-sm border border-rule bg-surface px-3 py-2 text-ink focus:border-accent focus:outline-none"
       >
         {YEAST_KEYS.map((key) => (
           <option key={key} value={key}>

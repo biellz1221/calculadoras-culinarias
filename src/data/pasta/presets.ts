@@ -15,8 +15,8 @@ import {
  * - Ovos e gemas entram como peso (3 ovos = 150 g), usando os pesos de
  *   referência do modelo. O motor devolve o número de unidades.
  * - Quando a fonte publica uma **faixa** para um líquido (o purê de espinafre
- *   rende 100–110 g), a receita usa o piso da faixa. É um número publicado —
- *   uma média entre os extremos seria número nosso, e número nosso não vai
+ *   rende 100–110 g), a receita usa o piso da faixa. É um número publicado.
+ *   Uma média entre os extremos seria número nosso, e número nosso não vai
  *   para a tela.
  * - `grams` é sempre o que vai à balança na hora de misturar; o que se compra
  *   antes do preparo (espinafre cru, beterraba inteira) vai em `prepGrams`.
@@ -131,7 +131,7 @@ export const PASTA_PRESETS: readonly PastaPreset[] = [
     family: 'egg',
     // O purê É o líquido e vai pesado: 150 g de espinafre cru branqueados e
     // espremidos, batidos COM 1 ovo, dão 100–110 g. O ovo já está dentro
-    // desses 100 g — listá-lo por fora contaria o mesmo ovo duas vezes.
+    // desses 100 g, e listá-lo por fora contaria o mesmo ovo duas vezes.
     lines: [
       g('flour-00', 250),
       eggs(1),
@@ -230,7 +230,7 @@ export const COOK_MINUTES: Record<PastaFamily, CookingRule> = {
 
 /**
  * Água de cozimento: 1 L por 100 g de massa (Zielonka), com o piso de 3 quarts
- * da Hazan — que trabalha com 4 quarts por libra, ~0,84 L/100 g.
+ * da Hazan, que trabalha com 4 quarts por libra, ~0,84 L/100 g.
  */
 export const WATER_LITRES_PER_100G = 1;
 export const MIN_WATER_LITRES = 3;

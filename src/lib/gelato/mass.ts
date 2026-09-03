@@ -1,7 +1,7 @@
 /**
  * Apresentação de massa e volume da calculadora de gelato.
  *
- * O estado é SEMPRE em gramas — nada aqui participa do cálculo. O que estas
+ * O estado é SEMPRE em gramas e nada aqui participa do cálculo. O que estas
  * funções decidem é só como o número aparece e como o que foi digitado volta
  * para gramas: num lote de 6 L, cada linha da receita viraria um número de
  * quatro dígitos, e ler "1.980,0 g" é pior que ler "1,980 kg".
@@ -43,7 +43,7 @@ export function formatMass(grams: number, unit: MassUnit, locale: Locale): strin
   return `${formatMassPlain(grams, unit, locale)} ${unit}`;
 }
 
-/** Volume do lote — "1,5 L" em pt-BR, "1.5 L" em inglês. */
+/** Volume do lote: "1,5 L" em pt-BR, "1.5 L" em inglês. */
 export function formatLiters(liters: number, locale: Locale): string {
   return `${formatNumber(liters, locale, {
     minimumFractionDigits: Number.isInteger(liters) ? 0 : 2,

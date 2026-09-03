@@ -6,7 +6,7 @@ import type { PickleMode, PicklePreset } from './types';
  * Presets transcritos das receitas das fontes, item a item, conforme
  * docs/research/picles-fermentacao.md §5.
  *
- * Cada preset guarda a **base de cálculo da própria fonte** — é o que permite
+ * Cada preset guarda a **base de cálculo da própria fonte**. É o que permite
  * mostrar lado a lado que os 5% de Katz sobre a água e os 2% do BWF sobre o
  * total chegam quase ao mesmo produto. Converter tudo para uma base só
  * apagaria justamente a divergência que a página existe para explicar.

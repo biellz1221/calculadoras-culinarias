@@ -6,16 +6,16 @@ import type { Citation } from '../citations';
  * São três contas diferentes debaixo do mesmo teto, e a diferença entre elas é
  * a **base de cálculo** do sal:
  *
- * - `brine` — vegetais submersos em salmoura. O sal é calculado sobre o peso
+ * - `brine`: vegetais submersos em salmoura. O sal é calculado sobre o peso
  *   total do pote (vegetais + água), método Noma/BWF, ou sobre a água apenas,
  *   método Katz. Ver docs/research/picles-fermentacao.md §3.1.
- * - `dry-salt` — salga direta do vegetal picado (chucrute, kimchi). O sal é
+ * - `dry-salt`: salga direta do vegetal picado (chucrute, kimchi). O sal é
  *   sobre o peso do vegetal e a salmoura sai do próprio vegetal.
- * - `vinegar` — picles de vinagre, que não fermenta: conserva por acidez
+ * - `vinegar`: picles de vinagre, que não fermenta, conservado por acidez
  *   adicionada.
  *
  * Convenção de porcentagem em toda a calculadora: o sal é % **da base**, não do
- * conjunto base + sal — a "porcentagem do padeiro" do Noma ("Primer", "Salt and
+ * conjunto base + sal. A "porcentagem do padeiro" do Noma ("Primer", "Salt and
  * Baker's Percentages") e o *salting* do BWF (p. 198) coincidem nisso.
  */
 
@@ -40,9 +40,27 @@ export type ClimateKey = 'fast' | 'slow';
  * Como a pessoa informa o tamanho do lote na salmoura: pesando vegetais e água
  * separadamente, ou partindo do volume do pote com uma proporção estimada.
  */
+/**
+ * O que uma linha da lista livre é dentro do pote.
+ *
+ * Só existem dois papéis porque só isso muda a conta: o que é sólido entra no
+ * peso dos vegetais e o que é líquido entra no da água. Alho, especiarias e
+ * folhas são sólidos, e continuam contando no total, que é o que o método do
+ * peso total pede.
+ */
+export type IngredientRole = 'solid' | 'liquid';
+
+export interface IngredientLine {
+  id: string;
+  name: string;
+  grams: number;
+  role: IngredientRole;
+}
+
 export type BrineInput =
   | { kind: 'weights'; vegetableGrams: number; waterGrams: number }
-  | { kind: 'jar'; jarMilliliters: number; vegetableShare: number };
+  | { kind: 'jar'; jarMilliliters: number; vegetableShare: number }
+  | { kind: 'ingredients'; lines: readonly IngredientLine[] };
 
 export interface BrineParams {
   input: BrineInput;
@@ -56,9 +74,9 @@ export interface BrineResult {
   /** Vegetais + água. O sal não entra aqui (porcentagem do padeiro). */
   totalGrams: number;
   saltGrams: number;
-  /** Salinidade efetiva sobre o peso total — a que o produto tende no equilíbrio. */
+  /** Salinidade efetiva sobre o peso total: a que o produto tende no equilíbrio. */
   percentOfTotal: number;
-  /** Salinidade efetiva sobre a água — a concentração inicial da salmoura. */
+  /** Salinidade efetiva sobre a água: a concentração inicial da salmoura. */
   percentOfWater: number;
   basis: SaltBasis;
 }
@@ -82,8 +100,8 @@ export interface VinegarParams {
 }
 
 /**
- * `below-minimum` — a diluição escolhida derruba a acidez abaixo do piso.
- * `unusable-vinegar` — nem o vinagre puro alcança o piso; não há proporção que
+ * `below-minimum`: a diluição escolhida derruba a acidez abaixo do piso.
+ * `unusable-vinegar`: nem o vinagre puro alcança o piso; não há proporção que
  * resolva.
  */
 export type VinegarStatus = 'ok' | 'below-minimum' | 'unusable-vinegar';

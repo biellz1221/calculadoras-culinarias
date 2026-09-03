@@ -17,7 +17,7 @@ interface Group {
   readonly slots: readonly Slot[];
 }
 
-/** Agrupa mantendo o índice na lista plana — é ele que a navegação por teclado usa. */
+/** Agrupa mantendo o índice na lista plana: é ele que a navegação por teclado usa. */
 function groupSlots(options: readonly IngredientOption[]): readonly Group[] {
   const groups: Group[] = [];
 
@@ -90,7 +90,7 @@ export function PickerList({
                 onClick={() => onChoose(option)}
                 className={cn(
                   'cursor-pointer px-3.5 py-2 text-sm',
-                  index === highlight ? 'bg-brand-tint text-brand-deep' : 'text-ink',
+                  index === highlight ? 'bg-accent-tint text-accent-deep' : 'text-ink',
                 )}
               >
                 {option.label}

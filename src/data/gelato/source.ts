@@ -3,7 +3,7 @@
  *
  * Diferente das demais calculadoras do site, os números daqui **não vêm de um
  * livro da estante**: vêm da planilha de um curso de gelato. Por isso não têm
- * `BookId` nem localizador de página/capítulo — a citação precisa dizer que a
+ * `BookId` nem localizador de página/capítulo: a citação precisa dizer que a
  * fonte é uma planilha de curso, e não uma obra publicada.
  *
  * O que a planilha fornece:
