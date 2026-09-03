@@ -85,6 +85,23 @@ se faz push direto na `main` — o caminho é PR com a CI verde.
 A CI (`.github/workflows/ci.yml`) roda em pull request e faz só verificação
 (lint, tipos, testes, build e e2e). Deploy nunca sai da Action.
 
+## Armadilhas que já custaram tempo
+
+- **`sr-only` dentro de container com `overflow-x-auto`**: `sr-only` é
+  `position: absolute`, então o elemento se ancora no ancestral posicionado mais
+  próximo — que fica fora do container de rolagem — e alarga a página inteira no
+  mobile. Para rótulo de campo dentro de tabela rolável, use `aria-label` no
+  próprio input.
+- **Sufixo de unidade dentro do `<label>`**: vira parte do nome acessível
+  ("Peso da massa g") e quebra `getByLabel`. O sufixo fica fora do label, com
+  `aria-hidden`. É o que `NumberField` em [`src/components/field.tsx`](src/components/field.tsx) já faz.
+- **E2E por `127.0.0.1`**: o dev server do Next bloqueia recursos de `/_next`
+  vindos de outra origem. A página carrega, mas nunca hidrata, e todo teste de
+  interação falha parecendo bug de estado. O `baseURL` do Playwright usa
+  `localhost` de propósito.
+- **`fill()` com vírgula em campo numérico**: o valor de um `input[type=number]`
+  é sempre com ponto, mesmo o site exibindo vírgula. Nos testes, use `'0.8'`.
+
 ## Armadilhas conhecidas do ambiente
 
 - **`NODE_ENV=development` exportado no shell** quebra o `next build` com um erro
