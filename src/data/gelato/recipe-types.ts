@@ -87,3 +87,16 @@ export const RECIPE_TYPES: readonly RecipeType[] = [
 ];
 
 export const DEFAULT_RECIPE_TYPE_ID = 'gelato-leite';
+
+/**
+ * Tipo de base pelo id, com queda para o padrão. Existe para a interface não
+ * precisar lidar com `RecipeType | undefined` a cada render.
+ */
+export function getRecipeType(id: string): RecipeType {
+  const found = RECIPE_TYPES.find((type) => type.id === id);
+  if (found) return found;
+
+  const fallback = RECIPE_TYPES.find((type) => type.id === DEFAULT_RECIPE_TYPE_ID);
+  if (!fallback) throw new Error('RECIPE_TYPES está vazio');
+  return fallback;
+}

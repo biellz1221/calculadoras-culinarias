@@ -13,6 +13,10 @@ export const ptBR = {
       'Calculadoras de cozinha em gramas — pães, picles e massa fresca — com as proporções tiradas de livros de referência e citadas com autor e página.',
   },
 
+  nav: {
+    backToCalculators: 'Todas as calculadoras',
+  },
+
   a11y: {
     skipToContent: 'Pular para o conteúdo',
     languageNav: 'Escolha de idioma',

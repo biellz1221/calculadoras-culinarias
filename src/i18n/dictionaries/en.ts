@@ -8,6 +8,10 @@ export const en: Dictionary = {
       'Kitchen calculators in grams — bread, pickles and fresh pasta — with ratios taken from reference cookbooks and cited by author and page.',
   },
 
+  nav: {
+    backToCalculators: 'All calculators',
+  },
+
   a11y: {
     skipToContent: 'Skip to content',
     languageNav: 'Language selection',

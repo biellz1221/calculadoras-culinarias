@@ -44,6 +44,25 @@ export function SiteShell({ locale, routeKey, children }: SiteShellProps) {
       </header>
 
       <main id="conteudo" className="flex-1">
+        {/* Fora da home, o caminho de volta ao catálogo. Vive aqui e não em cada
+            calculadora porque é navegação do site, não conteúdo da página. */}
+        {routeKey !== 'home' && (
+          <div className="mx-auto w-full max-w-5xl px-5 pt-6 sm:px-8 sm:pt-8">
+            <Link
+              href={home}
+              className="group inline-flex items-center gap-2 text-sm text-ink-muted no-underline transition-colors hover:text-brand-deep"
+            >
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:-translate-x-0.5"
+              >
+                ←
+              </span>
+              {dict.nav.backToCalculators}
+            </Link>
+          </div>
+        )}
+
         {children}
       </main>
 

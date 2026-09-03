@@ -15,6 +15,9 @@
  * Fora de escopo: a aba "Conversor Custo K|G" (markup, taxa de cartão, rateio de
  * custo fixo) é precificação, não balanceamento, e não foi portada.
  */
+
+import { cite, type Citation } from '@/data/citations';
+
 export const GELATO_SOURCE = {
   kind: 'course-spreadsheet',
   title: 'Planilha gelato do Curso 4.0',
@@ -22,3 +25,15 @@ export const GELATO_SOURCE = {
   sheet: 'Tabela de ingredientes',
   note: 'Composição, POD, PAC, proteína e custo dos 164 ingredientes e as faixas dos 5 tipos de base.',
 } as const;
+
+/**
+ * Citações da calculadora, endereçadas por aba/bloco da planilha.
+ *
+ * A obra está cadastrada com `locator: 'chapter'` justamente porque planilha
+ * não tem página: o localizador honesto aqui é o nome da aba.
+ */
+export const GELATO_CITATIONS = {
+  ingredients: cite('gelato-course', 'Tabela de ingredientes'),
+  ranges: cite('gelato-course', 'Parâmetros de tolerância (bloco S4:AA22)'),
+  reference: cite('gelato-course', 'Gelato de Leite (receita de conferência)'),
+} as const satisfies Record<string, Citation>;

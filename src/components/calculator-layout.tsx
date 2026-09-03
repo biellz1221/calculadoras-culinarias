@@ -17,7 +17,8 @@ export function CalculatorLayout({
   children: ReactNode;
 }) {
   return (
-    <div className="mx-auto w-full max-w-5xl px-5 pt-12 sm:px-8 sm:pt-16">
+    // O respiro do topo vem do link de voltar, logo acima (ver SiteShell).
+    <div className="mx-auto w-full max-w-5xl px-5 pt-6 sm:px-8 sm:pt-8">
       <header>
         <p className="animate-rise label-caps text-brand-deep">{eyebrow}</p>
         <h1
