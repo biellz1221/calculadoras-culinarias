@@ -1,0 +1,181 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Design system — "livro de referência de cozinha"
+
+   A ideia visual: papel morno, tinta quente, filetes finos e uma serifa suave
+   para os títulos. As calculadoras funcionam como abas coloridas de um
+   fichário de receitas. Pastel sem ficar frio — os tons vêm da despensa
+   (mel, trigo, sálvia, terracota), não da paleta de interface genérica.
+
+   Contraste: todos os tons de tinta abaixo passam de 4,5:1 sobre `paper`
+   (NFR-002 / WCAG AA). Tons `*-tint` são só de fundo, nunca de texto.
+   ========================================================================== */
+
+@theme {
+  /* ---- Papel e tinta ---------------------------------------------------- */
+  --color-paper: #fbf6ee;
+  --color-paper-shade: #f4ebdd;
+  --color-surface: #fffdfa;
+  --color-rule: #e6dccb;
+  --color-rule-strong: #cdbfa8;
+
+  --color-ink: #2a2521; /* 13,4:1 sobre paper */
+  --color-ink-soft: #574d43; /*  7,3:1 */
+  --color-ink-muted: #6f6558; /*  4,8:1 — limite AA para texto normal */
+
+  /* ---- Marca: mel tostado ---------------------------------------------- */
+  --color-brand: #a9662a;
+  --color-brand-deep: #7d4a1c;
+  --color-brand-tint: #f6e7d2;
+
+  /* ---- Abas por calculadora -------------------------------------------- */
+  --color-wheat: #8a5a16;
+  --color-wheat-tint: #f7e8ce;
+  --color-sage: #4f6b3e;
+  --color-sage-tint: #e8eede;
+  --color-terracotta: #a44a33;
+  --color-terracotta-tint: #f8e3db;
+  --color-rose: #9c4763;
+  --color-rose-tint: #f8e2e8;
+
+  /* ---- Faixas e estados (usados a partir das calculadoras, M1) ---------- */
+  --color-ok: #3f6b4a;
+  --color-ok-tint: #e3efe4;
+  --color-warn: #92610f;
+  --color-warn-tint: #fbedd4;
+  --color-danger: #a03325;
+  --color-danger-tint: #f9e2de;
+
+  /* ---- Tipografia ------------------------------------------------------- */
+  /* Fraunces: serifa suave e um pouco excêntrica, voz de livro de receitas.
+     Atkinson Hyperlegible: desenhada para legibilidade, com 0/O e 1/l
+     inconfundíveis — num site em que ler 1 como l estraga a receita, isso
+     é requisito, não enfeite. */
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+
+  --text-display: clamp(2.6rem, 6.4vw, 4.9rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.022em;
+
+  --text-title: clamp(1.75rem, 3.2vw, 2.4rem);
+  --text-title--line-height: 1.12;
+  --text-title--letter-spacing: -0.015em;
+
+  --text-lead: clamp(1.075rem, 1.5vw, 1.3rem);
+  --text-lead--line-height: 1.55;
+
+  --text-label: 0.72rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.14em;
+
+  /* ---- Formas ----------------------------------------------------------- */
+  --radius-card: 0.35rem;
+  --shadow-lift: 0 1px 2px rgb(42 37 33 / 0.05), 0 10px 24px -14px rgb(42 37 33 / 0.22);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grão de papel: dá textura sem interferir na leitura. Fica atrás de tudo
+     e nunca captura clique. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  /* Números de receita nunca devem dançar de linha para linha. */
+  table,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-tint);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-deep);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* ---- Utilitários próprios ------------------------------------------------ */
+
+/** Rótulo de seção em caixa alta espaçada, no espírito do sumário de um livro. */
+@utility label-caps {
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/** Entrada escalonada dos blocos na carga da página. */
+@utility animate-rise {
+  animation: rise 0.65s cubic-bezier(0.22, 0.68, 0.32, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.85rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  body::before {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+  }
+}

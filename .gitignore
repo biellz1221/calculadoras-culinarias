@@ -46,3 +46,6 @@ references/
 # Mantido fora do repositório até decidirmos como portá-lo; contém a planilha
 # do curso, que também não deve ser publicada.
 calculadora gelato/
+
+# Sessões de agente com navegador
+.playwright-mcp/

@@ -305,9 +305,13 @@ Projeto pessoal sem metas rígidas de negócio. KPIs leves apenas para acompanha
 Next.js (App Router) com **build 100% estático** (TD-001): nenhuma API route, nenhum servidor. Todos os motores de cálculo são funções puras client-side em `lib/`, separadas por calculadora, com os dados (presets, faixas, fontes) em módulos TypeScript tipados — mesmo padrão validado na calculadora de gelato. Conteúdo educativo em MDX ou módulos de conteúdo por idioma, pré-renderizado.
 
 ### Stack
-- Next.js 15+ (App Router, output estático) + React + TypeScript strict
+- Next.js 16 (App Router, output estático) + React 19 + TypeScript strict
 - Tailwind CSS v4 (paleta pastel própria; tokens de design centralizados)
-- next-intl (roteamento pt raiz + `/en`, mensagens por idioma)
+- i18n próprio, sem biblioteca: um root layout por idioma (route groups) mais um
+  registro de rotas tipado. Decidido na implementação do M0 — as bibliotecas de
+  i18n do Next resolvem idioma por middleware, que não existe em build estático;
+  além disso os slugs são traduzidos por idioma, então o registro seria
+  necessário de qualquer forma. Detalhes no README.
 - Vitest (motores de cálculo) + Playwright (fluxos e2e principais + mobile)
 - pnpm; Vercel (free) com deploy automático no push/merge na main; GitHub Actions `ci.yml` em PR (testes, lint, typecheck, build)
 - PWA: manifest + service worker compatível com export estático
