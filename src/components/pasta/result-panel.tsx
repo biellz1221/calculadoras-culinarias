@@ -5,7 +5,7 @@ import { CitationRef } from '@/components/citation';
 import { COOKING_WATER_CITATIONS } from '@/data/pasta/presets';
 import type { PastaPreset, PastaRecipe } from '@/data/pasta/types';
 import type { PastaDictionary } from '@/i18n/dictionaries/pasta';
-import { formatGrams, formatNumber } from '@/i18n/format';
+import { useFormatters, type Formatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { cookRuleFor, cookingWaterLitres } from '@/lib/pasta/cooking';
 import { cn } from '@/lib/cn';
@@ -18,6 +18,8 @@ interface ResultPanelProps {
 }
 
 export function ResultPanel({ preset, recipe, dict, locale }: ResultPanelProps) {
+  const fmt = useFormatters(locale);
+
   const cook = cookRuleFor(preset.family);
   const water = cookingWaterLitres(recipe.yieldGrams);
   const [fastest, slowest] = cook.minutes;
@@ -35,33 +37,33 @@ export function ResultPanel({ preset, recipe, dict, locale }: ResultPanelProps) 
       <dl className="mt-6 rounded-card border border-rule bg-surface px-5 py-2">
         <SummaryRow
           label={dict.result.yieldLabel}
-          value={formatGrams(recipe.yieldGrams, locale, 0)}
+          value={fmt.mass(recipe.yieldGrams, 0)}
           strong
         />
         <SummaryRow
           label={dict.result.servings}
-          value={`${formatNumber(recipe.servingsAchieved, locale, {
+          value={`${fmt.number(recipe.servingsAchieved, {
             maximumFractionDigits: 1,
           })} ${dict.result.servingsUnit}`}
         />
         {recipe.pieceYield !== undefined && (
           <SummaryRow
             label={dict.result.pieces}
-            value={formatNumber(Math.round(recipe.pieceYield), locale)}
+            value={fmt.number(Math.round(recipe.pieceYield))}
           />
         )}
         <SummaryRow
           label={dict.result.water}
-          value={`${formatNumber(water, locale, { maximumFractionDigits: 1 })} ${dict.result.litres}`}
+          value={`${fmt.number(water, { maximumFractionDigits: 1 })} ${dict.result.litres}`}
         />
         <SummaryRow
           label={dict.result.cookTime}
-          value={`${formatNumber(fastest, locale)}–${formatNumber(slowest, locale)} ${dict.result.minutes}`}
+          value={`${fmt.number(fastest)}–${fmt.number(slowest)} ${dict.result.minutes}`}
         />
       </dl>
 
       <p className="mt-4 max-w-prose text-sm leading-relaxed text-ink-soft">
-        {adjustmentText(recipe, dict, locale)}
+        {adjustmentText(recipe, dict, fmt)}
       </p>
 
       <CitationRef
@@ -81,7 +83,7 @@ export function ResultPanel({ preset, recipe, dict, locale }: ResultPanelProps) 
 function adjustmentText(
   recipe: PastaRecipe,
   dict: PastaDictionary,
-  locale: Locale,
+  fmt: Formatters,
 ): string {
   const { adjustment } = dict.result;
   const difference = recipe.flourAdjustmentGrams;
@@ -90,14 +92,13 @@ function adjustmentText(
     return adjustment.exact;
   }
 
-  const ideal = formatNumber(recipe.plan.idealEggs, locale, {
+  const ideal = fmt.number(recipe.plan.idealEggs, {
     maximumFractionDigits: 1,
   });
   const verb = difference > 0 ? adjustment.more : adjustment.less;
 
-  return `${adjustment.ideal} ${ideal} ${adjustment.eggsWord}: ${verb} ${formatGrams(
+  return `${adjustment.ideal} ${ideal} ${adjustment.eggsWord}: ${verb} ${fmt.mass(
     Math.abs(difference),
-    locale,
     0,
   )}.`;
 }

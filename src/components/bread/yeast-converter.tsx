@@ -4,7 +4,7 @@ import { useId, useState } from 'react';
 
 import { YEAST_KEYS, type YeastKey } from '@/data/bread/types';
 import type { BreadDictionary } from '@/i18n/dictionaries/bread';
-import { formatGrams } from '@/i18n/format';
+import { useFormatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { convertYeast, driedLevainFor, levainSubstitution } from '@/lib/bread/yeast';
 import { cn } from '@/lib/cn';
@@ -15,6 +15,8 @@ interface YeastConverterProps {
 }
 
 export function YeastConverter({ dict, locale }: YeastConverterProps) {
+  const fmt = useFormatters(locale);
+
   const [amount, setAmount] = useState(15);
   const [from, setFrom] = useState<YeastKey>('yeast-fresh');
   const [to, setTo] = useState<YeastKey>('yeast-instant');
@@ -58,7 +60,7 @@ export function YeastConverter({ dict, locale }: YeastConverterProps) {
             data-numeric
             className="mt-1 block font-display text-2xl font-semibold tabular-nums"
           >
-            {formatGrams(converted, locale)}
+            {fmt.mass(converted)}
           </span>
           <span className="mt-1 block text-sm text-ink-muted">
             {dict.ingredients[to]}
@@ -93,20 +95,20 @@ export function YeastConverter({ dict, locale }: YeastConverterProps) {
         <dl aria-live="polite" className="mt-5">
           <LevainRow
             label={dict.yeastTool.levainUse}
-            value={formatGrams(levain.levainGrams, locale)}
+            value={fmt.mass(levain.levainGrams)}
             strong
           />
           <LevainRow
             label={dict.yeastTool.levainFlour}
-            value={`− ${formatGrams(levain.flourAdjustment, locale)}`}
+            value={`− ${fmt.mass(levain.flourAdjustment)}`}
           />
           <LevainRow
             label={dict.yeastTool.levainWater}
-            value={`− ${formatGrams(levain.waterAdjustment, locale)}`}
+            value={`− ${fmt.mass(levain.waterAdjustment)}`}
           />
           <LevainRow
             label={dict.yeastTool.dried}
-            value={formatGrams(driedLevainFor(levain.levainGrams), locale)}
+            value={fmt.mass(driedLevainFor(levain.levainGrams))}
           />
         </dl>
       </div>

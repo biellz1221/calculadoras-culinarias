@@ -2,7 +2,7 @@
 
 import type { PastaLine, PastaRecipe } from '@/data/pasta/types';
 import type { PastaDictionary } from '@/i18n/dictionaries/pasta';
-import { formatGrams, formatNumber } from '@/i18n/format';
+import { useFormatters, type Formatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 
 interface RecipeTableProps {
@@ -19,6 +19,8 @@ interface RecipeTableProps {
  * aqui quem escala a receita é o número de pessoas, não a porcentagem.
  */
 export function RecipeTable({ recipe, dict, locale }: RecipeTableProps) {
+  const fmt = useFormatters(locale);
+
   return (
     <div className="mt-4 rounded-card border border-rule bg-surface">
       <table className="w-full border-collapse text-left">
@@ -41,7 +43,7 @@ export function RecipeTable({ recipe, dict, locale }: RecipeTableProps) {
                 {dict.ingredients[line.key]}
                 {line.prepGrams !== undefined && (
                   <span className="mt-0.5 block text-xs text-ink-muted">
-                    {`${dict.table.prep} ${formatGrams(line.prepGrams, locale, 0)}`}
+                    {`${dict.table.prep} ${fmt.mass(line.prepGrams, 0)}`}
                   </span>
                 )}
               </th>
@@ -49,12 +51,11 @@ export function RecipeTable({ recipe, dict, locale }: RecipeTableProps) {
                 data-numeric
                 className="px-4 py-2.5 text-right font-bold tabular-nums text-ink"
               >
-                {amountFor(line, recipe, dict, locale)}
+                {amountFor(line, recipe, dict, fmt)}
                 {line.absorbGrams !== undefined && (
                   <span className="mt-0.5 block text-xs font-normal text-ink-muted">
-                    {`${dict.table.absorb} ${formatGrams(
+                    {`${dict.table.absorb} ${fmt.mass(
                       line.grams + line.absorbGrams,
-                      locale,
                     )}`}
                   </span>
                 )}
@@ -72,7 +73,7 @@ export function RecipeTable({ recipe, dict, locale }: RecipeTableProps) {
               data-numeric
               className="px-4 py-3 text-right font-bold tabular-nums text-ink"
             >
-              {formatGrams(recipe.flourGrams, locale)}
+              {fmt.mass(recipe.flourGrams)}
             </td>
           </tr>
         </tfoot>
@@ -86,13 +87,13 @@ function amountFor(
   line: PastaLine,
   recipe: PastaRecipe,
   dict: PastaDictionary,
-  locale: Locale,
+  fmt: Formatters,
 ): string {
-  const grams = formatGrams(line.grams, locale);
+  const grams = fmt.mass(line.grams);
 
   if (line.key !== 'egg' && line.key !== 'egg-yolk') return grams;
 
   const units = line.key === 'egg' ? recipe.plan.eggs : recipe.plan.yolks;
 
-  return `${formatNumber(units, locale)} ${dict.result.units} · ${grams}`;
+  return `${fmt.number(units)} ${dict.result.units} · ${grams}`;
 }

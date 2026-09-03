@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { HomePage } from '@/components/home-page';
+import { LocaleGate } from '@/components/locale-gate';
 import { SiteShell } from '@/components/site-shell';
 import { getDictionary } from '@/i18n';
 import { alternatesFor } from '@/i18n/routes';
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function EnglishHome() {
   return (
     <SiteShell locale={LOCALE} routeKey="home">
+      <LocaleGate locale={LOCALE} />
       <HomePage locale={LOCALE} />
     </SiteShell>
   );

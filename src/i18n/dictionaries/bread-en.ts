@@ -77,7 +77,8 @@ export const breadEn: typeof breadPtBR = {
     percent: "Baker's %",
     flourTotal: 'Total flour',
     doughTotal: 'Total dough',
-    editHint: 'Every percentage is editable — the recipe updates as you type.',
+    editHint:
+      'Percentages are editable and the recipe updates as you type. Flour is not: it is the 100% the rest is measured against, so change the batch by weight, above.',
   },
 
   balance: {

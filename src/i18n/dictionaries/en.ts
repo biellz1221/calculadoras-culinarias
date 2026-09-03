@@ -12,6 +12,17 @@ export const en: Dictionary = {
     backToCalculators: 'All calculators',
   },
 
+  preferences: {
+    units: 'Units',
+    metric: 'Grams',
+    imperial: 'Ounces',
+    metricTitle: 'Metric — grams and kilos',
+    imperialTitle: 'Imperial — ounces and pounds, always by weight',
+    temperature: 'Temperature',
+    celsius: 'Celsius',
+    fahrenheit: 'Fahrenheit',
+  },
+
   a11y: {
     skipToContent: 'Skip to content',
     languageNav: 'Language selection',

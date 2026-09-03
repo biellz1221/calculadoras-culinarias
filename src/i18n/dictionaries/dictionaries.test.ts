@@ -45,15 +45,22 @@ describe('dicionários', () => {
     }
   });
 
-  it('traduz de fato — os textos diferem entre os idiomas', () => {
+  it('traduz de fato: os textos diferem entre os idiomas', () => {
+    // Nomes próprios e unidades se escrevem igual nos dois idiomas. Qualquer
+    // outra chave idêntica é tradução esquecida, e o teste falha por isso.
+    const SAME_IN_BOTH = [
+      'calculators.gelato.name',
+      'preferences.celsius',
+      'preferences.fahrenheit',
+    ];
+
     const pt = new Map(collectStrings(getDictionary('pt-BR')));
     const en = new Map(collectStrings(getDictionary('en')));
 
-    // "Gelato" é o mesmo nos dois idiomas; o resto não deveria ser.
-    const identical = [...pt.entries()].filter(
-      ([key, value]) => en.get(key) === value,
-    );
+    const identical = [...pt.entries()]
+      .filter(([key, value]) => en.get(key) === value)
+      .map(([key]) => key);
 
-    expect(identical.map(([key]) => key)).toEqual(['calculators.gelato.name']);
+    expect(identical.sort()).toEqual([...SAME_IN_BOTH].sort());
   });
 });

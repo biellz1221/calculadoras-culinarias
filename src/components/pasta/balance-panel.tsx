@@ -10,7 +10,7 @@ import {
 } from '@/data/pasta/ranges';
 import type { PastaPreset, PastaRecipe } from '@/data/pasta/types';
 import type { PastaDictionary } from '@/i18n/dictionaries/pasta';
-import { formatGrams, formatNumber, formatPercent } from '@/i18n/format';
+import { useFormatters, type Formatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { usesEggRatio } from '@/lib/pasta/calculate';
 
@@ -37,6 +37,8 @@ export function BalancePanel({
   dict,
   locale,
 }: BalancePanelProps) {
+  const fmt = useFormatters(locale);
+
   const eggRatio = usesEggRatio(preset);
   const isWater = preset.family === 'vegan';
   const hasAbsorb = recipe.flourMaxGrams - recipe.flourGrams > 0.5;
@@ -49,9 +51,9 @@ export function BalancePanel({
         <Metric
           label={dict.balance.servingSize}
           value={gramsPerServing}
-          display={formatGrams(gramsPerServing, locale, 0)}
+          display={fmt.mass(gramsPerServing, 0)}
           rule={PASTA_RANGES['serving-grams']}
-          rangeText={`${dict.balance.recommended}: ${formatGrams(85, locale, 0)} – ${formatGrams(115, locale, 0)}`}
+          rangeText={`${dict.balance.recommended}: ${fmt.mass(85, 0)} – ${fmt.mass(115, 0)}`}
           note={dict.notes.servingGrams}
           dict={dict}
         />
@@ -60,14 +62,14 @@ export function BalancePanel({
           <Metric
             label={dict.balance.flourPerEggMass}
             value={recipe.flourPerEggMass}
-            display={ratioText(recipe.flourPerEggMass, locale)}
+            display={ratioText(recipe.flourPerEggMass, fmt)}
             rule={PASTA_RANGES['flour-per-egg-mass']}
-            rangeText={`${dict.balance.recommended}: ${ratioText(1.5, locale)} – ${ratioText(2, locale)}`}
+            rangeText={`${dict.balance.recommended}: ${ratioText(1.5, fmt)} – ${ratioText(2, fmt)}`}
             note={dict.notes.flourPerEggMass}
             dict={dict}
             extra={
               hasAbsorb
-                ? `${dict.balance.withAbsorb}: ${ratioText(recipe.flourMaxPerEggMass, locale)}`
+                ? `${dict.balance.withAbsorb}: ${ratioText(recipe.flourMaxPerEggMass, fmt)}`
                 : undefined
             }
           />
@@ -77,9 +79,9 @@ export function BalancePanel({
           <Metric
             label={dict.balance.hydration}
             value={recipe.hydrationPercent}
-            display={formatPercent(recipe.hydrationPercent, locale)}
+            display={fmt.percent(recipe.hydrationPercent)}
             rule={PASTA_RANGES['water-hydration']}
-            rangeText={`${dict.balance.recommended}: ${formatPercent(46, locale)} – ${formatPercent(50, locale)}`}
+            rangeText={`${dict.balance.recommended}: ${fmt.percent(46)} – ${fmt.percent(50)}`}
             note={dict.notes.waterHydration}
             dict={dict}
           />
@@ -96,8 +98,8 @@ export function BalancePanel({
 }
 
 /** "2" e "1,5" — a razão nunca precisa de mais de duas casas. */
-function ratioText(value: number, locale: Locale): string {
-  return formatNumber(value, locale, { maximumFractionDigits: 2 });
+function ratioText(value: number, fmt: Formatters): string {
+  return fmt.number(value, { maximumFractionDigits: 2 });
 }
 
 function Metric({

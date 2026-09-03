@@ -9,7 +9,7 @@ import { RangeBadge } from '@/components/range-badge';
 import { MIN_BRINE_ACIDITY, RANGES } from '@/data/pickles/ranges';
 import type { VinegarPreset } from '@/data/pickles/types';
 import type { PicklesDictionary } from '@/i18n/dictionaries/pickles';
-import { formatGrams, formatNumber, formatPercent } from '@/i18n/format';
+import { useFormatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { calculateVinegarPickle } from '@/lib/pickles/vinegar';
 
@@ -20,6 +20,8 @@ interface VinegarPanelProps {
 }
 
 export function VinegarPanel({ preset, dict, locale }: VinegarPanelProps) {
+  const fmt = useFormatters(locale);
+
   const [liquidGrams, setLiquidGrams] = useState(500);
   const [vinegarAcidity, setVinegarAcidity] = useState(preset.acidity);
   const [vinegarParts, setVinegarParts] = useState(preset.vinegarParts);
@@ -93,24 +95,24 @@ export function VinegarPanel({ preset, dict, locale }: VinegarPanelProps) {
         <dl className="mt-4 rounded-card border border-rule bg-surface px-5 py-2">
           <ResultRow
             label={dict.result.vinegar}
-            value={formatGrams(result.vinegarGrams, locale)}
+            value={fmt.mass(result.vinegarGrams)}
             strong
           />
           <ResultRow
             label={dict.result.water}
-            value={formatGrams(result.waterGrams, locale)}
+            value={fmt.mass(result.waterGrams)}
           />
           <ResultRow
             label={dict.result.salt}
-            value={formatGrams(result.saltGrams, locale)}
+            value={fmt.mass(result.saltGrams)}
           />
           <ResultRow
             label={dict.result.sugar}
-            value={formatGrams(result.sugarGrams, locale)}
+            value={fmt.mass(result.sugarGrams)}
           />
           <ResultRow
             label={dict.result.days}
-            value={`${formatNumber(preset.days[0], locale)}–${formatNumber(preset.days[1], locale)} ${dict.result.daysUnit}`}
+            value={`${fmt.number(preset.days[0])}–${fmt.number(preset.days[1])} ${dict.result.daysUnit}`}
           />
         </dl>
 
@@ -135,6 +137,8 @@ function AcidityVerdict({
   dict: PicklesDictionary;
   locale: Locale;
 }) {
+  const fmt = useFormatters(locale);
+
   const safe = result.status === 'ok';
 
   return (
@@ -145,7 +149,7 @@ function AcidityVerdict({
         </h3>
         <div className="flex items-center gap-3">
           <span data-numeric className="text-lg font-bold tabular-nums text-ink">
-            {formatPercent(result.brineAcidity, locale, 2)}
+            {fmt.percent(result.brineAcidity, 2)}
           </span>
           <RangeBadge
             status={safe ? 'in' : 'below'}
@@ -162,7 +166,7 @@ function AcidityVerdict({
       </div>
 
       <p className="mt-1 text-xs text-ink-muted">
-        {`${dict.status.recommended}: ≥ ${formatPercent(MIN_BRINE_ACIDITY, locale)}`}
+        {`${dict.status.recommended}: ≥ ${fmt.percent(MIN_BRINE_ACIDITY)}`}
       </p>
 
       {result.status !== 'ok' && (
@@ -180,7 +184,7 @@ function AcidityVerdict({
           </span>
           {result.minimumWaterPerVinegar === undefined
             ? dict.vinegarStatus.pureVinegar
-            : `${formatNumber(result.minimumWaterPerVinegar, locale, { maximumFractionDigits: 2 })} ${dict.vinegarStatus.minimumValue}`}
+            : `${fmt.number(result.minimumWaterPerVinegar, { maximumFractionDigits: 2 })} ${dict.vinegarStatus.minimumValue}`}
         </p>
       )}
     </div>

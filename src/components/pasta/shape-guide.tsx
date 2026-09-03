@@ -1,9 +1,11 @@
+'use client';
+
 import { CitationRef } from '@/components/citation';
 import { PASTA_DISHES } from '@/data/pasta/dishes';
 import { PASTA_SHAPES } from '@/data/pasta/shapes';
 import type { PastaShape } from '@/data/pasta/types';
 import type { PastaDictionary } from '@/i18n/dictionaries/pasta';
-import { formatGrams, formatNumber } from '@/i18n/format';
+import { useFormatters, type Formatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 
 interface GuideProps {
@@ -20,6 +22,8 @@ interface GuideProps {
  * diferentes, a linha diz isso por escrito, não só por cor.
  */
 export function ShapeGuide({ dict, locale }: GuideProps) {
+  const fmt = useFormatters(locale);
+
   return (
     <div className="relative mt-8 overflow-x-auto border-t border-rule">
       <table className="w-full min-w-2xl border-collapse text-left text-sm">
@@ -59,7 +63,7 @@ export function ShapeGuide({ dict, locale }: GuideProps) {
                     data-numeric
                     className="label-caps block text-brand-deep tabular-nums"
                   >
-                    {settingText(shape, dict, locale)}
+                    {settingText(shape, dict, fmt)}
                   </span>
                   <span className="mt-1 block">{copy.thickness}</span>
                   {shape.divergent && (
@@ -89,18 +93,20 @@ export function ShapeGuide({ dict, locale }: GuideProps) {
 function settingText(
   shape: PastaShape,
   dict: PastaDictionary,
-  locale: Locale,
+  fmt: Formatters,
 ): string {
   if (shape.setting === undefined) return dict.shapes.noSetting;
 
-  const base = `${dict.shapes.setting} ${formatNumber(shape.setting, locale)}`;
+  const base = `${dict.shapes.setting} ${fmt.number(shape.setting)}`;
   if (shape.altSetting === undefined) return base;
 
-  return `${base} ${dict.shapes.or} ${formatNumber(shape.altSetting, locale)}`;
+  return `${base} ${dict.shapes.or} ${fmt.number(shape.altSetting)}`;
 }
 
 /** Rendimento dos pratos montados, que não seguem os gramas por pessoa. */
 export function DishTable({ dict, locale }: GuideProps) {
+  const fmt = useFormatters(locale);
+
   return (
     <div className="relative mt-8 overflow-x-auto border-t border-rule">
       <table className="w-full min-w-xl border-collapse text-left text-sm">
@@ -144,14 +150,14 @@ export function DishTable({ dict, locale }: GuideProps) {
                   className="py-4 pr-6 align-top font-semibold tabular-nums text-ink"
                 >
                   {dish.doughGrams === undefined
-                    ? `${formatNumber(dish.pieces ?? 0, locale)} ${dict.dishes.pieces}`
-                    : formatGrams(dish.doughGrams, locale, 0)}
+                    ? `${fmt.number(dish.pieces ?? 0)} ${dict.dishes.pieces}`
+                    : fmt.mass(dish.doughGrams, 0)}
                 </td>
                 <td className="py-4 align-top text-ink-soft">
                   <span data-numeric className="tabular-nums">
                     {least === most
-                      ? formatNumber(least, locale)
-                      : `${formatNumber(least, locale)}–${formatNumber(most, locale)}`}
+                      ? fmt.number(least)
+                      : `${fmt.number(least)}–${fmt.number(most)}`}
                   </span>
                   <CitationRef
                     citations={dish.citations}

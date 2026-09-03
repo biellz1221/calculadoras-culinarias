@@ -8,7 +8,7 @@ import { CitationRef } from '@/components/citation';
 import { BREAD_PRESETS, DEFAULT_PRESET_ID, getPreset } from '@/data/bread/presets';
 import type { BreadFormula, BreadTarget, IngredientKey } from '@/data/bread/types';
 import type { BreadDictionary } from '@/i18n/dictionaries/bread';
-import { formatGrams, formatNumber } from '@/i18n/format';
+import { useFormatters, type Formatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { calculateRecipe, withPercent } from '@/lib/bread/calculate';
 import { cn } from '@/lib/cn';
@@ -23,6 +23,8 @@ interface BreadCalculatorProps {
 }
 
 export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
+  const fmt = useFormatters(locale);
+
   const [presetId, setPresetId] = useState(DEFAULT_PRESET_ID);
   const [formula, setFormula] = useState<BreadFormula>(
     () => presetFormula(DEFAULT_PRESET_ID),
@@ -161,29 +163,29 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
           <dl className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
             <ProcessItem
               label={dict.process.firstRise}
-              value={formatRange(preset.process.firstRiseMinutes, dict.process.minutes, locale)}
+              value={formatRange(preset.process.firstRiseMinutes, dict.process.minutes, fmt)}
             />
             <ProcessItem
               label={dict.process.secondRise}
-              value={formatRange(preset.process.secondRiseMinutes, dict.process.minutes, locale)}
+              value={formatRange(preset.process.secondRiseMinutes, dict.process.minutes, fmt)}
             />
             <ProcessItem
               label={dict.process.oven}
               value={
                 preset.process.ovenCelsius
-                  ? `${formatNumber(preset.process.ovenCelsius, locale)} °C`
+                  ? fmt.temperature(preset.process.ovenCelsius)
                   : undefined
               }
             />
             <ProcessItem
               label={dict.process.bake}
-              value={formatRange(preset.process.bakeMinutes, dict.process.minutes, locale)}
+              value={formatRange(preset.process.bakeMinutes, dict.process.minutes, fmt)}
             />
             <ProcessItem
               label={dict.process.yieldLabel}
               value={
                 preset.yield
-                  ? `${formatNumber(preset.yield.count, locale)} ${dict.process.yieldValue} ${formatGrams(preset.yield.unitGrams, locale, 0)}`
+                  ? `${fmt.number(preset.yield.count)} ${dict.process.yieldValue} ${fmt.mass(preset.yield.unitGrams, 0)}`
                   : undefined
               }
             />
@@ -224,14 +226,14 @@ function presetFormula(id: string): BreadFormula {
 function formatRange(
   range: readonly [number, number] | undefined,
   unit: string,
-  locale: Locale,
+  fmt: Formatters,
 ): string | undefined {
   if (!range) return undefined;
   const [min, max] = range;
 
   return min === max
-    ? `${formatNumber(min, locale)} ${unit}`
-    : `${formatNumber(min, locale)}–${formatNumber(max, locale)} ${unit}`;
+    ? `${fmt.number(min)} ${unit}`
+    : `${fmt.number(min)}–${fmt.number(max)} ${unit}`;
 }
 
 function ProcessItem({ label, value }: { label: string; value?: string }) {

@@ -17,6 +17,17 @@ export const ptBR = {
     backToCalculators: 'Todas as calculadoras',
   },
 
+  preferences: {
+    units: 'Unidades',
+    metric: 'Gramas',
+    imperial: 'Onças',
+    metricTitle: 'Métrico — gramas e quilos',
+    imperialTitle: 'Imperial — onças e libras, sempre por peso',
+    temperature: 'Temperatura',
+    celsius: 'Celsius',
+    fahrenheit: 'Fahrenheit',
+  },
+
   a11y: {
     skipToContent: 'Pular para o conteúdo',
     languageNav: 'Escolha de idioma',

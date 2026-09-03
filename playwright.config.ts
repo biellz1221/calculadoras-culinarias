@@ -17,6 +17,9 @@ export default defineConfig({
   use: {
     baseURL,
     trace: 'on-first-retry',
+    // O navegador precisa dizer que fala português: a raiz do site detecta o
+    // idioma e, com um navegador em inglês, mandaria todo teste para /en.
+    locale: 'pt-BR',
   },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },

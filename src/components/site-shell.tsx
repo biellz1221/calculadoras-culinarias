@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { LanguageSwitcher } from '@/components/language-switcher';
+import { PreferencesBar } from '@/components/preferences-bar';
 import { ScaleMark } from '@/components/scale-mark';
 import { getDictionary } from '@/i18n';
 import type { Locale } from '@/i18n/locales';
@@ -44,10 +45,13 @@ export function SiteShell({ locale, routeKey, children }: SiteShellProps) {
       </header>
 
       <main id="conteudo" className="flex-1">
-        {/* Fora da home, o caminho de volta ao catálogo. Vive aqui e não em cada
-            calculadora porque é navegação do site, não conteúdo da página. */}
-        {routeKey !== 'home' && (
-          <div className="mx-auto w-full max-w-5xl px-5 pt-6 sm:px-8 sm:pt-8">
+        {/* Faixa utilitária: o caminho de volta ao catálogo (fora da home) e as
+            preferências de exibição. Vive aqui, e não em cada calculadora,
+            porque é chrome do site e não conteúdo da página. */}
+        <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-3 px-5 pt-6 sm:px-8 sm:pt-8">
+          {routeKey === 'home' ? (
+            <span />
+          ) : (
             <Link
               href={home}
               className="group inline-flex items-center gap-2 text-sm text-ink-muted no-underline transition-colors hover:text-brand-deep"
@@ -60,8 +64,10 @@ export function SiteShell({ locale, routeKey, children }: SiteShellProps) {
               </span>
               {dict.nav.backToCalculators}
             </Link>
-          </div>
-        )}
+          )}
+
+          <PreferencesBar locale={locale} />
+        </div>
 
         {children}
       </main>

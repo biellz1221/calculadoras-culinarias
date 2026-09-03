@@ -75,7 +75,8 @@ export const breadPtBR = {
     percent: '% do padeiro',
     flourTotal: 'Farinha total',
     doughTotal: 'Massa total',
-    editHint: 'Toda porcentagem é editável — a receita recalcula na hora.',
+    editHint:
+      'As porcentagens são editáveis e a receita recalcula na hora. A farinha não: ela é a base de 100%, e o tamanho da fornada se muda pelo peso, acima.',
   },
 
   balance: {

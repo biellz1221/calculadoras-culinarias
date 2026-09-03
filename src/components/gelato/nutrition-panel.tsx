@@ -1,6 +1,6 @@
 import { ingredientLabelOrFallback } from './catalog';
 import type { GelatoDictionary } from '@/i18n/dictionaries/gelato';
-import { formatGrams, formatNumber } from '@/i18n/format';
+import { useFormatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { formatMass, type MassUnit } from '@/lib/gelato/mass';
 import type { NutritionFacts, NutritionResult } from '@/lib/gelato/nutrition';
@@ -36,12 +36,14 @@ interface NutritionPanelProps {
  * O painel diz isso na cara, e não numa nota de rodapé.
  */
 export function NutritionPanel({ nutrition, dict, locale, unit }: NutritionPanelProps) {
+  const fmt = useFormatters(locale);
+
   if (nutrition.batchGrams <= 0) return null;
 
   const columns: readonly Column[] = [
     {
       key: 'portion',
-      label: `${dict.nutrition.portion} ${formatGrams(nutrition.portionGrams, locale, 0)}`,
+      label: `${dict.nutrition.portion} ${fmt.mass(nutrition.portionGrams, 0)}`,
       hint: dict.nutrition.portionHint,
       facts: nutrition.perPortion,
     },
@@ -96,7 +98,7 @@ export function NutritionPanel({ nutrition, dict, locale, unit }: NutritionPanel
                   data-numeric
                   className="px-4 py-2.5 text-right font-bold tabular-nums text-ink"
                 >
-                  {`${formatNumber(column.facts.kcal, locale, {
+                  {`${fmt.number(column.facts.kcal, {
                     maximumFractionDigits: 0,
                   })} kcal`}
                 </td>
@@ -129,6 +131,8 @@ function MacroRow({
   dict: GelatoDictionary;
   locale: Locale;
 }) {
+  const fmt = useFormatters(locale);
+
   const indented = macro === 'sugars';
 
   return (
@@ -145,7 +149,7 @@ function MacroRow({
           data-numeric
           className="px-4 py-2.5 text-right tabular-nums text-ink-soft"
         >
-          {formatGrams(column.facts[macro], locale)}
+          {fmt.mass(column.facts[macro])}
         </td>
       ))}
     </tr>

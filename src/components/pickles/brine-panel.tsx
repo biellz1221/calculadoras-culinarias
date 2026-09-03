@@ -17,7 +17,7 @@ import type {
   SaltBasis,
 } from '@/data/pickles/types';
 import type { PicklesDictionary } from '@/i18n/dictionaries/pickles';
-import { formatGrams, formatNumber } from '@/i18n/format';
+import { useFormatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { calculateBrine, calculateDrySalt } from '@/lib/pickles/brine';
 
@@ -28,6 +28,8 @@ interface BrinePanelProps {
 }
 
 export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
+  const fmt = useFormatters(locale);
+
   const isBrine = preset.mode === 'brine';
 
   const [inputKind, setInputKind] = useState<BrineInput['kind']>('weights');
@@ -134,35 +136,34 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
         <dl className="mt-4 rounded-card border border-rule bg-surface px-5 py-2">
           <ResultRow
             label={dict.result.salt}
-            value={formatGrams(isBrine ? brine.saltGrams : dry.saltGrams, locale)}
+            value={fmt.mass(isBrine ? brine.saltGrams : dry.saltGrams)}
             strong
           />
           <ResultRow
             label={dict.result.vegetable}
-            value={formatGrams(
+            value={fmt.mass(
               isBrine ? brine.vegetableGrams : dry.vegetableGrams,
-              locale,
             )}
           />
           {isBrine && (
             <>
               <ResultRow
                 label={dict.result.water}
-                value={formatGrams(brine.waterGrams, locale)}
+                value={fmt.mass(brine.waterGrams)}
               />
               <ResultRow
                 label={dict.result.total}
-                value={formatGrams(brine.totalGrams, locale)}
+                value={fmt.mass(brine.totalGrams)}
               />
             </>
           )}
           <ResultRow
             label={dict.result.days}
-            value={`${formatNumber(preset.days[0], locale)}–${formatNumber(preset.days[1], locale)} ${dict.result.daysUnit}`}
+            value={`${fmt.number(preset.days[0])}–${fmt.number(preset.days[1])} ${dict.result.daysUnit}`}
           />
           <ResultRow
             label={dict.result.temperature}
-            value={`${formatNumber(climate.celsius[0], locale)}–${formatNumber(climate.celsius[1], locale)} °C`}
+            value={fmt.temperatureRange(climate.celsius)}
           />
         </dl>
 

@@ -1,9 +1,9 @@
 'use client';
 
 import type { BreadDictionary } from '@/i18n/dictionaries/bread';
-import { formatGrams, formatNumber } from '@/i18n/format';
+import { useFormatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
-import type { BreadRecipe, IngredientKey } from '@/data/bread/types';
+import { isFlour, type BreadRecipe, type IngredientKey } from '@/data/bread/types';
 
 interface RecipeTableProps {
   recipe: BreadRecipe;
@@ -24,6 +24,8 @@ export function RecipeTable({
   locale,
   onPercentChange,
 }: RecipeTableProps) {
+  const fmt = useFormatters(locale);
+
   const rows = [...recipe.flours, ...recipe.lines];
 
   return (
@@ -60,29 +62,42 @@ export function RecipeTable({
                   data-numeric
                   className="px-4 py-2.5 text-right font-bold tabular-nums text-ink"
                 >
-                  {formatGrams(line.grams, locale)}
+                  {fmt.mass(line.grams)}
                 </td>
                 <td className="px-4 py-2.5 text-right">
-                  <span className="inline-flex items-center gap-1">
-                    {/* O rótulo vai em aria-label, não num <span class="sr-only">:
-                        sr-only é position:absolute e escaparia deste container
-                        de rolagem, empurrando a largura da página inteira. */}
-                    <input
-                      type="number"
-                      inputMode="decimal"
-                      min={0}
-                      step={0.1}
-                      aria-label={`${dict.table.percent} — ${dict.ingredients[line.key]}`}
-                      value={formatEditable(line.percent)}
-                      onChange={(event) =>
-                        onPercentChange(line.key, Number(event.target.value))
-                      }
-                      className="w-20 rounded-sm border border-rule bg-paper px-2 py-1 text-right tabular-nums text-ink focus:border-brand focus:outline-none"
-                    />
-                    <span aria-hidden="true" className="text-ink-muted">
-                      %
+                  {isFlour(line.key) ? (
+                    /* A farinha é a régua: ela É os 100%. Deixar essa
+                       porcentagem editável produzia receita incoerente, com
+                       "farinha 80%" ao lado de "farinha total 100%". O tamanho
+                       da fornada se muda pelo peso, ali em cima. */
+                    <span
+                      data-numeric
+                      className="inline-flex items-center gap-1 pr-6 tabular-nums text-ink-muted"
+                    >
+                      {fmt.percent(line.percent)}
                     </span>
-                  </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1">
+                      {/* O rótulo vai em aria-label, não num <span class="sr-only">:
+                          sr-only é position:absolute e escaparia deste container
+                          de rolagem, empurrando a largura da página inteira. */}
+                      <input
+                        type="number"
+                        inputMode="decimal"
+                        min={0}
+                        step={0.1}
+                        aria-label={`${dict.table.percent} — ${dict.ingredients[line.key]}`}
+                        value={formatEditable(line.percent)}
+                        onChange={(event) =>
+                          onPercentChange(line.key, Number(event.target.value))
+                        }
+                        className="w-20 rounded-sm border border-rule bg-paper px-2 py-1 text-right tabular-nums text-ink focus:border-brand focus:outline-none"
+                      />
+                      <span aria-hidden="true" className="text-ink-muted">
+                        %
+                      </span>
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}
@@ -97,10 +112,10 @@ export function RecipeTable({
                 data-numeric
                 className="px-4 py-3 text-right font-bold tabular-nums text-ink"
               >
-                {formatGrams(recipe.flourGrams, locale)}
+                {fmt.mass(recipe.flourGrams)}
               </td>
               <td className="px-4 py-3 text-right tabular-nums text-ink-muted">
-                {formatNumber(100, locale)}%
+                {fmt.number(100)}%
               </td>
             </tr>
             <tr className="bg-paper-shade/60">
@@ -111,7 +126,7 @@ export function RecipeTable({
                 data-numeric
                 className="px-4 pb-3 text-right font-bold tabular-nums text-ink"
               >
-                {formatGrams(recipe.doughGrams, locale)}
+                {fmt.mass(recipe.doughGrams)}
               </td>
               <td />
             </tr>

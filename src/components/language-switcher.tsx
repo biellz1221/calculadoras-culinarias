@@ -1,9 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 
 import { getDictionary } from '@/i18n';
 import { LOCALES, LOCALE_NAME, LOCALE_SHORT, type Locale } from '@/i18n/locales';
 import { pathsFor, type RouteKey } from '@/i18n/routes';
 import { cn } from '@/lib/cn';
+import { storeLocale } from '@/lib/locale-preference';
 
 interface LanguageSwitcherProps {
   locale: Locale;
@@ -32,6 +35,9 @@ export function LanguageSwitcher({ locale, routeKey }: LanguageSwitcherProps) {
                 href={paths[option]}
                 hrefLang={option}
                 lang={option}
+                // Escolher aqui é uma decisão explícita: fica guardada e passa
+                // a valer como idioma de entrada nas próximas visitas.
+                onClick={() => storeLocale(option)}
                 aria-current={isCurrent ? 'true' : undefined}
                 aria-label={
                   isCurrent
