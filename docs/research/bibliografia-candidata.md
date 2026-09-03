@@ -104,6 +104,24 @@ Você pediu os três recortes. Antes da lista, o que importa para o código:
 | **Madhur Jaffrey**, obra geral **[a conferir]** | Canônica para o repertório. Proporção em medida caseira, o que exige conversão e, portanto, decisão nossa: cuidado com a regra de não inventar número. |
 | **Nik Sharma, _The Flavor Equation_** **[a conferir]** | Autor com formação científica; útil para a parte explicativa, não para as proporções. |
 
+### Farinhas sem glúten: arroz, polvilho, milho, grão-de-bico
+
+Recorte acrescentado depois da primeira versão deste documento. **É a única
+família em que a calculadora de pão atual não serve de base**, porque quem dá
+estrutura deixa de ser o glúten.
+
+| Obra | Por que |
+| --- | --- |
+| **Elke K. Arendt & Fabio Dal Bello (eds.), _Gluten-Free Cereal Products and Beverages_** (Academic Press/Elsevier, 2008, ISBN 978-0-12-373739-7) **[conferido]** | O único livro que trata o sem glúten do ponto de vista de ciência de alimentos: matérias-primas, hidrocoloides, farinha de arroz, formulação. Arendt é o nome acadêmico da área. É a fonte que daria faixa de dose de goma com lastro, em vez de receita a receita. |
+| **Artigos revisados por pares sobre psyllium, HPMC e xantana em pão sem glúten** **[conferido]** | Há literatura medindo dose de hidrocoloide contra qualidade e vida de prateleira, e comparando os três entre si. É onde está a faixa segura da variável de controle desta calculadora. Dois exemplos: [psyllium e vida de prateleira](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8145964/) e [hidratação com HPMC contra psyllium e xantana](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7693925/). |
+| **Literatura brasileira sobre polvilho azedo e expansão** (Embrapa e periódicos de ciência de alimentos) **[a conferir]** | O amido de mandioca fermentado expande sem fermento e sem glúten, por conta dos ácidos orgânicos formados na fermentação ao sol. **É o ângulo que combina com o domínio:** pão de queijo e biscoito de polvilho não têm calculadora com fonte em lugar nenhum, e a proporção polvilho/líquido/ovo/queijo é exatamente o tipo de coisa que este site existe para citar. |
+
+> **Buraco honesto:** procurei e **não achei um livro que publique blends de
+> farinha sem glúten em peso com rigor citável**. O que existe em português e em
+> inglês, no nível de receita, é majoritariamente blog e receita em xícara. A
+> saída provável é apoiar a calculadora na literatura técnica acima e usar livro
+> só para o repertório, invertendo o padrão das outras quatro.
+
 ### Técnico transversal
 
 | Obra | Por que |
@@ -125,6 +143,26 @@ Você pediu os três recortes. Antes da lista, o que importa para o código:
 
 O **Goff & Hartel** e o **Caviezel** são investimento de outra ordem: valem se a
 calculadora de gelato virar o carro-chefe do site, não antes.
+
+## O que cabe na calculadora atual e o que pede uma nova
+
+Levantado em 2026-09-03, conferindo o código antes de opinar.
+
+**O que a calculadora de pão modela hoje:** três preparos prévios com separação
+de farinha e água, o levain líquido e a poolish a 100% de hidratação e a massa
+fermentada a 65% (`PRE_FERMENT_HYDRATION` em `src/data/bread/types.ts`).
+
+**Tangzhong e yudane não estão lá.** O escaldamento existe só como texto: a broa
+portuguesa carrega a nota `scald` e o glossário de `paes.md` cita Camargo,
+cap. 1, mas o motor não separa a farinha escaldada. Farinha de arroz existe como
+aditivo de 2% no pão de sanduíche, nunca como base. "Vapor", no site, é vapor de
+forno.
+
+| Assunto | Onde vive | Por quê |
+| --- | --- | --- |
+| **Tangzhong e yudane** | Calculadora de pão atual | Estruturalmente é o problema do pré-fermento, que o motor já resolve: carrega farinha e água próprias, então hidratação declarada difere da real. Entra como preparo prévio a 500% (1 de farinha para 5 de água). O que muda é o nome do conceito: "pré-fermento" precisa virar "preparo prévio", porque tangzhong não fermenta. De quebra, passa a representar direito a broa, que já é um pão escaldado. |
+| **Mantou e baozi** | Calculadora de pão atual | É trigo, e o glúten faz o trabalho: a porcentagem de padeiro continua valendo inteira. O que falta é modo de cocção, já que o bloco de processo assume forno (`ovenCelsius`, `bakeMinutes`). Página separada ainda competiria com a atual pela mesma busca. |
+| **Pão sem glúten** | **Calculadora nova** | Aqui a variável de controle muda. Sem glúten, quem dá estrutura é hidrocoloide e amido gelatinizado; a hidratação sobe para a faixa de 90 a 110%; e a dose de goma vira o que a porcentagem de sal é no picles, o número que decide se dá certo. Enfiar isso na calculadora de pão tornaria falsos os avisos de faixa dela. |
 
 ## Antes de escrever qualquer código
 
