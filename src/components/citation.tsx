@@ -35,6 +35,35 @@ interface CitationRefProps {
   className?: string;
 }
 
+/**
+ * Agrupa as citações por obra, para "Kayser, p. 48 · Kayser, p. 54" virar
+ * "Kayser, p. 48, 54". Sem isso, uma métrica sustentada por quatro trechos do
+ * mesmo livro vira uma linha ilegível de nome repetido.
+ */
+function groupByBook(
+  citations: readonly Citation[],
+  labels: CitationLabels,
+): string[] {
+  const groups = new Map<string, { author: string; locators: string[] }>();
+
+  for (const citation of citations) {
+    const book = getBook(citation.book);
+    const author = formatAuthors(book);
+    const locator =
+      citation.page !== undefined
+        ? `${labels.page} ${citation.page}`
+        : (citation.section ?? '');
+
+    const group = groups.get(citation.book) ?? { author, locators: [] };
+    if (locator && !group.locators.includes(locator)) group.locators.push(locator);
+    groups.set(citation.book, group);
+  }
+
+  return [...groups.values()].map(
+    (group) => `${group.author}, ${group.locators.join(', ')}`,
+  );
+}
+
 /** Citação inline, no espírito de uma nota de rodapé. */
 export function CitationRef({ citations, labels, className }: CitationRefProps) {
   if (citations.length === 0) return null;
@@ -46,7 +75,7 @@ export function CitationRef({ citations, labels, className }: CitationRefProps) 
         className,
       )}
     >
-      {citations.map((citation) => formatCitation(citation, labels)).join(' · ')}
+      {groupByBook(citations, labels).join(' · ')}
     </span>
   );
 }

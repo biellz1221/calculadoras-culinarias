@@ -25,7 +25,7 @@ export type RouteKey = keyof typeof ROUTES;
  * página correspondente foi criada nos dois idiomas — é o que o sitemap usa e
  * o que impede o site de linkar para uma página que ainda não existe.
  */
-export const PUBLISHED_ROUTES: readonly RouteKey[] = ['home', 'bread'];
+export const PUBLISHED_ROUTES: readonly RouteKey[] = ['home', 'bread', 'pickles'];
 
 export function pathFor(key: RouteKey, locale: Locale): string {
   return ROUTES[key][locale];
