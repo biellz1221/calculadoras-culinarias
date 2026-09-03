@@ -1,8 +1,46 @@
 export const picklesPtBR = {
   meta: {
-    title: 'Calculadora de picles e fermentação: salmoura e sal',
+    title: 'Calculadora de sal para picles',
     description:
-      'Quanto sal usar em salmoura, chucrute e picles de vinagre. Faixas seguras de cada preparo, os dois métodos de cálculo que os livros usam e a acidez mínima do quick pickle, tudo citado com livro e página.',
+      'Quanto sal na salmoura, no chucrute e no picles de vinagre, com a faixa segura de cada preparo e a acidez mínima da conserva rápida. Tudo citado.',
+    keywords: [
+      'calculadora de salmoura',
+      'quanto sal para fermentar legumes',
+      'porcentagem de sal na fermentação',
+      'chucrute caseiro',
+      'picles de vinagre',
+      'lactofermentação',
+      'salmoura 2 por cento',
+      'acidez do picles',
+    ],
+    imageAlt:
+      'Cartão da calculadora de picles e fermentação, com o título e as obras que sustentam os números.',
+  },
+
+  faq: {
+    title: 'Perguntas frequentes',
+    items: [
+      {
+        question: 'Quanto sal para fermentar legumes?',
+        answer:
+          'Dois por cento do peso total do pote, vegetais e água somados. Num pote com 1 kg de couve-flor e 1 litro de água, são 40 g de sal. É o padrão do Noma e do Fermentação à Brasileira.',
+      },
+      {
+        question: 'Os 2% são sobre a água ou sobre o pote todo?',
+        answer:
+          'As duas leituras circulam nos livros, e confundir uma com a outra dobra ou corta pela metade o sal. Katz calcula sobre a água, 5% para pepino; Noma e Fermentação à Brasileira calculam sobre o conteúdo total, 2%. A calculadora mostra sempre os dois números da mesma salmoura.',
+      },
+      {
+        question: 'Quanta acidez precisa o picles de vinagre?',
+        answer:
+          'O líquido de cobertura precisa ficar em pelo menos 2,5% de ácido acético, que é o que a proporção de uma parte de vinagre de 5% para uma de água produz. Nenhum dos três livros fixa esse piso, então ele vem da orientação oficial de conservas do NCHFP.',
+      },
+      {
+        question: 'Aquela película branca estragou o meu picles?',
+        answer:
+          'Provavelmente não. A levedura Kahm forma um véu branco, liso e fino, é inofensiva e se retira com uma colher. Mofo é peludo ou colorido, e aí o pote inteiro vai fora. Na dúvida, descarte: num alimento, o erro barato é jogar fora.',
+      },
+    ],
   },
 
   eyebrow: 'Calculadora de picles',

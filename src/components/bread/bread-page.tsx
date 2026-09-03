@@ -8,6 +8,7 @@ import {
   Prose,
 } from '@/components/calculator-layout';
 import { SourceList } from '@/components/citation';
+import { FaqList } from '@/components/faq';
 import { RANGES } from '@/data/bread/ranges';
 import { BREAD_PRESETS } from '@/data/bread/presets';
 import type { Citation } from '@/data/citations';
@@ -42,6 +43,10 @@ export function BreadPage({ locale }: { locale: Locale }) {
 
       <CalculatorSection label={dict.method.title} educational>
         <Prose paragraphs={dict.method.body} />
+      </CalculatorSection>
+
+      <CalculatorSection label={dict.faq.title} educational>
+        <FaqList items={dict.faq.items} />
       </CalculatorSection>
 
       <CalculatorSection label={dict.divergence.title} educational lead={dict.divergence.lead}>

@@ -9,9 +9,47 @@ import type { gelatoPtBR } from './gelato-pt-BR';
  */
 export const gelatoEn: typeof gelatoPtBR = {
   meta: {
-    title: 'Gelato calculator: base balancing',
+    title: 'Gelato calculator',
     description:
-      'Build a gelato recipe in grams and see sugars, fat, MSNF, solids, POD and PAC against the range for your base type. Batch sizing in litres, 164 ingredients and a nutrition estimate.',
+      'Build the base in grams and see sugars, fat, solids, POD and PAC against the range for your gelato type. Batch sizing in litres and 164 ingredients.',
+    keywords: [
+      'gelato calculator',
+      'gelato balancing',
+      'POD and PAC',
+      'gelato total solids',
+      'sorbet recipe',
+      'gelato base',
+      'homemade gelato',
+      'ice cream antifreeze',
+    ],
+    imageAlt:
+      'Card for the gelato calculator, with its title and where the balancing parameters come from.',
+  },
+
+  faq: {
+    title: 'Common questions',
+    items: [
+      {
+        question: 'What are POD and PAC?',
+        answer:
+          'POD is sweetening power and PAC is antifreezing power, both measured per kilo of mix. They explain why two recipes carrying the same amount of sugar can taste and scoop very differently: each sugar sweetens and lowers the freezing point at its own rate.',
+      },
+      {
+        question: 'How much sugar goes into gelato?',
+        answer:
+          'Between 14 and 22% of the mix in a milk gelato, and between 23 and 32% in a sorbet. Sorbet needs more because it has no fat and no milk solids holding the water: there, sugar does the job alone.',
+      },
+      {
+        question: 'Why does my gelato freeze rock hard?',
+        answer:
+          'Almost always a low PAC. In a milk gelato the range runs from 220 to 300 per kilo of mix; below that there is free water left to freeze and the scoop turns to stone. The calculator flags whichever metric falls out of range and says what to change.',
+      },
+      {
+        question: 'What are total solids for?',
+        answer:
+          'They are everything in the recipe that is not water, 34 to 42% in a milk gelato. Too few solids and the gelato turns watery and full of ice crystals; too many and the texture goes heavy and rubbery.',
+      },
+    ],
   },
 
   eyebrow: 'Gelato calculator',

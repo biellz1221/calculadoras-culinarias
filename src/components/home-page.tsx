@@ -1,5 +1,6 @@
 import { BookShelf } from '@/components/book-shelf';
 import { CalculatorIndex } from '@/components/calculator-index';
+import { FaqList } from '@/components/faq';
 import { getDictionary } from '@/i18n';
 import type { Locale } from '@/i18n/locales';
 
@@ -83,6 +84,11 @@ export function HomePage({ locale }: { locale: Locale }) {
       <Section label={dict.home.shelfTitle} intro={dict.home.shelfIntro}>
         <BookShelf />
       </Section>
+
+      <section className="mt-20 sm:mt-28">
+        <h2 className="label-caps text-accent-deep">{dict.home.faq.title}</h2>
+        <FaqList items={dict.home.faq.items} />
+      </section>
     </div>
   );
 }

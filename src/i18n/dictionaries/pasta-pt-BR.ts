@@ -1,8 +1,46 @@
 export const pastaPtBR = {
   meta: {
-    title: 'Calculadora de massa fresca: farinha, ovos e porções',
+    title: 'Calculadora de massa fresca',
     description:
-      'Quanta farinha e quantos ovos para o número de pessoas à mesa: 13 massas frescas em gramas, ajuste para ovo fora do padrão, guia de espessura por formato. Cada número citado com livro e capítulo.',
+      'Quanta farinha e quantos ovos para as pessoas à mesa: 13 massas em gramas, ajuste para ovo fora do padrão e espessura por formato, tudo citado.',
+    keywords: [
+      'calculadora de massa fresca',
+      'quantos ovos por pessoa massa',
+      'massa fresca caseira',
+      'farinha 00 para massa',
+      'massa de sêmola sem ovo',
+      'espessura da massa por formato',
+      'tagliatelle caseiro',
+      'massa fresca em gramas',
+    ],
+    imageAlt:
+      'Cartão da calculadora de massa fresca, com o título e as obras que sustentam os números.',
+  },
+
+  faq: {
+    title: 'Perguntas frequentes',
+    items: [
+      {
+        question: 'Quantos ovos por pessoa na massa fresca?',
+        answer:
+          'Um ovo e 100 g de farinha por pessoa, na massa clássica ao ovo. É a receita do Zielonka escalada: 300 g de farinha 00 com 3 ovos rendem 400 g de massa e servem quatro.',
+      },
+      {
+        question: 'Quanta massa fresca por pessoa?',
+        answer:
+          'Cerca de 100 g de massa crua como prato principal. De entrada, 85 g; numa porção generosa, 115 g. Os três números saem das receitas do Zielonka e da Hazan, não de arredondamento.',
+      },
+      {
+        question: 'E se o meu ovo não tem 50 g?',
+        answer:
+          'Informe o peso real e a farinha acompanha sozinha. O que a receita fixa é a razão entre ovo e farinha, não o número de ovos: ovo maior pede mais farinha para a massa ficar no mesmo ponto.',
+      },
+      {
+        question: 'Dá para fazer massa fresca sem ovo?',
+        answer:
+          'Dá. Sêmola e água é massa tradicional do sul da Itália, e a calculadora traz também as versões veganas de espinafre e de beterraba, além de uma massa sem glúten com farinha de grão-de-bico.',
+      },
+    ],
   },
 
   eyebrow: 'Calculadora de massa fresca',

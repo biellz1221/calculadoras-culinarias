@@ -26,6 +26,11 @@ describe('estante', () => {
     expect(formatAuthors(getBook('kayser'))).toBe('Kayser');
     expect(formatAuthors(getBook('noma'))).toBe('Redzepi & Zilber');
     expect(formatAuthors(getBook('bwf'))).toBe('Carvalhaes & Andrade');
+
+    // Instituição não tem sobrenome: cortar a última palavra de "University
+    // of Georgia" dava "Georgia", que não é ninguém.
+    expect(formatAuthors(getBook('nchfp'))).toBe('NCHFP');
+    expect(formatAuthors(getBook('gelato-course'))).toBe('Planilha do curso');
   });
 
   it('declara como cada obra é citada', () => {

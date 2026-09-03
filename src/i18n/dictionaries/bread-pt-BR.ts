@@ -1,8 +1,46 @@
 export const breadPtBR = {
   meta: {
-    title: 'Calculadora de pão: porcentagem de padeiro',
+    title: 'Calculadora de pão em gramas',
     description:
-      'Calcule pão em gramas a partir da farinha que você tem: presets de 16 pães, porcentagem de padeiro editável, faixas seguras e conversão entre fermentos. Cada número citado com livro e página.',
+      'Pão em gramas a partir da farinha que você tem: 16 receitas, porcentagem de padeiro e conversão de fermento, com livro e página de cada número.',
+    keywords: [
+      'calculadora de pão',
+      'porcentagem de padeiro',
+      'hidratação da massa de pão',
+      'quanto sal no pão',
+      'converter fermento fresco em seco',
+      'quanto fermento por quilo de farinha',
+      'levain',
+      'poolish',
+    ],
+    imageAlt:
+      'Cartão da calculadora de pão, com o título e as obras que sustentam os números.',
+  },
+
+  faq: {
+    title: 'Perguntas frequentes',
+    items: [
+      {
+        question: 'O que é porcentagem de padeiro?',
+        answer:
+          'É o sistema em que a farinha da receita vale 100% e todo o resto é uma porcentagem do peso dela. Uma massa a 65% de hidratação leva 650 g de água por quilo de farinha, e a mesma fórmula serve para 300 g ou para 3 kg sem refazer conta nenhuma.',
+      },
+      {
+        question: 'Quanta água leva a massa de pão?',
+        answer:
+          'Para pão branco, entre 60 e 70% do peso da farinha, com 65% como referência. Kayser trabalha a 70% na boule e Camargo a 60% no pão francês. Abaixo de 50% a massa é de miolo fechado, e acima de 80% é alta hidratação, que pede dobras em vez de sova.',
+      },
+      {
+        question: 'Quanto sal por quilo de farinha?',
+        answer:
+          'Dois por cento do peso da farinha, ou seja, 20 g por quilo. Abaixo de 1% o pão fica sem graça e a massa fermenta rápido demais; acima de 2,5% a levedura começa a sofrer.',
+      },
+      {
+        question: 'Como converter fermento fresco em seco?',
+        answer:
+          'Fermento seco ativo é metade do fresco e o instantâneo é um terço. As fontes parecem discordar, Kayser divide por 2 e Camargo por 3, mas falam de fermentos diferentes. Levain não tem fator de conversão: ele entra por dose, de 20 a 50% sobre a farinha.',
+      },
+    ],
   },
 
   eyebrow: 'Calculadora de pães',

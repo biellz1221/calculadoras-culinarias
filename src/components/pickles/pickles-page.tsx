@@ -8,6 +8,7 @@ import {
   Prose,
 } from '@/components/calculator-layout';
 import { SourceList } from '@/components/citation';
+import { FaqList } from '@/components/faq';
 import { PICKLE_PRESETS } from '@/data/pickles/presets';
 import { CLIMATES, RANGES, SAFETY_CITATIONS } from '@/data/pickles/ranges';
 import type { Citation } from '@/data/citations';
@@ -56,6 +57,10 @@ export function PicklesPage({ locale }: { locale: Locale }) {
 
       <CalculatorSection label={dict.method.title} educational>
         <Prose paragraphs={dict.method.body} />
+      </CalculatorSection>
+
+      <CalculatorSection label={dict.faq.title} educational>
+        <FaqList items={dict.faq.items} />
       </CalculatorSection>
 
       <CalculatorSection label={dict.divergence.title} educational lead={dict.divergence.lead}>

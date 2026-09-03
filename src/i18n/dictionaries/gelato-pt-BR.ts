@@ -11,9 +11,47 @@
  */
 export const gelatoPtBR = {
   meta: {
-    title: 'Calculadora de gelato: balanceamento de base',
+    title: 'Calculadora de gelato',
     description:
-      'Monte a receita de gelato em gramas e veja açúcares, gorduras, SNGL, sólidos, POD e PAC contra a faixa do tipo de base. Lote em litros, 164 ingredientes e estimativa nutricional.',
+      'Monte a base em gramas e veja açúcares, gordura, sólidos, POD e PAC contra a faixa do seu tipo de gelato. Lote em litros e 164 ingredientes.',
+    keywords: [
+      'calculadora de gelato',
+      'balanceamento de gelato',
+      'POD e PAC',
+      'sólidos totais gelato',
+      'receita de sorbet',
+      'base de gelato',
+      'gelato caseiro',
+      'anticongelante do sorvete',
+    ],
+    imageAlt:
+      'Cartão da calculadora de gelato, com o título e a origem dos parâmetros de balanceamento.',
+  },
+
+  faq: {
+    title: 'Perguntas frequentes',
+    items: [
+      {
+        question: 'O que são POD e PAC?',
+        answer:
+          'POD é o poder de doçura e PAC o poder anticongelante, os dois medidos por quilo de mistura. São eles que explicam por que duas receitas com a mesma quantidade de açúcar podem ter doçura e textura bem diferentes: cada açúcar adoça e abaixa o ponto de congelamento no seu ritmo.',
+      },
+      {
+        question: 'Quanto açúcar leva um gelato?',
+        answer:
+          'De 14 a 22% da mistura num gelato de leite, e de 23 a 32% num sorbet. O sorbet pede mais porque não tem gordura nem sólidos do leite segurando a água: ali o açúcar faz o trabalho sozinho.',
+      },
+      {
+        question: 'Por que o gelato fica duro na geladeira?',
+        answer:
+          'Quase sempre é PAC baixo. Num gelato de leite a faixa vai de 220 a 300 por quilo de mistura; abaixo disso sobra água livre para congelar e a bola vira pedra. A calculadora aponta a métrica fora da faixa e diz o que mexer.',
+      },
+      {
+        question: 'Para que servem os sólidos totais?',
+        answer:
+          'São tudo o que não é água na receita, de 34 a 42% num gelato de leite. Sólido de menos deixa o gelato aguado e cheio de cristal; sólido demais deixa a textura pesada e emborrachada.',
+      },
+    ],
   },
 
   eyebrow: 'Calculadora de gelato',

@@ -1,5 +1,7 @@
 import { DEFAULT_LOCALE, LOCALES, type Locale } from './locales';
 
+import { absoluteUrl } from '@/lib/site';
+
 /**
  * Registro único de rotas do site.
  *
@@ -50,15 +52,20 @@ export function pathsFor(key: RouteKey): Record<Locale, string> {
  * Bloco `alternates` do metadata do Next: canonical no próprio idioma e um
  * hreflang recíproco por idioma, com x-default apontando para o canônico
  * do site (pt-BR).
+ *
+ * Endereços absolutos de propósito. Caminho relativo o Next resolveria
+ * sozinho, mas normaliza a raiz para `.../com.br`, sem barra, enquanto o
+ * sitemap anuncia `.../com.br/`. São dois endereços para a mesma página, que é
+ * exatamente o que o canonical existe para evitar.
  */
 export function alternatesFor(key: RouteKey, locale: Locale) {
   const paths = pathsFor(key);
   const languages: Record<string, string> = {};
 
   for (const other of LOCALES) {
-    languages[other] = paths[other];
+    languages[other] = absoluteUrl(paths[other]);
   }
-  languages['x-default'] = paths[DEFAULT_LOCALE];
+  languages['x-default'] = absoluteUrl(paths[DEFAULT_LOCALE]);
 
-  return { canonical: paths[locale], languages };
+  return { canonical: absoluteUrl(paths[locale]), languages };
 }

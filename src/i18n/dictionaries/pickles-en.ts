@@ -2,9 +2,47 @@ import type { picklesPtBR } from './pickles-pt-BR';
 
 export const picklesEn: typeof picklesPtBR = {
   meta: {
-    title: 'Pickle & fermentation calculator: brine and salt',
+    title: 'Salt calculator for pickles',
     description:
-      'How much salt for brine, sauerkraut and vinegar pickles. Safe ranges for each preparation, the two ways the books measure salt, and the minimum acidity for a quick pickle, all cited with book and page.',
+      'How much salt for brine, sauerkraut and vinegar pickles, with the safe range for each and the minimum acidity for a quick pickle. Every number cited.',
+    keywords: [
+      'brine calculator',
+      'how much salt to ferment vegetables',
+      'salt percentage fermentation',
+      'homemade sauerkraut',
+      'vinegar pickles',
+      'lacto-fermentation',
+      '2 percent brine',
+      'pickle acidity',
+    ],
+    imageAlt:
+      'Card for the pickle and fermentation calculator, with its title and the works the numbers rest on.',
+  },
+
+  faq: {
+    title: 'Common questions',
+    items: [
+      {
+        question: 'How much salt to ferment vegetables?',
+        answer:
+          'Two percent of the total weight in the jar, vegetables and water together. In a jar holding 1 kg of cauliflower and 1 litre of water, that is 40 g of salt. It is the default in Noma and in Brazilian Way Fermentation.',
+      },
+      {
+        question: 'Is that 2% of the water or of the whole jar?',
+        answer:
+          'Both readings circulate in the books, and mixing them up doubles or halves your salt. Katz measures against the water, 5% for cucumbers; Noma and Brazilian Way Fermentation measure against the whole contents, 2%. The calculator always shows both readings of the same brine.',
+      },
+      {
+        question: 'How acidic does a vinegar pickle need to be?',
+        answer:
+          'The covering liquid has to reach at least 2.5% acetic acid, which is what one part 5% vinegar to one part water produces. None of the three books sets that floor, so it comes from the NCHFP guidance on home preserving.',
+      },
+      {
+        question: 'Has that white film ruined my pickle?',
+        answer:
+          'Probably not. Kahm yeast forms a smooth, thin white veil, it is harmless and you lift it off with a spoon. Mould is fuzzy or coloured, and then the whole jar goes out. When in doubt, throw it out: with food, the cheap mistake is the one you discard.',
+      },
+    ],
   },
 
   eyebrow: 'Pickle calculator',

@@ -3,9 +3,22 @@ import type { Dictionary } from './pt-BR';
 export const en: Dictionary = {
   site: {
     name: 'Culinary Calculators',
-    homeTitle: 'Culinary Calculators: bread, pickles and fresh pasta in grams',
+    homeTitle: 'Culinary Calculators: bread, pickles, pasta, gelato',
     description:
-      'Kitchen calculators in grams for bread, pickles and fresh pasta, with ratios taken from reference cookbooks and cited by author and page.',
+      'Kitchen calculators in grams for bread, pickles, fresh pasta and gelato. Every ratio comes from a reference cookbook, cited by author and page.',
+    tagline: 'Kitchen ratios in grams, every one of them with a cited source.',
+    keywords: [
+      'kitchen calculator',
+      'cooking calculator',
+      'recipe in grams',
+      'cooking ratios',
+      "baker's percentage",
+      'fermentation brine calculator',
+      'fresh pasta',
+      'gelato balancing',
+    ],
+    imageAlt:
+      'Card for the Culinary Calculators site, with the title and the four available calculators.',
   },
 
   nav: {
@@ -48,7 +61,7 @@ export const en: Dictionary = {
   home: {
     eyebrow: 'Kitchen ratios with a cited source',
     title: 'The ratios that make a recipe work',
-    lead: 'Bread, pickles and fresh pasta worked out in grams, scaled to what you actually need. Every number comes from a book, with author and page.',
+    lead: 'Bread, pickles, fresh pasta and gelato worked out in grams, scaled to what you actually need. Every number comes from a book, with author and page.',
 
     principles: {
       grams: {
@@ -77,6 +90,32 @@ export const en: Dictionary = {
     comingSoon: 'Coming soon',
     openCalculator: 'Open the calculator for',
     basedOn: 'Based on',
+
+    faq: {
+      title: 'Common questions',
+      items: [
+        {
+          question: 'Are the calculators free?',
+          answer:
+            'They are. No sign-up, no subscription, no usage limit. Every calculation runs in your browser and nothing is sent to any server.',
+        },
+        {
+          question: 'Where do the ratios come from?',
+          answer:
+            'From reference cookbooks. Every number on screen carries its citation, with author and page, or chapter when the book is digital and has no fixed pagination.',
+        },
+        {
+          question: 'What happens when two books disagree?',
+          answer:
+            'The disagreement becomes content. Each calculator has a table showing what every source says and explaining why the default is what it is, rather than picking one quietly.',
+        },
+        {
+          question: 'Do I need a kitchen scale?',
+          answer:
+            'You do, and that is deliberate. Everything here is in grams: cups and spoons shift with the ingredient and with the hand that fills them, which is what makes the same recipe come out differently each time. Ounces and pounds are a setting away, but you still weigh.',
+        },
+      ],
+    },
   },
 
   calculators: {

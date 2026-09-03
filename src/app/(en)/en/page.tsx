@@ -1,23 +1,30 @@
 import type { Metadata } from 'next';
 
 import { HomePage } from '@/components/home-page';
+import { JsonLd } from '@/components/json-ld';
 import { LocaleGate } from '@/components/locale-gate';
 import { SiteShell } from '@/components/site-shell';
 import { getDictionary } from '@/i18n';
-import { alternatesFor } from '@/i18n/routes';
+import { pageMetadata } from '@/lib/seo';
+import { homeSchema } from '@/lib/structured-data';
 
 const LOCALE = 'en' as const;
 const dict = getDictionary(LOCALE);
 
-export const metadata: Metadata = {
-  title: { absolute: dict.site.homeTitle },
+export const metadata: Metadata = pageMetadata({
+  routeKey: 'home',
+  locale: LOCALE,
+  title: dict.site.homeTitle,
   description: dict.site.description,
-  alternates: alternatesFor('home', LOCALE),
-};
+  keywords: dict.site.keywords,
+  imageAlt: dict.site.imageAlt,
+  standaloneTitle: true,
+});
 
 export default function EnglishHome() {
   return (
     <SiteShell locale={LOCALE} routeKey="home">
+      <JsonLd data={homeSchema(LOCALE)} />
       <LocaleGate locale={LOCALE} />
       <HomePage locale={LOCALE} />
     </SiteShell>

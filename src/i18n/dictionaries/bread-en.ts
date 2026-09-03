@@ -2,9 +2,47 @@ import type { breadPtBR } from './bread-pt-BR';
 
 export const breadEn: typeof breadPtBR = {
   meta: {
-    title: "Bread calculator: baker's percentage",
+    title: 'Bread calculator in grams',
     description:
-      "Work out bread in grams from the flour you have: 16 presets, editable baker's percentages, safe ranges and yeast conversion. Every number cited with book and page.",
+      "Bread in grams from the flour you have: 16 presets, baker's percentage and yeast conversion, with the book and page behind every number.",
+    keywords: [
+      'bread calculator',
+      "baker's percentage",
+      'bread dough hydration',
+      'how much salt in bread',
+      'convert fresh yeast to dry',
+      'how much yeast per kilo of flour',
+      'levain',
+      'poolish',
+    ],
+    imageAlt:
+      'Card for the bread calculator, with its title and the works the numbers rest on.',
+  },
+
+  faq: {
+    title: 'Common questions',
+    items: [
+      {
+        question: "What is baker's percentage?",
+        answer:
+          'It is the system where the flour in a recipe counts as 100% and everything else is a percentage of its weight. A dough at 65% hydration takes 650 g of water per kilo of flour, and the same formula works for 300 g or 3 kg with no arithmetic redone.',
+      },
+      {
+        question: 'How much water does bread dough take?',
+        answer:
+          'For white bread, between 60 and 70% of the flour weight, with 65% as the reference. Kayser works at 70% in his boule and Camargo at 60% in pão francês. Below 50% you get a tight crumb, and above 80% you are in high hydration, which asks for folds rather than kneading.',
+      },
+      {
+        question: 'How much salt per kilo of flour?',
+        answer:
+          'Two percent of the flour weight, which is 20 g per kilo. Below 1% the bread tastes flat and the dough ferments too fast; above 2.5% the yeast starts to struggle.',
+      },
+      {
+        question: 'How do I convert fresh yeast to dry?',
+        answer:
+          'Active dry yeast is half the fresh weight and instant is a third. The sources look contradictory, Kayser divides by 2 and Camargo by 3, but they are talking about different yeasts. Levain has no conversion factor: it goes in as a dose, 20 to 50% of the flour.',
+      },
+    ],
   },
 
   eyebrow: 'Bread calculator',

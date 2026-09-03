@@ -6,6 +6,7 @@ import {
   Prose,
 } from '@/components/calculator-layout';
 import { SourceList } from '@/components/citation';
+import { FaqList } from '@/components/faq';
 import { GELATO_CITATIONS } from '@/data/gelato/source';
 import type { Citation } from '@/data/citations';
 import { getGelatoDictionary } from '@/i18n/dictionaries/gelato';
@@ -28,6 +29,10 @@ export function GelatoPage({ locale }: { locale: Locale }) {
 
       <CalculatorSection label={dict.method.title} educational>
         <Prose paragraphs={dict.method.body} />
+      </CalculatorSection>
+
+      <CalculatorSection label={dict.faq.title} educational>
+        <FaqList items={dict.faq.items} />
       </CalculatorSection>
 
       <CalculatorSection label={dict.podPac.title}>

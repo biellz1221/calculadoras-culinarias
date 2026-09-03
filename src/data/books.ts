@@ -26,6 +26,17 @@ export interface Book {
   id: BookId;
   title: string;
   authors: string[];
+  /**
+   * Quem assina: pessoa ou instituição.
+   *
+   * A citação curta de uma pessoa é o sobrenome, e é o que o site mostra. Já
+   * "University of Georgia" não tem sobrenome: cortar a última palavra dava
+   * "Georgia", que não é ninguém. Instituição se cita inteira, ou pela sigla
+   * de `shortName`.
+   */
+  authorKind?: 'person' | 'organization';
+  /** Como a obra é chamada nas citações, quando o nome completo não cabe. */
+  shortName?: string;
   publisher: string;
   year?: number;
   /** Como as citações endereçam a obra. */
@@ -112,6 +123,8 @@ export const BOOKS: readonly Book[] = [
     id: 'nchfp',
     title: 'National Center for Home Food Preservation',
     authors: ['University of Georgia'],
+    authorKind: 'organization',
+    shortName: 'NCHFP',
     publisher: 'USDA',
     locator: 'chapter',
     kind: 'official',
@@ -122,6 +135,8 @@ export const BOOKS: readonly Book[] = [
     id: 'gelato-course',
     title: 'Planilha gelato do Curso 4.0',
     authors: ['Material de curso'],
+    authorKind: 'organization',
+    shortName: 'Planilha do curso',
     publisher: 'Acervo pessoal',
     locator: 'chapter',
     kind: 'course',
@@ -138,8 +153,16 @@ export function getBook(id: BookId): Book {
   return book;
 }
 
-/** "Redzepi & Zilber" — formato curto usado nas listas e citações inline. */
+/**
+ * "Redzepi & Zilber": o formato curto das listas e das citações inline.
+ *
+ * Pessoas se citam pelo sobrenome. Instituição não tem sobrenome, então usa a
+ * sigla declarada em `shortName` ou o nome inteiro.
+ */
 export function formatAuthors(book: Book): string {
+  if (book.shortName) return book.shortName;
+  if (book.authorKind === 'organization') return book.authors.join(', ');
+
   const surnames = book.authors.map((author) => {
     const parts = author.split(' ');
     return parts[parts.length - 1] ?? author;

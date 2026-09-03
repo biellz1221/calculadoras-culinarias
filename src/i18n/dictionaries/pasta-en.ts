@@ -2,9 +2,47 @@ import type { pastaPtBR } from './pasta-pt-BR';
 
 export const pastaEn: typeof pastaPtBR = {
   meta: {
-    title: 'Fresh pasta calculator: flour, eggs and servings',
+    title: 'Fresh pasta calculator',
     description:
-      'How much flour and how many eggs for the people at your table: 13 fresh pasta doughs in grams, an adjustment for odd-sized eggs and a thickness guide by shape. Every number cited with book and chapter.',
+      'How much flour and how many eggs for the people at your table: 13 doughs in grams, an adjustment for odd-sized eggs and thickness by shape, all cited.',
+    keywords: [
+      'fresh pasta calculator',
+      'how many eggs per person pasta',
+      'homemade fresh pasta',
+      '00 flour pasta dough',
+      'eggless semolina pasta',
+      'pasta thickness by shape',
+      'homemade tagliatelle',
+      'fresh pasta in grams',
+    ],
+    imageAlt:
+      'Card for the fresh pasta calculator, with its title and the works the numbers rest on.',
+  },
+
+  faq: {
+    title: 'Common questions',
+    items: [
+      {
+        question: 'How many eggs per person in fresh pasta?',
+        answer:
+          'One egg and 100 g of flour per person, in the classic egg dough. It is Zielonka scaled down: 300 g of 00 flour with 3 eggs yields 400 g of pasta and serves four.',
+      },
+      {
+        question: 'How much fresh pasta per person?',
+        answer:
+          'About 100 g of uncooked pasta as a main course. As a starter, 85 g; as a generous portion, 115 g. All three come from the recipes in Zielonka and Hazan, not from rounding.',
+      },
+      {
+        question: 'What if my egg is not 50 g?',
+        answer:
+          'Enter the real weight and the flour follows on its own. What the recipe fixes is the ratio between egg and flour, not the number of eggs: a larger egg asks for more flour to land the dough in the same place.',
+      },
+      {
+        question: 'Can I make fresh pasta without eggs?',
+        answer:
+          'You can. Semolina and water is traditional southern Italian pasta, and the calculator also carries vegan spinach and beetroot doughs, plus a gluten-free one built on chickpea flour.',
+      },
+    ],
   },
 
   eyebrow: 'Fresh pasta calculator',

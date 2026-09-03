@@ -67,15 +67,43 @@ cada idioma sem negociação em tempo de request.
 (`page` para PDF/impresso, `chapter` para EPUB, que não tem paginação física) —
 citar "página" de um EPUB seria mentira.
 
+### Busca e leitura por máquina
+
+Nenhuma página escreve `openGraph` à mão. O Next **substitui** campos aninhados
+em vez de fundi-los, então uma página que declarasse só `openGraph.title`
+perderia `siteName` e `locale` do layout em silêncio. Quem monta o bloco inteiro
+é [`pageMetadata`](src/lib/seo.ts), e a página só passa título, descrição,
+palavras-chave e o texto alternativo da imagem.
+
+- **Imagem de compartilhamento**: gerada no build em
+  [`src/app/og/[slug]/image.png/`](src/app/og/), uma por rota e por idioma, na
+  paleta da própria calculadora. É route handler, e não a convenção
+  `opengraph-image`, porque esta grava arquivo **sem extensão** no export
+  estático, e aí o `Content-Type` sai como binário genérico e o card não aparece.
+  As fontes em `assets/fonts/` existem só para isso: o gerador não lê WOFF2.
+- **JSON-LD** em [`src/lib/structured-data.ts`](src/lib/structured-data.ts):
+  `WebApplication` gratuita, `BreadcrumbList`, `FAQPage` e, o que interessa de
+  verdade aqui, `citation` com a estante. É a promessa do site dita em formato
+  que a máquina lê.
+- **`/llms.txt`**: o site resumido para assistentes de IA, com as páginas, a
+  bibliografia e as respostas diretas nos dois idiomas.
+- **Paleta espelhada**: as cores vivem no CSS e em
+  [`src/lib/palette.ts`](src/lib/palette.ts), porque o cartão é gerado fora do
+  navegador. `palette.test.ts` compara os dois e falha se divergirem.
+- **Endereço canônico sem barra final**, inclusive na raiz: é a grafia que o
+  Next impõe ao `canonical`, e sitemap, `og:url` e JSON-LD seguem ela via
+  `absoluteUrl`.
+
 ## Publicando uma calculadora nova
 
 1. Extrair as proporções para `docs/research/`, com citação.
 2. Criar o motor de cálculo puro em `src/lib/`, com teste usando uma receita real
    do livro como caso-verdade.
 3. Criar as páginas nos **dois** idiomas (`(pt)/<slug>` e `(en)/en/<slug>`).
-4. Acrescentar textos nos dois dicionários.
-5. Acrescentar a rota em `PUBLISHED_ROUTES` — é o que acende o link na home e
-   coloca a página no sitemap.
+4. Acrescentar textos nos dois dicionários, incluindo `meta` (título, descrição,
+   `keywords`, `imageAlt`) e a `faq` da calculadora.
+5. Acrescentar a rota em `PUBLISHED_ROUTES` — é o que acende o link na home,
+   coloca a página no sitemap e gera a imagem de compartilhamento dela.
 
 ## Deploy
 
@@ -101,6 +129,12 @@ A CI (`.github/workflows/ci.yml`) roda em pull request e faz só verificação
   `localhost` de propósito.
 - **`fill()` com vírgula em campo numérico**: o valor de um `input[type=number]`
   é sempre com ponto, mesmo o site exibindo vírgula. Nos testes, use `'0.8'`.
+- **Route handler no export estático sem `force-static`**: o build morre com uma
+  mensagem que fala de `revalidate` e não do arquivo. Vale para `/llms.txt`, para
+  as imagens de OG e para qualquer rota nova que gere arquivo.
+- **Sobrenome de instituição**: `formatAuthors` cortava a última palavra e
+  transformava "University of Georgia" em "Georgia". Obra assinada por
+  instituição declara `authorKind: 'organization'` e a sigla em `shortName`.
 
 ## Armadilhas conhecidas do ambiente
 

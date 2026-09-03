@@ -1,22 +1,28 @@
 import type { Metadata } from 'next';
 
 import { PastaPage } from '@/components/pasta/pasta-page';
+import { JsonLd } from '@/components/json-ld';
 import { SiteShell } from '@/components/site-shell';
 import { getPastaDictionary } from '@/i18n/dictionaries/pasta';
-import { alternatesFor } from '@/i18n/routes';
+import { pageMetadata } from '@/lib/seo';
+import { calculatorSchema } from '@/lib/structured-data';
 
 const LOCALE = 'pt-BR' as const;
 const dict = getPastaDictionary(LOCALE);
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  routeKey: 'pasta',
+  locale: LOCALE,
   title: dict.meta.title,
   description: dict.meta.description,
-  alternates: alternatesFor('pasta', LOCALE),
-};
+  keywords: dict.meta.keywords,
+  imageAlt: dict.meta.imageAlt,
+});
 
 export default function Massas() {
   return (
     <SiteShell locale={LOCALE} routeKey="pasta">
+      <JsonLd data={calculatorSchema('pasta', LOCALE)} />
       <PastaPage locale={LOCALE} />
     </SiteShell>
   );

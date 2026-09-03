@@ -9,6 +9,8 @@ import {
   pathsFor,
 } from './routes';
 
+import { SITE_URL } from '@/lib/site';
+
 const ALL_KEYS = ['home', 'bread', 'pickles', 'pasta', 'gelato'] as const;
 
 describe('registro de rotas', () => {
@@ -63,17 +65,20 @@ describe('registro de rotas', () => {
 });
 
 describe('alternates de hreflang', () => {
-  it('aponta o canonical para o caminho do próprio idioma', () => {
-    expect(alternatesFor('home', 'pt-BR').canonical).toBe('/');
-    expect(alternatesFor('home', 'en').canonical).toBe('/en');
+  it('aponta o canonical para o endereço absoluto do próprio idioma', () => {
+    // Absoluto e sem barra final, que é a grafia que o Next impõe ao
+    // canonical e que o resto do site adota para não haver duas grafias da
+    // mesma página.
+    expect(alternatesFor('home', 'pt-BR').canonical).toBe(SITE_URL);
+    expect(alternatesFor('home', 'en').canonical).toBe(`${SITE_URL}/en`);
   });
 
   it('lista todos os idiomas e um x-default no idioma canônico', () => {
     const { languages } = alternatesFor('bread', 'en');
 
-    expect(languages['pt-BR']).toBe('/paes');
-    expect(languages['en']).toBe('/en/bread');
-    expect(languages['x-default']).toBe('/paes');
+    expect(languages['pt-BR']).toBe(`${SITE_URL}/paes`);
+    expect(languages['en']).toBe(`${SITE_URL}/en/bread`);
+    expect(languages['x-default']).toBe(`${SITE_URL}/paes`);
   });
 
   it('gera o mesmo conjunto de alternates a partir de qualquer idioma', () => {

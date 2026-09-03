@@ -8,9 +8,23 @@ import type { CalculatorId } from '@/data/calculators';
 export const ptBR = {
   site: {
     name: 'Calculadoras Culinárias',
-    homeTitle: 'Calculadoras Culinárias: pães, picles e massa fresca em gramas',
+    homeTitle: 'Calculadoras Culinárias: pão, picles, massa e gelato',
     description:
-      'Calculadoras de cozinha em gramas para pães, picles e massa fresca, com as proporções tiradas de livros de referência e citadas com autor e página.',
+      'Calculadoras de cozinha em gramas para pão, picles, massa fresca e gelato. Cada proporção vem de um livro de referência, citada com autor e página.',
+    /** Uma frase para quem vai ler só uma: card de compartilhamento e llms.txt. */
+    tagline: 'Proporções de cozinha em gramas, cada uma com a fonte citada.',
+    keywords: [
+      'calculadora culinária',
+      'calculadora de cozinha',
+      'receita em gramas',
+      'proporções de cozinha',
+      'porcentagem de padeiro',
+      'salmoura para fermentação',
+      'massa fresca',
+      'balanceamento de gelato',
+    ],
+    imageAlt:
+      'Cartão do site Calculadoras Culinárias, com o título e as quatro calculadoras disponíveis.',
   },
 
   nav: {
@@ -53,7 +67,7 @@ export const ptBR = {
   home: {
     eyebrow: 'Proporções de cozinha com fonte declarada',
     title: 'As proporções que fazem a receita funcionar',
-    lead: 'Pão, picles e massa fresca calculados em gramas, na quantidade que você precisa. Cada número vem de um livro, com autor e página.',
+    lead: 'Pão, picles, massa fresca e gelato calculados em gramas, na quantidade que você precisa. Cada número vem de um livro, com autor e página.',
 
     principles: {
       grams: {
@@ -82,6 +96,39 @@ export const ptBR = {
     comingSoon: 'Em breve',
     openCalculator: 'Abrir a calculadora de',
     basedOn: 'A partir de',
+
+    /**
+     * Perguntas frequentes da home.
+     *
+     * Cada resposta começa pela resposta: quem chega de busca ou por um
+     * assistente de IA precisa do número na primeira frase, não no terceiro
+     * parágrafo. O contexto vem depois.
+     */
+    faq: {
+      title: 'Perguntas frequentes',
+      items: [
+        {
+          question: 'As calculadoras são gratuitas?',
+          answer:
+            'São. Não há cadastro, assinatura nem limite de uso. Todo cálculo roda no seu navegador e nada é enviado para servidor nenhum.',
+        },
+        {
+          question: 'De onde vêm as proporções?',
+          answer:
+            'De livros de referência de cozinha. Cada número exibido aparece com a citação da obra, com autor e página, ou capítulo quando o livro é digital e não tem paginação fixa.',
+        },
+        {
+          question: 'E quando dois livros discordam?',
+          answer:
+            'A divergência vira conteúdo. Cada calculadora tem uma tabela que mostra o que cada fonte diz e explica por que o padrão adotado é o que é, em vez de escolher em silêncio.',
+        },
+        {
+          question: 'Preciso de balança de cozinha?',
+          answer:
+            'Precisa, e isso é proposital. Tudo aqui é em gramas: xícara e colher variam com o ingrediente e com a mão de quem enche, e é o que faz a mesma receita sair diferente a cada vez. Quem prefere onças e libras troca nas configurações, mas continua pesando.',
+        },
+      ],
+    },
   },
 
   calculators: {

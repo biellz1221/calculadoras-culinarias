@@ -8,6 +8,7 @@ import {
   Prose,
 } from '@/components/calculator-layout';
 import { SourceList } from '@/components/citation';
+import { FaqList } from '@/components/faq';
 import type { Citation } from '@/data/citations';
 import {
   PASTA_DISHES,
@@ -58,6 +59,10 @@ export function PastaPage({ locale }: { locale: Locale }) {
 
       <CalculatorSection label={dict.method.title} educational>
         <Prose paragraphs={dict.method.body} />
+      </CalculatorSection>
+
+      <CalculatorSection label={dict.faq.title} educational>
+        <FaqList items={dict.faq.items} />
       </CalculatorSection>
 
       <CalculatorSection label={dict.divergence.title} educational lead={dict.divergence.lead}>
