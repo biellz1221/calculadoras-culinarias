@@ -355,7 +355,7 @@ export const gelatoPtBR = {
 
   sources: {
     title: 'Fontes desta calculadora',
-    lead: 'Esta é a única calculadora do site que não se apoia em obra publicada. Os 164 ingredientes, os coeficientes de POD e PAC e as faixas dos cinco tipos de base vêm de uma planilha de curso de gelato, que é material didático e não bibliografia, sem página ou capítulo para citar. Está declarado como tal em vez de ganhar ares de livro.',
+    lead: 'Esta é a única calculadora do site que não se apoia em obra publicada. Os 164 ingredientes, os coeficientes de POD e PAC e as faixas dos cinco tipos de base vêm da planilha de balanceamento do curso Gelato Direto ao Ponto, de Luis Paulo dos Santos Barros, o Lulo Fouet. É material didático e não bibliografia: não tem página nem capítulo para citar, então a citação aponta a aba da planilha e o curso de origem, em vez de ganhar ares de livro.',
     page: 'p.',
     section: 'seção',
   },

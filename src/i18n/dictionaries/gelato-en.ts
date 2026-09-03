@@ -353,7 +353,7 @@ export const gelatoEn: typeof gelatoPtBR = {
 
   sources: {
     title: 'Sources for this calculator',
-    lead: 'This is the only calculator on the site that does not rest on a published work. The 164 ingredients, the POD and PAC coefficients and the ranges for the five base types come from a gelato course spreadsheet, which is teaching material rather than a bibliography, with no page or chapter to cite. It is declared as such rather than dressed up as a book.',
+    lead: 'This is the only calculator on the site that does not rest on a published work. The 164 ingredients, the POD and PAC coefficients and the ranges for the five base types come from the balancing spreadsheet of the Brazilian course Gelato Direto ao Ponto, by Luis Paulo dos Santos Barros, known as Lulo Fouet. It is teaching material rather than a bibliography: there is no page or chapter to cite, so the citation names the sheet and the course it came from, rather than dressing itself up as a book.',
     page: 'p.',
     section: 'section',
   },

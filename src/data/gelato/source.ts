@@ -20,7 +20,11 @@ import { cite, type Citation } from '@/data/citations';
 
 export const GELATO_SOURCE = {
   kind: 'course-spreadsheet',
-  title: 'Planilha gelato do Curso 4.0',
+  title: 'Gelato Direto ao Ponto: planilha de balanceamento',
+  course: 'Gelato Direto ao Ponto',
+  author: 'Luis Paulo dos Santos Barros',
+  brand: 'Lulo Fouet',
+  url: 'https://lulofouet.com/gelatodiretoaoponto/',
   file: 'Planilha gelato do Curso - 4.0 (2).xlsx',
   sheet: 'Tabela de ingredientes',
   note: 'Composição, POD, PAC, proteína e custo dos 164 ingredientes e as faixas dos 5 tipos de base.',

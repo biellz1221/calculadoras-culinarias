@@ -55,6 +55,7 @@ function creativeWork(book: Book): Node {
   };
 
   if (book.year !== undefined) node.datePublished = String(book.year);
+  if (book.url) node.url = book.url;
   return node;
 }
 

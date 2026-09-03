@@ -37,6 +37,13 @@ export interface Book {
   authorKind?: 'person' | 'organization';
   /** Como a obra é chamada nas citações, quando o nome completo não cabe. */
   shortName?: string;
+  /**
+   * Onde a obra está, quando ela vive na internet.
+   *
+   * Livro impresso não tem endereço; curso e orientação oficial têm, e aí o
+   * leitor consegue chegar na fonte em vez de acreditar na palavra do site.
+   */
+  url?: string;
   publisher: string;
   year?: number;
   /** Como as citações endereçam a obra. */
@@ -126,18 +133,20 @@ export const BOOKS: readonly Book[] = [
     authorKind: 'organization',
     shortName: 'NCHFP',
     publisher: 'USDA',
+    url: 'https://nchfp.uga.edu/',
     locator: 'chapter',
     kind: 'official',
   },
   {
-    // A calculadora de gelato nasceu de uma planilha de curso, não de um livro.
-    // Fica declarada como o que é, em vez de ganhar ares de bibliografia.
+    // A calculadora de gelato nasceu da planilha de balanceamento de um curso,
+    // não de um livro. Fica declarada como o que é, com autor e endereço, em
+    // vez de virar uma "planilha" anônima com ares de bibliografia.
     id: 'gelato-course',
-    title: 'Planilha gelato do Curso 4.0',
-    authors: ['Material de curso'],
-    authorKind: 'organization',
-    shortName: 'Planilha do curso',
-    publisher: 'Acervo pessoal',
+    title: 'Gelato Direto ao Ponto: planilha de balanceamento',
+    authors: ['Luis Paulo dos Santos Barros'],
+    shortName: 'Lulo Fouet',
+    publisher: 'Lulo Fouet',
+    url: 'https://lulofouet.com/gelatodiretoaoponto/',
     locator: 'chapter',
     kind: 'course',
   },

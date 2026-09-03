@@ -129,7 +129,20 @@ export function SourceList({ citations, labels, title, lead }: SourceListProps) 
               />
               <div className="min-w-0">
                 <p className="font-display text-base leading-snug font-semibold text-ink">
-                  {book.title}
+                  {/* Obra que vive na internet vira link: o site promete que dá
+                      para conferir o número, e conferir um curso ou uma
+                      orientação oficial é abrir o endereço dela. */}
+                  {book.url ? (
+                    <a
+                      href={book.url}
+                      rel="noreferrer"
+                      className="underline decoration-rule-strong underline-offset-4 transition-colors hover:text-accent-deep hover:decoration-accent"
+                    >
+                      {book.title}
+                    </a>
+                  ) : (
+                    book.title
+                  )}
                 </p>
                 <p className="mt-0.5 text-sm text-ink-muted">
                   {formatAuthors(book)}

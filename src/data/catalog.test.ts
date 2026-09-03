@@ -30,7 +30,7 @@ describe('estante', () => {
     // Instituição não tem sobrenome: cortar a última palavra de "University
     // of Georgia" dava "Georgia", que não é ninguém.
     expect(formatAuthors(getBook('nchfp'))).toBe('NCHFP');
-    expect(formatAuthors(getBook('gelato-course'))).toBe('Planilha do curso');
+    expect(formatAuthors(getBook('gelato-course'))).toBe('Lulo Fouet');
   });
 
   it('declara como cada obra é citada', () => {
