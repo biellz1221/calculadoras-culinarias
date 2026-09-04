@@ -247,6 +247,18 @@ export const breadPtBR = {
       'Sem farinha identificada não existe a régua de 100%, então a leitura em porcentagem de padeiro fica de fora. A escala proporcional acima continua valendo.',
   },
 
+  custom: {
+    preset: 'Minha receita',
+    lead: 'Aqui a fórmula é sua: acrescente e tire ingredientes à vontade, e ajuste as porcentagens na tabela. As faixas e os avisos continuam valendo — é o que a calculadora tem a oferecer sobre uma receita que não é de nenhum dos livros.',
+    add: 'Acrescentar ingrediente',
+    choose: 'Escolha um…',
+    remove: 'Tirar da receita',
+    flourSum: 'As farinhas somam',
+    flourWhy:
+      'Elas precisam somar 100%: é a régua contra a qual todo o resto se mede, e fora disso cada ingrediente sai mais pesado do que o número promete.',
+    normalize: 'Acertar para 100%',
+  },
+
   fermentation: {
     title: 'Fermento, tempo e temperatura',
     lead: 'Duas contas que os livros publicam e que ninguém faz de cabeça: quanto tempo uma dose de fermento pede, e a que temperatura a água precisa sair da torneira para a massa terminar a sova no ponto.',

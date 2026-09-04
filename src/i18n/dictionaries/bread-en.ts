@@ -237,6 +237,18 @@ export const breadEn: typeof breadPtBR = {
       'With no flour identified there is no 100% ruler, so the baker’s percentage reading stays out. The proportional scaling above still holds.',
   },
 
+  custom: {
+    preset: 'My own recipe',
+    lead: 'Here the formula is yours: add and remove ingredients freely, and adjust the percentages in the table. The ranges and warnings still apply — that is what the calculator has to offer about a recipe from none of the books.',
+    add: 'Add an ingredient',
+    choose: 'Pick one…',
+    remove: 'Remove from the recipe',
+    flourSum: 'The flours add up to',
+    flourWhy:
+      'They have to add up to 100%: that is the ruler everything else is measured against, and away from it every ingredient comes out heavier than the number promises.',
+    normalize: 'Set to 100%',
+  },
+
   fermentation: {
     title: 'Yeast, time and temperature',
     lead: 'Two sums the books publish and nobody does in their head: how long a dose of yeast asks for, and how warm the water has to be for the dough to come off the mixer on target.',

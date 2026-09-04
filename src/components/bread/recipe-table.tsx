@@ -10,6 +10,9 @@ interface RecipeTableProps {
   dict: BreadDictionary;
   locale: Locale;
   onPercentChange: (key: IngredientKey, percent: number) => void;
+  /** Em receita própria a linha pode sair; num preset, não. */
+  onRemove?: (key: IngredientKey) => void;
+  removeLabel?: string;
 }
 
 /**
@@ -23,6 +26,8 @@ export function RecipeTable({
   dict,
   locale,
   onPercentChange,
+  onRemove,
+  removeLabel,
 }: RecipeTableProps) {
   const fmt = useFormatters(locale);
 
@@ -46,6 +51,7 @@ export function RecipeTable({
               <th scope="col" className="label-caps px-4 py-3 text-right text-ink-muted">
                 {dict.table.percent}
               </th>
+              {onRemove && <th scope="col" className="w-10" />}
             </tr>
           </thead>
 
@@ -65,11 +71,15 @@ export function RecipeTable({
                   {fmt.mass(line.grams)}
                 </td>
                 <td className="px-4 py-2.5 text-right">
-                  {isFlour(line.key) ? (
-                    /* A farinha é a régua: ela É os 100%. Deixar essa
-                       porcentagem editável produzia receita incoerente, com
-                       "farinha 80%" ao lado de "farinha total 100%". O tamanho
-                       da fornada se muda pelo peso, ali em cima. */
+                  {isFlour(line.key) && !onRemove ? (
+                    /* Num preset a farinha é a régua: ela É os 100%. Deixar
+                       essa porcentagem editável produzia receita incoerente,
+                       com "farinha 80%" ao lado de "farinha total 100%". O
+                       tamanho da fornada se muda pelo peso, ali em cima.
+
+                       Na receita própria é diferente: quem monta um blend
+                       precisa dizer quanto é de cada farinha, e a soma volta
+                       para 100 pelo aviso logo acima da tabela. */
                     <span
                       data-numeric
                       className="inline-flex items-center gap-1 pr-6 tabular-nums text-ink-muted"
@@ -99,6 +109,18 @@ export function RecipeTable({
                     </span>
                   )}
                 </td>
+                {onRemove && (
+                  <td className="px-2 py-2.5 text-right">
+                    <button
+                      type="button"
+                      onClick={() => onRemove(line.key)}
+                      aria-label={`${removeLabel}: ${dict.ingredients[line.key]}`}
+                      className="rounded-full border border-rule px-2 py-1 text-sm text-ink-muted transition-colors hover:border-danger hover:text-danger"
+                    >
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
@@ -117,6 +139,7 @@ export function RecipeTable({
               <td className="px-4 py-3 text-right tabular-nums text-ink-muted">
                 {fmt.number(100)}%
               </td>
+              {onRemove && <td />}
             </tr>
             <tr className="bg-paper-shade/60">
               <th scope="row" className="px-4 pb-3 text-left font-semibold text-ink">
@@ -129,6 +152,7 @@ export function RecipeTable({
                 {fmt.mass(recipe.doughGrams)}
               </td>
               <td />
+              {onRemove && <td />}
             </tr>
           </tfoot>
         </table>
