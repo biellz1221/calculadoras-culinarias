@@ -256,6 +256,27 @@
   }
 }
 
+/* ==========================================================================
+   Impressão (FR-042)
+
+   A folha impressa não é a página com os controles escondidos: é uma saída
+   própria, montada pelo `PrintSheet` a partir do mesmo `RecipeCard` que gera o
+   texto de compartilhamento. Esconder peça por peça envelheceria mal — todo
+   campo novo nasceria visível no papel até alguém lembrar de escondê-lo.
+
+   A folha é filha direta do `body` (portal), o que permite a regra abaixo
+   apagar a aplicação inteira de uma vez: `display: none` num ancestral não tem
+   como ser desfeito num descendente.
+   ========================================================================== */
+
+.print-sheet {
+  display: none;
+}
+
+@page {
+  margin: 16mm;
+}
+
 @media print {
   body::before {
     display: none;
@@ -263,5 +284,77 @@
 
   body {
     background: #fff;
+  }
+
+  body > *:not(.print-sheet) {
+    display: none !important;
+  }
+
+  .print-sheet {
+    display: block;
+    color: #000;
+    font-family: var(--font-sans);
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+
+  .print-head h1 {
+    font-family: var(--font-display);
+    font-size: 20pt;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .print-subtitle {
+    margin-top: 2mm;
+    font-size: 11pt;
+  }
+
+  .print-group {
+    margin-top: 6mm;
+    /* Um bloco de ingredientes partido entre duas páginas é o tipo de coisa
+       que faz alguém esquecer o sal. */
+    break-inside: avoid;
+  }
+
+  .print-group h2 {
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .print-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 8mm;
+    border-bottom: 0.2mm solid #bbb;
+    padding: 1.4mm 0;
+  }
+
+  .print-line-strong {
+    font-weight: 700;
+  }
+
+  .print-line dd {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* Aviso de segurança alimentar impresso com o mesmo peso que tem na tela:
+     quem leva o papel para a bancada é justamente quem não vai reabrir o site. */
+  .print-notice {
+    margin-top: 5mm;
+    border: 0.4mm solid #000;
+    padding: 3mm 4mm;
+    font-weight: 700;
+    break-inside: avoid;
+  }
+
+  .print-foot {
+    margin-top: 8mm;
+    border-top: 0.2mm solid #000;
+    padding-top: 2mm;
+    font-size: 8.5pt;
   }
 }

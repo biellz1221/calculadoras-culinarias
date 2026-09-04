@@ -49,7 +49,11 @@ test('editar a porcentagem recalcula e sinaliza a faixa', async ({ page }) => {
 
   await interactUntil(
     () => waterRow(page).getByRole('spinbutton').fill('95'),
-    () => expect(page.getByText('Fora do limite das fontes')).toBeVisible(),
+    // Escopo na tela: a folha de impressão repete o aviso, e é para repetir.
+    () =>
+      expect(
+        page.locator('#conteudo').getByText('Fora do limite das fontes'),
+      ).toBeVisible(),
   );
 });
 

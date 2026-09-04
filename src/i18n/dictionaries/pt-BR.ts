@@ -64,6 +64,52 @@ export const ptBR = {
     currentLanguage: 'Idioma atual',
   },
 
+  /**
+   * Salvar, compartilhar e imprimir (FR-040 a FR-042).
+   *
+   * Os avisos dizem o que aconteceu e o que fazer a seguir, porque nenhuma
+   * destas ações tem servidor para se explicar depois: se o link não abriu, a
+   * frase é a única chance de a pessoa entender por quê.
+   */
+  recipe: {
+    actionsLabel: 'O que fazer com esta receita',
+
+    save: 'Salvar',
+    nameLabel: 'Nome da receita',
+    confirm: 'Guardar',
+    cancel: 'Cancelar',
+    saved: 'Receita guardada neste navegador.',
+    replaced: 'Receita com esse nome substituída.',
+    full: 'São 20 receitas guardadas nesta calculadora, o limite. Apague uma para guardar outra.',
+    blocked:
+      'Este navegador não está guardando dados do site, então salvar não funciona aqui. Compartilhar e imprimir continuam valendo.',
+
+    mine: 'Minhas receitas',
+    empty: 'Nenhuma receita guardada nesta calculadora ainda.',
+    load: 'Abrir',
+    remove: 'Apagar',
+    loaded: 'Receita carregada.',
+    brokenEntry:
+      'Esta receita foi guardada por uma versão anterior da calculadora e não pode mais ser aberta.',
+
+    share: 'Compartilhar',
+    copyLink: 'Copiar link',
+    linkCopied: 'Link copiado. Quem abrir vê exatamente esta receita.',
+    textCopied: 'Receita copiada como texto.',
+    copyManually:
+      'O navegador não deixou copiar sozinho. O texto está abaixo, é só selecionar.',
+    manualLabel: 'Texto para copiar',
+
+    print: 'Imprimir',
+    sources: 'Fontes',
+
+    linkOutdated:
+      'Este link foi criado por uma versão anterior da calculadora e não pôde ser aberto. Os valores abaixo são os padrão.',
+    linkInvalid:
+      'Este link chegou incompleto ou alterado e não pôde ser aberto. Os valores abaixo são os padrão.',
+    dismiss: 'Entendi',
+  },
+
   home: {
     eyebrow: 'Proporções de cozinha com fonte declarada',
     title: 'As proporções que fazem a receita funcionar',

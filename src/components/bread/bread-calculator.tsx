@@ -3,20 +3,28 @@
 import { useMemo, useState } from 'react';
 
 import { BalancePanel } from './balance-panel';
+import { breadRecipeCard } from './recipe-card';
 import { RecipeTable } from './recipe-table';
 import { CitationRef } from '@/components/citation';
 import { MassField, NumberField } from '@/components/field';
-import { BREAD_PRESETS, DEFAULT_PRESET_ID, getPreset } from '@/data/bread/presets';
-import type { BreadFormula, BreadTarget, IngredientKey } from '@/data/bread/types';
+import { RecipeActions } from '@/components/recipes/recipe-actions';
+import { BREAD_PRESETS, getPreset } from '@/data/bread/presets';
+import type { IngredientKey } from '@/data/bread/types';
 import type { BreadDictionary } from '@/i18n/dictionaries/bread';
 import { useFormatters, type Formatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
-import { calculateRecipe, withPercent } from '@/lib/bread/calculate';
+import { calculateRecipe } from '@/lib/bread/calculate';
+import {
+  BREAD_MODES,
+  breadTarget,
+  changePercent,
+  choosePreset,
+  initialBreadState,
+  parseBreadState,
+  type BreadMode,
+  type BreadState,
+} from '@/lib/bread/state';
 import { cn } from '@/lib/cn';
-
-type TargetMode = BreadTarget['kind'];
-
-const MODES: readonly TargetMode[] = ['flour', 'dough', 'units'];
 
 interface BreadCalculatorProps {
   dict: BreadDictionary;
@@ -26,45 +34,21 @@ interface BreadCalculatorProps {
 export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
   const fmt = useFormatters(locale);
 
-  const [presetId, setPresetId] = useState(DEFAULT_PRESET_ID);
-  const [formula, setFormula] = useState<BreadFormula>(
-    () => presetFormula(DEFAULT_PRESET_ID),
-  );
-  const [mode, setMode] = useState<TargetMode>('flour');
-  const [flourGrams, setFlourGrams] = useState(500);
-  const [doughGrams, setDoughGrams] = useState(1000);
-  const [unitCount, setUnitCount] = useState(8);
-  const [unitGrams, setUnitGrams] = useState(90);
-
-  const preset = getPreset(presetId);
-
-  const target = useMemo<BreadTarget>(() => {
-    if (mode === 'dough') return { kind: 'dough', grams: doughGrams };
-    if (mode === 'units') {
-      return { kind: 'units', count: unitCount, unitGrams };
-    }
-    return { kind: 'flour', grams: flourGrams };
-  }, [mode, flourGrams, doughGrams, unitCount, unitGrams]);
+  const [state, setState] = useState<BreadState>(initialBreadState);
+  const preset = getPreset(state.presetId);
 
   const recipe = useMemo(
-    () => calculateRecipe(formula, target),
-    [formula, target],
+    () => calculateRecipe(state.formula, breadTarget(state)),
+    [state],
   );
 
-  function choosePreset(id: string) {
-    setPresetId(id);
-    setFormula(presetFormula(id));
+  const card = useMemo(
+    () => breadRecipeCard({ state, recipe, dict, fmt }),
+    [state, recipe, dict, fmt],
+  );
 
-    // O rendimento publicado é o melhor palpite para o modo por unidades.
-    const chosen = getPreset(id);
-    if (chosen?.yield) {
-      setUnitCount(chosen.yield.count);
-      setUnitGrams(chosen.yield.unitGrams);
-    }
-  }
-
-  function changePercent(key: IngredientKey, percent: number) {
-    setFormula((current) => withPercent(current, key, percent));
+  function setMode(mode: BreadMode) {
+    setState((current) => ({ ...current, mode }));
   }
 
   return (
@@ -76,11 +60,11 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
             <button
               key={item.id}
               type="button"
-              onClick={() => choosePreset(item.id)}
-              aria-pressed={item.id === presetId}
+              onClick={() => setState((current) => choosePreset(current, item.id))}
+              aria-pressed={item.id === state.presetId}
               className={cn(
                 'rounded-full border px-3.5 py-1.5 text-sm transition-colors',
-                item.id === presetId
+                item.id === state.presetId
                   ? 'border-ink bg-ink text-paper'
                   : 'border-rule bg-surface text-ink-soft hover:border-accent hover:text-accent-deep',
               )}
@@ -95,15 +79,15 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
         <legend className="label-caps text-ink-muted">{dict.target.label}</legend>
 
         <div className="mt-3 flex flex-wrap gap-2">
-          {MODES.map((option) => (
+          {BREAD_MODES.map((option) => (
             <button
               key={option}
               type="button"
               onClick={() => setMode(option)}
-              aria-pressed={option === mode}
+              aria-pressed={option === state.mode}
               className={cn(
                 'rounded-full border px-3.5 py-1.5 text-sm transition-colors',
-                option === mode
+                option === state.mode
                   ? 'border-accent-deep bg-accent-tint text-accent-deep'
                   : 'border-rule bg-surface text-ink-soft hover:border-accent',
               )}
@@ -114,32 +98,40 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
         </div>
 
         <div className="mt-4 flex flex-wrap items-end gap-4">
-          {mode === 'flour' && (
+          {state.mode === 'flour' && (
             <MassField
               label={dict.target.flourHint}
-              grams={flourGrams}
-              onChange={setFlourGrams}
+              grams={state.flourGrams}
+              onChange={(flourGrams) =>
+                setState((current) => ({ ...current, flourGrams }))
+              }
             />
           )}
-          {mode === 'dough' && (
+          {state.mode === 'dough' && (
             <MassField
               label={dict.target.doughHint}
-              grams={doughGrams}
-              onChange={setDoughGrams}
+              grams={state.doughGrams}
+              onChange={(doughGrams) =>
+                setState((current) => ({ ...current, doughGrams }))
+              }
             />
           )}
-          {mode === 'units' && (
+          {state.mode === 'units' && (
             <>
               <NumberField
                 label={dict.target.unitsCount}
-                value={unitCount}
-                onChange={setUnitCount}
+                value={state.unitCount}
+                onChange={(unitCount) =>
+                  setState((current) => ({ ...current, unitCount }))
+                }
                 step={1}
               />
               <MassField
                 label={dict.target.unitWeight}
-                grams={unitGrams}
-                onChange={setUnitGrams}
+                grams={state.unitGrams}
+                onChange={(unitGrams) =>
+                  setState((current) => ({ ...current, unitGrams }))
+                }
               />
             </>
           )}
@@ -150,10 +142,21 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
         recipe={recipe}
         dict={dict}
         locale={locale}
-        onPercentChange={changePercent}
+        onPercentChange={(key: IngredientKey, percent: number) =>
+          setState((current) => changePercent(current, key, percent))
+        }
       />
 
       <BalancePanel recipe={recipe} dict={dict} locale={locale} />
+
+      <RecipeActions
+        calculator="bread"
+        locale={locale}
+        state={state}
+        card={card}
+        parse={parseBreadState}
+        onRestore={setState}
+      />
 
       {preset && (
         <section className="mt-10 border-t border-rule pt-6">
@@ -210,17 +213,6 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
   );
 }
 
-function presetFormula(id: string): BreadFormula {
-  const preset = getPreset(id);
-  if (!preset) throw new Error(`preset desconhecido: ${id}`);
-
-  // Cópia rasa das linhas para o estado poder ser editado sem tocar no dado.
-  return {
-    flours: preset.formula.flours.map((line) => ({ ...line })),
-    lines: preset.formula.lines.map((line) => ({ ...line })),
-  };
-}
-
 function formatRange(
   range: readonly [number, number] | undefined,
   unit: string,
@@ -246,4 +238,3 @@ function ProcessItem({ label, value }: { label: string; value?: string }) {
     </div>
   );
 }
-

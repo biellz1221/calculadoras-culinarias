@@ -34,7 +34,9 @@ test('calcula os 40 g de sal do exemplo do Noma', async ({ page }) => {
       await page.getByLabel('Água (g)').fill('1000');
       await page.getByLabel('Sal (%)').fill('2');
     },
-    () => expect(page.getByText('40,0 g')).toBeVisible(),
+    // Escopo na tela: a folha de impressão repete o mesmo número, e é para
+    // repetir — ela é a outra saída da mesma receita.
+    () => expect(page.locator('#conteudo').getByText('40,0 g')).toBeVisible(),
   );
 });
 

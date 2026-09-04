@@ -94,6 +94,59 @@ palavras-chave e o texto alternativo da imagem.
   Next impõe ao `canonical`, e sitemap, `og:url` e JSON-LD seguem ela via
   `absoluteUrl`.
 
+### Salvar, compartilhar e imprimir
+
+As três saídas de uma receita calculada (FR-040 a FR-042) saem do mesmo par, e é
+o que as mantém coerentes entre si:
+
+| Peça | Papel |
+| --- | --- |
+| **Estado** (`src/lib/<calc>/state.ts`) | Tudo o que reconstrói a calculadora, num objeto só e serializável. Cada módulo exporta um `parse…State` que valida entrada não confiável |
+| **`RecipeCard`** ([`src/lib/recipes/card.ts`](src/lib/recipes/card.ts)) | O resultado já formatado: linhas, avisos e fontes. Cada calculadora monta o seu em `components/<calc>/recipe-card.ts` |
+
+Em cima desse par:
+
+- **Guardar**: [`src/lib/recipes/store.ts`](src/lib/recipes/store.ts), localStorage
+  por calculadora, 20 receitas, mesmo nome substitui. Sem storage o recurso some
+  em vez de quebrar.
+- **Link**: o estado inteiro vai dentro da URL, em `?r=`, num envelope
+  **versionado** ([`snapshot.ts`](src/lib/recipes/snapshot.ts)). Link de versão
+  que não sabemos ler diz isso; link corrompido também. O canonical continua
+  apontando para a página limpa, e o `?r=` sai da barra assim que a receita muda.
+- **Papel**: [`PrintSheet`](src/components/recipes/print-sheet.tsx) monta a folha
+  num portal no `body`, e o CSS de impressão esconde a aplicação inteira. Isso
+  garante o que a regra do projeto exige — **o aviso de segurança acompanha o
+  resultado, inclusive impresso**.
+
+> O que entra por `?r=` é texto que qualquer pessoa escreve. Nada dali chega ao
+> motor de cálculo sem passar por um `parse…State`, que recusa o estado inteiro
+> ao primeiro campo inválido — meia receita na tela é pior que nenhuma.
+
+Efeito colateral nos testes: a folha repete a receita no DOM. O Vitest a ignora
+por configuração (`vitest.setup.ts`) e, no Playwright, asserção sobre a tela usa
+`page.locator('#conteudo')`.
+
+## Domínios
+
+O site responde em **calculadorasculinarias.com.br**, que é o endereço canônico
+dos dois idiomas.
+
+**culinarycalculators.com** é porta de entrada em inglês: o
+[`vercel.json`](vercel.json) redireciona tudo o que chega por ele para a árvore
+`/en` do domínio canônico, mapeando também os slugs em português (`/paes` →
+`/en/bread`). Um único site indexado, sem conteúdo duplicado.
+
+Para ligar: acrescentar o domínio (e o `www`) ao projeto na Vercel. Até lá o
+`vercel.json` fica inerte. Se o domínio for apenas apontado para o mesmo deploy,
+sem o redirecionamento, `isEnglishHost` em [`src/lib/site.ts`](src/lib/site.ts)
+ainda leva a raiz para o inglês pelo cliente.
+
+O redirecionamento é **307 (temporário)** de propósito: 308 fica gravado no
+navegador de quem visitou uma vez e amarraria uma decisão que ainda pode mudar —
+dar ao `.com` um build próprio, com canonical nele mesmo, é a alternativa se um
+dia o inglês justificar domínio de verdade. Vale trocar para permanente quando
+a escolha estiver assentada.
+
 ## Publicando uma calculadora nova
 
 1. Extrair as proporções para `docs/research/`, com citação.

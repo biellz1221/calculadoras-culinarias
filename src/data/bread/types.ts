@@ -69,6 +69,46 @@ export const PRE_FERMENT_HYDRATION: Record<PreFermentKey, number> = {
   'fermented-dough': 65,
 };
 
+/**
+ * Todas as chaves de ingrediente, como registro em vez de lista.
+ *
+ * O tipo `Record<IngredientKey, true>` é conferido na compilação: acrescentar
+ * um ingrediente à união sem acrescentá-lo aqui não compila. Uma lista comum
+ * aceitaria a omissão em silêncio, e o efeito só apareceria como um
+ * ingrediente que some ao abrir um link compartilhado.
+ */
+const INGREDIENT_KEYS: Record<IngredientKey, true> = {
+  'flour-white': true,
+  'flour-wholewheat': true,
+  'flour-rye': true,
+  'flour-semolina': true,
+  'flour-corn': true,
+  'flour-bran': true,
+  'flour-rice': true,
+  'yeast-fresh': true,
+  'yeast-active-dry': true,
+  'yeast-instant': true,
+  'levain-liquid': true,
+  poolish: true,
+  'fermented-dough': true,
+  water: true,
+  milk: true,
+  salt: true,
+  sugar: true,
+  butter: true,
+  'olive-oil': true,
+  lard: true,
+  egg: true,
+  'milk-powder': true,
+  'creme-fraiche': true,
+  xanthan: true,
+};
+
+/** Guarda para valor vindo de fora: link compartilhado ou receita salva. */
+export function isIngredientKey(value: unknown): value is IngredientKey {
+  return typeof value === 'string' && Object.hasOwn(INGREDIENT_KEYS, value);
+}
+
 export function isFlour(key: IngredientKey): key is FlourKey {
   return (FLOUR_KEYS as readonly string[]).includes(key);
 }

@@ -33,11 +33,14 @@ test('a escolha de unidades muda os números e sobrevive ao recarregar', async (
 test('a escolha de temperatura converte a faixa de fermentação', async ({ page }) => {
   await page.goto('/picles');
 
-  await expect(page.getByText('10–21 °C')).toBeVisible();
+  // Escopo na tela: a folha de impressão traz a mesma faixa, na mesma unidade.
+  const screenOnly = page.locator('#conteudo');
+
+  await expect(screenOnly.getByText('10–21 °C')).toBeVisible();
 
   await choose(page, 'Fahrenheit');
 
-  await expect(page.getByText('50–70 °F')).toBeVisible();
+  await expect(screenOnly.getByText('50–70 °F')).toBeVisible();
 });
 
 test('a interface simplificada recolhe as explicações', async ({ page }) => {

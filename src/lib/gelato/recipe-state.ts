@@ -11,8 +11,9 @@
 
 import { DEFAULT_DENSITY, litersToGrams, roundGrams, scaleToTarget } from './calc';
 import type { RecipeItem } from './types';
+import { INGREDIENTS } from '@/data/gelato/ingredients';
 import { PRESETS, type Preset } from '@/data/gelato/presets';
-import { DEFAULT_RECIPE_TYPE_ID } from '@/data/gelato/recipe-types';
+import { DEFAULT_RECIPE_TYPE_ID, RECIPE_TYPES } from '@/data/gelato/recipe-types';
 
 export interface GelatoState {
   readonly presetId: string;
@@ -24,6 +25,8 @@ export interface GelatoState {
 
 export type GelatoAction =
   | { type: 'loadPreset'; presetId: string }
+  /** Estado inteiro de uma vez: link compartilhado ou receita guardada. */
+  | { type: 'replaceState'; state: GelatoState }
   | { type: 'setRecipeType'; recipeTypeId: string }
   | { type: 'setBatchLiters'; liters: number }
   | { type: 'setDensity'; density: number }
@@ -94,6 +97,62 @@ export function initialGelatoState(): GelatoState {
   return fromPreset(first, 1, DEFAULT_DENSITY);
 }
 
+/**
+ * Valida um estado vindo de link compartilhado ou de receita guardada.
+ *
+ * Ingrediente que não está no catálogo é motivo para recusar o estado inteiro,
+ * e não para descartar a linha: uma receita de gelato à qual falta um item é
+ * uma receita desbalanceada, e a calculadora anunciaria as métricas dela como
+ * se estivessem certas.
+ */
+export function parseGelatoState(value: unknown): GelatoState | null {
+  if (typeof value !== 'object' || value === null) return null;
+  const record = value as Record<string, unknown>;
+
+  if (typeof record.presetId !== 'string' || record.presetId.length > 64) return null;
+  if (!RECIPE_TYPES.some((type) => type.id === record.recipeTypeId)) return null;
+
+  const batchLiters = boundedNumber(record.batchLiters, MIN_LITERS, MAX_LITERS);
+  const density = boundedNumber(record.density, MIN_DENSITY, MAX_DENSITY);
+  if (batchLiters === null || density === null) return null;
+
+  if (!Array.isArray(record.items) || record.items.length > 60) return null;
+
+  const items: RecipeItem[] = [];
+  const seen = new Set<string>();
+
+  for (const item of record.items) {
+    if (typeof item !== 'object' || item === null) return null;
+
+    const { id, ingredientId, grams } = item as Record<string, unknown>;
+    const parsedGrams = boundedNumber(grams, 0, 1e7);
+
+    if (typeof ingredientId !== 'string') return null;
+    if (!INGREDIENTS.some((known) => known.id === ingredientId)) return null;
+    // O id da linha é o próprio ingrediente, por construção do reducer.
+    if (id !== ingredientId || seen.has(ingredientId)) return null;
+    if (parsedGrams === null) return null;
+
+    seen.add(ingredientId);
+    items.push({ id: ingredientId, ingredientId, grams: parsedGrams });
+  }
+
+  return {
+    presetId: record.presetId,
+    recipeTypeId: record.recipeTypeId as string,
+    items,
+    batchLiters,
+    density,
+  };
+}
+
+function boundedNumber(value: unknown, min: number, max: number): number | null {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return null;
+  if (value < min || value > max) return null;
+
+  return value;
+}
+
 /** Acrescentar ingrediente repetido soma na linha que já existe. */
 function addIngredient(
   state: GelatoState,
@@ -131,6 +190,9 @@ function rescale(state: GelatoState, liters: number, density: number): GelatoSta
 
 export function gelatoReducer(state: GelatoState, action: GelatoAction): GelatoState {
   switch (action.type) {
+    case 'replaceState':
+      return action.state;
+
     case 'loadPreset': {
       const preset = PRESETS.find((item) => item.id === action.presetId);
       if (!preset) return state;

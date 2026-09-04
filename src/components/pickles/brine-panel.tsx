@@ -1,85 +1,41 @@
 'use client';
 
-import { useState } from 'react';
-
+import { IngredientLines } from './ingredient-lines';
 import { ResultRow, SalinityMetric } from './result-row';
 import { CitationRef } from '@/components/citation';
 import { MassField, NumberField, Segmented } from '@/components/field';
-import {
-  CLIMATES,
-  DEFAULT_VEGETABLE_SHARE,
-  RANGES,
-} from '@/data/pickles/ranges';
-import { IngredientLines } from './ingredient-lines';
-import type {
-  BrineInput,
-  BrinePreset,
-  DrySaltPreset,
-  IngredientLine,
-  SaltBasis,
-} from '@/data/pickles/types';
+import { CLIMATES, RANGES } from '@/data/pickles/ranges';
+import type { BrinePreset, BrineInput, DrySaltPreset } from '@/data/pickles/types';
 import type { PicklesDictionary } from '@/i18n/dictionaries/pickles';
 import { useFormatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { calculateBrine, calculateDrySalt } from '@/lib/pickles/brine';
+import { brineInput, type BrineState } from '@/lib/pickles/state';
 
 interface BrinePanelProps {
   preset: BrinePreset | DrySaltPreset;
+  state: BrineState;
+  onChange: (patch: Partial<BrineState>) => void;
   dict: PicklesDictionary;
   locale: Locale;
 }
 
-/**
- * A lista livre começa preenchida com o mesmo lote dos campos de peso, para a
- * troca de modo não zerar o resultado que a pessoa estava vendo.
- */
-function startingLines(isBrine: boolean): IngredientLine[] {
-  const solid: IngredientLine = {
-    id: 'solid-1',
-    name: '',
-    grams: 1000,
-    role: 'solid',
-  };
-
-  if (!isBrine) return [solid];
-
-  return [solid, { id: 'liquid-1', name: '', grams: 1000, role: 'liquid' }];
-}
-
-export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
+export function BrinePanel({ preset, state, onChange, dict, locale }: BrinePanelProps) {
   const fmt = useFormatters(locale);
 
   const isBrine = preset.mode === 'brine';
 
-  const [inputKind, setInputKind] = useState<BrineInput['kind']>('weights');
-  const [vegetableGrams, setVegetableGrams] = useState(1000);
-  const [waterGrams, setWaterGrams] = useState(1000);
-  const [jarMilliliters, setJarMilliliters] = useState(1000);
-  const [vegetableShare, setVegetableShare] = useState(
-    isBrine ? preset.vegetableShare : DEFAULT_VEGETABLE_SHARE,
-  );
-  const [saltPercent, setSaltPercent] = useState(preset.saltPercent);
-  const [basis, setBasis] = useState<SaltBasis>(
-    isBrine ? preset.basis : 'total',
-  );
-  const [lines, setLines] = useState<readonly IngredientLine[]>(() =>
-    startingLines(isBrine),
-  );
-
-  const input: BrineInput =
-    inputKind === 'ingredients'
-      ? { kind: 'ingredients', lines }
-      : inputKind === 'weights'
-        ? { kind: 'weights', vegetableGrams, waterGrams }
-        : { kind: 'jar', jarMilliliters, vegetableShare };
-
-  const brine = calculateBrine({ input, saltPercent, basis });
+  const brine = calculateBrine({
+    input: brineInput(state),
+    saltPercent: state.saltPercent,
+    basis: state.basis,
+  });
 
   // Na salga direta o peso do vegetal pode vir do campo único ou da soma da
   // lista; o resto da conta é o mesmo.
   const dry = calculateDrySalt(
-    inputKind === 'ingredients' ? brine.vegetableGrams : vegetableGrams,
-    saltPercent,
+    state.inputKind === 'ingredients' ? brine.vegetableGrams : state.vegetableGrams,
+    state.saltPercent,
   );
   const climate = CLIMATES[preset.climate];
 
@@ -88,18 +44,18 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
       <div className="flex flex-col gap-6">
         <Segmented
           legend={dict.input.label}
-          value={inputKind}
-          onChange={setInputKind}
+          value={state.inputKind}
+          onChange={(inputKind: BrineInput['kind']) => onChange({ inputKind })}
           options={
             isBrine
               ? [
-                  { value: 'weights', label: dict.input.byWeights },
-                  { value: 'jar', label: dict.input.byJar },
-                  { value: 'ingredients', label: dict.input.byIngredients },
+                  { value: 'weights' as const, label: dict.input.byWeights },
+                  { value: 'jar' as const, label: dict.input.byJar },
+                  { value: 'ingredients' as const, label: dict.input.byIngredients },
                 ]
               : [
-                  { value: 'weights', label: dict.input.byWeights },
-                  { value: 'ingredients', label: dict.input.byIngredients },
+                  { value: 'weights' as const, label: dict.input.byWeights },
+                  { value: 'ingredients' as const, label: dict.input.byIngredients },
                 ]
           }
         />
@@ -107,20 +63,20 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
         {isBrine && (
           <Segmented
             legend={dict.basis.label}
-            value={basis}
-            onChange={setBasis}
+            value={state.basis}
+            onChange={(basis) => onChange({ basis })}
             options={[
-              { value: 'total', label: dict.basis.total },
-              { value: 'water', label: dict.basis.water },
+              { value: 'total' as const, label: dict.basis.total },
+              { value: 'water' as const, label: dict.basis.water },
             ]}
           />
         )}
       </div>
 
-      {inputKind === 'ingredients' && (
+      {state.inputKind === 'ingredients' && (
         <IngredientLines
-          lines={lines}
-          onChange={setLines}
+          lines={state.lines}
+          onChange={(lines) => onChange({ lines })}
           dict={dict}
           locale={locale}
           allowLiquid={isBrine}
@@ -128,37 +84,37 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
       )}
 
       <div className="mt-6 flex flex-wrap items-start gap-5">
-        {inputKind === 'weights' && (
+        {state.inputKind === 'weights' && (
           <MassField
             label={dict.input.vegetable}
-            grams={vegetableGrams}
-            onChange={setVegetableGrams}
+            grams={state.vegetableGrams}
+            onChange={(vegetableGrams) => onChange({ vegetableGrams })}
             step={50}
           />
         )}
 
-        {isBrine && inputKind === 'weights' && (
+        {isBrine && state.inputKind === 'weights' && (
           <MassField
             label={dict.input.water}
-            grams={waterGrams}
-            onChange={setWaterGrams}
+            grams={state.waterGrams}
+            onChange={(waterGrams) => onChange({ waterGrams })}
             step={50}
           />
         )}
 
-        {isBrine && inputKind === 'jar' && (
+        {isBrine && state.inputKind === 'jar' && (
           <>
             <NumberField
               label={dict.input.jar}
-              value={jarMilliliters}
-              onChange={setJarMilliliters}
+              value={state.jarMilliliters}
+              onChange={(jarMilliliters) => onChange({ jarMilliliters })}
               suffix="ml"
               step={100}
             />
             <NumberField
               label={dict.input.share}
-              value={Math.round(vegetableShare * 100)}
-              onChange={(value) => setVegetableShare(value / 100)}
+              value={Math.round(state.vegetableShare * 100)}
+              onChange={(value) => onChange({ vegetableShare: value / 100 })}
               suffix="%"
               step={5}
               max={100}
@@ -169,8 +125,8 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
 
         <NumberField
           label={dict.input.saltPercent}
-          value={saltPercent}
-          onChange={setSaltPercent}
+          value={state.saltPercent}
+          onChange={(saltPercent) => onChange({ saltPercent })}
           suffix="%"
           step={0.1}
         />
@@ -187,20 +143,12 @@ export function BrinePanel({ preset, dict, locale }: BrinePanelProps) {
           />
           <ResultRow
             label={dict.result.vegetable}
-            value={fmt.mass(
-              isBrine ? brine.vegetableGrams : dry.vegetableGrams,
-            )}
+            value={fmt.mass(isBrine ? brine.vegetableGrams : dry.vegetableGrams)}
           />
           {isBrine && (
             <>
-              <ResultRow
-                label={dict.result.water}
-                value={fmt.mass(brine.waterGrams)}
-              />
-              <ResultRow
-                label={dict.result.total}
-                value={fmt.mass(brine.totalGrams)}
-              />
+              <ResultRow label={dict.result.water} value={fmt.mass(brine.waterGrams)} />
+              <ResultRow label={dict.result.total} value={fmt.mass(brine.totalGrams)} />
             </>
           )}
           <ResultRow
