@@ -87,6 +87,31 @@ que abre offline e não responde ao campo não serve para nada na cozinha.
 Conferido que o teste falha sem o service worker: desliguei o registro,
 reconstruí e ele estourou por timeout.
 
+## Auditoria de segurança
+
+Num site sem servidor, o que sobra de superfície é **disponibilidade no
+navegador** e **integridade do cache**. Foi onde apareceu o achado.
+
+| # | Severidade | Achado | Correção |
+| --- | --- | --- | --- |
+| S1 | **Alta** | As expressões do parser juntavam quantificador aberto (`[\d.,]*`) com sufixo que pode falhar (a unidade). Contra uma linha só de dígitos sem unidade nenhuma, o motor volta atrás caractere a caractere a partir de cada posição — custo quadrático. **Medido: 200 mil caracteres = 62,9 segundos de aba travada.** Basta colar por engano um hash ou um número de rastreio. | Teto de vinte dígitos no quantificador. Mesma entrada: **14 ms**. Nenhuma quantidade de receita tem vinte dígitos. |
+| S2 | Média | O custo acima era pago antes de qualquer checagem de tamanho, e nada limitava o texto colado. | Linha acima de 300 caracteres e texto além de 2 000 linhas são descartados antes de ler; `maxLength` no campo como camada extra. |
+| S3 | Média | `safeJoin` do servidor de teste comparava **texto**, não caminho: um diretório irmão com o mesmo prefixo (`/tmp/outros` ao lado de `/tmp/out`) escapava da raiz. | Comparação com o separador junto. Não era explorável hoje — não existe pasta assim ao lado de `out/` —, mas o dia em que alguém criar um `out-antigo/` não deveria ser o dia em que isso vira bug. |
+| S4 | Baixa | `GET /%` derrubava o **processo inteiro** do servidor de teste: `decodeURIComponent` lança e nada capturava. Uma requisição levava a suíte de PWA junto. | `try/catch` no handler, com 400. |
+| S5 | Baixa | O servidor de teste escutava em todas as interfaces. | Só no laço local. |
+
+Conferido na mão, depois da correção: irmão com mesmo prefixo → 404, traversal
+comum → 404, `/%` → 400 **com o processo de pé**, e o socket em `127.0.0.1`.
+
+Verificadas e **sem achado**: XSS pelo nome de ingrediente colado (tudo passa
+por interpolação JSX; nenhum `dangerouslySetInnerHTML` no diff), `Infinity`/`NaN`
+chegando ao cálculo (`toGrams` já rejeitava), interpolação no `sw.js` gerado (só
+entra a versão do build, e via `JSON.stringify`), cache de resposta de outra
+origem ou de erro (o worker filtra por origem e só grava `response.ok`),
+`SKIP_WAITING` de origem alheia (o canal de um service worker não é alcançável
+de outra origem, e o pior caso seria ativar mais cedo uma versão nossa) e
+exposição pelo manifesto ou pelos ícones.
+
 ## Pendente
 
 - **Nada bloqueando.** Este PR depende do anterior (`feature/save-share-print`)

@@ -107,6 +107,15 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   tabela intermediária, com papel editável e botão de apagar, é o que transforma
   erro de leitura num clique. Sem ela, a alternativa honesta é não ter a
   ferramenta.
+- **Quantificador aberto seguido de sufixo que pode falhar é custo quadrático.**
+  `/(\d[\d.,]*)\s*(kg|g|ml)\b/g` contra uma linha só de dígitos: o motor volta
+  atrás caractere a caractere a partir de cada posição. Medido aqui: 200 mil
+  caracteres travavam a aba por **63 segundos**; com `{0,20}` no lugar do `*`,
+  14 ms. Não precisa de quantificador aninhado para virar negação de serviço.
+- **Teto de tamanho antes de processar, não depois.** As checagens de nome
+  comprido e de verbo de preparo rodavam *depois* do `findAmount`, ou seja,
+  depois de o custo já ter sido pago. Descarte a linha grande antes de olhar
+  para ela.
 
 ## Service worker
 
