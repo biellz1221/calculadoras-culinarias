@@ -46,6 +46,7 @@ export function picklesRecipeCard({
       subtitle,
       groups: [
         {
+          heading: dict.result.title,
           lines: [
             {
               label: dict.result.vinegar,
@@ -58,7 +59,6 @@ export function picklesRecipeCard({
           ],
         },
         {
-          heading: dict.result.title,
           lines: [
             {
               label: dict.result.acidity,
@@ -150,7 +150,9 @@ export function picklesRecipeCard({
   return {
     title,
     subtitle,
-    groups: [{ lines: weigh }, { heading: dict.result.title, lines: salinity }],
+    // O título "O que pesar" encabeça o que se pesa. A salinidade vem depois,
+    // sem título: são leituras do que foi pesado, não mais ingredientes.
+    groups: [{ heading: dict.result.title, lines: weigh }, { lines: salinity }],
     notices,
     sources: citationSummary(
       [...preset.citations, ...climate.citations],

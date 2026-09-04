@@ -48,9 +48,10 @@ export function pastaRecipeCard({
     title: dict.presets[state.presetId as keyof PastaDictionary['presets']],
     subtitle: `${fmt.number(state.servings)} ${dict.target.servings.toLowerCase()} · ${fmt.mass(state.gramsPerServing, 0)} ${dict.target.gramsPerServing.toLowerCase()}`,
     groups: [
-      { lines: ingredients },
+      // "O que pesar" encabeça o que se pesa; o resumo vem depois, sem título,
+      // porque água de cozimento e tempo de panela não são ingredientes.
+      { heading: dict.result.title, lines: ingredients },
       {
-        heading: dict.result.title,
         lines: [
           {
             label: dict.result.flour,
