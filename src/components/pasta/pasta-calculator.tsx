@@ -3,25 +3,27 @@
 import { useMemo, useState } from 'react';
 
 import { BalancePanel } from './balance-panel';
+import { pastaRecipeCard } from './recipe-card';
 import { ResultPanel } from './result-panel';
 import { MassField, NumberField, Segmented } from '@/components/field';
+import { RecipeActions } from '@/components/recipes/recipe-actions';
 import {
   DEFAULT_PASTA_PRESET_ID,
   PASTA_PRESETS,
   getPastaPreset,
 } from '@/data/pasta/presets';
-import { SERVING_GRAMS } from '@/data/pasta/ranges';
-import {
-  REFERENCE_EGG_GRAMS,
-  REFERENCE_YOLK_GRAMS,
-  SERVING_STYLES,
-  type PastaPreset,
-  type PastaTarget,
-  type ServingStyle,
-} from '@/data/pasta/types';
+import { SERVING_STYLES, type PastaPreset } from '@/data/pasta/types';
 import type { PastaDictionary } from '@/i18n/dictionaries/pasta';
 import type { Locale } from '@/i18n/locales';
 import { calculatePasta, presetEggUnits } from '@/lib/pasta/calculate';
+import {
+  chooseStyle,
+  initialPastaState,
+  parsePastaState,
+  pastaTarget,
+  type PastaState,
+} from '@/lib/pasta/state';
+import { useFormatters } from '@/lib/use-formatters';
 
 interface PastaCalculatorProps {
   dict: PastaDictionary;
@@ -35,40 +37,32 @@ function presetById(id: string): PastaPreset {
 }
 
 export function PastaCalculator({ dict, locale }: PastaCalculatorProps) {
-  const [presetId, setPresetId] = useState(DEFAULT_PASTA_PRESET_ID);
-  const [servings, setServings] = useState(4);
-  const [style, setStyle] = useState<ServingStyle>('main');
-  const [gramsPerServing, setGramsPerServing] = useState(SERVING_GRAMS.main);
-  const [eggGrams, setEggGrams] = useState(REFERENCE_EGG_GRAMS);
-  const [yolkGrams, setYolkGrams] = useState(REFERENCE_YOLK_GRAMS);
+  const fmt = useFormatters(locale);
 
-  const preset = presetById(presetId);
+  const [state, setState] = useState<PastaState>(() =>
+    initialPastaState(DEFAULT_PASTA_PRESET_ID),
+  );
+
+  const preset = presetById(state.presetId);
   const usesYolks = presetEggUnits(preset).yolks > 0;
   const usesEggs = presetEggUnits(preset).eggs > 0;
 
-  const target = useMemo<PastaTarget>(
-    () => ({ servings, gramsPerServing, eggGrams, yolkGrams }),
-    [servings, gramsPerServing, eggGrams, yolkGrams],
-  );
-
   const recipe = useMemo(
-    () => calculatePasta(preset, target),
-    [preset, target],
+    () => calculatePasta(preset, pastaTarget(state)),
+    [preset, state],
   );
 
-  // O contexto da refeição preenche os gramas por pessoa, mas não prende: o
-  // campo continua editável para quem sabe o tamanho da própria porção.
-  function chooseStyle(next: ServingStyle) {
-    setStyle(next);
-    setGramsPerServing(SERVING_GRAMS[next]);
-  }
+  const card = useMemo(
+    () => pastaRecipeCard({ state, preset, recipe, dict, fmt }),
+    [state, preset, recipe, dict, fmt],
+  );
 
   return (
     <div className="mt-10">
       <Segmented
         legend={dict.presetLabel}
-        value={presetId}
-        onChange={setPresetId}
+        value={state.presetId}
+        onChange={(presetId) => setState((current) => ({ ...current, presetId }))}
         emphasis
         options={PASTA_PRESETS.map((item) => ({
           value: item.id,
@@ -79,8 +73,8 @@ export function PastaCalculator({ dict, locale }: PastaCalculatorProps) {
       <div className="mt-8">
         <Segmented
           legend={dict.target.styleLabel}
-          value={style}
-          onChange={chooseStyle}
+          value={state.style}
+          onChange={(style) => setState((current) => chooseStyle(current, style))}
           options={SERVING_STYLES.map((value) => ({
             value,
             label: dict.target.styles[value],
@@ -91,32 +85,34 @@ export function PastaCalculator({ dict, locale }: PastaCalculatorProps) {
       <div className="mt-6 flex flex-wrap items-start gap-5">
         <NumberField
           label={dict.target.servings}
-          value={servings}
-          onChange={setServings}
+          value={state.servings}
+          onChange={(servings) => setState((current) => ({ ...current, servings }))}
           step={1}
           min={1}
         />
         <MassField
           label={dict.target.gramsPerServing}
-          grams={gramsPerServing}
-          onChange={setGramsPerServing}
-                    step={5}
+          grams={state.gramsPerServing}
+          onChange={(gramsPerServing) =>
+            setState((current) => ({ ...current, gramsPerServing }))
+          }
+          step={5}
         />
         {usesEggs && (
           <MassField
             label={dict.target.eggWeight}
-            grams={eggGrams}
-            onChange={setEggGrams}
-                        step={1}
+            grams={state.eggGrams}
+            onChange={(eggGrams) => setState((current) => ({ ...current, eggGrams }))}
+            step={1}
             hint={dict.target.eggHint}
           />
         )}
         {usesYolks && (
           <MassField
             label={dict.target.yolkWeight}
-            grams={yolkGrams}
-            onChange={setYolkGrams}
-                        step={1}
+            grams={state.yolkGrams}
+            onChange={(yolkGrams) => setState((current) => ({ ...current, yolkGrams }))}
+            step={1}
           />
         )}
       </div>
@@ -126,9 +122,18 @@ export function PastaCalculator({ dict, locale }: PastaCalculatorProps) {
       <BalancePanel
         preset={preset}
         recipe={recipe}
-        gramsPerServing={gramsPerServing}
+        gramsPerServing={state.gramsPerServing}
         dict={dict}
         locale={locale}
+      />
+
+      <RecipeActions
+        calculator="pasta"
+        locale={locale}
+        state={state}
+        card={card}
+        parse={parsePastaState}
+        onRestore={setState}
       />
 
       <section className="mt-10 border-t border-rule pt-6">

@@ -58,6 +58,44 @@ export const en: Dictionary = {
     currentLanguage: 'Current language',
   },
 
+  recipe: {
+    actionsLabel: 'What to do with this recipe',
+
+    save: 'Save',
+    nameLabel: 'Recipe name',
+    confirm: 'Keep it',
+    cancel: 'Never mind',
+    saved: 'Recipe kept in this browser.',
+    replaced: 'The recipe under that name was replaced.',
+    full: "That's 20 recipes kept in this calculator, which is the limit. Delete one to keep another.",
+    blocked:
+      'This browser is not storing site data, so saving does not work here. Sharing and printing still do.',
+
+    mine: 'My recipes',
+    empty: 'Nothing kept in this calculator yet.',
+    load: 'Open',
+    remove: 'Delete',
+    loaded: 'Recipe loaded.',
+    brokenEntry:
+      'This recipe was kept by an earlier version of the calculator and can no longer be opened.',
+
+    share: 'Share',
+    copyLink: 'Copy link',
+    linkCopied: 'Link copied. Whoever opens it sees this exact recipe.',
+    textCopied: 'Recipe copied as text.',
+    copyManually: 'The browser would not copy on its own. The text is below, ready to select.',
+    manualLabel: 'Text to copy',
+
+    print: 'Print',
+    sources: 'Sources',
+
+    linkOutdated:
+      'This link was made by an earlier version of the calculator and could not be opened. The values below are the defaults.',
+    linkInvalid:
+      'This link arrived incomplete or altered and could not be opened. The values below are the defaults.',
+    dismiss: 'Got it',
+  },
+
   home: {
     eyebrow: 'Kitchen ratios with a cited source',
     title: 'The ratios that make a recipe work',

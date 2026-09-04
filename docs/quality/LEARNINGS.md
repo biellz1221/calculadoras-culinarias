@@ -45,6 +45,39 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   cortado, e o corte come justamente o fim da frase, onde costuma estar o
   argumento. Há teste que falha por isso.
 
+## Estado que sai do componente
+
+- **Estado espalhado em `useState` soltos não tem como ser lido por inteiro.**
+  Funciona enquanto só a tela precisa dele; salvar, compartilhar e imprimir
+  precisam do conjunto, e aí não há de onde puxar. No picles o estado morava
+  dentro dos painéis, com o preset trocado por remontagem via `key` — o pior
+  caso, porque a troca de preset era um efeito colateral do React, não uma
+  transição declarada. Calculadora nova já nasce com `src/lib/<calc>/state.ts`
+  puro e um `parse…State`.
+- **Efeito que reage a mudança de estado roda antes de o estado restaurado
+  chegar.** Restaurar num efeito e, noutro efeito, comparar `state` com o que
+  foi restaurado dá `diferente` no mesmo commit: o `setState` ainda não
+  renderizou. Precisa de uma trava que só arme depois de ver o estado aplicado.
+- **Tudo o que vem de URL ou de localStorage é entrada não confiável.** Valide
+  faixa numérica (senão `Infinity` vira `NaN` na tela inteira), existência de
+  preset e de ingrediente, coerência entre campos e unicidade de id. Recuse o
+  estado inteiro: meia receita na tela é pior que nenhuma.
+- **Union de chaves valida melhor como `Record<Chave, true>` que como lista.** O
+  registro é conferido na compilação e não deixa esquecer um valor novo; a
+  lista aceita a omissão calada.
+- **`dicionario[chave]` com chave de fora não devolve `undefined` para
+  `'__proto__'`: devolve o `Object.prototype`.** É comportamento legado do
+  JavaScript em qualquer objeto comum. Num rótulo, o resultado deixa de ser
+  texto e vira objeto, e o React derruba a página inteira ao receber isso como
+  filho — ou seja, um link que quebra a página de quem abre. Duas travas:
+  validar a chave contra o catálogo no `parse` **e** ler o dicionário por
+  `labelFor()`, que usa `Object.hasOwn`. `as keyof typeof` não protege de nada
+  aqui: é asserção de tipo, não checagem em tempo de execução.
+- **Validação nova precisa nascer nas quatro calculadoras ao mesmo tempo.** O
+  furo acima existia só no gelato, porque as outras três já conferiam o preset
+  contra o catálogo e ele não. Teste com `it.each` sobre as quatro pega isso;
+  teste escrito para uma só, não.
+
 ## Interface
 
 - **`sr-only` dentro de `overflow-x-auto` alarga a página.** Ele é
@@ -64,3 +97,14 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   vírgula. Nos testes, `'0.8'`.
 - **O navegador do teste precisa declarar `locale: 'pt-BR'`**, senão a
   autodetecção manda tudo para `/en`.
+- **Conteúdo repetido no DOM quebra busca por texto em silêncio.** A folha de
+  impressão duplica a receita, e de uma hora para outra oito testes antigos
+  falharam com "found multiple elements" — por um motivo que não existe para
+  quem usa o site. No Vitest, `configure({ defaultIgnore })` resolve, mas o
+  seletor precisa incluir os descendentes (`.print-sheet, .print-sheet *`): o
+  `ignore` casa só com o elemento do texto, não com os ancestrais. No
+  Playwright não há equivalente global — asserção sobre a tela escopa em
+  `page.locator('#conteudo')`.
+- **`navigator.clipboard` só tem getter.** `Object.assign(navigator, …)` lança;
+  o caminho é `Object.defineProperty`. E o `localStorage` do happy-dom é Proxy,
+  que `vi.restoreAllMocks()` não desfaz — restaure o spy à mão.

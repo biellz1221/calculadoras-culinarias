@@ -6,17 +6,25 @@ import { BalancePanel } from './balance-panel';
 import { BatchControl } from './batch-control';
 import { buildOptions } from './catalog';
 import { FlawNotice } from './flaw-notice';
+import { gelatoRecipeCard } from './recipe-card';
 import { IngredientPicker } from './ingredient-picker';
 import { NutritionPanel } from './nutrition-panel';
 import { RecipeTable } from './recipe-table';
 import { useGelatoRecipe } from './use-gelato-recipe';
 import { Segmented } from '@/components/field';
+import { RecipeActions } from '@/components/recipes/recipe-actions';
 import { PRESETS } from '@/data/gelato/presets';
 import { RECIPE_TYPES } from '@/data/gelato/recipe-types';
 import type { GelatoDictionary } from '@/i18n/dictionaries/gelato';
 import type { Locale } from '@/i18n/locales';
 import { massUnitForBatch } from '@/lib/gelato/mass';
-import { DEFAULT_ADD_GRAMS, targetGrams, totalGrams } from '@/lib/gelato/recipe-state';
+import {
+  DEFAULT_ADD_GRAMS,
+  parseGelatoState,
+  targetGrams,
+  totalGrams,
+  type GelatoState,
+} from '@/lib/gelato/recipe-state';
 
 interface GelatoCalculatorProps {
   dict: GelatoDictionary;
@@ -25,12 +33,17 @@ interface GelatoCalculatorProps {
 
 export function GelatoCalculator({ dict, locale }: GelatoCalculatorProps) {
   const recipe = useGelatoRecipe(dict);
-  const { state, result } = recipe;
+  const { state, result, recipeType } = recipe;
   const options = useMemo(() => buildOptions(dict, locale), [dict, locale]);
   const flaggedIds = new Set(recipe.flaws.map((flaw) => flaw.ingredientId));
 
   // Lotes grandes viram números de quatro dígitos em gramas; acima de 2 L, kg.
   const unit = massUnitForBatch(state.batchLiters);
+
+  const card = useMemo(
+    () => gelatoRecipeCard({ state, result, recipeType, dict, locale, unit }),
+    [state, result, recipeType, dict, locale, unit],
+  );
 
   return (
     <div className="mt-10">
@@ -83,6 +96,17 @@ export function GelatoCalculator({ dict, locale }: GelatoCalculatorProps) {
         dict={dict}
         locale={locale}
         unit={unit}
+      />
+
+      <RecipeActions
+        calculator="gelato"
+        locale={locale}
+        state={state}
+        card={card}
+        parse={parseGelatoState}
+        onRestore={(next: GelatoState) =>
+          recipe.run({ type: 'replaceState', state: next })
+        }
       />
     </div>
   );

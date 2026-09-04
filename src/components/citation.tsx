@@ -40,7 +40,7 @@ interface CitationRefProps {
  * "Kayser, p. 48, 54". Sem isso, uma métrica sustentada por quatro trechos do
  * mesmo livro vira uma linha ilegível de nome repetido.
  */
-function groupByBook(
+export function citationSummary(
   citations: readonly Citation[],
   labels: CitationLabels,
 ): string[] {
@@ -75,7 +75,7 @@ export function CitationRef({ citations, labels, className }: CitationRefProps) 
         className,
       )}
     >
-      {groupByBook(citations, labels).join(' · ')}
+      {citationSummary(citations, labels).join(' · ')}
     </span>
   );
 }

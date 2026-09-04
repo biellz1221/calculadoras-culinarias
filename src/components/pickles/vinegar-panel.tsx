@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import { ResultRow } from './result-row';
 import { CitationRef } from '@/components/citation';
 import { NumberField } from '@/components/field';
@@ -12,46 +10,41 @@ import type { PicklesDictionary } from '@/i18n/dictionaries/pickles';
 import { useFormatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { calculateVinegarPickle } from '@/lib/pickles/vinegar';
+import type { VinegarState } from '@/lib/pickles/state';
 
 interface VinegarPanelProps {
   preset: VinegarPreset;
+  state: VinegarState;
+  onChange: (patch: Partial<VinegarState>) => void;
   dict: PicklesDictionary;
   locale: Locale;
 }
 
-export function VinegarPanel({ preset, dict, locale }: VinegarPanelProps) {
+export function VinegarPanel({
+  preset,
+  state,
+  onChange,
+  dict,
+  locale,
+}: VinegarPanelProps) {
   const fmt = useFormatters(locale);
 
-  const [liquidGrams, setLiquidGrams] = useState(500);
-  const [vinegarAcidity, setVinegarAcidity] = useState(preset.acidity);
-  const [vinegarParts, setVinegarParts] = useState(preset.vinegarParts);
-  const [waterParts, setWaterParts] = useState(preset.waterParts);
-  const [saltPercent, setSaltPercent] = useState(preset.saltPercent);
-  const [sugarPercent, setSugarPercent] = useState(preset.sugarPercent);
-
-  const result = calculateVinegarPickle({
-    liquidGrams,
-    vinegarAcidity,
-    vinegarParts,
-    waterParts,
-    saltPercent,
-    sugarPercent,
-  });
+  const result = calculateVinegarPickle(state);
 
   return (
     <div className="mt-8">
       <div className="flex flex-wrap items-start gap-5">
         <NumberField
           label={dict.input.liquid}
-          value={liquidGrams}
-          onChange={setLiquidGrams}
+          value={state.liquidGrams}
+          onChange={(liquidGrams) => onChange({ liquidGrams })}
           suffix="ml"
           step={50}
         />
         <NumberField
           label={dict.input.acidity}
-          value={vinegarAcidity}
-          onChange={setVinegarAcidity}
+          value={state.vinegarAcidity}
+          onChange={(vinegarAcidity) => onChange({ vinegarAcidity })}
           suffix="%"
           step={0.5}
           hint={dict.input.acidityHint}
@@ -59,30 +52,30 @@ export function VinegarPanel({ preset, dict, locale }: VinegarPanelProps) {
         />
         <NumberField
           label={dict.input.vinegarParts}
-          value={vinegarParts}
-          onChange={setVinegarParts}
+          value={state.vinegarParts}
+          onChange={(vinegarParts) => onChange({ vinegarParts })}
           step={0.25}
           width="w-24"
         />
         <NumberField
           label={dict.input.waterParts}
-          value={waterParts}
-          onChange={setWaterParts}
+          value={state.waterParts}
+          onChange={(waterParts) => onChange({ waterParts })}
           step={0.25}
           width="w-24"
         />
         <NumberField
           label={dict.input.saltPercent}
-          value={saltPercent}
-          onChange={setSaltPercent}
+          value={state.saltPercent}
+          onChange={(saltPercent) => onChange({ saltPercent })}
           suffix="%"
           step={0.5}
           width="w-24"
         />
         <NumberField
           label={dict.input.sugarPercent}
-          value={sugarPercent}
-          onChange={setSugarPercent}
+          value={state.sugarPercent}
+          onChange={(sugarPercent) => onChange({ sugarPercent })}
           suffix="%"
           step={0.5}
           width="w-24"

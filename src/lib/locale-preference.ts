@@ -1,6 +1,7 @@
 'use client';
 
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/locales';
+import { isEnglishHost } from '@/lib/site';
 
 const STORAGE_KEY = 'cc:locale';
 
@@ -45,7 +46,18 @@ export function detectLocale(): Locale {
   return 'en';
 }
 
-/** O que o visitante escolheu antes; na falta disso, o que o navegador sugere. */
+/**
+ * O idioma desta visita, em ordem de quem manda mais.
+ *
+ * O domínio vem primeiro, e antes até da escolha guardada: quem digitou
+ * `culinarycalculators.com` pediu o site em inglês nesta visita, mesmo tendo
+ * lido em português na semana passada. Depois vem a escolha guardada, que é
+ * uma declaração explícita, e só então o palpite do navegador.
+ */
 export function preferredLocale(): Locale {
+  if (typeof window !== 'undefined' && isEnglishHost(window.location.hostname)) {
+    return 'en';
+  }
+
   return readStoredLocale() ?? detectLocale();
 }
