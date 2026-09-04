@@ -1,4 +1,6 @@
 import { BreadCalculator } from './bread-calculator';
+import { FermentationGuide } from './fermentation-guide';
+import { ScalePanel } from './scale-panel';
 import { YeastConverter } from './yeast-converter';
 import {
   CalculatorLayout,
@@ -41,6 +43,14 @@ export function BreadPage({ locale }: { locale: Locale }) {
         <YeastConverter dict={dict} locale={locale} />
       </CalculatorSection>
 
+      <CalculatorSection label={dict.fermentation.title} lead={dict.fermentation.lead}>
+        <FermentationGuide dict={dict} locale={locale} />
+      </CalculatorSection>
+
+      <CalculatorSection label={dict.scale.title} lead={dict.scale.lead}>
+        <ScalePanel dict={dict} locale={locale} />
+      </CalculatorSection>
+
       <CalculatorSection label={dict.method.title} educational>
         <Prose paragraphs={dict.method.body} />
       </CalculatorSection>
@@ -57,7 +67,13 @@ export function BreadPage({ locale }: { locale: Locale }) {
       </CalculatorSection>
 
       <CalculatorSection label={dict.glossary.title} educational>
-        <GlossaryList terms={dict.glossary.terms} />
+        <GlossaryList
+          calculator="bread"
+          terms={dict.glossary.terms}
+          labels={dict.sources}
+          noSourceLabel={dict.glossary.noSource}
+          anchorLabel={dict.glossary.anchor}
+        />
       </CalculatorSection>
 
       <SourceList

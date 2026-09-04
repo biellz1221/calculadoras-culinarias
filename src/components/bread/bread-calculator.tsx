@@ -9,18 +9,24 @@ import { CitationRef } from '@/components/citation';
 import { MassField, NumberField } from '@/components/field';
 import { RecipeActions } from '@/components/recipes/recipe-actions';
 import { BREAD_PRESETS, getPreset } from '@/data/bread/presets';
-import type { IngredientKey } from '@/data/bread/types';
+import { INGREDIENT_KEYS, type IngredientKey } from '@/data/bread/types';
 import type { BreadDictionary } from '@/i18n/dictionaries/bread';
 import { useFormatters, type Formatters } from '@/lib/use-formatters';
 import type { Locale } from '@/i18n/locales';
 import { calculateRecipe } from '@/lib/bread/calculate';
 import {
+  addIngredient,
   BREAD_MODES,
+  BREAD_SNAPSHOT,
   breadTarget,
   changePercent,
   choosePreset,
+  CUSTOM_PRESET_ID,
+  flourPercentTotal,
   initialBreadState,
-  parseBreadState,
+  isCustom,
+  normalizeFlours,
+  removeIngredient,
   type BreadMode,
   type BreadState,
 } from '@/lib/bread/state';
@@ -36,6 +42,7 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
 
   const [state, setState] = useState<BreadState>(initialBreadState);
   const preset = getPreset(state.presetId);
+  const custom = isCustom(state);
 
   const recipe = useMemo(
     () => calculateRecipe(state.formula, breadTarget(state)),
@@ -56,7 +63,7 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
       <fieldset>
         <legend className="label-caps text-ink-muted">{dict.presetLabel}</legend>
         <div className="mt-3 flex flex-wrap gap-2">
-          {BREAD_PRESETS.map((item) => (
+          {[...BREAD_PRESETS.map((item) => item.id), CUSTOM_PRESET_ID].map((id) => ({ id })).map((item) => (
             <button
               key={item.id}
               type="button"
@@ -69,7 +76,9 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
                   : 'border-rule bg-surface text-ink-soft hover:border-accent hover:text-accent-deep',
               )}
             >
-              {dict.presets[item.id as keyof BreadDictionary['presets']]}
+              {item.id === CUSTOM_PRESET_ID
+                ? dict.custom.preset
+                : dict.presets[item.id as keyof BreadDictionary['presets']]}
             </button>
           ))}
         </div>
@@ -138,6 +147,15 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
         </div>
       </fieldset>
 
+      {custom && (
+        <CustomControls
+          dict={dict}
+          state={state}
+          onAdd={(key) => setState((current) => addIngredient(current, key))}
+          onNormalize={() => setState(normalizeFlours)}
+        />
+      )}
+
       <RecipeTable
         recipe={recipe}
         dict={dict}
@@ -145,6 +163,12 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
         onPercentChange={(key: IngredientKey, percent: number) =>
           setState((current) => changePercent(current, key, percent))
         }
+        onRemove={
+          custom
+            ? (key) => setState((current) => removeIngredient(current, key))
+            : undefined
+        }
+        removeLabel={dict.custom.remove}
       />
 
       <BalancePanel recipe={recipe} dict={dict} locale={locale} />
@@ -154,7 +178,7 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
         locale={locale}
         state={state}
         card={card}
-        parse={parseBreadState}
+        shape={BREAD_SNAPSHOT}
         onRestore={setState}
       />
 
@@ -235,6 +259,78 @@ function ProcessItem({ label, value }: { label: string; value?: string }) {
       <dd data-numeric className="text-sm font-semibold tabular-nums text-ink">
         {value}
       </dd>
+    </div>
+  );
+}
+
+/**
+ * Controles que só a receita própria tem: acrescentar ingrediente e acertar a
+ * régua das farinhas.
+ *
+ * A soma das farinhas precisa dar 100 — é o contrato do motor, e todo o resto
+ * da receita se mede contra ela. Num preset isso é garantido pelo dado; aqui,
+ * quem monta pode somar 120 sem perceber, e aí cada linha sairia 20% mais
+ * pesada do que o número na tela promete. Por isso o aviso, com o conserto ao
+ * lado.
+ */
+function CustomControls({
+  dict,
+  state,
+  onAdd,
+  onNormalize,
+}: {
+  dict: BreadDictionary;
+  state: BreadState;
+  onAdd: (key: IngredientKey) => void;
+  onNormalize: () => void;
+}) {
+  const used = new Set(
+    [...state.formula.flours, ...state.formula.lines].map((line) => line.key),
+  );
+  const available = INGREDIENT_KEYS.filter((key) => !used.has(key));
+  const flourTotal = flourPercentTotal(state.formula);
+  const offBalance = Math.abs(flourTotal - 100) > 0.05;
+
+  return (
+    <div className="mt-6 rounded-card border border-rule bg-surface px-5 py-4">
+      <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
+        {dict.custom.lead}
+      </p>
+
+      <div className="mt-4 flex flex-wrap items-end gap-3">
+        <label className="flex flex-col gap-1.5">
+          <span className="text-sm text-ink-muted">{dict.custom.add}</span>
+          <select
+            value=""
+            onChange={(event) => {
+              if (event.target.value) onAdd(event.target.value as IngredientKey);
+            }}
+            className="rounded-sm border border-rule bg-paper px-3 py-2 text-ink focus:border-accent focus:outline-none"
+          >
+            <option value="">{dict.custom.choose}</option>
+            {available.map((key) => (
+              <option key={key} value={key}>
+                {dict.ingredients[key]}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      {offBalance && (
+        <div className="mt-4 flex flex-wrap items-center gap-3 rounded-card bg-warn-tint px-4 py-3">
+          <p className="max-w-prose text-sm leading-relaxed text-warn">
+            {`${dict.custom.flourSum} ${Math.round(flourTotal * 10) / 10}%. ${dict.custom.flourWhy}`}
+          </p>
+          <button
+            type="button"
+            onClick={onNormalize}
+            className="rounded-full border border-warn px-3 py-1.5 text-sm text-warn transition-colors hover:bg-warn hover:text-paper"
+          >
+            {dict.custom.normalize}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

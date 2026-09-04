@@ -126,6 +126,59 @@ Efeito colateral nos testes: a folha repete a receita no DOM. O Vitest a ignora
 por configuração (`vitest.setup.ts`) e, no Playwright, asserção sobre a tela usa
 `page.locator('#conteudo')`.
 
+### Escalar uma receita colada
+
+[`src/lib/bread/scale.ts`](src/lib/bread/scale.ts) é o único motor do projeto
+**sem citação nenhuma**, e não é esquecimento: os números são os que a pessoa
+trouxe do próprio caderno. O que a ferramenta acrescenta é regra de três e, se
+identificar farinha, a leitura em porcentagem de padeiro — e essa, sim, usa as
+faixas com fonte de `data/bread/ranges.ts`.
+
+A parte difícil é ler o que foi colado. O que o parser decide:
+
+- **Quantidade com unidade ganha da sem**, e vale a última — é o que resolve
+  `Farinha de trigo tipo 1 — 1000 g`, onde o `1` do tipo vem antes.
+- **Número solto só passa em linha curta** e sem palavra de preparo no nome
+  (`forno`, `descanse`, `misture`…). Sem isso, "Deixe descansar por 30 minutos"
+  vira um ingrediente de 30 g.
+- **Separador decimal** por contagem de casas: com três dígitos depois, é
+  milhar (`1.000` = mil); com uma ou duas, é decimal (`0,5` = meio).
+- **Papel por palavra inteira**, nunca por trecho — `sal` dentro de `salsa`
+  estragaria justamente o número que a faixa sinaliza.
+
+Nada disso acerta sempre, e a interface assume isso: antes de escalar, mostra a
+tabela do que entendeu, com o papel de cada linha editável e um botão de apagar.
+Erro de leitura vira um clique, não uma surpresa.
+
+### PWA
+
+- **Manifesto por idioma** — `/manifest.webmanifest` e `/en/manifest.webmanifest`.
+  Um manifesto carrega um nome e um `start_url`, e os dois mudam com o idioma:
+  quem instala pelo inglês recebe o ícone em inglês, abrindo em `/en`.
+- **Ícones** gerados no build em [`src/app/icon/[variant]/`](src/app/icon/) —
+  mesma razão do cartão social: extensão de verdade, ou o `Content-Type` sai
+  errado e o ícone não aparece. A variante `maskable` sangra a cor até a borda e
+  encolhe a marca para dentro da zona segura, porque o Android recorta o ícone
+  na forma do sistema.
+- **Service worker** gerado por route handler
+  ([`src/app/sw.js/`](src/app/sw.js/route.ts)), e não guardado em `public/`,
+  porque o navegador só troca de worker quando o arquivo muda byte a byte —
+  com arquivo fixo, deploy novo nunca seria detectado. A versão do build entra
+  no texto.
+- **Cache de uso, não pré-carga.** Pré-carregar o HTML seria pior que inútil: os
+  pacotes de JavaScript têm hash e mudam a cada build, então a página abriria
+  offline e nunca hidrataria. Guardando o que foi visitado, HTML e JavaScript
+  entram no cache combinando.
+- **A versão nova espera.** Trocar o worker embaixo de uma página aberta faz o
+  JavaScript já carregado pedir pacotes de outra versão. Aparece um aviso
+  discreto e quem decide a hora é o visitante.
+
+> Estes são os únicos testes que não rodam contra o `next dev`: o worker não se
+> registra em desenvolvimento de propósito. `e2e/pwa.spec.ts` roda contra o
+> `out/` servido por [`scripts/static-server.mjs`](scripts/static-server.mjs) na
+> porta 3101 — sem dependência nova, e imitando a regra que importa: o
+> `Content-Type` sai da extensão do arquivo.
+
 ## Domínios
 
 O site responde em **calculadorasculinarias.com.br**, que é o endereço canônico

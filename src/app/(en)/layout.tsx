@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   },
   description: dict.site.description,
   applicationName: dict.site.name,
+  manifest: '/en/manifest.webmanifest',
   formatDetection: { telephone: false, address: false, date: false },
   openGraph: {
     type: 'website',

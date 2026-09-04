@@ -77,7 +77,7 @@ export const PRE_FERMENT_HYDRATION: Record<PreFermentKey, number> = {
  * aceitaria a omissão em silêncio, e o efeito só apareceria como um
  * ingrediente que some ao abrir um link compartilhado.
  */
-const INGREDIENT_KEYS: Record<IngredientKey, true> = {
+const INGREDIENT_KEY_SET: Record<IngredientKey, true> = {
   'flour-white': true,
   'flour-wholewheat': true,
   'flour-rye': true,
@@ -104,9 +104,12 @@ const INGREDIENT_KEYS: Record<IngredientKey, true> = {
   xanthan: true,
 };
 
+/** A lista, na ordem do registro: é o que alimenta o seletor de ingredientes. */
+export const INGREDIENT_KEYS = Object.keys(INGREDIENT_KEY_SET) as readonly IngredientKey[];
+
 /** Guarda para valor vindo de fora: link compartilhado ou receita salva. */
 export function isIngredientKey(value: unknown): value is IngredientKey {
-  return typeof value === 'string' && Object.hasOwn(INGREDIENT_KEYS, value);
+  return typeof value === 'string' && Object.hasOwn(INGREDIENT_KEY_SET, value);
 }
 
 export function isFlour(key: IngredientKey): key is FlourKey {

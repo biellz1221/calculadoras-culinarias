@@ -320,3 +320,20 @@ export function parsePicklesState(value: unknown): PicklesState | null {
 
   return { mode: record.mode as PickleMode, presetId: record.presetId, brine, vinegar };
 }
+
+/**
+ * Como um estado de picles encolhe para caber num link.
+ *
+ * O preset carrega o método junto (`preset.mode`), então o modo não precisa
+ * viajar: ele se deduz de qual preset foi escolhido.
+ */
+export const PICKLES_SNAPSHOT = {
+  baselineFor: (presetId: string): PicklesState | null => {
+    const preset = getPreset(presetId);
+    if (!preset) return null;
+
+    return choosePicklePreset(choosePickleMode(initialPicklesState(), preset.mode), presetId);
+  },
+  presetOf: (state: PicklesState): string => state.presetId,
+  parse: parsePicklesState,
+};

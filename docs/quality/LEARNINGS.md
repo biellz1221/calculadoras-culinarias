@@ -88,6 +88,52 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
 - **Animação com deslocamento lateral alarga a página enquanto roda.** A casca
   do site usa `overflow-x-clip` por causa disso.
 
+## Ler texto que a pessoa escreveu
+
+- **Palavra genérica na lista de classificação contamina tudo.** `integral`
+  estava entre as palavras de farinha, e "leite integral" virou farinha — com a
+  hidratação calculada sobre farinha que não existe. Só entram palavras que
+  sozinhas já significam a coisa; adjetivo fica de fora.
+- **Compare palavra inteira, nunca trecho.** `sal` dentro de `salsa`
+  transformaria salsinha em sal, e o sal é justamente o número que a faixa de
+  segurança sinaliza.
+- **O primeiro número da linha não é a quantidade.** "Farinha de trigo tipo 1 —
+  1000 g" tem o `1` do tipo antes. Quantidade com unidade ganha da sem unidade,
+  e entre elas vale a última.
+- **Toda receita colada traz linha que não é ingrediente.** "Deixe descansar por
+  30 minutos" entra calada como 30 g. Unidade de tempo depois do número, nome
+  comprido e verbo de preparo são as três travas baratas.
+- **Leitor de texto vai errar, então mostre o que entendeu antes de usar.** A
+  tabela intermediária, com papel editável e botão de apagar, é o que transforma
+  erro de leitura num clique. Sem ela, a alternativa honesta é não ter a
+  ferramenta.
+- **Quantificador aberto seguido de sufixo que pode falhar é custo quadrático.**
+  `/(\d[\d.,]*)\s*(kg|g|ml)\b/g` contra uma linha só de dígitos: o motor volta
+  atrás caractere a caractere a partir de cada posição. Medido aqui: 200 mil
+  caracteres travavam a aba por **63 segundos**; com `{0,20}` no lugar do `*`,
+  14 ms. Não precisa de quantificador aninhado para virar negação de serviço.
+- **Teto de tamanho antes de processar, não depois.** As checagens de nome
+  comprido e de verbo de preparo rodavam *depois* do `findAmount`, ou seja,
+  depois de o custo já ter sido pago. Descarte a linha grande antes de olhar
+  para ela.
+
+## Service worker
+
+- **Arquivo fixo em `public/` nunca atualiza.** O navegador só troca de worker
+  quando o arquivo muda byte a byte; um deploy que mexeu só no conteúdo passaria
+  despercebido. Gerar o worker por route handler, com a versão do build dentro,
+  resolve.
+- **Pré-carregar HTML sem os pacotes é pior que não pré-carregar.** Os nomes dos
+  chunks têm hash e mudam a cada build: a página abre offline e nunca hidrata —
+  aparece inteira e não calcula nada. Cache de uso guarda HTML e JavaScript
+  combinando.
+- **`skipWaiting` automático quebra a página aberta.** O JavaScript já carregado
+  passa a pedir pacotes de outra versão. A versão nova espera e a pessoa decide
+  a hora.
+- **`controller` é o que distingue atualização de primeira instalação.** Sem
+  essa checagem, todo visitante novo recebe um aviso de "versão nova" na
+  primeira visita.
+
 ## Testes
 
 - **Playwright em `127.0.0.1` não hidrata**: o dev server do Next bloqueia
@@ -108,3 +154,14 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
 - **`navigator.clipboard` só tem getter.** `Object.assign(navigator, …)` lança;
   o caminho é `Object.defineProperty`. E o `localStorage` do happy-dom é Proxy,
   que `vi.restoreAllMocks()` não desfaz — restaure o spy à mão.
+- **O Vitest entrega `NODE_ENV === 'development'` ao código que transforma.**
+  Qualquer guarda escrita como `if (process.env.NODE_ENV !== 'production')`
+  fica sem teste possível: o componente sai cedo em todo caso. Se o
+  comportamento importa, vire propriedade com o padrão vindo do ambiente.
+- **Teste que documenta o bug em vez de exigir a correção não vale nada.**
+  Aconteceu aqui: o nome dizia "descarta a linha de instrução" e a asserção
+  aceitava as três linhas. Ao escrever a asserção, olhe o que ela *deveria*
+  dizer, não o que o código devolve agora.
+- **Prove que o teste pega o bug.** Desfaça a correção, rode e veja falhar. Foi
+  o que confirmou tanto a regressão do `__proto__` quanto o teste de offline —
+  este passava alegremente com o service worker desligado até ser conferido.

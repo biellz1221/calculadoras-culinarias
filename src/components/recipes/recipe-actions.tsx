@@ -10,19 +10,20 @@ import type { Locale } from '@/i18n/locales';
 import { pathFor } from '@/i18n/routes';
 import { cn } from '@/lib/cn';
 import { recipeCardText, type RecipeCard } from '@/lib/recipes/card';
+import type { SnapshotShape } from '@/lib/recipes/snapshot';
 import { MAX_NAME_LENGTH, useSavedRecipes } from '@/lib/recipes/store';
 import { useRecipeSharing } from '@/lib/recipes/use-recipe-sharing';
 import { absoluteUrl } from '@/lib/site';
 
-interface RecipeActionsProps<S> {
+interface RecipeActionsProps<S extends object> {
   calculator: CalculatorId;
   locale: Locale;
   /** Estado serializável da calculadora, do jeito que ela guarda. */
   state: S;
   /** O resultado calculado, para o texto, a folha impressa e o nome sugerido. */
   card: RecipeCard;
-  /** Validação de estado vindo de fora: link recebido ou receita antiga salva. */
-  parse: (value: unknown) => S | null;
+  /** Como o estado encolhe no link e como o que chega de fora é validado. */
+  shape: SnapshotShape<S>;
   onRestore: (state: S) => void;
 }
 
@@ -34,19 +35,19 @@ interface RecipeActionsProps<S> {
  * servidor: salvar é localStorage, compartilhar é a receita inteira dentro da
  * URL e imprimir é uma folha montada no próprio navegador.
  */
-export function RecipeActions<S>({
+export function RecipeActions<S extends object>({
   calculator,
   locale,
   state,
   card,
-  parse,
+  shape,
   onRestore,
 }: RecipeActionsProps<S>) {
   const dict = getDictionary(locale);
   const copy = dict.recipe;
 
   const shelf = useSavedRecipes(calculator);
-  const sharing = useRecipeSharing({ calculator, state, parse, onRestore });
+  const sharing = useRecipeSharing({ calculator, state, shape, onRestore });
 
   const [naming, setNaming] = useState(false);
   const [name, setName] = useState('');
@@ -116,7 +117,7 @@ export function RecipeActions<S>({
   }
 
   function load(value: unknown) {
-    const parsed = parse(value);
+    const parsed = shape.parse(value);
 
     if (parsed === null) {
       announce(copy.brokenEntry);

@@ -343,57 +343,60 @@ export const pastaEn: typeof pastaPtBR = {
 
   glossary: {
     title: 'Glossary',
-    terms: [
-      {
+    full: 'See in the glossary',
+    noSource: 'No source in our bibliography: the definition describes common practice, and no work on the shelf backs it.',
+    anchor: 'Link to this entry',
+    terms: {
+      'flour-00': {
         term: '00 flour',
         definition:
           'A very fine Italian flour, milled twice, almost the texture of icing sugar. It gives a smooth, supple dough; all-purpose swaps in at the same weight.',
       },
-      {
+      'fine-semolina': {
         term: 'Fine semolina',
         definition:
           'Finely milled durum wheat, the durum equivalent of 00. It is the base of vegan water dough, sold in Italy as semola rimacinata.',
       },
-      {
+      'coarse-semolina': {
         term: 'Coarse semolina',
         definition:
           'Only for dusting trays and shaped pasta so nothing sticks. Sieved, it can be reused three or four times.',
       },
-      {
+      'lamination': {
         term: 'Thinning',
         definition:
           'Rolling the dough out one notch at a time. It is not just pressure: that gradual thinning, on top of the kneading, is what gives the dough body and structure.',
       },
-      {
+      'matterello': {
         term: 'Matterello',
         definition:
           'The long pin of the hand method. The dough is stretched rather than compressed, ending up with a textured surface that soaks up sauce. It is a craft that takes practice.',
       },
-      {
+      'stuffing-dough': {
         term: 'Dough for stuffing',
         definition:
           'Dough used soft and sticky, freshly rolled, one piece at a time. That tack is what seals the raviolo; dry dough will not close.',
       },
-      {
+      'tonnarelli': {
         term: 'Tonnarelli',
         definition:
           'A strand of square section, as thick as it is wide, cut on the narrow cutter or on the chitarra, the string frame that looks like an old-fashioned egg slicer.',
       },
-      {
+      'maltagliati': {
         term: 'Maltagliati',
         definition:
           '"Badly cut": the trimmings of dough in uneven diamonds, saved for bean soups and minestrone.',
       },
-      {
+      'al-dente': {
         term: 'Al dente',
         definition:
           'Firm to the bite. Fresh pasta never gets as firm as factory-dried, but it should always offer some resistance.',
       },
-      {
+      'bronze-die': {
         term: 'Bronze extruded',
         definition:
           'Dried pasta pushed through a bronze die, with a rough, porous surface that holds sauce far better than a teflon die.',
       },
-    ],
+    },
   },
 };

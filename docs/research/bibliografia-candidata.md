@@ -336,6 +336,28 @@ Caviezel, Huang & Miskelly, McClements, _Modernist Bread_ completo.
 
 # Parte 6: o que ainda não tem fonte
 
+## Já estava na tela (encontrado em 2026-09-04)
+
+Levantado ao dar fonte a cada verbete do glossário. São os dois únicos casos no
+site inteiro, os dois no gelato, e os dois vieram de conhecimento corrente e não
+de obra nenhuma.
+
+| Onde | O que estava escrito | O que foi feito |
+| --- | --- | --- |
+| Glossário, "Overrun" | "Gelato artesanal fica entre 20 e 35%" | **Número removido.** O conceito ficou; a faixa sai da tela até haver de onde citá-la. |
+| Densidade da calda | 1,10 g/mL como padrão | **Fica, dito como valor de trabalho declarado**, não número de fonte — e o campo já era editável. Mesmo tratamento do `JAR_GRAMS_PER_MILLILITER` no picles. |
+
+Procurei os dois na planilha do curso (`overrun`, `aeração`, `litro`, `volume`,
+`ml`, `densidade`): não há nada. A temperatura de serviço, de que eu também
+desconfiava, **está lá** — a célula C24 da aba de receita calcula `PAC/25` sob o
+rótulo "Temperatura Média de Serviço", e passou a ser citada.
+
+**O que resolve:** qualquer um dos dois livros de gelato da Parte 4, o Corvitto
+ou o Migoya, cobre overrun e densidade de calda com folga. É mais um argumento
+para eles virem logo depois do McGee.
+
+## Ainda por levantar
+
 Registrado para não virar promessa esquecida:
 
 - **Blend de farinha sem glúten em peso**, com rigor citável. Não achei.

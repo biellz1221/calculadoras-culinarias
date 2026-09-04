@@ -307,48 +307,51 @@ export const gelatoEn: typeof gelatoPtBR = {
 
   glossary: {
     title: 'Glossary',
-    terms: [
-      {
+    full: 'See in the glossary',
+    noSource: 'No source in our bibliography: the definition describes common practice, and no work on the shelf backs it.',
+    anchor: 'Link to this entry',
+    terms: {
+      'pod': {
         term: 'POD',
         definition:
           'Potere dolcificante, or sweetening power. How sweet the recipe tastes relative to sucrose, per kilo of mix. Sucrose = 1; dextrose = 0.74; fructose = 1.45.',
       },
-      {
+      'pac': {
         term: 'PAC',
         definition:
           'Potere anticongelante, or anti-freezing power. How far the sugars push the freezing point of the mix down, per kilo, again measured against sucrose. It is what sets the hardness in the cabinet.',
       },
-      {
+      'msnf': {
         term: 'MSNF',
         definition:
           'Milk solids non-fat: the protein, lactose and minerals left once fat and water are taken out. They give structure and bind free water. In excess, the lactose crystallises and the texture turns sandy.',
       },
-      {
+      'total-solids': {
         term: 'Total solids',
         definition:
           'Everything that is not water, adding up sugars, fat, MSNF and other solids. The more solids, the better the gelato resists melting, and the less free water is left to become ice crystals.',
       },
-      {
+      'overrun': {
         term: 'Overrun',
         definition:
-          'The air whipped in during churning, measured as the gain in volume. Artisan gelato sits between 20 and 35%, well below industrial ice cream. This calculator balances the mix; overrun belongs to the machine and the process.',
+          'The air whipped in during churning, measured as the gain in volume. This calculator balances the mix; overrun belongs to the machine and the process, and enters none of the arithmetic here.',
       },
-      {
+      'neutro': {
         term: 'Stabiliser blend',
         definition:
           'A ready-made mix of stabilisers and emulsifiers, sold in Brazil as "neutro". It counts as other solids and barely moves the metrics, but it is what stops the water organising itself into large crystals in storage.',
       },
-      {
+      'serving-temperature': {
         term: 'Serving temperature',
         definition:
           'Estimated here as PAC ÷ 25, with a negative sign. It is the temperature at which the base scoops: colder and it hardens, warmer and it melts.',
       },
-      {
+      'syrup-density': {
         term: 'Mix density',
         definition:
-          'How many grams fit in a millilitre of mix before churning. The 1.10 g/mL default converts a batch in litres into mass in grams, which is the unit the recipe is actually weighed in.',
+          'How many grams fit in a millilitre of mix before churning, which is what turns a batch in litres into mass in grams. The 1.10 g/mL default is a declared working value, not a sourced number: that is exactly why the field stays editable.',
       },
-    ],
+    },
   },
 
   sources: {

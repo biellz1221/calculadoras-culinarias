@@ -275,47 +275,50 @@ export const picklesPtBR = {
 
   glossary: {
     title: 'Glossário',
-    terms: [
-      {
+    full: 'Ver no glossário',
+    noSource: 'Sem fonte na nossa bibliografia: a definição descreve a prática corrente, e nenhuma obra da estante a sustenta.',
+    anchor: 'Endereço deste verbete',
+    terms: {
+      'lactofermentation': {
         term: 'Lactofermentação',
         definition:
           'Fermentação conduzida por bactérias láticas, que convertem os açúcares do vegetal em ácido lático. É o ácido que conserva e dá o sabor de picles.',
       },
-      {
+      'brine': {
         term: 'Salmoura',
         definition:
           'Água com sal em que o vegetal fica submerso. Sua concentração pode ser descrita sobre a água ou sobre o conteúdo total do pote.',
       },
-      {
+      'dry-salting': {
         term: 'Salga direta',
         definition:
           'Salgar o vegetal picado sem adicionar água: o sal puxa o líquido de dentro dele e forma a salmoura. É o método do chucrute e do kimchi.',
       },
-      {
+      'anaerobic': {
         term: 'Anaerobiose',
         definition:
           'Ausência de oxigênio. As bactérias láticas trabalham sem ele, e os mofos precisam dele, por isso manter tudo submerso é o que decide quem ganha.',
       },
-      {
+      'kahm-yeast': {
         term: 'Levedura Kahm',
         definition:
           'Película branca, lisa e fina que às vezes se forma na superfície. É inofensiva e se retira; não confundir com mofo, que é peludo ou colorido.',
       },
-      {
+      'ph': {
         term: 'pH',
         definition:
           'Medida de acidez. Abaixo de 4,6 as bactérias perigosas não se multiplicam, e é aonde uma fermentação saudável chega sozinha.',
       },
-      {
+      'vinegar-acidity': {
         term: 'Acidez do vinagre',
         definition:
           'Percentual de ácido acético declarado no rótulo. O vinagre de mesa costuma ter 5%, e é ele que a proporção de referência pressupõe.',
       },
-      {
+      'quick-pickle': {
         term: 'Picles rápido',
         definition:
           'Conserva de geladeira feita com líquido ácido, sem fermentação. Fica pronta em horas e dura semanas na geladeira, não na prateleira.',
       },
-    ],
+    },
   },
 };

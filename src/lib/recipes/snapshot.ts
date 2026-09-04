@@ -27,7 +27,28 @@ export const SHARE_PARAM = 'r';
  * decida no `parse` da calculadora se dá para migrar; o que não dá para ler
  * volta como `outdated` e a interface explica, em vez de fingir.
  */
-export const SNAPSHOT_VERSION = 1;
+export const SNAPSHOT_VERSION = 2;
+
+/**
+ * Como uma calculadora encolhe o próprio estado para caber num link.
+ *
+ * A versão 1 mandava o estado inteiro em JSON com nome de campo por extenso, e
+ * o resultado eram endereços de até 792 caracteres — grandes o bastante para o
+ * WhatsApp cortar o link antes do parâmetro, que foi como o problema apareceu.
+ *
+ * A ideia da versão 2: quase todo compartilhamento é de um preset com o alvo
+ * mexido, então o que viaja é o preset e **só o que difere** dele. Receita
+ * intocada vira um punhado de caracteres; quem editou a fórmula paga apenas
+ * pelo que editou.
+ */
+export interface SnapshotShape<S> {
+  /** Estado de partida do preset, sobre o qual a diferença é aplicada. */
+  baselineFor: (presetId: string) => S | null;
+  /** O preset de um estado. É o único campo que viaja sempre. */
+  presetOf: (state: S) => string;
+  /** A última palavra sobre o que chegou. Roda sobre o estado já remontado. */
+  parse: (value: unknown) => S | null;
+}
 
 /**
  * Teto de tamanho do parâmetro.
@@ -42,7 +63,29 @@ const MAX_ENCODED_LENGTH = 8192;
 interface Envelope {
   readonly v: number;
   readonly c: CalculatorId;
-  readonly s: unknown;
+  /** Versão 1: o estado inteiro. */
+  readonly s?: unknown;
+  /** Versão 2: o preset e a diferença em relação a ele. */
+  readonly p?: string;
+  readonly d?: Record<string, unknown>;
+}
+
+/**
+ * O que difere do ponto de partida, campo a campo do primeiro nível.
+ *
+ * A comparação é por JSON, e não por referência: a fórmula de um preset que
+ * ninguém tocou é um objeto novo a cada render, mas o texto é idêntico, e é
+ * justamente essa igualdade que apaga o campo mais pesado do link.
+ */
+function difference<S extends object>(state: S, baseline: S): Record<string, unknown> {
+  const diff: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(state)) {
+    const before = (baseline as Record<string, unknown>)[key];
+    if (JSON.stringify(before) !== JSON.stringify(value)) diff[key] = value;
+  }
+
+  return diff;
 }
 
 export type SnapshotResult<S> =
@@ -80,11 +123,21 @@ function fromBase64Url(value: string): Uint8Array | null {
 }
 
 /** Estado da calculadora em texto seguro para URL. */
-export function encodeSnapshot(calculator: CalculatorId, state: unknown): string {
-  const envelope: Envelope = { v: SNAPSHOT_VERSION, c: calculator, s: state };
-  const json = JSON.stringify(envelope);
+export function encodeSnapshot<S extends object>(
+  calculator: CalculatorId,
+  state: S,
+  shape: SnapshotShape<S>,
+): string {
+  const presetId = shape.presetOf(state);
+  const baseline = shape.baselineFor(presetId);
 
-  return toBase64Url(new TextEncoder().encode(json));
+  // Sem ponto de partida reconhecível, manda tudo: link grande é melhor que
+  // link que não abre.
+  const envelope: Envelope = baseline
+    ? { v: 2, c: calculator, p: presetId, d: difference(state, baseline) }
+    : { v: 1, c: calculator, s: state };
+
+  return toBase64Url(new TextEncoder().encode(JSON.stringify(envelope)));
 }
 
 /**
@@ -94,10 +147,10 @@ export function encodeSnapshot(calculator: CalculatorId, state: unknown): string
  * `null`. É lá que se checa faixa de valor, preset que ainda existe e campo que
  * mudou de tipo — coisas que o formato do envelope não tem como saber.
  */
-export function decodeSnapshot<S>(
+export function decodeSnapshot<S extends object>(
   encoded: string,
   calculator: CalculatorId,
-  parse: (value: unknown) => S | null,
+  shape: SnapshotShape<S>,
 ): SnapshotResult<S> {
   if (!encoded || encoded.length > MAX_ENCODED_LENGTH) return { status: 'invalid' };
 
@@ -123,6 +176,23 @@ export function decodeSnapshot<S>(
     return { status: 'outdated' };
   }
 
-  const state = parse(envelope.s);
+  // Versão 1 continua abrindo: um link mandado por WhatsApp fica em conversa
+  // por meses, e a versão no envelope existe exatamente para isto.
+  if (envelope.v === 1) {
+    const state = shape.parse(envelope.s);
+    return state === null ? { status: 'invalid' } : { status: 'ok', state };
+  }
+
+  if (typeof envelope.p !== 'string') return { status: 'invalid' };
+
+  const baseline = shape.baselineFor(envelope.p);
+  if (!baseline) return { status: 'invalid' };
+
+  const diff = envelope.d;
+  if (diff !== undefined && (typeof diff !== 'object' || diff === null)) {
+    return { status: 'invalid' };
+  }
+
+  const state = shape.parse({ ...baseline, ...diff });
   return state === null ? { status: 'invalid' } : { status: 'ok', state };
 }

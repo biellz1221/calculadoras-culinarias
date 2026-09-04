@@ -2,6 +2,9 @@
 
 import type { ReactNode } from 'react';
 
+import { CitationRef, type CitationLabels } from '@/components/citation';
+import type { CalculatorId } from '@/data/calculators';
+import { GLOSSARY, glossaryAnchor } from '@/data/glossary';
 import { getDictionary } from '@/i18n';
 import type { Locale } from '@/i18n/locales';
 import { cn } from '@/lib/cn';
@@ -133,24 +136,67 @@ export function Prose({ paragraphs }: { paragraphs: readonly string[] }) {
   );
 }
 
-/** Glossário compartilhado pelas calculadoras. */
+/**
+ * Glossário compartilhado pelas calculadoras.
+ *
+ * Cada verbete carrega a obra de onde a definição saiu e tem endereço próprio:
+ * `#glossario-autolise` abre a página na definição, que é o que permite citar
+ * um termo numa conversa sem mandar a pessoa procurar.
+ *
+ * Verbete sem citação existe e diz que não tem — a alternativa seria escolher
+ * uma fonte aproximada, e num site cuja promessa é a procedência isso é pior
+ * do que a lacuna.
+ */
 export function GlossaryList({
+  calculator,
   terms,
+  labels,
+  noSourceLabel,
+  anchorLabel,
 }: {
-  terms: readonly { term: string; definition: string }[];
+  calculator: CalculatorId;
+  terms: Readonly<Record<string, { term: string; definition: string }>>;
+  labels: CitationLabels;
+  noSourceLabel: string;
+  anchorLabel: string;
 }) {
   return (
     <dl className="mt-8 grid gap-x-10 gap-y-6 border-t border-rule pt-6 sm:grid-cols-2">
-      {terms.map((entry) => (
-        <div key={entry.term}>
-          <dt className="font-display text-base font-semibold text-ink">
-            {entry.term}
-          </dt>
-          <dd className="mt-1 text-sm leading-relaxed text-ink-muted">
-            {entry.definition}
-          </dd>
-        </div>
-      ))}
+      {GLOSSARY[calculator].map((entry) => {
+        const copy = terms[entry.id];
+        if (!copy) return null;
+
+        const anchor = glossaryAnchor(entry.id);
+
+        return (
+          <div key={entry.id} id={anchor} className="scroll-mt-24 target:bg-accent-tint">
+            <dt className="group flex items-baseline gap-2 font-display text-base font-semibold text-ink">
+              {copy.term}
+              <a
+                href={`#${anchor}`}
+                aria-label={`${anchorLabel}: ${copy.term}`}
+                className="text-sm text-ink-muted no-underline opacity-0 transition-opacity group-hover:opacity-100 focus:opacity-100"
+              >
+                #
+              </a>
+            </dt>
+            <dd className="mt-1 text-sm leading-relaxed text-ink-muted">
+              {copy.definition}
+              {entry.citations.length > 0 ? (
+                <CitationRef
+                  citations={entry.citations}
+                  labels={labels}
+                  className="mt-1.5 block"
+                />
+              ) : (
+                <span className="mt-1.5 block font-display text-xs leading-relaxed text-warn italic">
+                  {noSourceLabel}
+                </span>
+              )}
+            </dd>
+          </div>
+        );
+      })}
     </dl>
   );
 }

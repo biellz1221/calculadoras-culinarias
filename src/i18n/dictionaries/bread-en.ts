@@ -200,6 +200,93 @@ export const breadEn: typeof breadPtBR = {
     dried: 'If your levain is dried',
   },
 
+  scale: {
+    title: 'Scale a recipe you already have',
+    lead: 'Paste the ingredients with their amounts, pick the new size, and the whole recipe adjusts in proportion. If flour, water and salt can be picked out, the reading in baker’s percentage comes with it.',
+
+    inputLabel: 'Your recipe’s ingredients, one per line',
+    placeholder: 'Bread flour 1000 g\nWater 650 g\nSalt 20 g\nDry yeast 7 g',
+    nothingRead:
+      'I could not find a single amount in there. Each line needs an ingredient and a weight — "Flour 500 g" or "500 g of flour".',
+
+    readTitle: 'What I understood',
+    readLead:
+      'Check this before scaling. Each ingredient’s role is what drives the percentage reading; fix whatever I got wrong and delete whatever is not an ingredient.',
+    roleLabel: 'Role in the dough',
+    roles: {
+      flour: 'Flour',
+      water: 'Liquid',
+      salt: 'Salt',
+      other: 'Other',
+    },
+    removeLine: 'Remove',
+    millilitersNote:
+      'You wrote millilitres and I counted them as grams. For water and milk the difference is negligible in a kitchen; for oil and honey it is not — weigh those.',
+
+    targetLabel: 'New size',
+    byFlour: 'By flour',
+    byTotal: 'By total weight',
+    byUnits: 'By units',
+    newFlour: 'New amount of flour (g)',
+    newTotal: 'New total weight (g)',
+    noFlourTarget:
+      'No line is marked as flour, so there is nothing to scale by. Mark the flour above, or pick another target.',
+
+    resultTitle: 'Rescaled recipe',
+    noAnalysis:
+      'With no flour identified there is no 100% ruler, so the baker’s percentage reading stays out. The proportional scaling above still holds.',
+  },
+
+  custom: {
+    preset: 'My own recipe',
+    lead: 'Here the formula is yours: add and remove ingredients freely, and adjust the percentages in the table. The ranges and warnings still apply — that is what the calculator has to offer about a recipe from none of the books.',
+    add: 'Add an ingredient',
+    choose: 'Pick one…',
+    remove: 'Remove from the recipe',
+    flourSum: 'The flours add up to',
+    flourWhy:
+      'They have to add up to 100%: that is the ruler everything else is measured against, and away from it every ingredient comes out heavier than the number promises.',
+    normalize: 'Set to 100%',
+  },
+
+  fermentation: {
+    title: 'Yeast, time and temperature',
+    lead: 'Two sums the books publish and nobody does in their head: how long a dose of yeast asks for, and how warm the water has to be for the dough to come off the mixer on target.',
+
+    timeTitle: 'How long that dose asks for',
+    timeLead: 'The estimate starts from the reference recipe closest to your dose and applies Camargo’s rule: half the yeast, twice the time.',
+    stageLabel: 'Which rise',
+    yeastLabel: 'Instant dry yeast',
+    yeastHint: 'As a percentage of the flour weight. Fresh is three times this; active dry, twice.',
+    estimate: 'Estimate',
+    from: 'Based on the',
+    andWindow: 'with a window of',
+    estimateWarning:
+      'This is planning guidance, not a promise. Kitchen temperature, flour strength and how lively the yeast is all move the result — the dough calls the moment, not the clock.',
+    pointsTitle: 'The reference points from the sources',
+    recipes: {
+      french: 'Brazilian pão francês',
+      ciabatta: 'Ciabatta with poolish',
+      napoletana: 'Neapolitan pizza',
+    },
+    hours: 'h',
+
+    waterTitle: 'Water temperature',
+    waterLead: 'The room, flour and water temperatures have to add up to the bread’s base temperature, so the dough leaves the mixer between 24 and 25 °C.',
+    crumbLabel: 'Type of bread',
+    white: 'White bread',
+    dark: 'Dark bread',
+    roomLabel: 'Kitchen temperature',
+    flourLabel: 'Flour temperature',
+    flourHint: 'In practice the same as the kitchen, unless the bag came out of the fridge.',
+    waterResult: 'Use water at',
+    baseIs: 'Base temperature for this bread:',
+    tooCold:
+      'The sum calls for water below freezing: the kitchen is too warm for that base temperature. Use iced water and expect dough above target, or ferment somewhere cooler.',
+    retardTitle: 'Cold retard',
+    retardBody: 'Shaped dough holds overnight at',
+  },
+
   sources: {
     title: 'Sources for this calculator',
     lead: 'Every preset and every range above comes from one of these works, at the page or chapter given.',
@@ -257,49 +344,58 @@ export const breadEn: typeof breadPtBR = {
 
   glossary: {
     title: 'Glossary',
-    terms: [
-      {
+    full: 'See in the glossary',
+    noSource: 'No source in our bibliography: the definition describes common practice, and no work on the shelf backs it.',
+    anchor: 'Link to this entry',
+    terms: {
+      'bakers-percentage': {
         term: "Baker's percentage",
         definition:
           'A system where flour is 100% and every ingredient is expressed as a percentage of its weight. It lets you rescale a recipe without redoing the arithmetic.',
       },
-      { term: 'Hydration', definition: 'The ratio of water to flour in a recipe.' },
-      {
+      'hydration': {
+        term: 'Hydration',
+        definition: 'The ratio of water to flour in a recipe.',
+      },
+      'autolyse': {
         term: 'Autolyse',
         definition:
           'A rest between mixing and kneading that lets the flour absorb the water and the gluten start forming on its own. More elastic dough, less work.',
       },
-      {
+      'levain': {
         term: 'Levain',
         definition:
           'Natural starter: a culture of wild yeasts and lactic bacteria. The liquid kind runs at 100% hydration (equal parts flour and water); the firm kind at about 60%.',
       },
-      {
+      'poolish': {
         term: 'Poolish',
         definition:
           'A liquid pre-ferment of equal parts flour and water with a trace of yeast, no salt and no kneading. It builds flavour before the dough exists.',
       },
-      { term: 'Biga', definition: 'A pre-ferment with the same job as poolish, but firm.' },
-      {
+      'biga': {
+        term: 'Biga',
+        definition: 'A pre-ferment with the same job as poolish, but firm.',
+      },
+      'fermented-dough': {
         term: 'Old dough',
         definition:
           'A piece of finished dough from the day before folded into the new one, at 15 to 30% of the flour weight.',
       },
-      {
+      'pointage-appret': {
         term: 'Pointage and apprêt',
         definition:
           'The two fermentations: the first in bulk, straight after kneading; the second after shaping, up to the oven.',
       },
-      {
+      'base-temperature': {
         term: 'Base temperature',
         definition:
           'The sum of the room, flour and water temperatures, used to work out how warm the water should be. For white bread it sits between 54 and 56 °C, aiming at dough at 24–25 °C off the mixer.',
       },
-      {
+      'flour-strength': {
         term: 'Flour strength',
         definition:
           'Strong flour has more protein, absorbs more water and stands up to long fermentation. Protein quality matters more than the headline percentage.',
       },
-    ],
+    },
   },
 };
