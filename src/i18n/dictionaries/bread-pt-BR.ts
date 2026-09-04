@@ -203,6 +203,50 @@ export const breadPtBR = {
     dried: 'Se o seu levain é desidratado',
   },
 
+  /**
+   * Escalar uma receita que a pessoa já tem (FR-013).
+   *
+   * O texto assume o que é verdade: a leitura do que foi colado é palpite, e a
+   * pessoa é quem confere. Prometer que a ferramenta "entende sua receita"
+   * transformaria cada erro de leitura numa surpresa em vez de num clique.
+   */
+  scale: {
+    title: 'Escalar uma receita que você já tem',
+    lead: 'Cole os ingredientes com as quantidades, escolha o novo tamanho e a receita inteira se ajusta na mesma proporção. Se der para identificar farinha, água e sal, a leitura em porcentagem de padeiro vem junto.',
+
+    inputLabel: 'Ingredientes da sua receita, um por linha',
+    placeholder: 'Farinha de trigo 1000 g\nÁgua 650 g\nSal 20 g\nFermento seco 7 g',
+    nothingRead:
+      'Não consegui achar quantidade nenhuma aí. Cada linha precisa de um ingrediente e um peso — "Farinha 500 g" ou "500 g de farinha".',
+
+    readTitle: 'O que eu entendi',
+    readLead:
+      'Confira antes de escalar. O papel de cada ingrediente é o que define a leitura em porcentagem; corrija o que eu tiver errado e apague o que não for ingrediente.',
+    roleLabel: 'Papel na massa',
+    roles: {
+      flour: 'Farinha',
+      water: 'Líquido',
+      salt: 'Sal',
+      other: 'Outro',
+    },
+    removeLine: 'Remover',
+    millilitersNote:
+      'Você escreveu em ml e eu contei como grama. Para água e leite a diferença é desprezível na cozinha; para óleo e mel, não — esses vale pesar.',
+
+    targetLabel: 'Novo tamanho',
+    byFlour: 'Pela farinha',
+    byTotal: 'Pelo peso total',
+    byUnits: 'Por unidades',
+    newFlour: 'Nova quantidade de farinha (g)',
+    newTotal: 'Novo peso total (g)',
+    noFlourTarget:
+      'Nenhuma linha está marcada como farinha, então não dá para escalar por ela. Marque a farinha acima ou escolha outro alvo.',
+
+    resultTitle: 'Receita reescalada',
+    noAnalysis:
+      'Sem farinha identificada não existe a régua de 100%, então a leitura em porcentagem de padeiro fica de fora. A escala proporcional acima continua valendo.',
+  },
+
   sources: {
     title: 'Fontes desta calculadora',
     lead: 'Cada preset e cada faixa acima sai de uma destas obras, na página ou capítulo indicado.',

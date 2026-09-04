@@ -200,6 +200,43 @@ export const breadEn: typeof breadPtBR = {
     dried: 'If your levain is dried',
   },
 
+  scale: {
+    title: 'Scale a recipe you already have',
+    lead: 'Paste the ingredients with their amounts, pick the new size, and the whole recipe adjusts in proportion. If flour, water and salt can be picked out, the reading in baker’s percentage comes with it.',
+
+    inputLabel: 'Your recipe’s ingredients, one per line',
+    placeholder: 'Bread flour 1000 g\nWater 650 g\nSalt 20 g\nDry yeast 7 g',
+    nothingRead:
+      'I could not find a single amount in there. Each line needs an ingredient and a weight — "Flour 500 g" or "500 g of flour".',
+
+    readTitle: 'What I understood',
+    readLead:
+      'Check this before scaling. Each ingredient’s role is what drives the percentage reading; fix whatever I got wrong and delete whatever is not an ingredient.',
+    roleLabel: 'Role in the dough',
+    roles: {
+      flour: 'Flour',
+      water: 'Liquid',
+      salt: 'Salt',
+      other: 'Other',
+    },
+    removeLine: 'Remove',
+    millilitersNote:
+      'You wrote millilitres and I counted them as grams. For water and milk the difference is negligible in a kitchen; for oil and honey it is not — weigh those.',
+
+    targetLabel: 'New size',
+    byFlour: 'By flour',
+    byTotal: 'By total weight',
+    byUnits: 'By units',
+    newFlour: 'New amount of flour (g)',
+    newTotal: 'New total weight (g)',
+    noFlourTarget:
+      'No line is marked as flour, so there is nothing to scale by. Mark the flour above, or pick another target.',
+
+    resultTitle: 'Rescaled recipe',
+    noAnalysis:
+      'With no flour identified there is no 100% ruler, so the baker’s percentage reading stays out. The proportional scaling above still holds.',
+  },
+
   sources: {
     title: 'Sources for this calculator',
     lead: 'Every preset and every range above comes from one of these works, at the page or chapter given.',

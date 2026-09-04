@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { PALETTES } from './palette';
+import { BRAND_DEEP, BRAND_TINT, INK, PALETTES } from './palette';
 
 import { PUBLISHED_ROUTES, type RouteKey } from '@/i18n/routes';
 
@@ -38,5 +38,13 @@ describe('paleta', () => {
   it('dá uma cor distinta a cada calculadora', () => {
     const accents = PUBLISHED_ROUTES.map((key) => PALETTES[key].accent);
     expect(new Set(accents).size).toBe(accents.length);
+  });
+
+  it('bate com o CSS também nas cores da marca', () => {
+    // O ícone do aplicativo instalado é gerado fora do navegador, como o
+    // cartão de compartilhamento — e some da mesma forma se divergir do CSS.
+    expect(readToken('@theme {', '--color-brand-deep')).toBe(BRAND_DEEP);
+    expect(readToken('@theme {', '--color-brand-tint')).toBe(BRAND_TINT);
+    expect(readToken('@theme {', '--color-ink')).toBe(INK);
   });
 });

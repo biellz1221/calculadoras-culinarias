@@ -1,4 +1,5 @@
 import { BreadCalculator } from './bread-calculator';
+import { ScalePanel } from './scale-panel';
 import { YeastConverter } from './yeast-converter';
 import {
   CalculatorLayout,
@@ -39,6 +40,10 @@ export function BreadPage({ locale }: { locale: Locale }) {
 
       <CalculatorSection label={dict.yeastTool.title} lead={dict.yeastTool.lead}>
         <YeastConverter dict={dict} locale={locale} />
+      </CalculatorSection>
+
+      <CalculatorSection label={dict.scale.title} lead={dict.scale.lead}>
+        <ScalePanel dict={dict} locale={locale} />
       </CalculatorSection>
 
       <CalculatorSection label={dict.method.title} educational>

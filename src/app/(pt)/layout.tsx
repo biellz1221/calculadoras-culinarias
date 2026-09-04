@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   },
   description: dict.site.description,
   applicationName: dict.site.name,
+  // Um manifesto por idioma: quem instala pelo inglês merece o ícone com o
+  // nome em inglês, abrindo em /en. Ver src/lib/pwa.ts.
+  manifest: '/manifest.webmanifest',
   // Numa página cheia de gramas, o iOS transforma sequências de dígitos em
   // link de telefone por conta própria. Aqui isso é bug, não conveniência.
   formatDetection: { telephone: false, address: false, date: false },

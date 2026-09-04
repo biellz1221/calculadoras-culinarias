@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { atkinson, fraunces } from '@/app/fonts';
+import { ServiceWorkerBridge } from '@/components/service-worker';
 import { HTML_LANG, type Locale } from '@/i18n/locales';
 
 /**
@@ -19,7 +20,10 @@ export function RootHtml({
 }) {
   return (
     <html lang={HTML_LANG[locale]} className={`${fraunces.variable} ${atkinson.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ServiceWorkerBridge locale={locale} />
+      </body>
     </html>
   );
 }

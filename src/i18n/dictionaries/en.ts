@@ -3,6 +3,7 @@ import type { Dictionary } from './pt-BR';
 export const en: Dictionary = {
   site: {
     name: 'Culinary Calculators',
+    shortName: 'Calculators',
     homeTitle: 'Culinary Calculators: bread, pickles, pasta, gelato',
     description:
       'Kitchen calculators in grams for bread, pickles, fresh pasta and gelato. Every ratio comes from a reference cookbook, cited by author and page.',
@@ -56,6 +57,12 @@ export const en: Dictionary = {
     skipToContent: 'Skip to content',
     languageNav: 'Language selection',
     currentLanguage: 'Current language',
+  },
+
+  pwa: {
+    updateReady: 'A new version of the site is ready.',
+    update: 'Refresh',
+    later: 'Not now',
   },
 
   recipe: {
