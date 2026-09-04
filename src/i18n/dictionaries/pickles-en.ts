@@ -275,47 +275,50 @@ export const picklesEn: typeof picklesPtBR = {
 
   glossary: {
     title: 'Glossary',
-    terms: [
-      {
+    full: 'See in the glossary',
+    noSource: 'No source in our bibliography: the definition describes common practice, and no work on the shelf backs it.',
+    anchor: 'Link to this entry',
+    terms: {
+      'lactofermentation': {
         term: 'Lacto-fermentation',
         definition:
           'Fermentation driven by lactic bacteria, which turn the vegetable’s sugars into lactic acid. The acid is what preserves it and gives a pickle its taste.',
       },
-      {
+      'brine': {
         term: 'Brine',
         definition:
           'Salted water the vegetable sits under. Its strength can be described against the water or against the whole contents of the jar.',
       },
-      {
+      'dry-salting': {
         term: 'Dry salting',
         definition:
           'Salting chopped vegetable without adding water: the salt draws the liquid out and forms the brine. It is the sauerkraut and kimchi method.',
       },
-      {
+      'anaerobic': {
         term: 'Anaerobic',
         definition:
           'Without oxygen. Lactic bacteria work without it and moulds need it, which is why keeping everything submerged decides who wins.',
       },
-      {
+      'kahm-yeast': {
         term: 'Kahm yeast',
         definition:
           'A thin, smooth white film that sometimes forms on the surface. Harmless and easily removed; not to be confused with mould, which is fuzzy or coloured.',
       },
-      {
+      'ph': {
         term: 'pH',
         definition:
           'A measure of acidity. Below 4.6 dangerous bacteria do not multiply, and that is where a healthy ferment arrives on its own.',
       },
-      {
+      'vinegar-acidity': {
         term: 'Vinegar acidity',
         definition:
           'The percentage of acetic acid printed on the label. Table vinegar is usually 5%, which is what the reference ratio assumes.',
       },
-      {
+      'quick-pickle': {
         term: 'Quick pickle',
         definition:
           'A fridge preserve made with acidic liquid, without fermentation. Ready in hours and good for weeks in the fridge, not on the shelf.',
       },
-    ],
+    },
   },
 };

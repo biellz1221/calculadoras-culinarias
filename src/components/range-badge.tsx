@@ -47,7 +47,8 @@ export function RangeBadge({
 }
 
 interface MetricRowProps {
-  label: string;
+  /** Aceita nó, e não só texto: o rótulo pode ser um termo com tooltip. */
+  label: React.ReactNode;
   value: string;
   status?: RangeStatus;
   statusLabel?: string;

@@ -57,7 +57,9 @@ test('a densidade muda a massa da calda do lote', async ({ page }) => {
   await page.goto('/gelato');
 
   await interactUntil(
-    () => page.getByLabel('Densidade da calda').fill('1.2'),
+    // Exato: a âncora do verbete no glossário tem `aria-label` que contém
+    // o nome do campo, e a busca por trecho pegaria as duas.
+    () => page.getByLabel('Densidade da calda', { exact: true }).fill('1.2'),
     () => expect(page.getByText('1.200,0 g').first()).toBeVisible(),
   );
 });

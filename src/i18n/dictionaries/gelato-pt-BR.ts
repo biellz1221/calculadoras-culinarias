@@ -309,48 +309,51 @@ export const gelatoPtBR = {
 
   glossary: {
     title: 'Glossário',
-    terms: [
-      {
+    full: 'Ver no glossário',
+    noSource: 'Sem fonte na nossa bibliografia: a definição descreve a prática corrente, e nenhuma obra da estante a sustenta.',
+    anchor: 'Endereço deste verbete',
+    terms: {
+      'pod': {
         term: 'POD',
         definition:
           'Potere dolcificante, ou poder de doçura. Mede quanto a receita adoça em relação à sacarose, por quilo de calda. Sacarose = 1; dextrose = 0,74; frutose = 1,45.',
       },
-      {
+      'pac': {
         term: 'PAC',
         definition:
           'Potere anticongelante. Mede quanto os açúcares abaixam o ponto de congelamento da calda, por quilo, também com a sacarose como referência. É o que define a dureza na vitrine.',
       },
-      {
+      'msnf': {
         term: 'SNGL',
         definition:
           'Sólidos não gordurosos do leite: proteína, lactose e minerais que sobram quando se tira a gordura e a água. Dão estrutura e seguram água livre. Em excesso, a lactose cristaliza e a textura fica arenosa.',
       },
-      {
+      'total-solids': {
         term: 'Sólidos totais',
         definition:
           'Tudo que não é água, somando açúcares, gorduras, SNGL e outros sólidos. Quanto mais sólidos, mais o gelato resiste ao derretimento, e menos água sobra livre para virar cristal de gelo.',
       },
-      {
+      'overrun': {
         term: 'Overrun',
         definition:
-          'O ar incorporado durante o batimento, medido como aumento de volume. Gelato artesanal fica entre 20 e 35%, bem abaixo do sorvete industrial. Esta calculadora balanceia a calda; o overrun é da máquina e do processo.',
+          'O ar incorporado durante o batimento, medido como aumento de volume. Esta calculadora balanceia a calda; o overrun é da máquina e do processo, e não entra em nenhuma conta daqui.',
       },
-      {
+      'neutro': {
         term: 'Neutro',
         definition:
           'Mistura pronta de estabilizantes e emulsificantes. Entra como outros sólidos e quase não mexe nas métricas, mas é o que impede a água de se organizar em cristais grandes durante a conservação.',
       },
-      {
+      'serving-temperature': {
         term: 'Temperatura de serviço',
         definition:
           'Estimada aqui como PAC ÷ 25, com sinal negativo. É a temperatura em que a base fica boleável: mais fria e ela endurece, mais quente e derrete.',
       },
-      {
+      'syrup-density': {
         term: 'Densidade da calda',
         definition:
-          'Quantos gramas cabem em um mililitro de mistura antes de bater. O padrão de 1,10 g/mL converte o lote em litros para a massa em gramas, que é a unidade em que a receita realmente se pesa.',
+          'Quantos gramas cabem em um mililitro de mistura antes de bater, o que converte o lote em litros para a massa em gramas. O padrão de 1,10 g/mL é valor de trabalho declarado, não número de fonte: o campo fica editável justamente por isso.',
       },
-    ],
+    },
   },
 
   sources: {

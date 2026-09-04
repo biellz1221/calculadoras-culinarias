@@ -1,6 +1,7 @@
 'use client';
 
 import { CitationRef } from '@/components/citation';
+import { GlossaryTerm } from '@/components/glossary-term';
 import { MetricRow } from '@/components/range-badge';
 import {
   RANGES,
@@ -47,10 +48,24 @@ export function BalancePanel({ recipe, dict, locale }: BalancePanelProps) {
           const status = statusFor(metric.value, metric.rule);
           const beyond = isBeyondHardLimit(metric.value, metric.rule);
 
+          const entryId = GLOSSARY_BY_METRIC[metric.key];
+
           return (
             <MetricRow
               key={metric.key}
-              label={metric.label}
+              label={
+                entryId ? (
+                  <GlossaryTerm
+                    calculator="bread"
+                    entryId={entryId}
+                    label={metric.label}
+                    definition={dict.glossary.terms[entryId].definition}
+                    labels={{ ...dict.sources, ...dict.glossary }}
+                  />
+                ) : (
+                  metric.label
+                )
+              }
               value={formatPercent(metric.value, locale)}
               status={status}
               statusLabel={
@@ -84,6 +99,21 @@ export function BalancePanel({ recipe, dict, locale }: BalancePanelProps) {
     </section>
   );
 }
+
+/**
+ * As métricas que têm verbete no glossário.
+ *
+ * Hidratação e os três pré-fermentos. Sal e açúcar dispensam explicação; o que
+ * trava quem está começando é justamente a palavra "poolish" aparecendo numa
+ * linha da receita sem nada em volta que diga o que é.
+ */
+const GLOSSARY_BY_METRIC: Record<string, keyof BreadDictionary['glossary']['terms']> = {
+  hydration: 'hydration',
+  'levain-liquid': 'levain',
+  poolish: 'poolish',
+  'fermented-dough': 'fermented-dough',
+};
+
 
 function collectMetrics(
   recipe: BreadRecipe,

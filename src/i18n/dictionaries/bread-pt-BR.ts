@@ -247,6 +247,56 @@ export const breadPtBR = {
       'Sem farinha identificada não existe a régua de 100%, então a leitura em porcentagem de padeiro fica de fora. A escala proporcional acima continua valendo.',
   },
 
+  custom: {
+    preset: 'Minha receita',
+    lead: 'Aqui a fórmula é sua: acrescente e tire ingredientes à vontade, e ajuste as porcentagens na tabela. As faixas e os avisos continuam valendo — é o que a calculadora tem a oferecer sobre uma receita que não é de nenhum dos livros.',
+    add: 'Acrescentar ingrediente',
+    choose: 'Escolha um…',
+    remove: 'Tirar da receita',
+    flourSum: 'As farinhas somam',
+    flourWhy:
+      'Elas precisam somar 100%: é a régua contra a qual todo o resto se mede, e fora disso cada ingrediente sai mais pesado do que o número promete.',
+    normalize: 'Acertar para 100%',
+  },
+
+  fermentation: {
+    title: 'Fermento, tempo e temperatura',
+    lead: 'Duas contas que os livros publicam e que ninguém faz de cabeça: quanto tempo uma dose de fermento pede, e a que temperatura a água precisa sair da torneira para a massa terminar a sova no ponto.',
+
+    timeTitle: 'Quanto tempo essa dose pede',
+    timeLead: 'A conta parte da receita de referência mais próxima da sua dose e aplica a regra do Camargo: metade do fermento, dobro do tempo.',
+    stageLabel: 'Qual fermentação',
+    yeastLabel: 'Fermento seco instantâneo',
+    yeastHint: 'Em % do peso da farinha. Fresco é o triplo disso; seco ativo, o dobro.',
+    estimate: 'Estimativa',
+    from: 'A partir da',
+    andWindow: 'com janela de',
+    estimateWarning:
+      'É orientação de planejamento, não promessa. Temperatura da cozinha, força da farinha e vigor do fermento mexem no resultado — o ponto quem dá é a massa, não o relógio.',
+    pointsTitle: 'Os pontos de referência das fontes',
+    recipes: {
+      french: 'Pão francês de padaria',
+      ciabatta: 'Ciabatta com poolish',
+      napoletana: 'Pizza napoletana',
+    },
+    hours: 'h',
+
+    waterTitle: 'Temperatura da água',
+    waterLead: 'A soma das temperaturas do ambiente, da farinha e da água precisa dar a temperatura de base do pão, para a massa sair da sova entre 24 e 25 °C.',
+    crumbLabel: 'Tipo de pão',
+    white: 'Pão branco',
+    dark: 'Pão escuro',
+    roomLabel: 'Temperatura da cozinha',
+    flourLabel: 'Temperatura da farinha',
+    flourHint: 'Na prática, a mesma da cozinha, a menos que o saco venha da geladeira.',
+    waterResult: 'Use água a',
+    baseIs: 'Temperatura de base deste pão:',
+    tooCold:
+      'A conta pede água abaixo de zero: a cozinha está quente demais para essa temperatura de base. Use água gelada com gelo e conte com uma massa acima do alvo, ou fermente em lugar mais fresco.',
+    retardTitle: 'Retardo na geladeira',
+    retardBody: 'Massa já modelada aguenta a noite inteira a',
+  },
+
   sources: {
     title: 'Fontes desta calculadora',
     lead: 'Cada preset e cada faixa acima sai de uma destas obras, na página ou capítulo indicado.',
@@ -305,55 +355,58 @@ export const breadPtBR = {
 
   glossary: {
     title: 'Glossário',
-    terms: [
-      {
+    full: 'Ver no glossário',
+    noSource: 'Sem fonte na nossa bibliografia: a definição descreve a prática corrente, e nenhuma obra da estante a sustenta.',
+    anchor: 'Endereço deste verbete',
+    terms: {
+      'bakers-percentage': {
         term: 'Porcentagem de padeiro',
         definition:
           'Sistema em que a farinha é 100% e todo ingrediente é expresso como porcentagem do peso dela. Permite escalar a receita sem refazer conta.',
       },
-      {
+      'hydration': {
         term: 'Hidratação',
         definition: 'A razão entre água e farinha da receita.',
       },
-      {
+      'autolyse': {
         term: 'Autólise',
         definition:
           'Descanso entre a mistura e a sova para a farinha absorver a água e o glúten começar a se formar sozinho. Rende massa mais elástica com menos trabalho.',
       },
-      {
+      'levain': {
         term: 'Levain',
         definition:
           'Fermento natural: cultura de leveduras selvagens e bactérias láticas. O líquido tem 100% de hidratação (partes iguais de farinha e água); o firme, cerca de 60%.',
       },
-      {
+      'poolish': {
         term: 'Poolish',
         definition:
           'Pré-fermento líquido de partes iguais de farinha e água com pouquíssimo fermento, sem sal e sem sova. Ganha sabor antes da massa existir.',
       },
-      {
+      'biga': {
         term: 'Biga',
         definition: 'Pré-fermento com a mesma função da poolish, porém firme.',
       },
-      {
+      'fermented-dough': {
         term: 'Massa fermentada',
         definition:
           'Um pedaço de massa pronta da véspera incorporado à massa nova, de 15 a 30% do peso da farinha.',
       },
-      {
+      'pointage-appret': {
         term: 'Pointage e apprêt',
         definition:
           'Os dois tempos de fermentação: o primeiro em bloco, logo após a sova; o segundo depois de modelar, até o forno.',
       },
-      {
+      'base-temperature': {
         term: 'Temperatura de base',
         definition:
           'Soma das temperaturas do ambiente, da farinha e da água, usada para descobrir a que temperatura a água deve entrar. Para pão branco fica entre 54 e 56 °C, mirando massa a 24–25 °C ao fim da sova.',
       },
-      {
+      'flour-strength': {
         term: 'Força da farinha',
         definition:
           'Farinha forte tem mais proteína, absorve mais água e aguenta fermentação longa. A qualidade da proteína pesa mais que o teor.',
       },
-    ],
+    },
   },
 };

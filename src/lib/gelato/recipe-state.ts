@@ -241,3 +241,18 @@ export function gelatoReducer(state: GelatoState, action: GelatoAction): GelatoS
       return state;
   }
 }
+
+/**
+ * Como um estado de gelato encolhe para caber num link.
+ *
+ * É o que mais ganha: a lista de ingredientes era quase todo o endereço, e uma
+ * receita de preset sem edição não precisa mandar nenhuma linha dela.
+ */
+export const GELATO_SNAPSHOT = {
+  baselineFor: (presetId: string): GelatoState | null =>
+    PRESETS.some((preset) => preset.id === presetId)
+      ? gelatoReducer(initialGelatoState(), { type: 'loadPreset', presetId })
+      : null,
+  presetOf: (state: GelatoState): string => state.presetId,
+  parse: parseGelatoState,
+};
