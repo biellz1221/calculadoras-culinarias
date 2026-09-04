@@ -275,6 +275,7 @@ export const picklesPtBR = {
 
   glossary: {
     title: 'Glossário',
+    full: 'Ver no glossário',
     noSource: 'Sem fonte na nossa bibliografia: a definição descreve a prática corrente, e nenhuma obra da estante a sustenta.',
     anchor: 'Endereço deste verbete',
     terms: {

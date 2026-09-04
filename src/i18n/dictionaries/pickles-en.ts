@@ -275,6 +275,7 @@ export const picklesEn: typeof picklesPtBR = {
 
   glossary: {
     title: 'Glossary',
+    full: 'See in the glossary',
     noSource: 'No source in our bibliography: the definition describes common practice, and no work on the shelf backs it.',
     anchor: 'Link to this entry',
     terms: {
