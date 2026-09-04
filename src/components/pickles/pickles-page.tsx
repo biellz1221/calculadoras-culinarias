@@ -71,7 +71,13 @@ export function PicklesPage({ locale }: { locale: Locale }) {
       </CalculatorSection>
 
       <CalculatorSection label={dict.glossary.title} educational>
-        <GlossaryList terms={dict.glossary.terms} />
+        <GlossaryList
+          calculator="pickles"
+          terms={dict.glossary.terms}
+          labels={dict.sources}
+          noSourceLabel={dict.glossary.noSource}
+          anchorLabel={dict.glossary.anchor}
+        />
       </CalculatorSection>
 
       <SourceList

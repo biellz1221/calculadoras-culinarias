@@ -15,7 +15,7 @@ import {
   choosePickleMode,
   choosePicklePreset,
   initialPicklesState,
-  parsePicklesState,
+  PICKLES_SNAPSHOT,
   type BrineState,
   type PicklesState,
   type VinegarState,
@@ -103,7 +103,7 @@ export function PicklesCalculator({ dict, locale }: PicklesCalculatorProps) {
         locale={locale}
         state={state}
         card={card}
-        parse={parsePicklesState}
+        shape={PICKLES_SNAPSHOT}
         onRestore={setState}
       />
     </div>

@@ -6,7 +6,7 @@ import { PicklesCalculator } from '@/components/pickles/pickles-calculator';
 import { getBreadDictionary } from '@/i18n/dictionaries/bread';
 import { getPicklesDictionary } from '@/i18n/dictionaries/pickles';
 import { getDictionary } from '@/i18n';
-import { initialBreadState, parseBreadState } from '@/lib/bread/state';
+import { BREAD_SNAPSHOT, initialBreadState } from '@/lib/bread/state';
 import { decodeSnapshot, SHARE_PARAM } from '@/lib/recipes/snapshot';
 import { resetRecipeStoreForTests } from '@/lib/recipes/store';
 
@@ -101,7 +101,7 @@ describe('ações da receita', () => {
     const encoded = link.searchParams.get(SHARE_PARAM);
     expect(encoded).not.toBeNull();
 
-    const decoded = decodeSnapshot(encoded as string, 'bread', parseBreadState);
+    const decoded = decodeSnapshot(encoded as string, 'bread', BREAD_SNAPSHOT);
     expect(decoded).toMatchObject({ status: 'ok', state: { flourGrams: 750 } });
   });
 

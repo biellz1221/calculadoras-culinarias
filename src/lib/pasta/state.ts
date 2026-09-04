@@ -93,3 +93,11 @@ export function parsePastaState(value: unknown): PastaState | null {
     yolkGrams,
   };
 }
+
+/** Como um estado de massa encolhe para caber num link. */
+export const PASTA_SNAPSHOT = {
+  baselineFor: (presetId: string): PastaState | null =>
+    getPastaPreset(presetId) ? initialPastaState(presetId) : null,
+  presetOf: (state: PastaState): string => state.presetId,
+  parse: parsePastaState,
+};

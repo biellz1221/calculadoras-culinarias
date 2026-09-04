@@ -1,6 +1,7 @@
 'use client';
 
 import { CitationRef } from '@/components/citation';
+import { GlossaryTerm } from '@/components/glossary-term';
 import { MetricRow, type RangeStatus } from '@/components/range-badge';
 import { GELATO_CITATIONS } from '@/data/gelato/source';
 import type { GelatoDictionary } from '@/i18n/dictionaries/gelato';
@@ -153,6 +154,22 @@ function Readout({ label, value, hint }: { label: string; value: string; hint?: 
   );
 }
 
+/**
+ * As métricas que têm verbete no glossário.
+ *
+ * Só quatro das oito: açúcares, gorduras, água e outros sólidos se explicam
+ * pelo nome. POD, PAC, SNGL e sólidos totais, não — são a sopa de siglas que
+ * afasta quem está começando, e é onde o tooltip paga por si.
+ */
+type GlossaryId = keyof GelatoDictionary['glossary']['terms'];
+
+const GLOSSARY_BY_METRIC: Partial<Record<MetricKey, GlossaryId>> = {
+  pod: 'pod',
+  pac: 'pac',
+  msnf: 'msnf',
+  totalSolids: 'total-solids',
+};
+
 function Metric({
   metric,
   dict,
@@ -166,10 +183,23 @@ function Metric({
   const meta = dict.metrics[metric.key];
   const hint = dict.hints[metric.key];
   const scale = isPerKgMetric(metric.key) ? dict.balance.perKg : dict.balance.ofMass;
+  const entryId = GLOSSARY_BY_METRIC[metric.key];
 
   return (
     <MetricRow
-      label={meta.label}
+      label={
+        entryId ? (
+          <GlossaryTerm
+            calculator="gelato"
+            entryId={entryId}
+            label={meta.label}
+            definition={dict.glossary.terms[entryId].definition}
+            labels={{ ...dict.sources, ...dict.glossary }}
+          />
+        ) : (
+          meta.label
+        )
+      }
       value={formatMetric(metric.key, metric.value, locale)}
       status={status}
       statusLabel={dict.balance.status[status]}

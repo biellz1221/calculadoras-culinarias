@@ -23,6 +23,10 @@ export const INK_SOFT = '#574d43';
 export const INK_MUTED = '#6f6558';
 export const RULE = '#e6dccb';
 
+/** Mel tostado da marca, para o ícone do aplicativo instalado. */
+export const BRAND_DEEP = '#7d4a1c';
+export const BRAND_TINT = '#f6e7d2';
+
 export const PALETTES: Record<RouteKey, Palette> = {
   home: { page: '#fbf6ee', accent: '#a9662a', accentDeep: '#7d4a1c' },
   bread: { page: '#fdf8ee', accent: '#a97016', accentDeep: '#7a4e0f' },

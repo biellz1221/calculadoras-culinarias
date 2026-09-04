@@ -104,13 +104,19 @@ test('a impressão deixa na folha só a receita', async ({ page }) => {
 test('o compartilhamento existe nas quatro calculadoras, nos dois idiomas', async ({
   page,
 }) => {
+  // Oito navegações num teste só, com a suíte inteira rodando em paralelo:
+  // o padrão de 5 s do `expect` já estourou aqui por lentidão de máquina, não
+  // por ausência do botão.
+  const visible = (name: string) =>
+    expect(page.getByRole('button', { name })).toBeVisible({ timeout: 15_000 });
+
   for (const path of ['/paes', '/picles', '/massas', '/gelato']) {
     await page.goto(path);
-    await expect(page.getByRole('button', { name: 'Copiar link' })).toBeVisible();
+    await visible('Copiar link');
   }
 
   for (const path of ['/en/bread', '/en/pickles', '/en/pasta', '/en/gelato']) {
     await page.goto(path);
-    await expect(page.getByRole('button', { name: 'Copy link' })).toBeVisible();
+    await visible('Copy link');
   }
 });

@@ -7,6 +7,10 @@ const PORT = 3100;
 // nunca hidrata — o que faz todo teste de interação falhar por engano.
 const baseURL = `http://localhost:${PORT}`;
 
+/** Build estático servido à parte: é onde o service worker existe. */
+const BUILD_PORT = 3101;
+export const BUILD_URL = `http://localhost:${BUILD_PORT}`;
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -26,10 +30,21 @@ export default defineConfig({
     // NFR-006: toda calculadora precisa ser utilizável em viewport pequeno.
     { name: 'mobile', use: { ...devices['Pixel 5'] } },
   ],
-  webServer: {
-    command: `pnpm exec next dev --port ${PORT}`,
-    url: baseURL,
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-  },
+  webServer: [
+    {
+      command: `pnpm exec next dev --port ${PORT}`,
+      url: baseURL,
+      reuseExistingServer: !process.env.CI,
+      timeout: 120_000,
+    },
+    // O service worker não se registra em desenvolvimento (ver
+    // `service-worker.tsx`), então testar offline exige o build de verdade.
+    // Só `e2e/pwa.spec.ts` usa esta porta.
+    {
+      command: `pnpm build && node scripts/static-server.mjs out ${BUILD_PORT}`,
+      url: BUILD_URL,
+      reuseExistingServer: !process.env.CI,
+      timeout: 180_000,
+    },
+  ],
 });

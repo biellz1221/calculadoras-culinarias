@@ -19,7 +19,7 @@ import { calculatePasta, presetEggUnits } from '@/lib/pasta/calculate';
 import {
   chooseStyle,
   initialPastaState,
-  parsePastaState,
+  PASTA_SNAPSHOT,
   pastaTarget,
   type PastaState,
 } from '@/lib/pasta/state';
@@ -132,7 +132,7 @@ export function PastaCalculator({ dict, locale }: PastaCalculatorProps) {
         locale={locale}
         state={state}
         card={card}
-        parse={parsePastaState}
+        shape={PASTA_SNAPSHOT}
         onRestore={setState}
       />
 

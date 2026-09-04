@@ -8,6 +8,8 @@ import type { CalculatorId } from '@/data/calculators';
 export const ptBR = {
   site: {
     name: 'Calculadoras Culinárias',
+    /** Nome sob o ícone na tela de início: o que não couber vira reticências. */
+    shortName: 'Calculadoras',
     homeTitle: 'Calculadoras Culinárias: pão, picles, massa e gelato',
     description:
       'Calculadoras de cozinha em gramas para pão, picles, massa fresca e gelato. Cada proporção vem de um livro de referência, citada com autor e página.',
@@ -62,6 +64,12 @@ export const ptBR = {
     skipToContent: 'Pular para o conteúdo',
     languageNav: 'Escolha de idioma',
     currentLanguage: 'Idioma atual',
+  },
+
+  pwa: {
+    updateReady: 'Tem uma versão nova do site pronta.',
+    update: 'Atualizar',
+    later: 'Depois',
   },
 
   /**
