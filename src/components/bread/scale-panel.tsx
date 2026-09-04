@@ -9,6 +9,7 @@ import type { BreadDictionary } from '@/i18n/dictionaries/bread';
 import type { Locale } from '@/i18n/locales';
 import {
   flourGramsOf,
+  MAX_PASTED_LENGTH,
   parseRecipeText,
   scaleRecipe,
   type LineRole,
@@ -82,6 +83,7 @@ export function ScalePanel({
             setRemoved(new Set());
           }}
           rows={8}
+          maxLength={MAX_PASTED_LENGTH}
           placeholder={copy.placeholder}
           className="mt-2 w-full rounded-card border border-rule bg-surface px-4 py-3 font-mono text-sm leading-relaxed text-ink focus:border-accent focus:outline-none"
         />

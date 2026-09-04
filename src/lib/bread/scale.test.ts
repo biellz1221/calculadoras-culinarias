@@ -150,6 +150,26 @@ describe('receita colada', () => {
 
     expect(lines.map((line) => line.name)).toEqual(['Água']);
   });
+
+  it('não trava com um texto enorme colado por engano', () => {
+    // Uma linha só, de dígitos, sem unidade nenhuma: é o pior caso para uma
+    // expressão regular com quantificador aberto seguido de sufixo que falha.
+    // Antes do teto no quantificador, 200 mil caracteres levavam 63 segundos.
+    // A margem aqui é folgada de propósito — o que se mede é a ordem de
+    // grandeza, não o milissegundo, e máquina de CI é irregular.
+    const start = performance.now();
+    parseRecipeText('9'.repeat(200_000));
+
+    expect(performance.now() - start).toBeLessThan(2000);
+  });
+
+  it('para de ler depois do teto de linhas', () => {
+    const lines = parseRecipeText(
+      Array.from({ length: 3000 }, (_, index) => `Farinha ${index + 1} g`).join('\n'),
+    );
+
+    expect(lines.length).toBeLessThanOrEqual(2000);
+  });
 });
 
 /** Uma receita de padeiro comum: 1 kg de farinha a 65% e 2% de sal. */

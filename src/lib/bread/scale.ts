@@ -133,11 +133,19 @@ export function parseAmount(raw: string): number | null {
   return Number(`${whole}.${cleaned.slice(separator + 1)}`);
 }
 
-/** Quantidade com unidade de massa declarada: `500 g`, `1,2 kg`, `350 ml`. */
-const WITH_UNIT = /(\d[\d.,]*)\s*(kg|g|ml|l|litros?|liters?)\b/gi;
+/**
+ * Quantidade com unidade de massa declarada: `500 g`, `1,2 kg`, `350 ml`.
+ *
+ * O `{0,20}` no lugar de `*` não é enfeite. Com quantificador aberto seguido de
+ * um sufixo que pode falhar, o motor de regex volta atrás caractere a caractere
+ * a partir de cada posição da linha — custo quadrático. Medido: uma linha de
+ * 200 mil dígitos sem unidade nenhuma travava a aba por 63 segundos; com o
+ * teto, 15 milissegundos. Nenhuma quantidade de receita tem vinte dígitos.
+ */
+const WITH_UNIT = /(\d[\d.,]{0,20})\s*(kg|g|ml|l|litros?|liters?)\b/gi;
 
-/** Quantidade sem unidade nenhuma: a linha `Farinha 500`. */
-const BARE = /(\d[\d.,]*)/g;
+/** Quantidade sem unidade nenhuma: a linha `Farinha 500`. Mesmo teto. */
+const BARE = /(\d[\d.,]{0,20})/g;
 
 /**
  * Unidades que aparecem em instrução, não em ingrediente.
@@ -151,6 +159,11 @@ const NOT_A_WEIGHT =
 
 /** Nome de ingrediente é curto. Passou disso, é frase. */
 const MAX_NAME_WORDS = 6;
+
+/** Tetos de trabalho: nenhuma receita colada chega perto deles. */
+export const MAX_PASTED_LENGTH = 20_000;
+const MAX_LINE_LENGTH = 300;
+const MAX_LINES = 2_000;
 
 /**
  * Verbos e palavras de preparo.
@@ -273,9 +286,11 @@ function cleanName(value: string): string {
 export function parseRecipeText(text: string): ScaleLine[] {
   const lines: ScaleLine[] = [];
 
-  for (const [index, raw] of text.split(/\r?\n/).entries()) {
+  for (const [index, raw] of text.split(/\r?\n/).slice(0, MAX_LINES).entries()) {
     const line = raw.trim();
-    if (!line) continue;
+    // Descartar a linha comprida antes de ler é o que impede um paste de
+    // megabytes de virar trabalho. Receita nenhuma tem linha de 300 caracteres.
+    if (!line || line.length > MAX_LINE_LENGTH) continue;
 
     const amount = findAmount(line);
     if (!amount || amount.grams <= 0) continue;
