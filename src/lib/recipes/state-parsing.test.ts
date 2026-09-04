@@ -1,9 +1,17 @@
 import { describe, expect, it } from 'vitest';
 
-import { initialBreadState, parseBreadState } from '@/lib/bread/state';
-import { parseGelatoState, initialGelatoState } from '@/lib/gelato/recipe-state';
-import { initialPastaState, parsePastaState } from '@/lib/pasta/state';
-import { initialPicklesState, parsePicklesState } from '@/lib/pickles/state';
+import { BREAD_SNAPSHOT, initialBreadState, parseBreadState } from '@/lib/bread/state';
+import {
+  GELATO_SNAPSHOT,
+  initialGelatoState,
+  parseGelatoState,
+} from '@/lib/gelato/recipe-state';
+import { PASTA_SNAPSHOT, initialPastaState, parsePastaState } from '@/lib/pasta/state';
+import {
+  PICKLES_SNAPSHOT,
+  initialPicklesState,
+  parsePicklesState,
+} from '@/lib/pickles/state';
 import { DEFAULT_PASTA_PRESET_ID } from '@/data/pasta/presets';
 import type { CalculatorId } from '@/data/calculators';
 import { decodeSnapshot, encodeSnapshot } from './snapshot';
@@ -22,17 +30,38 @@ interface ParseCase {
   readonly initial: object;
   /** Cada calculadora devolve o seu próprio tipo; aqui só interessa não ser nulo. */
   readonly parse: (value: unknown) => unknown;
+  readonly shape: {
+    baselineFor: (presetId: string) => never;
+    presetOf: (state: never) => string;
+    parse: (value: unknown) => unknown;
+  };
 }
 
 const CALCULATORS: readonly ParseCase[] = [
-  { id: 'bread', initial: initialBreadState(), parse: parseBreadState },
+  {
+    id: 'bread',
+    initial: initialBreadState(),
+    parse: parseBreadState,
+    shape: BREAD_SNAPSHOT as never,
+  },
   {
     id: 'pasta',
     initial: initialPastaState(DEFAULT_PASTA_PRESET_ID),
     parse: parsePastaState,
+    shape: PASTA_SNAPSHOT as never,
   },
-  { id: 'pickles', initial: initialPicklesState(), parse: parsePicklesState },
-  { id: 'gelato', initial: initialGelatoState(), parse: parseGelatoState },
+  {
+    id: 'pickles',
+    initial: initialPicklesState(),
+    parse: parsePicklesState,
+    shape: PICKLES_SNAPSHOT as never,
+  },
+  {
+    id: 'gelato',
+    initial: initialGelatoState(),
+    parse: parseGelatoState,
+    shape: GELATO_SNAPSHOT as never,
+  },
 ];
 
 /** Os estados são interfaces, que não ganham índice implícito. */
@@ -41,8 +70,12 @@ function asRecord(value: object): Record<string, unknown> {
 }
 
 describe('estado que volta de um link', () => {
-  it.each(CALCULATORS)('$id sobrevive à ida e volta', ({ id, initial, parse }) => {
-    const result = decodeSnapshot(encodeSnapshot(id, initial), id, parse);
+  it.each(CALCULATORS)('$id sobrevive à ida e volta', ({ id, initial, shape }) => {
+    const result = decodeSnapshot(
+      encodeSnapshot(id, initial as never, shape as never),
+      id,
+      shape as never,
+    );
 
     expect(result).toEqual({ status: 'ok', state: initial });
   });

@@ -2,7 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { decodeSnapshot, encodeSnapshot, SHARE_PARAM } from './snapshot';
+import {
+  decodeSnapshot,
+  encodeSnapshot,
+  SHARE_PARAM,
+  type SnapshotShape,
+} from './snapshot';
 import type { CalculatorId } from '@/data/calculators';
 
 /**
@@ -30,15 +35,15 @@ export interface RecipeSharing {
   dismiss: () => void;
 }
 
-export function useRecipeSharing<S>({
+export function useRecipeSharing<S extends object>({
   calculator,
   state,
-  parse,
+  shape,
   onRestore,
 }: {
   calculator: CalculatorId;
   state: S;
-  parse: (value: unknown) => S | null;
+  shape: SnapshotShape<S>;
   onRestore: (state: S) => void;
 }): RecipeSharing {
   const [status, setStatus] = useState<LinkStatus>('none');
@@ -55,11 +60,11 @@ export function useRecipeSharing<S>({
   // Refs para o efeito de montagem não depender da identidade das funções, que
   // muda a cada render da calculadora. Sincronizados num efeito declarado
   // antes, que por isso roda antes.
-  const parseRef = useRef(parse);
+  const shapeRef = useRef(shape);
   const restoreRef = useRef(onRestore);
 
   useEffect(() => {
-    parseRef.current = parse;
+    shapeRef.current = shape;
     restoreRef.current = onRestore;
   });
 
@@ -67,7 +72,7 @@ export function useRecipeSharing<S>({
     const encoded = new URLSearchParams(window.location.search).get(SHARE_PARAM);
     if (!encoded) return;
 
-    const result = decodeSnapshot(encoded, calculator, parseRef.current);
+    const result = decodeSnapshot(encoded, calculator, shapeRef.current);
 
     if (result.status === 'ok') {
       restored.current = result.state;
@@ -112,10 +117,10 @@ export function useRecipeSharing<S>({
     const url = new URL(window.location.href);
     url.search = '';
     url.hash = '';
-    url.searchParams.set(SHARE_PARAM, encodeSnapshot(calculator, state));
+    url.searchParams.set(SHARE_PARAM, encodeSnapshot(calculator, state, shape));
 
     return url.toString();
-  }, [calculator, state]);
+  }, [calculator, state, shape]);
 
   const dismiss = useCallback(() => setStatus('none'), []);
 

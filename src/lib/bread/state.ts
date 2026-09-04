@@ -170,3 +170,17 @@ export function parseBreadState(value: unknown): BreadState | null {
     unitGrams,
   };
 }
+
+/**
+ * Como um estado de pão encolhe para caber num link.
+ *
+ * O ponto de partida é o preset escolhido do zero: quem só mexeu no peso da
+ * fornada manda o preset e três números, e a fórmula inteira — o campo mais
+ * pesado de longe — não viaja.
+ */
+export const BREAD_SNAPSHOT = {
+  baselineFor: (presetId: string): BreadState | null =>
+    getPreset(presetId) ? choosePreset(initialBreadState(), presetId) : null,
+  presetOf: (state: BreadState): string => state.presetId,
+  parse: parseBreadState,
+};

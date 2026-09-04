@@ -20,7 +20,7 @@ import {
   changePercent,
   choosePreset,
   initialBreadState,
-  parseBreadState,
+  BREAD_SNAPSHOT,
   type BreadMode,
   type BreadState,
 } from '@/lib/bread/state';
@@ -154,7 +154,7 @@ export function BreadCalculator({ dict, locale }: BreadCalculatorProps) {
         locale={locale}
         state={state}
         card={card}
-        parse={parseBreadState}
+        shape={BREAD_SNAPSHOT}
         onRestore={setState}
       />
 

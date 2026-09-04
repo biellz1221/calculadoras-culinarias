@@ -20,7 +20,7 @@ import type { Locale } from '@/i18n/locales';
 import { massUnitForBatch } from '@/lib/gelato/mass';
 import {
   DEFAULT_ADD_GRAMS,
-  parseGelatoState,
+  GELATO_SNAPSHOT,
   targetGrams,
   totalGrams,
   type GelatoState,
@@ -103,7 +103,7 @@ export function GelatoCalculator({ dict, locale }: GelatoCalculatorProps) {
         locale={locale}
         state={state}
         card={card}
-        parse={parseGelatoState}
+        shape={GELATO_SNAPSHOT}
         onRestore={(next: GelatoState) =>
           recipe.run({ type: 'replaceState', state: next })
         }
