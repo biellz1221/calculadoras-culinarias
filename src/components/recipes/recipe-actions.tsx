@@ -10,7 +10,7 @@ import type { Locale } from '@/i18n/locales';
 import { pathFor } from '@/i18n/routes';
 import { cn } from '@/lib/cn';
 import { recipeCardText, type RecipeCard } from '@/lib/recipes/card';
-import { useSavedRecipes } from '@/lib/recipes/store';
+import { MAX_NAME_LENGTH, useSavedRecipes } from '@/lib/recipes/store';
 import { useRecipeSharing } from '@/lib/recipes/use-recipe-sharing';
 import { absoluteUrl } from '@/lib/site';
 
@@ -179,7 +179,7 @@ export function RecipeActions<S>({
               id="recipe-name"
               ref={nameInput}
               value={name}
-              maxLength={80}
+              maxLength={MAX_NAME_LENGTH}
               onChange={(event) => setName(event.target.value)}
               className="w-64 max-w-full rounded-sm border border-rule bg-surface px-3 py-2 text-ink focus:border-accent focus:outline-none"
             />

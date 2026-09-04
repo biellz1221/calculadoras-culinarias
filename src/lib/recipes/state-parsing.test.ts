@@ -53,6 +53,16 @@ describe('estado que volta de um link', () => {
     }
   });
 
+  it.each(CALCULATORS)('$id recusa preset chamado __proto__', ({ initial, parse }) => {
+    // Não é curiosidade: `dicionario['__proto__']` devolve o `Object.prototype`
+    // em vez de `undefined`, então um preset com esse nome faria o título da
+    // receita virar objeto — e o React derruba a página ao receber isso como
+    // filho. Link que quebra a página de quem abre, e barato de montar.
+    expect(parse({ ...asRecord(initial), presetId: '__proto__' })).toBeNull();
+    expect(parse({ ...asRecord(initial), presetId: 'constructor' })).toBeNull();
+    expect(parse({ ...asRecord(initial), presetId: 'receita-que-não-existe' })).toBeNull();
+  });
+
   it.each(CALCULATORS)('$id recusa estado incompleto', ({ initial, parse }) => {
     for (const key of Object.keys(asRecord(initial))) {
       const partial = { ...asRecord(initial) };

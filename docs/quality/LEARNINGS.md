@@ -65,6 +65,18 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
 - **Union de chaves valida melhor como `Record<Chave, true>` que como lista.** O
   registro é conferido na compilação e não deixa esquecer um valor novo; a
   lista aceita a omissão calada.
+- **`dicionario[chave]` com chave de fora não devolve `undefined` para
+  `'__proto__'`: devolve o `Object.prototype`.** É comportamento legado do
+  JavaScript em qualquer objeto comum. Num rótulo, o resultado deixa de ser
+  texto e vira objeto, e o React derruba a página inteira ao receber isso como
+  filho — ou seja, um link que quebra a página de quem abre. Duas travas:
+  validar a chave contra o catálogo no `parse` **e** ler o dicionário por
+  `labelFor()`, que usa `Object.hasOwn`. `as keyof typeof` não protege de nada
+  aqui: é asserção de tipo, não checagem em tempo de execução.
+- **Validação nova precisa nascer nas quatro calculadoras ao mesmo tempo.** O
+  furo acima existia só no gelato, porque as outras três já conferiam o preset
+  contra o catálogo e ele não. Teste com `it.each` sobre as quatro pega isso;
+  teste escrito para uma só, não.
 
 ## Interface
 

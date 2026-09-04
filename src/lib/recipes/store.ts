@@ -32,6 +32,9 @@ export interface SavedRecipe {
  */
 export const MAX_SAVED_RECIPES = 20;
 
+/** Teto do nome, igual ao do campo na tela. */
+export const MAX_NAME_LENGTH = 80;
+
 export type SaveOutcome =
   | 'saved'
   | 'replaced'
@@ -74,6 +77,9 @@ function isSavedRecipe(value: unknown): value is SavedRecipe {
   return (
     typeof record.name === 'string' &&
     record.name.length > 0 &&
+    // O mesmo teto do campo na tela. A leitura precisa repeti-lo porque o que
+    // vem do storage não passou necessariamente pelo campo.
+    record.name.length <= MAX_NAME_LENGTH &&
     typeof record.savedAt === 'string' &&
     'state' in record
   );

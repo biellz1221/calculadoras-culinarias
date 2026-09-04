@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
+  MAX_NAME_LENGTH,
   MAX_SAVED_RECIPES,
   resetRecipeStoreForTests,
   useSavedRecipes,
@@ -151,6 +152,28 @@ describe('receitas guardadas', () => {
       // desfaz: sem isto, o próximo caso herda o storage quebrado.
       blocked.mockRestore();
     }
+  });
+
+  it('descarta nome maior que o teto do campo', () => {
+    // O campo na tela limita em 80; a leitura precisa repetir o limite, porque
+    // o que está no storage não passou necessariamente pelo campo.
+    window.localStorage.setItem(
+      'cc:recipes:bread',
+      JSON.stringify({
+        v: 1,
+        items: [
+          {
+            name: 'a'.repeat(MAX_NAME_LENGTH + 1),
+            savedAt: '2026-01-01T00:00:00.000Z',
+            state: {},
+          },
+        ],
+      }),
+    );
+
+    const { result } = renderHook(() => useSavedRecipes('bread'));
+
+    expect(result.current.items).toEqual([]);
   });
 
   it('sobrevive a lixo no localStorage', () => {

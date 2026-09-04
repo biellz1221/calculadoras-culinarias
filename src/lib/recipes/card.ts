@@ -41,6 +41,22 @@ export interface RecipeCardTextLabels {
 }
 
 /**
+ * Rótulo de dicionário por chave que veio de fora.
+ *
+ * `dicionario[chave]` parece inofensivo e não é: em JavaScript,
+ * `objeto['__proto__']` devolve o `Object.prototype`, não `undefined`. Um
+ * rótulo que deveria ser texto vira objeto, e o React derruba a página ao
+ * receber isso como filho.
+ *
+ * A validação de catálogo em cada `parse…State` já impede que chave inventada
+ * chegue aqui. Isto é a segunda tranca: a primeira depende de alguém lembrar de
+ * validar na calculadora seguinte, esta não.
+ */
+export function labelFor(labels: Readonly<Record<string, string>>, key: string): string {
+  return Object.hasOwn(labels, key) ? labels[key] ?? '' : '';
+}
+
+/**
  * Versão em texto puro, para colar em conversa.
  *
  * Sem tabela, sem alinhamento por espaços e sem caractere de caixa: o destino

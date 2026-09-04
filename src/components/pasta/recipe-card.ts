@@ -3,7 +3,7 @@ import { COOKING_WATER_CITATIONS } from '@/data/pasta/presets';
 import type { PastaPreset, PastaRecipe } from '@/data/pasta/types';
 import type { PastaDictionary } from '@/i18n/dictionaries/pasta';
 import { cookRuleFor, cookingWaterLitres } from '@/lib/pasta/cooking';
-import type { RecipeCard, RecipeCardLine } from '@/lib/recipes/card';
+import { labelFor, type RecipeCard, type RecipeCardLine } from '@/lib/recipes/card';
 import type { PastaState } from '@/lib/pasta/state';
 import type { Formatters } from '@/lib/use-formatters';
 
@@ -45,7 +45,7 @@ export function pastaRecipeCard({
   });
 
   return {
-    title: dict.presets[state.presetId as keyof PastaDictionary['presets']],
+    title: labelFor(dict.presets, state.presetId),
     subtitle: `${fmt.number(state.servings)} ${dict.target.servings.toLowerCase()} · ${fmt.mass(state.gramsPerServing, 0)} ${dict.target.gramsPerServing.toLowerCase()}`,
     groups: [
       // "O que pesar" encabeça o que se pesa; o resumo vem depois, sem título,

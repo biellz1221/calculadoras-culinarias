@@ -13,7 +13,7 @@ import {
 import type { GelatoState } from '@/lib/gelato/recipe-state';
 import type { RecipeResult, RecipeType } from '@/lib/gelato/types';
 import { formatPercent } from '@/i18n/format';
-import type { RecipeCard, RecipeCardLine } from '@/lib/recipes/card';
+import { labelFor, type RecipeCard, type RecipeCardLine } from '@/lib/recipes/card';
 
 /**
  * A receita de gelato como texto e como folha impressa.
@@ -56,7 +56,7 @@ export function gelatoRecipeCard({
   const outOfRange = METRIC_KEYS.filter((key) => result.metrics[key].status !== 'ok');
 
   return {
-    title: dict.presets[state.presetId as keyof GelatoDictionary['presets']],
+    title: labelFor(dict.presets, state.presetId),
     subtitle: `${dict.bases[recipeType.id as keyof GelatoDictionary['bases']].name} · ${formatLiters(state.batchLiters, locale)}`,
     groups: [
       { lines: ingredients },

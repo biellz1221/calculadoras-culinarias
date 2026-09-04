@@ -3,7 +3,7 @@ import { getPreset } from '@/data/bread/presets';
 import { RANGES, isBeyondHardLimit, ruleFor } from '@/data/bread/ranges';
 import type { BreadRecipe } from '@/data/bread/types';
 import type { BreadDictionary } from '@/i18n/dictionaries/bread';
-import type { RecipeCard, RecipeCardLine } from '@/lib/recipes/card';
+import { labelFor, type RecipeCard, type RecipeCardLine } from '@/lib/recipes/card';
 import type { BreadState } from '@/lib/bread/state';
 import type { Formatters } from '@/lib/use-formatters';
 
@@ -26,7 +26,7 @@ export function breadRecipeCard({
   fmt: Formatters;
 }): RecipeCard {
   const preset = getPreset(state.presetId);
-  const title = dict.presets[state.presetId as keyof BreadDictionary['presets']];
+  const title = labelFor(dict.presets, state.presetId);
 
   const ingredients: RecipeCardLine[] = [...recipe.flours, ...recipe.lines].map(
     (line) => ({

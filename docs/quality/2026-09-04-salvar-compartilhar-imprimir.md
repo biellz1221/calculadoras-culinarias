@@ -46,6 +46,32 @@ impressão, ciclo salvar→carregar pela interface) e 5 e2e.
 | 6 | Baixa | Duas linhas de ingrediente com o mesmo `id` quebrariam a chave de render e a remoção de linha. | Validação de `id` único em picles e gelato. |
 | 7 | Baixa | `<p aria-live="polite">` das ações colidia com o do conversor de fermento — dois live regions indistinguíveis para leitor de tela e para o seletor do e2e. | Trocado por `role="status"`, que já implica `aria-live="polite"` + `aria-atomic` e é a semântica certa para confirmação curta. |
 
+### Auditoria de segurança
+
+Rodada sobre as três superfícies de entrada não confiável da feature: o `?r=` na
+URL, o localStorage e o texto livre digitado (nome de receita, nome de
+ingrediente do picles).
+
+| # | Severidade | Achado | Correção |
+| --- | --- | --- | --- |
+| S1 | **Alta** | `parseGelatoState` conferia só o *tipo* de `presetId`, não a existência no catálogo — as outras três calculadoras já conferiam. Com `presetId: "__proto__"`, `dict.presets[presetId]` devolve o `Object.prototype` (comportamento legado do JavaScript, não `undefined`), o título da receita vira objeto e o React derruba a página ao receber isso como filho. **Link que quebra a página de quem abre, barato de montar e fácil de mandar em conversa.** | Checagem contra `PRESETS`, igual às outras três. Teste de regressão para `__proto__`, `constructor` e id inexistente nas **quatro** calculadoras — conferido que falha sem a correção. |
+| S2 | Baixa | Regex de host do `vercel.json` sem âncora. Não é open redirect (o destino é sempre absoluto e fixo, e um host desconhecido nem chega ao projeto), mas a ambiguidade era gratuita. | `^…$` nas sete regras. Ancorar duas vezes é inofensivo em regex, então vale mesmo se a Vercel já ancorar por dentro. |
+| S3 | Baixa | `isSavedRecipe` não tinha teto de tamanho no nome; o campo na tela limita em 80, a leitura do storage não repetia o limite. | `MAX_NAME_LENGTH` compartilhado entre o campo e a validação de leitura, com teste. |
+| S4 | Baixa | Padrão sistêmico: `dicionario[chaveDinâmica]` espalhado pelos quatro `recipe-card.ts`, seguro só porque o `parse` de cada calculadora valida antes — que é exatamente o que faltou no S1. | `labelFor()` em `lib/recipes/card.ts`, com `Object.hasOwn`, usado pelos quatro. Segunda tranca: a primeira depende de alguém lembrar de validar na calculadora seguinte, esta não. |
+
+Verificadas e **sem achado**: prototype pollution como escrita (nenhum
+`parse…State` faz `obj[chave] = valor` com chave vinda do JSON — todos montam
+campo a campo), XSS pelos três caminhos (nenhum `dangerouslySetInnerHTML`; toda
+saída passa por interpolação JSX), DoS por payload gigante (teto de 8 kB
+conferido **antes** de decodificar, teto em toda lista, faixa em todo número),
+vazamento de dados (nenhuma chamada de rede nova; `share`/`clipboard` só por
+gesto explícito), `history.replaceState` (monta a URL a partir de
+`window.location`, nunca do estado decodificado) e segredos commitados.
+
+Detalhe que a auditoria confirmou e vale registrar: **o nome livre de ingrediente
+do picles nunca chega ao `RecipeCard`** — a folha impressa e o texto
+compartilhado só trazem os totais agregados. Ele vive apenas no campo de edição.
+
 ### Aceitos com justificativa
 
 - **A folha de impressão duplica a receita no DOM.** É o preço de ela ser irmã

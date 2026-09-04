@@ -6,7 +6,7 @@ import type { PicklesDictionary } from '@/i18n/dictionaries/pickles';
 import { calculateBrine, calculateDrySalt } from '@/lib/pickles/brine';
 import { brineInput, type PicklesState } from '@/lib/pickles/state';
 import { calculateVinegarPickle } from '@/lib/pickles/vinegar';
-import type { RecipeCard, RecipeCardLine } from '@/lib/recipes/card';
+import { labelFor, type RecipeCard, type RecipeCardLine } from '@/lib/recipes/card';
 import type { Formatters } from '@/lib/use-formatters';
 
 /**
@@ -27,7 +27,7 @@ export function picklesRecipeCard({
   fmt: Formatters;
 }): RecipeCard {
   const preset = getPreset(state.presetId);
-  const title = dict.presets[state.presetId as keyof PicklesDictionary['presets']];
+  const title = labelFor(dict.presets, state.presetId);
   const subtitle = dict.modes[state.mode];
 
   if (!preset) return { title, subtitle, groups: [], notices: [], sources: [] };

@@ -109,8 +109,17 @@ export function parseGelatoState(value: unknown): GelatoState | null {
   if (typeof value !== 'object' || value === null) return null;
   const record = value as Record<string, unknown>;
 
-  if (typeof record.presetId !== 'string' || record.presetId.length > 64) return null;
-  if (!RECIPE_TYPES.some((type) => type.id === record.recipeTypeId)) return null;
+  // Conferir contra o catálogo, e não só o tipo, como as outras três já faziam.
+  // Um id inventado atravessaria até `dict.presets[presetId]`, e em JavaScript
+  // `objeto['__proto__']` devolve o `Object.prototype` em vez de `undefined`:
+  // o título da receita viraria um objeto, e o React derruba a página inteira
+  // ao receber isso como filho. Link compartilhado que quebra a página de quem
+  // abre é barato de montar.
+  const { presetId, recipeTypeId } = record;
+
+  if (typeof presetId !== 'string' || typeof recipeTypeId !== 'string') return null;
+  if (!PRESETS.some((preset) => preset.id === presetId)) return null;
+  if (!RECIPE_TYPES.some((type) => type.id === recipeTypeId)) return null;
 
   const batchLiters = boundedNumber(record.batchLiters, MIN_LITERS, MAX_LITERS);
   const density = boundedNumber(record.density, MIN_DENSITY, MAX_DENSITY);
@@ -137,13 +146,7 @@ export function parseGelatoState(value: unknown): GelatoState | null {
     items.push({ id: ingredientId, ingredientId, grams: parsedGrams });
   }
 
-  return {
-    presetId: record.presetId,
-    recipeTypeId: record.recipeTypeId as string,
-    items,
-    batchLiters,
-    density,
-  };
+  return { presetId, recipeTypeId, items, batchLiters, density };
 }
 
 function boundedNumber(value: unknown, min: number, max: number): number | null {

@@ -3,43 +3,43 @@
   "redirects": [
     {
       "source": "/:file(robots\\.txt|sitemap\\.xml|llms\\.txt)",
-      "has": [{ "type": "host", "value": "(www\\.)?culinarycalculators\\.com" }],
+      "has": [{ "type": "host", "value": "^(www\\.)?culinarycalculators\\.com$" }],
       "destination": "https://calculadorasculinarias.com.br/:file",
       "permanent": false
     },
     {
       "source": "/en/:path*",
-      "has": [{ "type": "host", "value": "(www\\.)?culinarycalculators\\.com" }],
+      "has": [{ "type": "host", "value": "^(www\\.)?culinarycalculators\\.com$" }],
       "destination": "https://calculadorasculinarias.com.br/en/:path*",
       "permanent": false
     },
     {
       "source": "/(paes|bread)",
-      "has": [{ "type": "host", "value": "(www\\.)?culinarycalculators\\.com" }],
+      "has": [{ "type": "host", "value": "^(www\\.)?culinarycalculators\\.com$" }],
       "destination": "https://calculadorasculinarias.com.br/en/bread",
       "permanent": false
     },
     {
       "source": "/(picles|pickles)",
-      "has": [{ "type": "host", "value": "(www\\.)?culinarycalculators\\.com" }],
+      "has": [{ "type": "host", "value": "^(www\\.)?culinarycalculators\\.com$" }],
       "destination": "https://calculadorasculinarias.com.br/en/pickles",
       "permanent": false
     },
     {
       "source": "/(massas|pasta)",
-      "has": [{ "type": "host", "value": "(www\\.)?culinarycalculators\\.com" }],
+      "has": [{ "type": "host", "value": "^(www\\.)?culinarycalculators\\.com$" }],
       "destination": "https://calculadorasculinarias.com.br/en/pasta",
       "permanent": false
     },
     {
       "source": "/gelato",
-      "has": [{ "type": "host", "value": "(www\\.)?culinarycalculators\\.com" }],
+      "has": [{ "type": "host", "value": "^(www\\.)?culinarycalculators\\.com$" }],
       "destination": "https://calculadorasculinarias.com.br/en/gelato",
       "permanent": false
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "(www\\.)?culinarycalculators\\.com" }],
+      "has": [{ "type": "host", "value": "^(www\\.)?culinarycalculators\\.com$" }],
       "destination": "https://calculadorasculinarias.com.br/en",
       "permanent": false
     }
