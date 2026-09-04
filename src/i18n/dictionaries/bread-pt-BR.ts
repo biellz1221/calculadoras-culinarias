@@ -247,6 +247,44 @@ export const breadPtBR = {
       'Sem farinha identificada não existe a régua de 100%, então a leitura em porcentagem de padeiro fica de fora. A escala proporcional acima continua valendo.',
   },
 
+  fermentation: {
+    title: 'Fermento, tempo e temperatura',
+    lead: 'Duas contas que os livros publicam e que ninguém faz de cabeça: quanto tempo uma dose de fermento pede, e a que temperatura a água precisa sair da torneira para a massa terminar a sova no ponto.',
+
+    timeTitle: 'Quanto tempo essa dose pede',
+    timeLead: 'A conta parte da receita de referência mais próxima da sua dose e aplica a regra do Camargo: metade do fermento, dobro do tempo.',
+    stageLabel: 'Qual fermentação',
+    yeastLabel: 'Fermento seco instantâneo',
+    yeastHint: 'Em % do peso da farinha. Fresco é o triplo disso; seco ativo, o dobro.',
+    estimate: 'Estimativa',
+    from: 'A partir da',
+    andWindow: 'com janela de',
+    estimateWarning:
+      'É orientação de planejamento, não promessa. Temperatura da cozinha, força da farinha e vigor do fermento mexem no resultado — o ponto quem dá é a massa, não o relógio.',
+    pointsTitle: 'Os pontos de referência das fontes',
+    recipes: {
+      french: 'Pão francês de padaria',
+      ciabatta: 'Ciabatta com poolish',
+      napoletana: 'Pizza napoletana',
+    },
+    hours: 'h',
+
+    waterTitle: 'Temperatura da água',
+    waterLead: 'A soma das temperaturas do ambiente, da farinha e da água precisa dar a temperatura de base do pão, para a massa sair da sova entre 24 e 25 °C.',
+    crumbLabel: 'Tipo de pão',
+    white: 'Pão branco',
+    dark: 'Pão escuro',
+    roomLabel: 'Temperatura da cozinha',
+    flourLabel: 'Temperatura da farinha',
+    flourHint: 'Na prática, a mesma da cozinha, a menos que o saco venha da geladeira.',
+    waterResult: 'Use água a',
+    baseIs: 'Temperatura de base deste pão:',
+    tooCold:
+      'A conta pede água abaixo de zero: a cozinha está quente demais para essa temperatura de base. Use água gelada com gelo e conte com uma massa acima do alvo, ou fermente em lugar mais fresco.',
+    retardTitle: 'Retardo na geladeira',
+    retardBody: 'Massa já modelada aguenta a noite inteira a',
+  },
+
   sources: {
     title: 'Fontes desta calculadora',
     lead: 'Cada preset e cada faixa acima sai de uma destas obras, na página ou capítulo indicado.',

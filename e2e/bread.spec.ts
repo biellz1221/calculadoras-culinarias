@@ -71,8 +71,13 @@ test('a versão em inglês responde em /en/bread', async ({ page }) => {
 test('o conversor de fermento converte fresco para instantâneo', async ({ page }) => {
   await page.goto('/paes');
 
-  // O resultado é o único parágrafo com aria-live da página.
-  const result = page.locator('p[aria-live="polite"]');
+  // Escopado na seção do conversor: a página tem outros `aria-live` agora
+  // (o guia de fermentação trouxe dois), e "o único" envelheceu.
+  const result = page
+    .locator('section')
+    .filter({ hasText: 'Conversor de fermento' })
+    .locator('p[aria-live="polite"]')
+    .first();
 
   await interactUntil(
     () => page.getByLabel('Quantidade').fill('15'),

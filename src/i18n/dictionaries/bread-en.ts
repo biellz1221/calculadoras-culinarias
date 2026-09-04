@@ -237,6 +237,44 @@ export const breadEn: typeof breadPtBR = {
       'With no flour identified there is no 100% ruler, so the baker’s percentage reading stays out. The proportional scaling above still holds.',
   },
 
+  fermentation: {
+    title: 'Yeast, time and temperature',
+    lead: 'Two sums the books publish and nobody does in their head: how long a dose of yeast asks for, and how warm the water has to be for the dough to come off the mixer on target.',
+
+    timeTitle: 'How long that dose asks for',
+    timeLead: 'The estimate starts from the reference recipe closest to your dose and applies Camargo’s rule: half the yeast, twice the time.',
+    stageLabel: 'Which rise',
+    yeastLabel: 'Instant dry yeast',
+    yeastHint: 'As a percentage of the flour weight. Fresh is three times this; active dry, twice.',
+    estimate: 'Estimate',
+    from: 'Based on the',
+    andWindow: 'with a window of',
+    estimateWarning:
+      'This is planning guidance, not a promise. Kitchen temperature, flour strength and how lively the yeast is all move the result — the dough calls the moment, not the clock.',
+    pointsTitle: 'The reference points from the sources',
+    recipes: {
+      french: 'Brazilian pão francês',
+      ciabatta: 'Ciabatta with poolish',
+      napoletana: 'Neapolitan pizza',
+    },
+    hours: 'h',
+
+    waterTitle: 'Water temperature',
+    waterLead: 'The room, flour and water temperatures have to add up to the bread’s base temperature, so the dough leaves the mixer between 24 and 25 °C.',
+    crumbLabel: 'Type of bread',
+    white: 'White bread',
+    dark: 'Dark bread',
+    roomLabel: 'Kitchen temperature',
+    flourLabel: 'Flour temperature',
+    flourHint: 'In practice the same as the kitchen, unless the bag came out of the fridge.',
+    waterResult: 'Use water at',
+    baseIs: 'Base temperature for this bread:',
+    tooCold:
+      'The sum calls for water below freezing: the kitchen is too warm for that base temperature. Use iced water and expect dough above target, or ferment somewhere cooler.',
+    retardTitle: 'Cold retard',
+    retardBody: 'Shaped dough holds overnight at',
+  },
+
   sources: {
     title: 'Sources for this calculator',
     lead: 'Every preset and every range above comes from one of these works, at the page or chapter given.',
