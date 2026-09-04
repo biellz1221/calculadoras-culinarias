@@ -305,55 +305,57 @@ export const breadPtBR = {
 
   glossary: {
     title: 'Glossário',
-    terms: [
-      {
+    noSource: 'Sem fonte na nossa bibliografia: a definição descreve a prática corrente, e nenhuma obra da estante a sustenta.',
+    anchor: 'Endereço deste verbete',
+    terms: {
+      'bakers-percentage': {
         term: 'Porcentagem de padeiro',
         definition:
           'Sistema em que a farinha é 100% e todo ingrediente é expresso como porcentagem do peso dela. Permite escalar a receita sem refazer conta.',
       },
-      {
+      'hydration': {
         term: 'Hidratação',
         definition: 'A razão entre água e farinha da receita.',
       },
-      {
+      'autolyse': {
         term: 'Autólise',
         definition:
           'Descanso entre a mistura e a sova para a farinha absorver a água e o glúten começar a se formar sozinho. Rende massa mais elástica com menos trabalho.',
       },
-      {
+      'levain': {
         term: 'Levain',
         definition:
           'Fermento natural: cultura de leveduras selvagens e bactérias láticas. O líquido tem 100% de hidratação (partes iguais de farinha e água); o firme, cerca de 60%.',
       },
-      {
+      'poolish': {
         term: 'Poolish',
         definition:
           'Pré-fermento líquido de partes iguais de farinha e água com pouquíssimo fermento, sem sal e sem sova. Ganha sabor antes da massa existir.',
       },
-      {
+      'biga': {
         term: 'Biga',
         definition: 'Pré-fermento com a mesma função da poolish, porém firme.',
       },
-      {
+      'fermented-dough': {
         term: 'Massa fermentada',
         definition:
           'Um pedaço de massa pronta da véspera incorporado à massa nova, de 15 a 30% do peso da farinha.',
       },
-      {
+      'pointage-appret': {
         term: 'Pointage e apprêt',
         definition:
           'Os dois tempos de fermentação: o primeiro em bloco, logo após a sova; o segundo depois de modelar, até o forno.',
       },
-      {
+      'base-temperature': {
         term: 'Temperatura de base',
         definition:
           'Soma das temperaturas do ambiente, da farinha e da água, usada para descobrir a que temperatura a água deve entrar. Para pão branco fica entre 54 e 56 °C, mirando massa a 24–25 °C ao fim da sova.',
       },
-      {
+      'flour-strength': {
         term: 'Força da farinha',
         definition:
           'Farinha forte tem mais proteína, absorve mais água e aguenta fermentação longa. A qualidade da proteína pesa mais que o teor.',
       },
-    ],
+    },
   },
 };

@@ -294,49 +294,57 @@ export const breadEn: typeof breadPtBR = {
 
   glossary: {
     title: 'Glossary',
-    terms: [
-      {
+    noSource: 'No source in our bibliography: the definition describes common practice, and no work on the shelf backs it.',
+    anchor: 'Link to this entry',
+    terms: {
+      'bakers-percentage': {
         term: "Baker's percentage",
         definition:
           'A system where flour is 100% and every ingredient is expressed as a percentage of its weight. It lets you rescale a recipe without redoing the arithmetic.',
       },
-      { term: 'Hydration', definition: 'The ratio of water to flour in a recipe.' },
-      {
+      'hydration': {
+        term: 'Hydration',
+        definition: 'The ratio of water to flour in a recipe.',
+      },
+      'autolyse': {
         term: 'Autolyse',
         definition:
           'A rest between mixing and kneading that lets the flour absorb the water and the gluten start forming on its own. More elastic dough, less work.',
       },
-      {
+      'levain': {
         term: 'Levain',
         definition:
           'Natural starter: a culture of wild yeasts and lactic bacteria. The liquid kind runs at 100% hydration (equal parts flour and water); the firm kind at about 60%.',
       },
-      {
+      'poolish': {
         term: 'Poolish',
         definition:
           'A liquid pre-ferment of equal parts flour and water with a trace of yeast, no salt and no kneading. It builds flavour before the dough exists.',
       },
-      { term: 'Biga', definition: 'A pre-ferment with the same job as poolish, but firm.' },
-      {
+      'biga': {
+        term: 'Biga',
+        definition: 'A pre-ferment with the same job as poolish, but firm.',
+      },
+      'fermented-dough': {
         term: 'Old dough',
         definition:
           'A piece of finished dough from the day before folded into the new one, at 15 to 30% of the flour weight.',
       },
-      {
+      'pointage-appret': {
         term: 'Pointage and apprêt',
         definition:
           'The two fermentations: the first in bulk, straight after kneading; the second after shaping, up to the oven.',
       },
-      {
+      'base-temperature': {
         term: 'Base temperature',
         definition:
           'The sum of the room, flour and water temperatures, used to work out how warm the water should be. For white bread it sits between 54 and 56 °C, aiming at dough at 24–25 °C off the mixer.',
       },
-      {
+      'flour-strength': {
         term: 'Flour strength',
         definition:
           'Strong flour has more protein, absorbs more water and stands up to long fermentation. Protein quality matters more than the headline percentage.',
       },
-    ],
+    },
   },
 };

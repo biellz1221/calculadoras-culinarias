@@ -341,57 +341,59 @@ export const pastaPtBR = {
 
   glossary: {
     title: 'Glossário',
-    terms: [
-      {
+    noSource: 'Sem fonte na nossa bibliografia: a definição descreve a prática corrente, e nenhuma obra da estante a sustenta.',
+    anchor: 'Endereço deste verbete',
+    terms: {
+      'flour-00': {
         term: 'Farinha 00',
         definition:
           'Farinha italiana finíssima, moída duas vezes, quase com a textura de açúcar de confeiteiro. Dá massa lisa e maleável; troca-se por trigo comum a peso igual.',
       },
-      {
+      'fine-semolina': {
         term: 'Sêmola fina',
         definition:
           'Sêmola de trigo duro em moagem fina, o equivalente da 00 no trigo duro. É a base da massa vegana com água, na Itália vendida como semola rimacinata.',
       },
-      {
+      'coarse-semolina': {
         term: 'Sêmola grossa',
         definition:
           'Só para polvilhar bandeja e massa formada, evitando que grude. Peneirada, dá para reutilizar três ou quatro vezes.',
       },
-      {
+      'lamination': {
         term: 'Laminação',
         definition:
           'Afinar a massa fechando um nível de cada vez. Não é só apertar: é o afinamento gradual, somado à sova, que dá corpo e estrutura à massa.',
       },
-      {
+      'matterello': {
         term: 'Matterello',
         definition:
           'O rolo longo do método manual. A massa é esticada, não comprimida, e ganha superfície texturizada que suga o molho. É ofício que pede prática.',
       },
-      {
+      'stuffing-dough': {
         term: 'Massa para recheio',
         definition:
           'Massa usada macia e pegajosa, recém-aberta, uma porção por vez. A aderência é o que sela o raviólo; massa seca não fecha.',
       },
-      {
+      'tonnarelli': {
         term: 'Tonnarelli',
         definition:
           'Fita de seção quadrada, tão espessa quanto larga, cortada no cortador estreito ou na chitarra, o bastidor de cordas que lembra um cortador de ovos antigo.',
       },
-      {
+      'maltagliati': {
         term: 'Maltagliati',
         definition:
           '"Mal cortados": as aparas de massa em losangos irregulares, guardadas para sopas de feijão e minestrone.',
       },
-      {
+      'al-dente': {
         term: 'Al dente',
         definition:
           'Firme à mordida. Massa fresca nunca fica tão firme quanto a seca de fábrica, mas deve sempre oferecer alguma resistência.',
       },
-      {
+      'bronze-die': {
         term: 'Trafilata al bronzo',
         definition:
           'Massa seca extrudada em matriz de bronze, de superfície áspera e porosa, que segura o molho muito melhor que a de matriz de teflon.',
       },
-    ],
+    },
   },
 };
