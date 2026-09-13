@@ -93,17 +93,22 @@ errar para cima é intoxicação.
 
 E tem a melhor divergência que apareceu até agora:
 
-> **Os EUA trabalham com 156 ppm de nitrito de sódio** (referência do FSIS,
-> equivalente a 1 oz de cure #1 por 25 lb de carne, que é a conta que o Marianski
-> ensina). **A ANVISA fixa 150 mg/kg** para produtos cárneos, e o dobro para
-> nitrato. Quase toda calculadora e todo fórum de charcutaria em inglês entrega o
-> número americano. **Num site `.com.br`, isso é orientação fora da norma
-> local.** Mostrar os dois lados, com a nossa como padrão, é literalmente a razão
-> de ser deste projeto.
+> ⚠️ **Corrigido em 2026-09-13, depois de ler as duas normas no original.** O que
+> estava escrito aqui — "EUA 156 ppm contra ANVISA 150 mg/kg" — **comparava
+> entrada com resíduo**, que são grandezas diferentes. Os 156 ppm são o que se
+> *adiciona* a carne moída; os 150 mg/kg são o que pode *sobrar* no produto
+> pronto.
+>
+> Na mesma base: **resíduo máximo de 150 ppm no Brasil contra 200 ppm nos EUA**,
+> e mais — a norma brasileira conta a **soma** de nitrito e nitrato, expressa
+> como nitrito de sódio, enquanto os EUA fixam a **entrada** por método
+> (156 ppm moído, 625 ppm cura seca, 239,7 ppm em salmoura a 10%) e não somam.
+> São duas filosofias de regulação, não dois números do mesmo tipo — e continua
+> sendo a melhor divergência do documento, só que por um motivo mais interessante
+> do que o que eu tinha escrito.
 
-Antes de construir: confirmar a norma vigente na fonte primária (RDC da ANVISA e
-regulamento do MAPA). Tabela de aditivo é revisada, e o que circula em blog
-costuma estar desatualizado.
+Levantamento completo, com as duas normas transcritas ao pé da letra e as
+conversões conferidas, em [`docs/research/cura-carnes.md`](cura-carnes.md).
 
 ## Geleias: irmã da calculadora de picles
 
@@ -306,6 +311,60 @@ variável de controle, como a porcentagem de sal é no picles.
 | **Michael Ruhlman, _Ratio_** **[já na estante]** | Já sustenta pães e massas. Serve também de ponto de partida para geleia, ganache e emulsão. |
 
 ---
+
+# Parte 4.11: o que chegou à estante (2026-09-13)
+
+Gabriel trouxe 34 obras novas. Conferi arquivo por arquivo — metadados, primeira
+página e camada de texto. O que segue é o estado real, não a lista de desejos.
+
+## Chegou e está legível
+
+**Gelato:** Corvitto (_Los secretos del helado_, ES) · Clarke · Dana Cree
+**Pães:** Forkish FWSY · Forkish _Elements of Pizza_ · Modernist Cuisine vol. 1 e _at Home_
+**Pães orientais:** Cho _Mooncakes and Milk Bread_ · Nguyen _Asian Dumplings_ · Alford & Duguid _Flatbreads & Flavors_ · Helou _Feast_ · Scheft _Breaking Breads_ · Duguid _Taste of Persia_ · Kassis _The Arabesque Table_ · Sahni _Classic Indian Cooking_ · Alford & Duguid _Mangoes & Curry Leaves_
+**Cura:** Ruhlman & Polcyn _Charcuterie_
+**Geleias:** Saunders _Blue Chair Jam_ · Ferber _Mes Confitures_
+**Emulsões:** Peterson _Sauces_ · Peterson _Sauces, Salsas and Chutneys_
+**Chocolate:** Wybauw _Fine Chocolates_
+**Molhos orientais:** Tsuji · Dunlop _The Food of Sichuan_ · Kuo _The Key to Chinese Cooking_
+**Transversais:** McGee _On Food and Cooking_ · McGee _Keys to Good Cooking_
+
+## Chegou, mas é digitalização em imagem (precisa de OCR antes de virar fonte)
+
+Sem camada de texto: não dá para extrair número sem passar tesseract, e OCR de
+tabela erra. **Ler estes exige trabalho extra antes de citar.**
+
+- **Greweling, _Chocolates and Confections_** — 200 páginas, imagem. É a fonte
+  principal da calculadora de ganache.
+- **Modernist Bread vol. 1** — 409 páginas, imagem.
+- **Modernist Pizza vol. 1-3** — 448 páginas, imagem.
+
+## Chegou quebrado
+
+- **McGee, _The Curious Cook_** — arquivo de **0 byte**. Precisa baixar de novo.
+
+## Bônus, fora da lista original (mesmos autores)
+
+Forkish _Evolutions in Bread_ · Migoya _The Elements of Dessert_ · McGee _Keys to
+Good Cooking_ · Peterson _Sauces, Salsas and Chutneys_ · Modernist Pizza.
+
+## Ainda falta
+
+Por ordem de quanto trava uma calculadora do roadmap:
+
+| Obra | Trava o quê | Por quê importa |
+| --- | --- | --- |
+| **Marianski, _Home Production of Quality Meats and Sausages_** | Cura | O mais explícito em conta de ppm para quem faz em casa |
+| **Arendt & Dal Bello, _Gluten-Free Cereal Products_** | Pão sem glúten | Única fonte séria de dose de hidrocoloide; a calculadora não sai sem ela |
+| **Goff, Hartel & Rankin, _Ice Cream_ 8ª ed.** | Gelato | Fecharia a temperatura de serviço e a densidade, hoje sem fonte |
+| **Caviezel** | Gelato | A segunda régua de PAC/POD |
+| **López-Alt, _The Food Lab_** | Salmoura | O lado da salga seca na divergência |
+| **McClements, _Food Emulsions_** | Emulsões | Só se o tema virar página; calculadora fraca de qualquer jeito |
+| **Cauvain & Young, _Technology of Breadmaking_** | Pães | Faixa de valor W, que o glossário cita e o cálculo não usa |
+| **Huang & Miskelly, _Steamed Breads_** | Pão no vapor | Único livro técnico do tema em inglês |
+| **Park & Choi, _The Korean Cookbook_** | Molhos orientais | Os jang com lastro de P&D |
+| **Qarooni, _Flat Bread Technology_** · **Madhur Jaffrey** · **Claudia Roden** · **Migoya _Frozen Desserts_** · **Kopfer** · **Yvonne Chen** | — | Repertório e contexto; nenhum trava calculadora |
+
 
 # Parte 5: lista de compras sugerida
 
