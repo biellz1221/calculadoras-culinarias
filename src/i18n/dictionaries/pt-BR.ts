@@ -10,9 +10,9 @@ export const ptBR = {
     name: 'Calculadoras Culinárias',
     /** Nome sob o ícone na tela de início: o que não couber vira reticências. */
     shortName: 'Calculadoras',
-    homeTitle: 'Calculadoras Culinárias: pão, picles, massa e gelato',
+    homeTitle: 'Calculadoras Culinárias: pão, picles, massa, gelato e cura',
     description:
-      'Calculadoras de cozinha em gramas para pão, picles, massa fresca e gelato. Cada proporção vem de um livro de referência, citada com autor e página.',
+      'Calculadoras de cozinha em gramas para pão, picles, massa fresca, gelato e cura de carnes. Cada proporção vem de um livro ou de norma oficial, citada.',
     /** Uma frase para quem vai ler só uma: card de compartilhamento e llms.txt. */
     tagline: 'Proporções de cozinha em gramas, cada uma com a fonte citada.',
     keywords: [
@@ -26,7 +26,7 @@ export const ptBR = {
       'balanceamento de gelato',
     ],
     imageAlt:
-      'Cartão do site Calculadoras Culinárias, com o título e as quatro calculadoras disponíveis.',
+      'Cartão do site Calculadoras Culinárias, com o título e as cinco calculadoras disponíveis.',
   },
 
   nav: {
@@ -121,7 +121,7 @@ export const ptBR = {
   home: {
     eyebrow: 'Proporções de cozinha com fonte declarada',
     title: 'As proporções que fazem a receita funcionar',
-    lead: 'Pão, picles, massa fresca e gelato calculados em gramas, na quantidade que você precisa. Cada número vem de um livro, com autor e página.',
+    lead: 'Pão, picles, massa fresca, gelato e cura de carnes calculados em gramas, na quantidade que você precisa. Cada número vem de um livro ou de norma oficial, com o endereço da fonte.',
 
     principles: {
       grams: {
@@ -205,6 +205,11 @@ export const ptBR = {
       name: 'Gelato',
       blurb:
         'Balanceamento de base: açúcares, gorduras, sólidos totais, POD e PAC dentro da faixa de cada tipo.',
+    },
+    curing: {
+      name: 'Cura e charcutaria',
+      blurb:
+        'Nitrito em ppm por quilo de carne, com a norma brasileira e a americana lado a lado — e a diferença entre elas explicada.',
     },
   } satisfies Record<CalculatorId, { name: string; blurb: string }>,
 

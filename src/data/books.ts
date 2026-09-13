@@ -20,6 +20,9 @@ export type BookId =
   | 'hazan'
   | 'ruhlman'
   | 'nchfp'
+  | 'marianski'
+  | 'anvisa-rdc272'
+  | 'fsis-424'
   | 'gelato-course';
 
 export interface Book {
@@ -134,6 +137,46 @@ export const BOOKS: readonly Book[] = [
     shortName: 'NCHFP',
     publisher: 'USDA',
     url: 'https://nchfp.uga.edu/',
+    locator: 'chapter',
+    kind: 'official',
+  },
+  {
+    id: 'marianski',
+    title: 'Home Production of Quality Meats and Sausages',
+    authors: ['Stanley Marianski', 'Adam Marianski'],
+    publisher: 'Bookmagic',
+    year: 2010,
+    locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    /**
+     * A norma brasileira de aditivos em carnes.
+     *
+     * Entra na estante como obra oficial, e não como livro, porque é o que ela
+     * é: texto legal com data, número e endereço público. Quem duvidar do
+     * número abre o DOU e confere.
+     */
+    id: 'anvisa-rdc272',
+    title:
+      'RDC nº 272, de 14 de março de 2019 — aditivos alimentares autorizados para uso em carnes e produtos cárneos',
+    authors: ['Agência Nacional de Vigilância Sanitária'],
+    authorKind: 'organization',
+    shortName: 'ANVISA',
+    publisher: 'Ministério da Saúde',
+    year: 2019,
+    url: 'https://bvsms.saude.gov.br/bvs/saudelegis/anvisa/2019/rdc0272_14_03_2019.pdf',
+    locator: 'chapter',
+    kind: 'official',
+  },
+  {
+    id: 'fsis-424',
+    title: '9 CFR 424.21 — Use of food ingredients and sources of radiation',
+    authors: ['USDA Food Safety and Inspection Service'],
+    authorKind: 'organization',
+    shortName: 'FSIS',
+    publisher: 'Code of Federal Regulations',
+    url: 'https://www.ecfr.gov/current/title-9/section-424.21',
     locator: 'chapter',
     kind: 'official',
   },

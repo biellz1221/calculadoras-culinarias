@@ -134,6 +134,24 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   essa checagem, todo visitante novo recebe um aviso de "versão nova" na
   primeira visita.
 
+## Calculadora nova
+
+- **`as const` no dicionário canônico quebra o outro idioma.** Congela cada
+  string como tipo literal, e a tradução deixa de ser atribuível — 99 erros de
+  uma vez. Os dicionários não levam `as const`.
+- **`pnpm test` não checa tipo.** O Vitest transpila sem verificar, então erro
+  de tipo passa batido até o `typecheck`. Rodar `pnpm verify`, não só `test`.
+- **`tsconfig.tsbuildinfo` velho faz o typecheck mentir.** Um `Record` com chave
+  faltando passou limpo até o cache ser apagado. Em dúvida, apague antes de
+  acreditar.
+- **Três listas de calculadora são escritas à mão** e não derivam de
+  `CALCULATORS`: `ALL_KEYS` em `routes.test.ts`, `GLOSSARIES` em
+  `glossary.test.ts` e `PAGES` em `e2e/seo.spec.ts`. Calculadora nova quebra as
+  três, e a mensagem não diz o porquê.
+- **Nome novo no catálogo tem de entrar na prosa também**: `homeTitle`,
+  `description`, `lead` e `imageAlt`, nos dois idiomas. O registro de rotas
+  acende o link, o texto de marketing não se atualiza sozinho.
+
 ## Testes
 
 - **Playwright em `127.0.0.1` não hidrata**: o dev server do Next bloqueia

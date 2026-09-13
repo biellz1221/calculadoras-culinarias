@@ -22,6 +22,7 @@ const ACCENT: Record<CalculatorAccent, { bar: string; wash: string; text: string
     text: 'text-terracotta',
   },
   rose: { bar: 'bg-rose', wash: 'group-hover:bg-rose-tint', text: 'text-rose' },
+  ember: { bar: 'bg-ember', wash: 'group-hover:bg-ember-tint', text: 'text-ember' },
 };
 
 function Arrow({ className }: { className?: string }) {

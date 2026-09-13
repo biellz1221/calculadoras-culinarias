@@ -192,11 +192,47 @@ const GELATO: readonly GlossaryEntry[] = [
   { id: 'syrup-density', citations: [] },
 ];
 
+/**
+ * As duas normas e os dois livros.
+ *
+ * Aqui a citação não é cortesia editorial: são definições que decidem se um
+ * produto é seguro. `ppm`, `entrada` e `resíduo` saem do próprio texto legal,
+ * porque a diferença entre os dois últimos é o que a norma brasileira e a
+ * americana medem de diferente.
+ */
+const CURING: readonly GlossaryEntry[] = [
+  { id: 'ppm', citations: [cite('marianski', 'cap. "Curing and Nitrates"')] },
+  { id: 'ingoing', citations: [cite('fsis-424', '424.21(c), curing agents')] },
+  {
+    id: 'residual',
+    citations: [
+      cite('anvisa-rdc272', 'Anexo — conservadores INS 249 a 252'),
+      cite('fsis-424', '424.21(c)'),
+    ],
+  },
+  {
+    id: 'cure-1',
+    citations: [
+      cite('marianski', 'cap. "Curing and Nitrates"'),
+      cite('ruhlman', 'cap. "Salt, Smoke, and Time"'),
+    ],
+  },
+  { id: 'cure-2', citations: [cite('marianski', 'cap. "Curing and Nitrates"')] },
+  {
+    id: 'botulism',
+    citations: [
+      cite('ruhlman', 'cap. "Salt, Smoke, and Time"'),
+      cite('marianski', 'cap. "Curing and Nitrates"'),
+    ],
+  },
+];
+
 export const GLOSSARY: Record<CalculatorId, readonly GlossaryEntry[]> = {
   bread: BREAD,
   pickles: PICKLES,
   pasta: PASTA,
   gelato: GELATO,
+  curing: CURING,
 };
 
 /** Âncora do verbete na página. O mesmo id nos dois idiomas. */

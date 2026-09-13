@@ -6,11 +6,13 @@ const PAGES = [
   { path: '/picles', key: 'pickles', locale: 'pt-BR' },
   { path: '/massas', key: 'pasta', locale: 'pt-BR' },
   { path: '/gelato', key: 'gelato', locale: 'pt-BR' },
+  { path: '/cura', key: 'curing', locale: 'pt-BR' },
   { path: '/en', key: 'home', locale: 'en' },
   { path: '/en/bread', key: 'bread', locale: 'en' },
   { path: '/en/pickles', key: 'pickles', locale: 'en' },
   { path: '/en/pasta', key: 'pasta', locale: 'en' },
   { path: '/en/gelato', key: 'gelato', locale: 'en' },
+  { path: '/en/curing', key: 'curing', locale: 'en' },
 ];
 
 async function meta(page: Page, selector: string): Promise<string> {
@@ -103,7 +105,7 @@ test('robots libera o site e aponta o sitemap', async ({ request }) => {
   expect(body).not.toContain('Disallow: /');
 });
 
-test('o sitemap lista as dez páginas com os idiomas cruzados', async ({ request }) => {
+test('o sitemap lista todas as páginas com os idiomas cruzados', async ({ request }) => {
   const response = await request.get('/sitemap.xml');
   expect(response.status()).toBe(200);
 

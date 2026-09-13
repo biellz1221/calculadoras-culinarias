@@ -48,6 +48,8 @@
   --color-terracotta-tint: #f8e3db;
   --color-rose: #9c4763;
   --color-rose-tint: #f8e2e8;
+  --color-ember: #9c5f3c;
+  --color-ember-tint: #f6e5da;
 
   /* ---- Faixas e estados (usados a partir das calculadoras, M1) ---------- */
   --color-ok: #3f6b4a;
@@ -115,6 +117,16 @@
     --color-accent-tint: #fae3d7;
     --color-page: #fdf7f2;
     --color-page-edge: #f5e6da;
+  }
+
+  /* Cura: brasa e defumação — o tom de carne curada, um passo mais escuro que
+     a terracota da massa, para as duas não se confundirem na aba. */
+  [data-calculator='curing'] {
+    --color-accent: #9c5f3c;
+    --color-accent-deep: #74432a;
+    --color-accent-tint: #f6e5da;
+    --color-page: #fcf7f4;
+    --color-page-edge: #f2e5dc;
   }
 
   [data-calculator='gelato'] {

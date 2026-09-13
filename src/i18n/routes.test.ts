@@ -11,7 +11,7 @@ import {
 
 import { SITE_URL } from '@/lib/site';
 
-const ALL_KEYS = ['home', 'bread', 'pickles', 'pasta', 'gelato'] as const;
+const ALL_KEYS = ['home', 'bread', 'pickles', 'pasta', 'gelato', 'curing'] as const;
 
 describe('registro de rotas', () => {
   it('define um caminho para cada idioma em toda rota', () => {

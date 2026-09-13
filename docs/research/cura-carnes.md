@@ -12,10 +12,38 @@ lido na fonte primária não entra, nem como referência.
 | **ANVISA, RDC nº 272, de 14/03/2019** — "Estabelece os aditivos alimentares autorizados para uso em carnes e produtos cárneos" (DOU nº 52, 18/03/2019) | A norma brasileira. Incorpora a Resolução GMC/MERCOSUL nº 63/18. | Texto integral lido, tabela do Anexo por categoria |
 | **9 CFR 424.21(c)** — *Use of food ingredients and sources of radiation*, tabela de curing agents | A norma americana. | Lida via API do eCFR (texto vigente) |
 | **Ruhlman & Polcyn, _Charcuterie_** | Composição do sal de cura e proporção de trabalho caseira. | PDF na estante, texto extraído |
+| **Marianski & Marianski, _Home Production of Quality Meats and Sausages_** | Composição do #1 e do #2, tabela de dose por quilo e a política de piso do FSIS. | EPUB na estante, texto extraído |
 
 Não conferido ainda, e por isso **fora do código**: o regulamento do MAPA (RIISPOA
 e ISs de produtos cárneos), que pode trazer limite por categoria de produto mais
 específico que o da ANVISA. Ver seção 6.
+
+## 1.1 O piso, que é o lado esquecido
+
+O Marianski traz o número que faltava, e ele é do FSIS:
+
+> "As a matter of policy, the Agency requires a minimum of **120 ppm of ingoing
+> nitrite** in all cured 'Keep Refrigerated' products, unless the establishment
+> can demonstrate that safety is assured by some other preservation process,
+> such as thermal processing, pH or moisture control."
+
+**Isto é piso, não faixa.** Abaixo de 120 ppm de entrada o produto não tem a
+proteção que o nome "curado" promete, e a consequência é botulismo — a mesma
+lógica do `MIN_SAFE_SALINITY` no picles, com custo de erro maior. Na
+calculadora vira aviso destacado, e não sinalização de cor.
+
+E a tabela de dose que ele publica, que a nossa reproduz linha por linha:
+
+| Alvo | Cure #1 (6,25%) por kg | Peklosol (0,6%) por kg |
+| --- | --- | --- |
+| 75 ppm | 1,2 g | 12,5 g |
+| 100 ppm | 1,6 g | 16,6 g |
+| 120 ppm | 1,9 g | 20 g |
+| máximo | 2,5 g (156 ppm) | 25 g (150 ppm) |
+
+Repare na última linha: o teto que o Marianski dá ao Peklosol é **150 ppm**, não
+156. É a régua europeia aparecendo no mesmo livro, e ela coincide com o número
+brasileiro — embora, de novo, por caminhos diferentes.
 
 ## 2. O que a norma brasileira diz, ao pé da letra
 
@@ -129,8 +157,8 @@ fechada.
       Tentei baixar de `gov.br` e recebi 403.
 - [ ] **Bacon**, que nos EUA tem regra própria e mais restritiva (120 ppm de
       entrada, contra 156). Confirmar no 9 CFR 424.22(b), não no 424.21.
-- [ ] **Marianski**, que não veio nesta leva e é o mais explícito em conta de
-      ppm para quem faz em casa.
+- [x] ~~**Marianski**~~ — chegou em 2026-09-13 e está incorporado: composição do
+      #1 e do #2, tabela de dose por quilo e o piso de 120 ppm do FSIS.
 
 ## 7. Decisões de projeto que esta pesquisa já fixa
 
