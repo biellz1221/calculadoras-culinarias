@@ -126,9 +126,19 @@ textura.
 > o mesmo cálculo com outros nomes: salmoura de equilíbrio (sal sobre carne mais
 > água) contra salga seca (sal sobre o peso da carne). Já sabemos fazer.
 
-A divergência também já está mapeada: o equilíbrio do Modernist mira cerca de
+~~A divergência também já está mapeada: o equilíbrio do Modernist mira cerca de
 0,5% de sal final na carne, enquanto a salga seca do Food Lab parte de 0,85%
-sobre o peso da proteína. Números diferentes que descrevem produtos diferentes.
+sobre o peso da proteína. Números diferentes que descrevem produtos
+diferentes.~~
+
+**Corrigido em 2026-09-13, com as duas obras na mão.** Modernist usa 0,6% de sal
+sobre a ave (12 g para 2 kg, injetados) e declara alvo de 0,5% de concentração
+final; Food Lab usa 1 colher de chá de Diamond Crystal por libra, que pelo peso
+publicado em Ruhlman & Polcyn dá 0,625%. **As duas fontes concordam sobre o
+sal.** A divergência é sobre a água: Modernist injeta 10% do peso da peça, Food
+Lab não usa nenhuma, e mede um ponto percentual a menos de umidade retida — que
+ele descarta porque "much of the juice it's now holding on to is nothing more
+than tap water". Extração completa em `salmoura.md`.
 
 ## Ganache: conta melhor do que parece
 
@@ -372,13 +382,19 @@ Por ordem de quanto trava uma calculadora do roadmap:
 | --- | --- | --- |
 | **Cura de carnes** | No ar. ANVISA e 9 CFR lidos no original, Marianski e Ruhlman & Polcyn na estante. | `cura-carnes.md` |
 | **Geleias** | No ar. Saunders (nove receitas pesadas), Ferber (proporção da casa e pectina de maçã), NCHFP (classificação das frutas, temperatura por altitude, conservação), McGee *Keys* (o limiar de 300 m). | `geleias.md` |
-| **Salmoura de proteína** | Próxima. Modernist Cuisine e Food Lab na estante. | — |
+| **Salmoura de proteína** | No ar. Modernist at Home (quatro receitas), Food Lab (salga seca e o experimento dos doze peitos), Ruhlman & Polcyn (o peso de uma xícara de sal kosher, que é o que torna a dose do Food Lab executável). | `salmoura.md` |
 | **Ganache** | Travada: Greweling é digitalização em imagem e precisa de OCR conferido à mão. | — |
 | **Pão sem glúten** | Travada: Arendt & Dal Bello não chegou. | — |
 
-**Correção nesta revisão.** O `Charcuterie` de Ruhlman e Polcyn estava sendo
-citado como se fosse o `Ratio`, do mesmo autor. São obras diferentes e agora têm
-entradas diferentes na estante. Ver `docs/quality/2026-09-13-calculadora-de-geleias.md`.
+**Duas correções nesta revisão.**
+
+1. O `Charcuterie` de Ruhlman e Polcyn estava sendo citado como se fosse o
+   `Ratio`, do mesmo autor. São obras diferentes e agora têm entradas diferentes
+   na estante. Ver `docs/quality/2026-09-13-calculadora-de-geleias.md`.
+2. **A §2 deste documento errava a divergência da salmoura.** Dizia "0,5% contra
+   0,85%"; lidas as duas obras, são **0,6% e 0,625%** — Modernist e Food Lab
+   concordam sobre o sal e divergem sobre a água. O texto da §2 abaixo foi
+   corrigido. Ver `docs/quality/2026-09-13-calculadora-de-salmoura.md`.
 
 **Lacunas novas, abertas pela calculadora de geleias:**
 

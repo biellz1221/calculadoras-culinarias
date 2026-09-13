@@ -188,6 +188,20 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   "plus ¾ pound" do açúcar, tomou o peso de compra pelo peso preparado. Serve
   para achar candidata; não serve para produzir número. Toda linha que virou
   código foi conferida à mão contra a página.
+- **A nossa própria bibliografia é fonte terciária, e já errou duas vezes.** Ela
+  dizia que Modernist e Food Lab divergiam em "0,5 % contra 0,85 %" na salmoura;
+  lidas as obras, são 0,6 % e 0,625 % — eles concordam, e divergem sobre a água.
+  Antes disso, a mesma seção comparava entrada com resíduo na cura. Levantamento
+  não é extração: **releia a obra antes de transformar linha de bibliografia em
+  número de tela.**
+- **Coluna de tabela vem arredondada.** O "SCALING" do Modernist imprime 1,3 %
+  onde a receita tem 10 g em 750 g, que são 1,333 %. Guarde os **pesos
+  publicados** e derive a proporção deles; a porcentagem impressa erra a receita
+  por um quarto de grama.
+- **Duas fontes concordando é notícia.** Quase todo o site é feito de
+  divergência, e por isso a convergência passa despercebida. Quando duas obras
+  independentes chegam ao mesmo número, isso vale ser dito na página — é a
+  informação mais forte que se pode dar.
 - **Fonte oficial pode discordar de si mesma.** O NCHFP resume a temperatura por
   altitude como "subtract 2 degrees F" por mil pés, e a tabela da mesma página
   não segue a regra a partir de 5.000 pés. A tabela é o dado, a regra é a

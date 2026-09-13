@@ -35,4 +35,5 @@ export const PALETTES: Record<RouteKey, Palette> = {
   gelato: { page: '#fdf6f8', accent: '#a34e6a', accentDeep: '#7d374f' },
   curing: { page: '#fcf7f4', accent: '#9c5f3c', accentDeep: '#74432a' },
   jam: { page: '#fbf7fd', accent: '#7a4a86', accentDeep: '#5c3566' },
+  brine: { page: '#f5faf9', accent: '#3f6b6e', accentDeep: '#2f5154' },
 };

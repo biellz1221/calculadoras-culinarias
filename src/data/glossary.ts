@@ -288,6 +288,40 @@ const JAM: readonly GlossaryEntry[] = [
   },
 ];
 
+/**
+ * docs/research/salmoura.md §7 e §8.
+ *
+ * `kosher-salt` é o verbete que justifica a calculadora inteira: sem o peso de
+ * uma xícara, publicado pelo Ruhlman & Polcyn, a dose do Food Lab não vira
+ * grama.
+ */
+const BRINE: readonly GlossaryEntry[] = [
+  {
+    id: 'equilibrium-brine',
+    citations: [cite('modernist-home', 'cap. "Brines and Marinades"')],
+  },
+  { id: 'dry-brining', citations: [cite('foodlab', 579), cite('foodlab', 291)] },
+  {
+    id: 'covering-brine',
+    citations: [
+      cite('modernist-home', 'cap. "Brines and Marinades"'),
+      cite('foodlab', 577),
+    ],
+  },
+  {
+    id: 'kosher-salt',
+    citations: [
+      cite('ruhlman-charcuterie', 'cap. 2, "Salt" — pesos do sal kosher'),
+      cite('foodlab', 81),
+    ],
+  },
+  {
+    id: 'injection',
+    citations: [cite('modernist-home', 'cap. "Brines and Marinades" — Injectors')],
+  },
+  { id: 'salting-out', citations: [cite('foodlab', 578)] },
+];
+
 export const GLOSSARY: Record<CalculatorId, readonly GlossaryEntry[]> = {
   bread: BREAD,
   pickles: PICKLES,
@@ -295,6 +329,7 @@ export const GLOSSARY: Record<CalculatorId, readonly GlossaryEntry[]> = {
   gelato: GELATO,
   curing: CURING,
   jam: JAM,
+  brine: BRINE,
 };
 
 /** Âncora do verbete na página. O mesmo id nos dois idiomas. */

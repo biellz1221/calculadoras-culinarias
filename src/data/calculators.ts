@@ -1,7 +1,14 @@
 import type { BookId } from './books';
 import { isPublished, type RouteKey } from '@/i18n/routes';
 
-export type CalculatorId = 'bread' | 'pickles' | 'pasta' | 'gelato' | 'curing' | 'jam';
+export type CalculatorId =
+  | 'bread'
+  | 'pickles'
+  | 'pasta'
+  | 'gelato'
+  | 'curing'
+  | 'jam'
+  | 'brine';
 
 /** Cor da aba de cada calculadora, no espírito das abas de um fichário. */
 export type CalculatorAccent =
@@ -10,7 +17,8 @@ export type CalculatorAccent =
   | 'terracotta'
   | 'rose'
   | 'ember'
-  | 'damson';
+  | 'damson'
+  | 'tide';
 
 export interface Calculator {
   id: CalculatorId;
@@ -63,6 +71,12 @@ export const CALCULATORS: readonly Calculator[] = [
     route: 'jam',
     accent: 'damson',
     sources: ['saunders', 'ferber', 'nchfp', 'mcgee-keys'],
+  },
+  {
+    id: 'brine',
+    route: 'brine',
+    accent: 'tide',
+    sources: ['modernist-home', 'foodlab', 'ruhlman-charcuterie'],
   },
 ];
 

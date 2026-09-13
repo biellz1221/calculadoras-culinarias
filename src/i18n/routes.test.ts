@@ -19,6 +19,7 @@ const ALL_KEYS = [
   'gelato',
   'curing',
   'jam',
+  'brine',
 ] as const;
 
 describe('registro de rotas', () => {

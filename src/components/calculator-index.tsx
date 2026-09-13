@@ -28,6 +28,7 @@ const ACCENT: Record<CalculatorAccent, { bar: string; wash: string; text: string
     wash: 'group-hover:bg-damson-tint',
     text: 'text-damson',
   },
+  tide: { bar: 'bg-tide', wash: 'group-hover:bg-tide-tint', text: 'text-tide' },
 };
 
 function Arrow({ className }: { className?: string }) {

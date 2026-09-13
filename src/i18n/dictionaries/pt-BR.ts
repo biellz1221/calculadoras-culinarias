@@ -25,6 +25,7 @@ export const ptBR = {
       'massa fresca',
       'balanceamento de gelato',
       'ponto da geleia',
+      'salmoura em gramas',
     ],
     imageAlt:
       'Cartão do site Calculadoras Culinárias, com o título e as seis calculadoras disponíveis.',
@@ -211,6 +212,11 @@ export const ptBR = {
       name: 'Cura e charcutaria',
       blurb:
         'Nitrito em ppm por quilo de carne, com a norma brasileira e a americana lado a lado — e a diferença entre elas explicada.',
+    },
+    brine: {
+      name: 'Salmoura e salga',
+      blurb:
+        'Sal em gramas por quilo de frango, carne ou peixe — salga seca, salmoura de equilíbrio e de imersão, com o tempo de cada uma.',
     },
     jam: {
       name: 'Geleias',

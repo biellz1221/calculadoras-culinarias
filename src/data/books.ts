@@ -24,6 +24,8 @@ export type BookId =
   | 'ferber'
   | 'mcgee-keys'
   | 'mcgee-ofc'
+  | 'modernist-home'
+  | 'foodlab'
   | 'nchfp'
   | 'marianski'
   | 'anvisa-rdc272'
@@ -175,6 +177,26 @@ export const BOOKS: readonly Book[] = [
     authors: ['Harold McGee'],
     publisher: 'Scribner',
     locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    // Volume único do Modernist para casa. O PDF que temos não tem paginação
+    // confiável na camada de texto, então cita-se por capítulo e por quadro.
+    id: 'modernist-home',
+    title: 'Modernist Cuisine at Home',
+    authors: ['Nathan Myhrvold', 'Maxime Bilet'],
+    publisher: 'The Cooking Lab',
+    year: 2012,
+    locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    id: 'foodlab',
+    title: 'The Food Lab: Better Home Cooking Through Science',
+    authors: ['J. Kenji López-Alt'],
+    publisher: 'W. W. Norton',
+    year: 2015,
+    locator: 'page',
     kind: 'book',
   },
   {

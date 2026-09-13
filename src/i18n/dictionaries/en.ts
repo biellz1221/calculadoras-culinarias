@@ -18,6 +18,7 @@ export const en: Dictionary = {
       'fresh pasta',
       'gelato balancing',
       'jam setting point',
+      'brine in grams',
     ],
     imageAlt:
       'Card for the Culinary Calculators site, with the title and the six available calculators.',
@@ -189,6 +190,11 @@ export const en: Dictionary = {
       name: 'Curing and charcuterie',
       blurb:
         'Nitrite in ppm per kilo of meat, with the Brazilian and US rules side by side — and the difference between them explained.',
+    },
+    brine: {
+      name: 'Brining and salting',
+      blurb:
+        'Salt in grams per kilo of chicken, meat or fish — dry salting, equilibrium brine and covering brine, with the time each one takes.',
     },
     jam: {
       name: 'Jam',

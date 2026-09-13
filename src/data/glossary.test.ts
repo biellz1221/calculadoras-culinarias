@@ -4,6 +4,7 @@ import { GLOSSARY, glossaryAnchor } from './glossary';
 import { assertCitation } from './citations';
 import { CALCULATORS } from './calculators';
 import { getBreadDictionary } from '@/i18n/dictionaries/bread';
+import { getBrineDictionary } from '@/i18n/dictionaries/brine';
 import { getCuringDictionary } from '@/i18n/dictionaries/curing';
 import { getGelatoDictionary } from '@/i18n/dictionaries/gelato';
 import { getJamDictionary } from '@/i18n/dictionaries/jam';
@@ -22,6 +23,7 @@ const GLOSSARIES: Record<
   gelato: getGelatoDictionary,
   curing: getCuringDictionary,
   jam: getJamDictionary,
+  brine: getBrineDictionary,
 };
 
 const cases = CALCULATORS.flatMap((calculator) =>

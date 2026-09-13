@@ -52,6 +52,8 @@
   --color-ember-tint: #f6e5da;
   --color-damson: #7a4a86;
   --color-damson-tint: #efe6f4;
+  --color-tide: #3f6b6e;
+  --color-tide-tint: #dceceb;
 
   /* ---- Faixas e estados (usados a partir das calculadoras, M1) ---------- */
   --color-ok: #3f6b4a;
@@ -147,6 +149,16 @@
     --color-accent-tint: #efe6f4;
     --color-page: #fbf7fd;
     --color-page-edge: #eee4f1;
+  }
+
+  /* Salmoura: o único frio do conjunto, e de propósito — água salgada gelada
+     não é parente de nenhuma das outras seis. */
+  [data-calculator='brine'] {
+    --color-accent: #3f6b6e;
+    --color-accent-deep: #2f5154;
+    --color-accent-tint: #dceceb;
+    --color-page: #f5faf9;
+    --color-page-edge: #e3eeed;
   }
 
   html {
