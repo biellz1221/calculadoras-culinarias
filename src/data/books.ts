@@ -19,6 +19,11 @@ export type BookId =
   | 'zielonka'
   | 'hazan'
   | 'ruhlman'
+  | 'ruhlman-charcuterie'
+  | 'saunders'
+  | 'ferber'
+  | 'mcgee-keys'
+  | 'mcgee-ofc'
   | 'nchfp'
   | 'marianski'
   | 'anvisa-rdc272'
@@ -122,6 +127,52 @@ export const BOOKS: readonly Book[] = [
     id: 'ruhlman',
     title: 'Ratio',
     authors: ['Michael Ruhlman'],
+    publisher: 'Scribner',
+    locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    // Outro Ruhlman, e não o `Ratio`: a composição do sal de cura e a razão de
+    // trabalho da cura seca são deste, escrito com Brian Polcyn. O PDF que
+    // temos não traz a paginação impressa no texto, então cita-se por capítulo.
+    id: 'ruhlman-charcuterie',
+    title: 'Charcuterie: The Craft of Salting, Smoking, and Curing',
+    authors: ['Michael Ruhlman', 'Brian Polcyn'],
+    publisher: 'W. W. Norton',
+    year: 2005,
+    locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    id: 'saunders',
+    title: 'The Blue Chair Jam Cookbook',
+    authors: ['Rachel Saunders'],
+    publisher: 'Andrews McMeel',
+    year: 2009,
+    locator: 'page',
+    kind: 'book',
+  },
+  {
+    id: 'ferber',
+    title: 'Mes confitures',
+    authors: ['Christine Ferber'],
+    publisher: 'Payot',
+    locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    id: 'mcgee-keys',
+    title: 'Keys to Good Cooking',
+    authors: ['Harold McGee'],
+    publisher: 'Penguin',
+    year: 2010,
+    locator: 'page',
+    kind: 'book',
+  },
+  {
+    id: 'mcgee-ofc',
+    title: 'On Food and Cooking',
+    authors: ['Harold McGee'],
     publisher: 'Scribner',
     locator: 'chapter',
     kind: 'book',

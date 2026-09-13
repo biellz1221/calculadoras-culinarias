@@ -23,6 +23,11 @@ const ACCENT: Record<CalculatorAccent, { bar: string; wash: string; text: string
   },
   rose: { bar: 'bg-rose', wash: 'group-hover:bg-rose-tint', text: 'text-rose' },
   ember: { bar: 'bg-ember', wash: 'group-hover:bg-ember-tint', text: 'text-ember' },
+  damson: {
+    bar: 'bg-damson',
+    wash: 'group-hover:bg-damson-tint',
+    text: 'text-damson',
+  },
 };
 
 function Arrow({ className }: { className?: string }) {

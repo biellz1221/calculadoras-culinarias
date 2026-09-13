@@ -1,6 +1,6 @@
 # Bibliografia candidata e roadmap de calculadoras
 
-Levantamento vivo. Última revisão: 2026-09-03.
+Levantamento vivo. Última revisão: 2026-09-13.
 
 Não é extração: **nenhum número deste documento entrou no código**. É a lista do
 que vale ler, do que vale construir e por quê. Reúne o levantamento de gelato e
@@ -365,6 +365,34 @@ Por ordem de quanto trava uma calculadora do roadmap:
 | **Park & Choi, _The Korean Cookbook_** | Molhos orientais | Os jang com lastro de P&D |
 | **Qarooni, _Flat Bread Technology_** · **Madhur Jaffrey** · **Claudia Roden** · **Migoya _Frozen Desserts_** · **Kopfer** · **Yvonne Chen** | — | Repertório e contexto; nenhum trava calculadora |
 
+
+# Parte 4.12: o que já virou calculadora (2026-09-13)
+
+| Tema | Estado | Pesquisa |
+| --- | --- | --- |
+| **Cura de carnes** | No ar. ANVISA e 9 CFR lidos no original, Marianski e Ruhlman & Polcyn na estante. | `cura-carnes.md` |
+| **Geleias** | No ar. Saunders (nove receitas pesadas), Ferber (proporção da casa e pectina de maçã), NCHFP (classificação das frutas, temperatura por altitude, conservação), McGee *Keys* (o limiar de 300 m). | `geleias.md` |
+| **Salmoura de proteína** | Próxima. Modernist Cuisine e Food Lab na estante. | — |
+| **Ganache** | Travada: Greweling é digitalização em imagem e precisa de OCR conferido à mão. | — |
+| **Pão sem glúten** | Travada: Arendt & Dal Bello não chegou. | — |
+
+**Correção nesta revisão.** O `Charcuterie` de Ruhlman e Polcyn estava sendo
+citado como se fosse o `Ratio`, do mesmo autor. São obras diferentes e agora têm
+entradas diferentes na estante. Ver `docs/quality/2026-09-13-calculadora-de-geleias.md`.
+
+**Lacunas novas, abertas pela calculadora de geleias:**
+
+- **Fruta brasileira em conserva doce.** Goiaba, jabuticaba, maracujá, manga e
+  caju não têm proporção pesada em nenhuma das três fontes de geleia. É a maior
+  lacuna do site hoje: a calculadora entrega nove frutas e nenhuma delas é de
+  quintal brasileiro.
+- **A goiaba tem divergência aberta.** O NCHFP a classifica no grupo III
+  ("always needs added acid, pectin or both") e McGee diz que ela é rica em
+  pectina. A leitura provável é que falte ácido, não pectina — mas provável não
+  vira número na tela, e por isso ela ficou fora dos presets.
+- **Janela de pH da gelificação.** Nenhuma das três fontes publica. Os valores
+  que este documento citava (2,8 a 3,5) não vieram de fonte lida e continuam
+  fora do código. Os manuais de fabricante de pectina da §4.6 resolveriam.
 
 # Parte 5: lista de compras sugerida
 

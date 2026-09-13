@@ -50,6 +50,8 @@
   --color-rose-tint: #f8e2e8;
   --color-ember: #9c5f3c;
   --color-ember-tint: #f6e5da;
+  --color-damson: #7a4a86;
+  --color-damson-tint: #efe6f4;
 
   /* ---- Faixas e estados (usados a partir das calculadoras, M1) ---------- */
   --color-ok: #3f6b4a;
@@ -135,6 +137,16 @@
     --color-accent-tint: #f9e3ea;
     --color-page: #fdf6f8;
     --color-page-edge: #f4e2e8;
+  }
+
+  /* Geleia: ameixa damasco em compota — o único violeta do conjunto, para não
+     se confundir com o rosa do gelato nem com a terracota da massa. */
+  [data-calculator='jam'] {
+    --color-accent: #7a4a86;
+    --color-accent-deep: #5c3566;
+    --color-accent-tint: #efe6f4;
+    --color-page: #fbf7fd;
+    --color-page-edge: #eee4f1;
   }
 
   html {

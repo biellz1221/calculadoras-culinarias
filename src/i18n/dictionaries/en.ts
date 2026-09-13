@@ -4,9 +4,9 @@ export const en: Dictionary = {
   site: {
     name: 'Culinary Calculators',
     shortName: 'Calculators',
-    homeTitle: 'Culinary Calculators: bread, pickles, pasta, gelato, curing',
+    homeTitle: 'Culinary Calculators: bread, pasta, gelato and preserves',
     description:
-      'Kitchen calculators in grams for bread, pickles, fresh pasta, gelato and meat curing. Every ratio comes from a reference book or an official regulation, cited.',
+      'Kitchen calculators in grams for bread, pickles, pasta, gelato, meat curing and jam. Every ratio comes from a reference book or an official regulation, cited.',
     tagline: 'Kitchen ratios in grams, every one of them with a cited source.',
     keywords: [
       'kitchen calculator',
@@ -17,9 +17,10 @@ export const en: Dictionary = {
       'fermentation brine calculator',
       'fresh pasta',
       'gelato balancing',
+      'jam setting point',
     ],
     imageAlt:
-      'Card for the Culinary Calculators site, with the title and the five available calculators.',
+      'Card for the Culinary Calculators site, with the title and the six available calculators.',
   },
 
   nav: {
@@ -106,7 +107,7 @@ export const en: Dictionary = {
   home: {
     eyebrow: 'Kitchen ratios with a cited source',
     title: 'The ratios that make a recipe work',
-    lead: 'Bread, pickles, fresh pasta, gelato and meat curing worked out in grams, scaled to what you actually need. Every number comes from a book or an official regulation, with the source addressed.',
+    lead: 'Bread, pickles, fresh pasta, gelato, meat curing and jam worked out in grams, scaled to what you actually need. Every number comes from a book or an official regulation, with the source addressed.',
 
     principles: {
       grams: {
@@ -188,6 +189,11 @@ export const en: Dictionary = {
       name: 'Curing and charcuterie',
       blurb:
         'Nitrite in ppm per kilo of meat, with the Brazilian and US rules side by side — and the difference between them explained.',
+    },
+    jam: {
+      name: 'Jam',
+      blurb:
+        'Sugar and lemon from the published recipe for each fruit, and the setting temperature at the altitude you cook at.',
     },
   },
 

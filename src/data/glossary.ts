@@ -214,15 +214,76 @@ const CURING: readonly GlossaryEntry[] = [
     id: 'cure-1',
     citations: [
       cite('marianski', 'cap. "Curing and Nitrates"'),
-      cite('ruhlman', 'cap. "Salt, Smoke, and Time"'),
+      cite('ruhlman-charcuterie', 'cap. 2, "Salt" — sais de cura'),
     ],
   },
   { id: 'cure-2', citations: [cite('marianski', 'cap. "Curing and Nitrates"')] },
   {
     id: 'botulism',
     citations: [
-      cite('ruhlman', 'cap. "Salt, Smoke, and Time"'),
+      cite('ruhlman-charcuterie', '"How Real Is the Danger of Botulism?" (quadro)'),
       cite('marianski', 'cap. "Curing and Nitrates"'),
+    ],
+  },
+];
+
+/**
+ * docs/research/geleias.md §8.
+ *
+ * Três livros e uma agência oficial, e a divisão de trabalho entre eles está
+ * nas citações: o ponto de gelificação tem os três, porque é onde eles dizem a
+ * mesma coisa de três jeitos, e só um deles sobrevive à mudança de altitude.
+ */
+const JAM: readonly GlossaryEntry[] = [
+  { id: 'prepared-fruit', citations: [cite('saunders', 22)] },
+  {
+    id: 'setting-point',
+    citations: [
+      cite('saunders', 26),
+      cite('nchfp', 'Testing Jelly without Added Pectin'),
+      cite('ferber', 'cap. "Le sucre et la cuisson"'),
+    ],
+  },
+  { id: 'nappe', citations: [cite('ferber', 'cap. "Le sucre et la cuisson"')] },
+  {
+    id: 'sheeting',
+    citations: [cite('nchfp', 'Testing Jelly without Added Pectin'), cite('saunders', 35)],
+  },
+  {
+    id: 'freezer-test',
+    citations: [cite('saunders', 34), cite('nchfp', 'Testing Jelly without Added Pectin')],
+  },
+  {
+    id: 'pectin',
+    citations: [cite('nchfp', 'Jellied Product Ingredients'), cite('saunders', 23)],
+  },
+  {
+    id: 'pectin-group',
+    citations: [
+      cite(
+        'nchfp',
+        'Jellied Product Ingredients — Pectin and Acid Content of Common Fruits',
+      ),
+    ],
+  },
+  {
+    id: 'apple-jelly',
+    citations: [
+      cite('ferber', 'cap. "Le sucre et la cuisson"'),
+      cite('ferber', 'receita "Griottes"'),
+    ],
+  },
+  {
+    id: 'syneresis',
+    citations: [
+      cite('nchfp', 'Causes and Possible Solutions for Problems with Jellied Fruit Products'),
+    ],
+  },
+  {
+    id: 'marmalade',
+    citations: [
+      cite('mcgee-ofc', 'cap. 7, "A Survey of Common Fruits" — "Citrus Fruits"'),
+      cite('nchfp', 'Types of Jellied Products'),
     ],
   },
 ];
@@ -233,6 +294,7 @@ export const GLOSSARY: Record<CalculatorId, readonly GlossaryEntry[]> = {
   pasta: PASTA,
   gelato: GELATO,
   curing: CURING,
+  jam: JAM,
 };
 
 /** Âncora do verbete na página. O mesmo id nos dois idiomas. */

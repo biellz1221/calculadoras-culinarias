@@ -16,7 +16,7 @@ export const CURE_SALTS: readonly CureSalt[] = [
     nitrate: 0,
     citations: [
       cite('marianski', 'cap. "Curing and Nitrates"'),
-      cite('ruhlman', 'cap. "Salt, Smoke, and Time"'),
+      cite('ruhlman-charcuterie', 'cap. 2, "Salt" — sais de cura'),
     ],
   },
   {

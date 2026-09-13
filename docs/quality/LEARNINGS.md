@@ -87,6 +87,12 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   massa g") e quebra `getByLabel`. Fica fora, com `aria-hidden`.
 - **Animação com deslocamento lateral alarga a página enquanto roda.** A casca
   do site usa `overflow-x-clip` por causa disso.
+- **Dois títulos iguais na mesma página** quebram `getByRole('heading')` e são
+  ruins de ler antes disso. Se o bloco de resultado e a seção falam do mesmo
+  assunto, um dos dois precisa de outro nome.
+- **Número formatado à mão vaza para o outro idioma.** `toFixed(1).replace('.',
+  ',')` funciona em português e entrega "104,4" para quem abre `/en`. Formatação
+  por idioma só em `src/i18n/format.ts`, inclusive dentro de tabela estática.
 
 ## Ler texto que a pessoa escreveu
 
@@ -150,7 +156,42 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   três, e a mensagem não diz o porquê.
 - **Nome novo no catálogo tem de entrar na prosa também**: `homeTitle`,
   `description`, `lead` e `imageAlt`, nos dois idiomas. O registro de rotas
-  acende o link, o texto de marketing não se atualiza sozinho.
+  acende o link, o texto de marketing não se atualiza sozinho. E `PALETTES` em
+  `src/lib/palette.ts` é um `Record<RouteKey, …>`: rota nova sem cor ali quebra
+  o typecheck, não o teste.
+- **O `homeTitle` não comporta a lista de calculadoras para sempre.** Com seis,
+  enumerar todas passou dos 60 caracteres que o buscador exibe. A saída foi um
+  termo guarda-chuva ("conservas" cobre picles, geleia e cura), não cortar uma
+  da lista.
+
+## Citar
+
+- **Livro do mesmo autor não é o mesmo livro.** `ruhlman` na estante é o
+  `Ratio`; a composição do sal de cura é do `Charcuterie`, dele com Brian
+  Polcyn. A citação passou no `assertCitation` porque a forma estava certa — id
+  válido, seção preenchida — e o site anunciou a obra errada numa página de
+  segurança alimentar. Nome de autor não identifica obra.
+- **Localizador inventado passa por todas as travas.** O capítulo citado,
+  `"Salt, Smoke, and Time"`, não existe em nenhum dos dois livros. Nada no
+  código pode pegar isso: a única conferência possível é abrir o sumário da obra
+  e procurar o texto. Faça isso ao criar a citação, não depois.
+- **PDF sem paginação no texto se cita por capítulo.** Tentei mapear a página
+  impressa do `Charcuterie` pelo deslocamento entre PDF e impresso: bateu exato
+  onde o livro se referencia (pp. 177–178) e errou no fim do volume.
+  Deslocamento que não é constante não é conversão, é chute — `locator: 'chapter'`.
+- **Proporção entre massas não tem unidade.** As receitas do Blue Chair estão em
+  libras e onças, e guardar `sugarOz / fruitOz` dispensou converter qualquer
+  coisa: 40 ÷ 62 é o mesmo número em grama e em onça. Há teste garantindo isso, e
+  ele quebra se algum fator de conversão se enfiar no caminho.
+- **Parser de receita erra, e erra calado.** O extrator automático leu quatro das
+  nove receitas errado — somou só o primeiro dos dois lotes de fruta, perdeu o
+  "plus ¾ pound" do açúcar, tomou o peso de compra pelo peso preparado. Serve
+  para achar candidata; não serve para produzir número. Toda linha que virou
+  código foi conferida à mão contra a página.
+- **Fonte oficial pode discordar de si mesma.** O NCHFP resume a temperatura por
+  altitude como "subtract 2 degrees F" por mil pés, e a tabela da mesma página
+  não segue a regra a partir de 5.000 pés. A tabela é o dado, a regra é a
+  aproximação — e a divergência vira conteúdo, não escolha silenciosa.
 
 ## Testes
 
@@ -180,6 +221,10 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   Aconteceu aqui: o nome dizia "descarta a linha de instrução" e a asserção
   aceitava as três linhas. Ao escrever a asserção, olhe o que ela *deveria*
   dizer, não o que o código devolve agora.
+- **Faixa que a fonte declara não pode colapsar no arredondamento.** Comparar as
+  pontas por limiar numérico apagava o rendimento "5 a 6 potes" (5,2 e 5,6
+  diferem por 0,4). Compare os textos **já formatados**: só colapsa quando as
+  duas pontas exibem a mesma coisa.
 - **Prove que o teste pega o bug.** Desfaça a correção, rode e veja falhar. Foi
   o que confirmou tanto a regressão do `__proto__` quanto o teste de offline —
   este passava alegremente com o service worker desligado até ser conferido.
