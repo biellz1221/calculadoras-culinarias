@@ -96,3 +96,70 @@ test('a página de pães não rola horizontalmente no celular', async ({ page })
 
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+/**
+ * Os pães do Levante (docs/research/paes-regionais.md).
+ *
+ * O que estes testes protegem não é a existência do preset — disso o teste de
+ * unidade já cuida. É o comportamento que a pesquisa comprou com dificuldade: na
+ * farinha que o próprio livro usa, a tela precisa devolver as gramas que o livro
+ * imprime; a pita salga acima da faixa europeia e **tem** de sinalizar isso sem
+ * ser acusada de erro; e o malawach não pode aparecer com a manteiga de
+ * laminação dentro da massa.
+ */
+async function escolhePao(page: Page, nome: string) {
+  await interactUntil(
+    async () => {
+      await page.getByRole('button', { name: nome, exact: true }).click();
+    },
+    async () => {
+      await expect(
+        page.getByRole('button', { name: nome, exact: true }),
+      ).toHaveAttribute('aria-pressed', 'true');
+    },
+  );
+}
+
+test('a pita devolve as gramas impressas no livro e salga acima da faixa europeia', async ({
+  page,
+}) => {
+  await page.goto('/paes');
+  await escolhePao(page, 'Pita de frigideira');
+
+  // Scheft, p. 116: 550 g de farinha, 335 g de água, 15 g de sal.
+  await interactUntil(
+    () => page.getByLabel('Gramas de farinha que você tem').fill('550'),
+    () => expect(waterRow(page)).toContainText('335,0 g'),
+  );
+
+  const conteudo = page.locator('#conteudo');
+  await expect(
+    page.getByRole('row').filter({ hasText: 'Sal' }).first(),
+  ).toContainText('15,0 g');
+
+  // 2,73% de sal é acima do usual europeu, e o selo diz isso.
+  await expect(conteudo.getByText('Acima da faixa').first()).toBeVisible();
+
+  // Mas não "fora do limite das fontes": Scheft é a fonte.
+  await expect(conteudo.getByText('Fora do limite das fontes')).toHaveCount(0);
+});
+
+test('o malawach não traz a manteiga que só lamina', async ({ page }) => {
+  await page.goto('/paes');
+  await escolhePao(page, 'Malawach');
+
+  // Scheft, p. 145: 1 kg de farinha, 630 g de água, 4 g de fermento químico.
+  await interactUntil(
+    () => page.getByLabel('Gramas de farinha que você tem').fill('1000'),
+    () => expect(waterRow(page)).toContainText('630,0 g'),
+  );
+
+  const tabela = page.getByRole('table').first();
+  await expect(tabela).not.toContainText('Manteiga');
+  await expect(tabela).toContainText('Fermento químico');
+
+  // E o texto explica onde a manteiga foi parar.
+  await expect(
+    page.locator('#conteudo').getByText(/manteiga.*lamina/i).first(),
+  ).toBeVisible();
+});

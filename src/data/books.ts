@@ -39,7 +39,9 @@ export type BookId =
   | 'anvisa-in211'
   | 'dipoa-of15'
   | 'fsis-424'
-  | 'gelato-course';
+  | 'gelato-course'
+  | 'scheft'
+  | 'cho';
 
 export interface Book {
   id: BookId;
@@ -91,6 +93,34 @@ export const BOOKS: readonly Book[] = [
     authors: ['Luiz Américo Camargo'],
     publisher: 'Senac São Paulo',
     year: 2020,
+    locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    // Padeiro do Lehamim (Tel Aviv) e do Breads Bakery (Nova York). Entra
+    // porque pesa tudo o que a porcentagem de padeiro precisa — inclusive o
+    // sal, que é justamente onde os outros oito livros de pão regional param.
+    // O PDF carrega a marca de composição `56077txt.indd N` no rodapé, com N =
+    // página impressa; deslocamento conferido em seis pontos
+    // (docs/research/paes-regionais.md §2.1).
+    id: 'scheft',
+    title: 'Breaking Breads',
+    authors: ['Uri Scheft'],
+    publisher: 'Artisan',
+    year: 2016,
+    locator: 'page',
+    kind: 'book',
+  },
+  {
+    // Entra por uma linha só: a proporção 1:5 do tangzhong, que a autora
+    // publica como proporção e confirma na própria receita. As receitas dela
+    // não viram preset porque o sal aparece sempre em colher
+    // (docs/research/paes-regionais.md §4.2).
+    id: 'cho',
+    title: 'Mooncakes and Milk Bread',
+    authors: ['Kristina Cho'],
+    publisher: 'Harper Horizon',
+    year: 2021,
     locator: 'chapter',
     kind: 'book',
   },

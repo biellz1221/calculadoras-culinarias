@@ -39,24 +39,42 @@ export interface RangeRule {
 }
 
 export const RANGES: Record<RangeKey, RangeRule> = {
+  // A faixa de 60–70% é de **massa magra**, e é onde Kayser e Camargo
+  // trabalham. Não há piso duro: massa enriquecida desce muito abaixo disso com
+  // respaldo publicado, porque o líquido vem de ovo, manteiga e leite em vez de
+  // água. O brioche do Kayser não tem água nenhuma (p. 242) e o challah do
+  // Scheft tem 40% (p. 27) — um piso de 50% acusaria os dois de erro.
+  // O teto fica: 80% da ciabatta do Scheft é o mais molhado que a estante
+  // publica, e 90% já é fora de qualquer fonte.
   hydration: {
     min: 60,
     max: 70,
-    hardMin: 50,
     hardMax: 90,
     citations: [
       cite('camargo', 'cap. 1, "Dúvidas frequentes"'),
       cite('kayser', 20),
+      cite('kayser', 242),
+      cite('scheft', 27),
+      cite('scheft', 180),
     ],
     noteKey: 'hydration',
   },
 
+  // A faixa recomendada continua sendo a europeia de Kayser e Camargo. O teto
+  // duro subiu de 2,5% para 3% porque há receita publicada exatamente ali: o
+  // bagel de Jerusalém do Scheft (p. 176). O pão do Levante continua
+  // sinalizando "acima do usual" — que é verdade, e é informação — mas deixa de
+  // ser tratado como erro.
   salt: {
     min: 1.5,
     max: 2.2,
     hardMin: 1,
-    hardMax: 2.5,
-    citations: [cite('kayser', 48), cite('camargo', 'cap. 4, "Massa de pizza ao estilo napoletano"')],
+    hardMax: 3,
+    citations: [
+      cite('kayser', 48),
+      cite('camargo', 'cap. 4, "Massa de pizza ao estilo napoletano"'),
+      cite('scheft', 176),
+    ],
     noteKey: 'salt',
   },
 
@@ -82,11 +100,13 @@ export const RANGES: Record<RangeKey, RangeRule> = {
     noteKey: 'dryYeast',
   },
 
+  // Teto duro em 5%: é a dose do bagel de Jerusalém (Scheft, p. 176), pão de
+  // padaria que entra e sai no mesmo dia.
   'yeast-fresh': {
     min: 0.4,
     max: 1.4,
-    hardMax: 4,
-    citations: [cite('kayser', 48), cite('kayser', 242)],
+    hardMax: 5,
+    citations: [cite('kayser', 48), cite('kayser', 242), cite('scheft', 176)],
     noteKey: 'freshYeast',
   },
 

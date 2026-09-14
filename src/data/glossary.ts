@@ -49,6 +49,9 @@ const BREAD: readonly GlossaryEntry[] = [
   },
   { id: 'biga', citations: [cite('camargo', 'cap. 1, "Planejando as fornadas"')] },
   { id: 'fermented-dough', citations: [cite('kayser', 26)] },
+  // Cho publica a proporção como proporção ("a 1:5 ratio of flour to milk") e a
+  // confirma na própria receita, com 20 g de farinha para 100 g de leite.
+  { id: 'tangzhong', citations: [cite('cho', 'cap. "Ingredients"')] },
   {
     id: 'pointage-appret',
     citations: [cite('kayser', 30), cite('kayser', 306), cite('kayser', 307)],

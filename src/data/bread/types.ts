@@ -20,7 +20,11 @@ export type FlourKey =
 
 export type YeastKey = 'yeast-fresh' | 'yeast-active-dry' | 'yeast-instant';
 
-export type PreFermentKey = 'levain-liquid' | 'poolish' | 'fermented-dough';
+export type PreFermentKey =
+  | 'levain-liquid'
+  | 'poolish'
+  | 'fermented-dough'
+  | 'tangzhong';
 
 export type IngredientKey =
   | FlourKey
@@ -36,7 +40,10 @@ export type IngredientKey =
   | 'egg'
   | 'milk-powder'
   | 'creme-fraiche'
-  | 'xanthan';
+  | 'xanthan'
+  | 'neutral-oil'
+  | 'honey'
+  | 'baking-powder';
 
 export const FLOUR_KEYS: readonly FlourKey[] = [
   'flour-white',
@@ -62,11 +69,18 @@ export const YEAST_KEYS: readonly YeastKey[] = [
  * Levain líquido e poolish: partes iguais de farinha e água (Kayser, p. 24 e
  * p. 26). Massa fermentada: massa de pão pronta, na hidratação típica de uma
  * massa magra (Kayser, p. 26).
+ *
+ * A tangzhong é a única que não fermenta — é um mingau de farinha cozido no
+ * leite, não um pré-fermento. Ela está aqui porque faz a mesma coisa na conta:
+ * carrega farinha e líquido escondidos para dentro da massa. Cho publica a
+ * proporção como 1:5 de farinha para leite, o que dá 500% de hidratação
+ * (docs/research/paes-regionais.md §5).
  */
 export const PRE_FERMENT_HYDRATION: Record<PreFermentKey, number> = {
   'levain-liquid': 100,
   poolish: 100,
   'fermented-dough': 65,
+  tangzhong: 500,
 };
 
 /**
@@ -91,6 +105,7 @@ const INGREDIENT_KEY_SET: Record<IngredientKey, true> = {
   'levain-liquid': true,
   poolish: true,
   'fermented-dough': true,
+  tangzhong: true,
   water: true,
   milk: true,
   salt: true,
@@ -102,6 +117,9 @@ const INGREDIENT_KEY_SET: Record<IngredientKey, true> = {
   'milk-powder': true,
   'creme-fraiche': true,
   xanthan: true,
+  'neutral-oil': true,
+  honey: true,
+  'baking-powder': true,
 };
 
 /** A lista, na ordem do registro: é o que alimenta o seletor de ingredientes. */

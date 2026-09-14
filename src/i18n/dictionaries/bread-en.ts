@@ -68,6 +68,12 @@ export const breadEn: typeof breadPtBR = {
     'pao-de-leite': 'Milk rolls',
     brioche: 'Brioche',
     broa: 'Portuguese corn bread',
+    pita: 'Skillet pita',
+    laffa: 'Laffa',
+    challah: 'Challah',
+    'jerusalem-bagel': 'Jerusalem bagel',
+    malawach: 'Malawach',
+    jachnun: 'Jachnun',
   },
 
   ingredients: {
@@ -89,12 +95,16 @@ export const breadEn: typeof breadPtBR = {
     'milk-powder': 'Milk powder',
     'creme-fraiche': 'Crème fraîche',
     xanthan: 'Xanthan gum',
+    'neutral-oil': 'Neutral oil',
+    honey: 'Honey',
+    'baking-powder': 'Baking powder',
     'yeast-fresh': 'Fresh yeast',
     'yeast-active-dry': 'Active dry yeast',
     'yeast-instant': 'Instant yeast',
     'levain-liquid': 'Liquid levain',
     poolish: 'Poolish',
     'fermented-dough': 'Old dough',
+    tangzhong: 'Tangzhong',
   },
 
   target: {
@@ -137,10 +147,10 @@ export const breadEn: typeof breadPtBR = {
 
   notes: {
     hydration:
-      'More water gives a more open crumb and a dough that is harder to handle. Below 50% you are into tight, machine-kneaded bakery dough; above 80% it is high hydration and asks for folds rather than kneading.',
-    salt: 'Salt also slows fermentation down. Below 1% the bread tastes flat and the dough runs away from you; above 2.5% the yeast starts to struggle.',
+      'More water gives a more open crumb and a dough that is harder to handle. Above 80% it is high hydration and asks for folds rather than kneading. The 60 to 70% band is for lean dough: in an enriched dough the liquid comes from egg, butter and milk, and the water drops far below that with nothing wrong — Kayser’s brioche has no water at all, and Scheft’s challah has 40%.',
+    salt: 'Salt also slows fermentation down. Below 1% the bread tastes flat and the dough runs away from you. Above 2.2% is more salt than European bread usually carries, but it is not a mistake: Scheft’s pita runs at 2.7% and his Jerusalem bagel at 3%. Past 3% the yeast really does struggle.',
     instantYeast:
-      'The practical ceiling is 1% of the flour weight: more than that speeds fermentation up without adding flavour. Less yeast and more time is almost always the better trade.',
+      'The practical ceiling is 1% of the flour weight: more than that speeds fermentation up without adding flavour. Less yeast and more time is almost always the better trade. The ceiling is Camargo’s — and Camargo’s own corn bread goes a tenth of a point over it, at 1.1%. We leave both as they are: the rule is his and so is the recipe.',
     dryYeast: 'Active dry yeast has to be dissolved in warm water before it goes into the dough.',
     freshYeast:
       'Lean doughs run on very little fresh yeast when a levain is doing the work. Enriched doughs need far more, because sugar and fat get in the yeast’s way.',
@@ -177,6 +187,18 @@ export const breadEn: typeof breadPtBR = {
       brioche:
         'After the first rise, an hour in the fridge so the butter firms up before shaping.',
       scald: 'The corn flour is scalded with boiling water before it joins the dough.',
+      skillet:
+        'No oven: it cooks in a covered non-stick or cast-iron skillet, 2 to 3 minutes a side. The lid holds the steam in, and the steam is what opens the pocket.',
+      laffa:
+        'The same dough as the pita, without the pocket: prick the rolled-out dough all over with a fork before it goes onto the stone, oven as hot as it will go.',
+      challah:
+        'It goes in at 220 °C and the oven drops to 165 °C right after. Braided, 25 minutes; as rolls, 12 to 14.',
+      jerusalemBagel:
+        'Nothing to do with the American bagel: it is never boiled. Straight into the oven, egg-washed and heavily seeded.',
+      malawach:
+        'No yeast and no rise. The dough rests, gets laminated with butter on the counter, chills for an hour and fries in a skillet, 3 to 5 minutes a side. The 270 g of butter in the original recipe is for lamination and stays out of the dough maths.',
+      jachnun:
+        'Twelve hours at 107 °C in a foil-sealed pan. As with malawach, the butter laminates and stays out of the dough.',
     },
   },
 
@@ -375,6 +397,11 @@ export const breadEn: typeof breadPtBR = {
       'biga': {
         term: 'Biga',
         definition: 'A pre-ferment with the same job as poolish, but firm.',
+      },
+      'tangzhong': {
+        term: 'Tangzhong',
+        definition:
+          'A paste of flour cooked in milk, one part flour to five of milk, folded into the dough. It gelatinises the starch and locks water in: the bread is softer and stales more slowly. It does not ferment — but, like a pre-ferment, it carries hidden flour and liquid, so it counts towards the true hydration.',
       },
       'fermented-dough': {
         term: 'Old dough',
