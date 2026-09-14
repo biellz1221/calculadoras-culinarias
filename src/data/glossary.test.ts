@@ -4,7 +4,11 @@ import { GLOSSARY, glossaryAnchor } from './glossary';
 import { assertCitation } from './citations';
 import { CALCULATORS } from './calculators';
 import { getBreadDictionary } from '@/i18n/dictionaries/bread';
+import { getBrineDictionary } from '@/i18n/dictionaries/brine';
+import { getCuringDictionary } from '@/i18n/dictionaries/curing';
+import { getGanacheDictionary } from '@/i18n/dictionaries/ganache';
 import { getGelatoDictionary } from '@/i18n/dictionaries/gelato';
+import { getJamDictionary } from '@/i18n/dictionaries/jam';
 import { getPastaDictionary } from '@/i18n/dictionaries/pasta';
 import { getPicklesDictionary } from '@/i18n/dictionaries/pickles';
 import { LOCALES, type Locale } from '@/i18n/locales';
@@ -18,6 +22,10 @@ const GLOSSARIES: Record<
   pickles: getPicklesDictionary,
   pasta: getPastaDictionary,
   gelato: getGelatoDictionary,
+  curing: getCuringDictionary,
+  jam: getJamDictionary,
+  brine: getBrineDictionary,
+  ganache: getGanacheDictionary,
 };
 
 const cases = CALCULATORS.flatMap((calculator) =>

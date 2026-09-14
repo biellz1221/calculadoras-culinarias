@@ -22,6 +22,14 @@ const ACCENT: Record<CalculatorAccent, { bar: string; wash: string; text: string
     text: 'text-terracotta',
   },
   rose: { bar: 'bg-rose', wash: 'group-hover:bg-rose-tint', text: 'text-rose' },
+  ember: { bar: 'bg-ember', wash: 'group-hover:bg-ember-tint', text: 'text-ember' },
+  damson: {
+    bar: 'bg-damson',
+    wash: 'group-hover:bg-damson-tint',
+    text: 'text-damson',
+  },
+  tide: { bar: 'bg-tide', wash: 'group-hover:bg-tide-tint', text: 'text-tide' },
+  cocoa: { bar: 'bg-cocoa', wash: 'group-hover:bg-cocoa-tint', text: 'text-cocoa' },
 };
 
 function Arrow({ className }: { className?: string }) {

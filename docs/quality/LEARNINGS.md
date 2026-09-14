@@ -87,6 +87,12 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   massa g") e quebra `getByLabel`. Fica fora, com `aria-hidden`.
 - **Animação com deslocamento lateral alarga a página enquanto roda.** A casca
   do site usa `overflow-x-clip` por causa disso.
+- **Dois títulos iguais na mesma página** quebram `getByRole('heading')` e são
+  ruins de ler antes disso. Se o bloco de resultado e a seção falam do mesmo
+  assunto, um dos dois precisa de outro nome.
+- **Número formatado à mão vaza para o outro idioma.** `toFixed(1).replace('.',
+  ',')` funciona em português e entrega "104,4" para quem abre `/en`. Formatação
+  por idioma só em `src/i18n/format.ts`, inclusive dentro de tabela estática.
 
 ## Ler texto que a pessoa escreveu
 
@@ -134,6 +140,93 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   essa checagem, todo visitante novo recebe um aviso de "versão nova" na
   primeira visita.
 
+## Calculadora nova
+
+- **`as const` no dicionário canônico quebra o outro idioma.** Congela cada
+  string como tipo literal, e a tradução deixa de ser atribuível — 99 erros de
+  uma vez. Os dicionários não levam `as const`.
+- **`pnpm test` não checa tipo.** O Vitest transpila sem verificar, então erro
+  de tipo passa batido até o `typecheck`. Rodar `pnpm verify`, não só `test`.
+- **`tsconfig.tsbuildinfo` velho faz o typecheck mentir.** Um `Record` com chave
+  faltando passou limpo até o cache ser apagado. Em dúvida, apague antes de
+  acreditar.
+- **Três listas de calculadora são escritas à mão** e não derivam de
+  `CALCULATORS`: `ALL_KEYS` em `routes.test.ts`, `GLOSSARIES` em
+  `glossary.test.ts` e `PAGES` em `e2e/seo.spec.ts`. Calculadora nova quebra as
+  três, e a mensagem não diz o porquê.
+- **Nome novo no catálogo tem de entrar na prosa também**: `homeTitle`,
+  `description`, `lead` e `imageAlt`, nos dois idiomas. O registro de rotas
+  acende o link, o texto de marketing não se atualiza sozinho. E `PALETTES` em
+  `src/lib/palette.ts` é um `Record<RouteKey, …>`: rota nova sem cor ali quebra
+  o typecheck, não o teste.
+- **O `homeTitle` não comporta a lista de calculadoras para sempre.** Com seis,
+  enumerar todas passou dos 60 caracteres que o buscador exibe. A saída foi um
+  termo guarda-chuva ("conservas" cobre picles, geleia e cura), não cortar uma
+  da lista.
+
+## Citar
+
+- **Norma tem prazo de validade, e ler no original não basta.** A calculadora de
+  cura citava a RDC 272/2019 da ANVISA, lida no texto oficial e transcrita
+  corretamente. Em 2023 a RDC 778 consolidou os aditivos e revogou 67 normas de
+  uma vez, a 272 entre elas. O **número não mudou** — a IN 211/2023 repete os
+  mesmos 150 mg/kg com a mesma redação —, mas o site apontava para texto morto
+  numa página de segurança alimentar. Citação de norma precisa de **conferência
+  de vigência**, não só de leitura. Procure o ato revogador antes de citar.
+- **Livro do mesmo autor não é o mesmo livro.** `ruhlman` na estante é o
+  `Ratio`; a composição do sal de cura é do `Charcuterie`, dele com Brian
+  Polcyn. A citação passou no `assertCitation` porque a forma estava certa — id
+  válido, seção preenchida — e o site anunciou a obra errada numa página de
+  segurança alimentar. Nome de autor não identifica obra.
+- **Localizador inventado passa por todas as travas.** O capítulo citado,
+  `"Salt, Smoke, and Time"`, não existe em nenhum dos dois livros. Nada no
+  código pode pegar isso: a única conferência possível é abrir o sumário da obra
+  e procurar o texto. Faça isso ao criar a citação, não depois.
+- **PDF sem paginação no texto se cita por capítulo.** Tentei mapear a página
+  impressa do `Charcuterie` pelo deslocamento entre PDF e impresso: bateu exato
+  onde o livro se referencia (pp. 177–178) e errou no fim do volume.
+  Deslocamento que não é constante não é conversão, é chute — `locator: 'chapter'`.
+- **Proporção entre massas não tem unidade.** As receitas do Blue Chair estão em
+  libras e onças, e guardar `sugarOz / fruitOz` dispensou converter qualquer
+  coisa: 40 ÷ 62 é o mesmo número em grama e em onça. Há teste garantindo isso, e
+  ele quebra se algum fator de conversão se enfiar no caminho.
+- **Parser de receita erra, e erra calado.** O extrator automático leu quatro das
+  nove receitas errado — somou só o primeiro dos dois lotes de fruta, perdeu o
+  "plus ¾ pound" do açúcar, tomou o peso de compra pelo peso preparado. Serve
+  para achar candidata; não serve para produzir número. Toda linha que virou
+  código foi conferida à mão contra a página.
+- **A nossa própria bibliografia é fonte terciária, e já errou duas vezes.** Ela
+  dizia que Modernist e Food Lab divergiam em "0,5 % contra 0,85 %" na salmoura;
+  lidas as obras, são 0,6 % e 0,625 % — eles concordam, e divergem sobre a água.
+  Antes disso, a mesma seção comparava entrada com resíduo na cura. Levantamento
+  não é extração: **releia a obra antes de transformar linha de bibliografia em
+  número de tela.**
+- **Coluna de tabela vem arredondada.** O "SCALING" do Modernist imprime 1,3 %
+  onde a receita tem 10 g em 750 g, que são 1,333 %. Guarde os **pesos
+  publicados** e derive a proporção deles; a porcentagem impressa erra a receita
+  por um quarto de grama.
+- **Duas fontes concordando é notícia.** Quase todo o site é feito de
+  divergência, e por isso a convergência passa despercebida. Quando duas obras
+  independentes chegam ao mesmo número, isso vale ser dito na página — é a
+  informação mais forte que se pode dar.
+- **Tabela publicada duas vezes é o melhor caso-verdade que existe.** O Wybauw
+  imprime as proporções de ganache em razão e em porcentagem, e foi essa
+  redundância — não a minha atenção — que validou uma transcrição feita a partir
+  de um PDF que troca "TOO" por "100" e "IO%" por "10%". Quando a fonte se
+  confere sozinha, o teste confere as duas formas.
+- **Porcentagem publicada pode não ser o arredondamento da razão.** As do Wybauw
+  foram ajustadas para somar 100: 40,8 vira 40 e 49,0 vira 50, na mesma linha.
+  Tolerância frouxa num teste só se justifica com o motivo escrito ao lado.
+- **PDF em imagem não é fonte, e o bônus pode ser melhor que o planejado.** O
+  Greweling, previsto como fonte da ganache, é digitalização sem texto. O
+  Wybauw, que entrou na estante fora da lista, trouxe a tabela **e** dados de
+  atividade de água que nenhuma outra obra tem. Antes de dar um tema por
+  bloqueado, confira a camada de texto de tudo que chegou.
+- **Fonte oficial pode discordar de si mesma.** O NCHFP resume a temperatura por
+  altitude como "subtract 2 degrees F" por mil pés, e a tabela da mesma página
+  não segue a regra a partir de 5.000 pés. A tabela é o dado, a regra é a
+  aproximação — e a divergência vira conteúdo, não escolha silenciosa.
+
 ## Testes
 
 - **Playwright em `127.0.0.1` não hidrata**: o dev server do Next bloqueia
@@ -162,6 +255,53 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   Aconteceu aqui: o nome dizia "descarta a linha de instrução" e a asserção
   aceitava as três linhas. Ao escrever a asserção, olhe o que ela *deveria*
   dizer, não o que o código devolve agora.
+- **Faixa que a fonte declara não pode colapsar no arredondamento.** Comparar as
+  pontas por limiar numérico apagava o rendimento "5 a 6 potes" (5,2 e 5,6
+  diferem por 0,4). Compare os textos **já formatados**: só colapsa quando as
+  duas pontas exibem a mesma coisa.
+- **`getByRole('term')` com `name` nunca casa.** `term` — o papel do `<dt>` — não
+  recebe nome acessível a partir do conteúdo, então a busca não acha nada nunca,
+  e uma asserção de ausência passa pelo motivo errado. Para escopar resultado,
+  dê `aria-labelledby` à `<section>` e busque dentro dela: `<section>` sem nome
+  não é landmark, então isso conserta o teste **e** a navegação por regiões.
+- **Calculadora com uma fonte só quebra o teste da estante.** O cartão da home
+  junta os títulos das obras com " · "; com uma fonte, o nó vira exatamente o
+  título do livro e a busca global acha dois. Escope na estante.
 - **Prove que o teste pega o bug.** Desfaça a correção, rode e veja falhar. Foi
   o que confirmou tanto a regressão do `__proto__` quanto o teste de offline —
   este passava alegremente com o service worker desligado até ser conferido.
+- **`git checkout <arquivo>` descarta trabalho não commitado, e não avisa.** Ao
+  provar que um teste novo pega a regressão, apaguei uma linha do dicionário,
+  rodei o teste, vi falhar — e desfiz com `git checkout` no arquivo. Voltou para
+  o `HEAD`, levando junto duas horas de tradução que ainda não estavam
+  commitadas. Para desfazer um experimento, desfaça **com a mesma ferramenta que
+  fez**: se a mudança foi um `sed`, o inverso é outro `sed`. Se for mesmo
+  preciso restaurar do git, `git stash` primeiro. E o momento seguro de fazer
+  esse teste é **depois** do commit.
+- **Catálogo desenhado por duas superfícies precisa de rótulo para a união.**
+  Duas linhas da tabela da Embrapa saíram do seletor (foram absorvidas por
+  receitas) mas continuaram sendo linhas da tabela publicada na página — e
+  ficaram em branco nos dois idiomas. Nenhum teste de contagem pega isso: a
+  contagem estava certa. O teste que pega é `todo id de A **e** de B tem rótulo
+  não vazio em todo idioma`.
+- **Afirmação numérica em prosa é número sem fonte igual aos outros.** Escrevi
+  "mais açúcar do que sete das nove receitas" em quatro lugares; eram oito e uma
+  empatada. Não veio de extração errada — veio de contar de cabeça sobre dados
+  que o código já tinha. Se a frase afirma uma contagem, escreva o teste **a
+  partir da frase** e deixe o código responder.
+- **Teste preso ao número de uma norma quebra junto com a norma.** O e2e de cura
+  afirmava "conformidade com a RDC 272" e sobreviveu à troca para a IN 211 só
+  porque a suíte completa não foi rodada no commit da correção. Asserção de
+  texto deve mirar a **promessa** ("não certifica conformidade com a norma
+  brasileira"), não o identificador que muda.
+- **Fonte que se repete de dois jeitos é fonte conferível.** O Doc 138 publica
+  uma regra de dose e onze formulações que a obedecem; o Wybauw publica a tabela
+  de ganache em razão e em porcentagem. Nos dois casos a redundância virou
+  `it.each` e é o que autoriza transcrever de PDF com ruído. Procure a segunda
+  forma antes de transcrever a primeira.
+- **Bloco tipograficamente quebrado na publicação não vira número.** Duas
+  receitas do Doc 138 ficam num trecho em que a frase corta no meio e um título
+  some — conferido na imagem da página, o defeito é do documento. Elas também
+  eram as duas únicas fora da faixa que o documento publica. Coincidência que
+  vale como sinal: número que destoa, confira a integridade da página antes de
+  concluir que a fonte se contradiz.

@@ -4,9 +4,9 @@ export const en: Dictionary = {
   site: {
     name: 'Culinary Calculators',
     shortName: 'Calculators',
-    homeTitle: 'Culinary Calculators: bread, pickles, pasta, gelato',
+    homeTitle: 'Culinary Calculators: bread, pasta, gelato and preserves',
     description:
-      'Kitchen calculators in grams for bread, pickles, fresh pasta and gelato. Every ratio comes from a reference cookbook, cited by author and page.',
+      'Kitchen calculators in grams for bread, pickles, pasta, gelato, meat curing and jam. Every ratio comes from a reference book or an official regulation, cited.',
     tagline: 'Kitchen ratios in grams, every one of them with a cited source.',
     keywords: [
       'kitchen calculator',
@@ -17,9 +17,11 @@ export const en: Dictionary = {
       'fermentation brine calculator',
       'fresh pasta',
       'gelato balancing',
+      'jam setting point',
+      'brine in grams',
     ],
     imageAlt:
-      'Card for the Culinary Calculators site, with the title and the four available calculators.',
+      'Card for the Culinary Calculators site, with the title and the six available calculators.',
   },
 
   nav: {
@@ -106,7 +108,7 @@ export const en: Dictionary = {
   home: {
     eyebrow: 'Kitchen ratios with a cited source',
     title: 'The ratios that make a recipe work',
-    lead: 'Bread, pickles, fresh pasta and gelato worked out in grams, scaled to what you actually need. Every number comes from a book, with author and page.',
+    lead: 'Bread, pickles, fresh pasta, gelato, meat curing and jam worked out in grams, scaled to what you actually need. Every number comes from a book or an official regulation, with the source addressed.',
 
     principles: {
       grams: {
@@ -183,6 +185,26 @@ export const en: Dictionary = {
       name: 'Gelato',
       blurb:
         'Base balancing: sugars, fats, total solids, POD and PAC within the range for each style.',
+    },
+    curing: {
+      name: 'Curing and charcuterie',
+      blurb:
+        'Nitrite in ppm per kilo of meat, with the Brazilian and US rules side by side — and the difference between them explained.',
+    },
+    ganache: {
+      name: 'Ganache',
+      blurb:
+        'Chocolate and butter by the texture you want, and the shelf life almost no ganache recipe ever prints.',
+    },
+    brine: {
+      name: 'Brining and salting',
+      blurb:
+        'Salt in grams per kilo of chicken, meat or fish — dry salting, equilibrium brine and covering brine, with the time each one takes.',
+    },
+    jam: {
+      name: 'Jam',
+      blurb:
+        'Sugar and lemon from the published recipe for each fruit, and the setting temperature at the altitude you cook at.',
     },
   },
 

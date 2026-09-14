@@ -1,10 +1,26 @@
 import type { BookId } from './books';
 import { isPublished, type RouteKey } from '@/i18n/routes';
 
-export type CalculatorId = 'bread' | 'pickles' | 'pasta' | 'gelato';
+export type CalculatorId =
+  | 'bread'
+  | 'pickles'
+  | 'pasta'
+  | 'gelato'
+  | 'curing'
+  | 'jam'
+  | 'brine'
+  | 'ganache';
 
 /** Cor da aba de cada calculadora, no espírito das abas de um fichário. */
-export type CalculatorAccent = 'wheat' | 'sage' | 'terracotta' | 'rose';
+export type CalculatorAccent =
+  | 'wheat'
+  | 'sage'
+  | 'terracotta'
+  | 'rose'
+  | 'ember'
+  | 'damson'
+  | 'tide'
+  | 'cocoa';
 
 export interface Calculator {
   id: CalculatorId;
@@ -45,6 +61,30 @@ export const CALCULATORS: readonly Calculator[] = [
     route: 'gelato',
     accent: 'rose',
     sources: [],
+  },
+  {
+    id: 'curing',
+    route: 'curing',
+    accent: 'ember',
+    sources: ['anvisa-in211', 'fsis-424', 'marianski', 'ruhlman-charcuterie'],
+  },
+  {
+    id: 'jam',
+    route: 'jam',
+    accent: 'damson',
+    sources: ['saunders', 'ferber', 'nchfp', 'mcgee-keys'],
+  },
+  {
+    id: 'brine',
+    route: 'brine',
+    accent: 'tide',
+    sources: ['modernist-home', 'foodlab', 'ruhlman-charcuterie'],
+  },
+  {
+    id: 'ganache',
+    route: 'ganache',
+    accent: 'cocoa',
+    sources: ['wybauw'],
   },
 ];
 

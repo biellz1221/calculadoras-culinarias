@@ -192,11 +192,201 @@ const GELATO: readonly GlossaryEntry[] = [
   { id: 'syrup-density', citations: [] },
 ];
 
+/**
+ * As duas normas e os dois livros.
+ *
+ * Aqui a citação não é cortesia editorial: são definições que decidem se um
+ * produto é seguro. `ppm`, `entrada` e `resíduo` saem do próprio texto legal,
+ * porque a diferença entre os dois últimos é o que a norma brasileira e a
+ * americana medem de diferente.
+ */
+const CURING: readonly GlossaryEntry[] = [
+  { id: 'ppm', citations: [cite('marianski', 'cap. "Curing and Nitrates"')] },
+  { id: 'ingoing', citations: [cite('fsis-424', '424.21(c), curing agents')] },
+  {
+    id: 'residual',
+    citations: [
+      cite('anvisa-in211', 'Anexo, categoria 08.2 — conservadores INS 249 a 252'),
+      cite('fsis-424', '424.21(c)'),
+    ],
+  },
+  {
+    id: 'cure-1',
+    citations: [
+      cite('marianski', 'cap. "Curing and Nitrates"'),
+      cite('ruhlman-charcuterie', 'cap. 2, "Salt" — sais de cura'),
+    ],
+  },
+  { id: 'cure-2', citations: [cite('marianski', 'cap. "Curing and Nitrates"')] },
+  {
+    id: 'botulism',
+    citations: [
+      cite('ruhlman-charcuterie', '"How Real Is the Danger of Botulism?" (quadro)'),
+      cite('marianski', 'cap. "Curing and Nitrates"'),
+    ],
+  },
+];
+
+/**
+ * docs/research/geleias.md §8.
+ *
+ * Três livros e uma agência oficial, e a divisão de trabalho entre eles está
+ * nas citações: o ponto de gelificação tem os três, porque é onde eles dizem a
+ * mesma coisa de três jeitos, e só um deles sobrevive à mudança de altitude.
+ */
+const JAM: readonly GlossaryEntry[] = [
+  { id: 'prepared-fruit', citations: [cite('saunders', 22)] },
+  {
+    id: 'setting-point',
+    citations: [
+      cite('saunders', 26),
+      cite('nchfp', 'Testing Jelly without Added Pectin'),
+      cite('ferber', 'cap. "Le sucre et la cuisson"'),
+    ],
+  },
+  { id: 'nappe', citations: [cite('ferber', 'cap. "Le sucre et la cuisson"')] },
+  {
+    id: 'sheeting',
+    citations: [cite('nchfp', 'Testing Jelly without Added Pectin'), cite('saunders', 35)],
+  },
+  {
+    id: 'freezer-test',
+    citations: [cite('saunders', 34), cite('nchfp', 'Testing Jelly without Added Pectin')],
+  },
+  {
+    id: 'pectin',
+    citations: [cite('nchfp', 'Jellied Product Ingredients'), cite('saunders', 23)],
+  },
+  {
+    id: 'pectin-group',
+    citations: [
+      cite(
+        'nchfp',
+        'Jellied Product Ingredients — Pectin and Acid Content of Common Fruits',
+      ),
+    ],
+  },
+  {
+    id: 'embrapa-table',
+    citations: [
+      cite(
+        'embrapa-geleias',
+        'Tabela 1 — classificação de algumas frutas segundo teores de pectina e acidez',
+      ),
+    ],
+  },
+  {
+    id: 'legal-jam',
+    citations: [
+      cite('embrapa-geleias', '§1 Introdução — classificação legal de geléia comum e extra'),
+    ],
+  },
+  {
+    id: 'soluble-solids',
+    citations: [
+      cite('embrapa-geleias', '§1 Introdução — classificação legal de geléia comum e extra'),
+      cite('ferber', 'cap. "Le sucre et la cuisson"'),
+    ],
+  },
+  {
+    id: 'apple-jelly',
+    citations: [
+      cite('ferber', 'cap. "Le sucre et la cuisson"'),
+      cite('ferber', 'receita "Griottes"'),
+    ],
+  },
+  {
+    id: 'syneresis',
+    citations: [
+      cite('nchfp', 'Causes and Possible Solutions for Problems with Jellied Fruit Products'),
+      cite('embrapa-geleias', '§1 Introdução — acidez total e sinérese'),
+    ],
+  },
+  {
+    id: 'marmalade',
+    citations: [
+      cite('mcgee-ofc', 'cap. 7, "A Survey of Common Fruits" — "Citrus Fruits"'),
+      cite('nchfp', 'Types of Jellied Products'),
+    ],
+  },
+];
+
+/**
+ * docs/research/salmoura.md §7 e §8.
+ *
+ * `kosher-salt` é o verbete que justifica a calculadora inteira: sem o peso de
+ * uma xícara, publicado pelo Ruhlman & Polcyn, a dose do Food Lab não vira
+ * grama.
+ */
+const BRINE: readonly GlossaryEntry[] = [
+  {
+    id: 'equilibrium-brine',
+    citations: [cite('modernist-home', 'cap. "Brines and Marinades"')],
+  },
+  { id: 'dry-brining', citations: [cite('foodlab', 579), cite('foodlab', 291)] },
+  {
+    id: 'covering-brine',
+    citations: [
+      cite('modernist-home', 'cap. "Brines and Marinades"'),
+      cite('foodlab', 577),
+    ],
+  },
+  {
+    id: 'kosher-salt',
+    citations: [
+      cite('ruhlman-charcuterie', 'cap. 2, "Salt" — pesos do sal kosher'),
+      cite('foodlab', 81),
+    ],
+  },
+  {
+    id: 'injection',
+    citations: [cite('modernist-home', 'cap. "Brines and Marinades" — Injectors')],
+  },
+  { id: 'salting-out', citations: [cite('foodlab', 578)] },
+];
+
+/**
+ * docs/research/ganache.md §8.
+ *
+ * Uma obra só sustenta todos os verbetes, e é a única calculadora do site em que
+ * isso acontece. A página diz.
+ */
+const GANACHE: readonly GlossaryEntry[] = [
+  { id: 'ganache', citations: [cite('wybauw', '"Balancing ganache recipes"')] },
+  {
+    id: 'soft-substances',
+    citations: [
+      cite('wybauw', '"Balancing ganache recipes" — tabela de proporções médias'),
+    ],
+  },
+  { id: 'couverture', citations: [cite('wybauw', '"Balancing ganache recipes"')] },
+  {
+    id: 'water-activity',
+    citations: [cite('wybauw', '"Improved shelf life in practice"')],
+  },
+  {
+    id: 'precrystallising',
+    citations: [
+      cite('wybauw', '"Optimising the quality of the ganache" — Emulsifying, homogenising'),
+    ],
+  },
+  {
+    id: 'syneresis',
+    citations: [
+      cite('wybauw', '"Optimising the quality of the ganache" — Emulsifying, homogenising'),
+    ],
+  },
+];
+
 export const GLOSSARY: Record<CalculatorId, readonly GlossaryEntry[]> = {
   bread: BREAD,
   pickles: PICKLES,
   pasta: PASTA,
   gelato: GELATO,
+  curing: CURING,
+  jam: JAM,
+  brine: BRINE,
+  ganache: GANACHE,
 };
 
 /** Âncora do verbete na página. O mesmo id nos dois idiomas. */

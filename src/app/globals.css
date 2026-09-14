@@ -48,6 +48,14 @@
   --color-terracotta-tint: #f8e3db;
   --color-rose: #9c4763;
   --color-rose-tint: #f8e2e8;
+  --color-ember: #9c5f3c;
+  --color-ember-tint: #f6e5da;
+  --color-damson: #7a4a86;
+  --color-damson-tint: #efe6f4;
+  --color-tide: #3f6b6e;
+  --color-tide-tint: #dceceb;
+  --color-cocoa: #4e3a2e;
+  --color-cocoa-tint: #e9e0d8;
 
   /* ---- Faixas e estados (usados a partir das calculadoras, M1) ---------- */
   --color-ok: #3f6b4a;
@@ -117,12 +125,52 @@
     --color-page-edge: #f5e6da;
   }
 
+  /* Cura: brasa e defumação — o tom de carne curada, um passo mais escuro que
+     a terracota da massa, para as duas não se confundirem na aba. */
+  [data-calculator='curing'] {
+    --color-accent: #9c5f3c;
+    --color-accent-deep: #74432a;
+    --color-accent-tint: #f6e5da;
+    --color-page: #fcf7f4;
+    --color-page-edge: #f2e5dc;
+  }
+
   [data-calculator='gelato'] {
     --color-accent: #a34e6a;
     --color-accent-deep: #7d374f;
     --color-accent-tint: #f9e3ea;
     --color-page: #fdf6f8;
     --color-page-edge: #f4e2e8;
+  }
+
+  /* Geleia: ameixa damasco em compota — o único violeta do conjunto, para não
+     se confundir com o rosa do gelato nem com a terracota da massa. */
+  [data-calculator='jam'] {
+    --color-accent: #7a4a86;
+    --color-accent-deep: #5c3566;
+    --color-accent-tint: #efe6f4;
+    --color-page: #fbf7fd;
+    --color-page-edge: #eee4f1;
+  }
+
+  /* Salmoura: o único frio do conjunto, e de propósito — água salgada gelada
+     não é parente de nenhuma das outras seis. */
+  [data-calculator='brine'] {
+    --color-accent: #3f6b6e;
+    --color-accent-deep: #2f5154;
+    --color-accent-tint: #dceceb;
+    --color-page: #f5faf9;
+    --color-page-edge: #e3eeed;
+  }
+
+  /* Ganache: cacau escuro. Mais fechado que a brasa da cura de propósito —
+     as duas são marrons e precisam se distinguir na aba. */
+  [data-calculator='ganache'] {
+    --color-accent: #4e3a2e;
+    --color-accent-deep: #382720;
+    --color-accent-tint: #e9e0d8;
+    --color-page: #f9f5f2;
+    --color-page-edge: #ebe1d8;
   }
 
   html {

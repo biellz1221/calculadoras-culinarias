@@ -1,6 +1,6 @@
 # Bibliografia candidata e roadmap de calculadoras
 
-Levantamento vivo. Última revisão: 2026-09-03.
+Levantamento vivo. Última revisão: 2026-09-13.
 
 Não é extração: **nenhum número deste documento entrou no código**. É a lista do
 que vale ler, do que vale construir e por quê. Reúne o levantamento de gelato e
@@ -93,17 +93,22 @@ errar para cima é intoxicação.
 
 E tem a melhor divergência que apareceu até agora:
 
-> **Os EUA trabalham com 156 ppm de nitrito de sódio** (referência do FSIS,
-> equivalente a 1 oz de cure #1 por 25 lb de carne, que é a conta que o Marianski
-> ensina). **A ANVISA fixa 150 mg/kg** para produtos cárneos, e o dobro para
-> nitrato. Quase toda calculadora e todo fórum de charcutaria em inglês entrega o
-> número americano. **Num site `.com.br`, isso é orientação fora da norma
-> local.** Mostrar os dois lados, com a nossa como padrão, é literalmente a razão
-> de ser deste projeto.
+> ⚠️ **Corrigido em 2026-09-13, depois de ler as duas normas no original.** O que
+> estava escrito aqui — "EUA 156 ppm contra ANVISA 150 mg/kg" — **comparava
+> entrada com resíduo**, que são grandezas diferentes. Os 156 ppm são o que se
+> *adiciona* a carne moída; os 150 mg/kg são o que pode *sobrar* no produto
+> pronto.
+>
+> Na mesma base: **resíduo máximo de 150 ppm no Brasil contra 200 ppm nos EUA**,
+> e mais — a norma brasileira conta a **soma** de nitrito e nitrato, expressa
+> como nitrito de sódio, enquanto os EUA fixam a **entrada** por método
+> (156 ppm moído, 625 ppm cura seca, 239,7 ppm em salmoura a 10%) e não somam.
+> São duas filosofias de regulação, não dois números do mesmo tipo — e continua
+> sendo a melhor divergência do documento, só que por um motivo mais interessante
+> do que o que eu tinha escrito.
 
-Antes de construir: confirmar a norma vigente na fonte primária (RDC da ANVISA e
-regulamento do MAPA). Tabela de aditivo é revisada, e o que circula em blog
-costuma estar desatualizado.
+Levantamento completo, com as duas normas transcritas ao pé da letra e as
+conversões conferidas, em [`docs/research/cura-carnes.md`](cura-carnes.md).
 
 ## Geleias: irmã da calculadora de picles
 
@@ -121,9 +126,19 @@ textura.
 > o mesmo cálculo com outros nomes: salmoura de equilíbrio (sal sobre carne mais
 > água) contra salga seca (sal sobre o peso da carne). Já sabemos fazer.
 
-A divergência também já está mapeada: o equilíbrio do Modernist mira cerca de
+~~A divergência também já está mapeada: o equilíbrio do Modernist mira cerca de
 0,5% de sal final na carne, enquanto a salga seca do Food Lab parte de 0,85%
-sobre o peso da proteína. Números diferentes que descrevem produtos diferentes.
+sobre o peso da proteína. Números diferentes que descrevem produtos
+diferentes.~~
+
+**Corrigido em 2026-09-13, com as duas obras na mão.** Modernist usa 0,6% de sal
+sobre a ave (12 g para 2 kg, injetados) e declara alvo de 0,5% de concentração
+final; Food Lab usa 1 colher de chá de Diamond Crystal por libra, que pelo peso
+publicado em Ruhlman & Polcyn dá 0,625%. **As duas fontes concordam sobre o
+sal.** A divergência é sobre a água: Modernist injeta 10% do peso da peça, Food
+Lab não usa nenhuma, e mede um ponto percentual a menos de umidade retida — que
+ele descarta porque "much of the juice it's now holding on to is nothing more
+than tap water". Extração completa em `salmoura.md`.
 
 ## Ganache: conta melhor do que parece
 
@@ -306,6 +321,187 @@ variável de controle, como a porcentagem de sal é no picles.
 | **Michael Ruhlman, _Ratio_** **[já na estante]** | Já sustenta pães e massas. Serve também de ponto de partida para geleia, ganache e emulsão. |
 
 ---
+
+# Parte 4.11: o que chegou à estante (2026-09-13)
+
+Gabriel trouxe 34 obras novas. Conferi arquivo por arquivo — metadados, primeira
+página e camada de texto. O que segue é o estado real, não a lista de desejos.
+
+## Chegou e está legível
+
+**Gelato:** Corvitto (_Los secretos del helado_, ES) · Clarke · Dana Cree
+**Pães:** Forkish FWSY · Forkish _Elements of Pizza_ · Modernist Cuisine vol. 1 e _at Home_
+**Pães orientais:** Cho _Mooncakes and Milk Bread_ · Nguyen _Asian Dumplings_ · Alford & Duguid _Flatbreads & Flavors_ · Helou _Feast_ · Scheft _Breaking Breads_ · Duguid _Taste of Persia_ · Kassis _The Arabesque Table_ · Sahni _Classic Indian Cooking_ · Alford & Duguid _Mangoes & Curry Leaves_
+**Cura:** Ruhlman & Polcyn _Charcuterie_
+**Geleias:** Saunders _Blue Chair Jam_ · Ferber _Mes Confitures_
+**Emulsões:** Peterson _Sauces_ · Peterson _Sauces, Salsas and Chutneys_
+**Chocolate:** Wybauw _Fine Chocolates_
+**Molhos orientais:** Tsuji · Dunlop _The Food of Sichuan_ · Kuo _The Key to Chinese Cooking_
+**Transversais:** McGee _On Food and Cooking_ · McGee _Keys to Good Cooking_
+
+## Chegou, mas é digitalização em imagem (precisa de OCR antes de virar fonte)
+
+Sem camada de texto: não dá para extrair número sem passar tesseract, e OCR de
+tabela erra. **Ler estes exige trabalho extra antes de citar.**
+
+- **Greweling, _Chocolates and Confections_** — 200 páginas, imagem. Era para ser
+  a fonte da ganache; o Wybauw resolveu no lugar dele. Hoje o que falta é o
+  contraponto: a ganache é a única calculadora do site com uma fonte só.
+- **Modernist Bread vol. 1** — 409 páginas, imagem.
+- **Modernist Pizza vol. 1-3** — 448 páginas, imagem.
+
+## Chegou quebrado
+
+- **McGee, _The Curious Cook_** — arquivo de **0 byte**. Precisa baixar de novo.
+
+## Bônus, fora da lista original (mesmos autores)
+
+Forkish _Evolutions in Bread_ · Migoya _The Elements of Dessert_ · McGee _Keys to
+Good Cooking_ · Peterson _Sauces, Salsas and Chutneys_ · Modernist Pizza.
+
+## Ainda falta
+
+Por ordem de quanto trava uma calculadora do roadmap:
+
+| Obra | Trava o quê | Por quê importa |
+| --- | --- | --- |
+| **Marianski, _Home Production of Quality Meats and Sausages_** | Cura | O mais explícito em conta de ppm para quem faz em casa |
+| **Arendt & Dal Bello, _Gluten-Free Cereal Products_** | Pão sem glúten | Única fonte séria de dose de hidrocoloide; a calculadora não sai sem ela |
+| **Goff, Hartel & Rankin, _Ice Cream_ 8ª ed.** | Gelato | Fecharia a temperatura de serviço e a densidade, hoje sem fonte |
+| **Caviezel** | Gelato | A segunda régua de PAC/POD |
+| **López-Alt, _The Food Lab_** | Salmoura | O lado da salga seca na divergência |
+| **McClements, _Food Emulsions_** | Emulsões | Só se o tema virar página; calculadora fraca de qualquer jeito |
+| **Cauvain & Young, _Technology of Breadmaking_** | Pães | Faixa de valor W, que o glossário cita e o cálculo não usa |
+| **Huang & Miskelly, _Steamed Breads_** | Pão no vapor | Único livro técnico do tema em inglês |
+| **Park & Choi, _The Korean Cookbook_** | Molhos orientais | Os jang com lastro de P&D |
+| **Qarooni, _Flat Bread Technology_** · **Madhur Jaffrey** · **Claudia Roden** · **Migoya _Frozen Desserts_** · **Kopfer** · **Yvonne Chen** | — | Repertório e contexto; nenhum trava calculadora |
+
+
+# Parte 4.12: o que já virou calculadora (2026-09-13)
+
+| Tema | Estado | Pesquisa |
+| --- | --- | --- |
+| **Cura de carnes** | No ar. ANVISA e 9 CFR lidos no original, Marianski e Ruhlman & Polcyn na estante. | `cura-carnes.md` |
+| **Geleias** | No ar. Saunders (nove receitas pesadas), Ferber (proporção da casa e pectina de maçã), NCHFP (classificação das frutas, temperatura por altitude, conservação), McGee *Keys* (o limiar de 300 m). | `geleias.md` |
+| **Salmoura de proteína** | No ar. Modernist at Home (quatro receitas), Food Lab (salga seca e o experimento dos doze peitos), Ruhlman & Polcyn (o peso de uma xícara de sal kosher, que é o que torna a dose do Food Lab executável). | `salmoura.md` |
+| **Ganache** | No ar, e **não pelo Greweling**. O Wybauw (_Fine Chocolates_), que entrou fora da lista original, tem texto extraível, a tabela de proporções por textura e — o que o Greweling talvez nem tivesse — atividade de água e prazo de validade. O Greweling continua sendo o contraponto que falta. | `ganache.md` |
+| **Pão sem glúten** | Travada: Arendt & Dal Bello não chegou. | — |
+
+**Duas correções nesta revisão.**
+
+1. O `Charcuterie` de Ruhlman e Polcyn estava sendo citado como se fosse o
+   `Ratio`, do mesmo autor. São obras diferentes e agora têm entradas diferentes
+   na estante. Ver `docs/quality/2026-09-13-calculadora-de-geleias.md`.
+2. **A §2 deste documento errava a divergência da salmoura.** Dizia "0,5% contra
+   0,85%"; lidas as duas obras, são **0,6% e 0,625%** — Modernist e Food Lab
+   concordam sobre o sal e divergem sobre a água. O texto da §2 abaixo foi
+   corrigido. Ver `docs/quality/2026-09-13-calculadora-de-salmoura.md`.
+
+**Lacunas novas, abertas pela calculadora de geleias:**
+
+- **Fruta brasileira em conserva doce.** Goiaba, jabuticaba, maracujá, manga e
+  caju não têm proporção pesada em nenhuma das três fontes de geleia. É a maior
+  lacuna do site hoje: a calculadora entrega nove frutas e nenhuma delas é de
+  quintal brasileiro.
+- **A goiaba tem divergência aberta.** O NCHFP a classifica no grupo III
+  ("always needs added acid, pectin or both") e McGee diz que ela é rica em
+  pectina. A leitura provável é que falte ácido, não pectina — mas provável não
+  vira número na tela, e por isso ela ficou fora dos presets.
+- **Janela de pH da gelificação.** Nenhuma das três fontes publica. Os valores
+  que este documento citava (2,8 a 3,5) não vieram de fonte lida e continuam
+  fora do código. Os manuais de fabricante de pectina da §4.6 resolveriam.
+
+# Parte 4.13: fruta brasileira em conserva doce — resolvido (2026-09-13), implementado (2026-09-14)
+
+> **No ar.** A calculadora de geleias entrega 44 frutas desde 2026-09-14, 35
+> delas vindas da Tabela 1 abaixo. A extração conferida, a régua legal e o que
+> ficou de fora estão em `geleias.md`, Parte II; o relatório de qualidade, em
+> `docs/quality/2026-09-14-fruta-brasileira-nas-geleias.md`.
+
+A maior lacuna aberta pela calculadora de geleias era não ter fruta de quintal
+brasileiro. **Está resolvida, e de graça.** A rede pública de pesquisa publica
+exatamente o tipo de material que este site precisa: institucional, citável,
+com número e sem paywall.
+
+| Obra | O que resolve |
+| --- | --- |
+| **TORREZAN, Renata. _Manual para a produção de geléias de frutas em escala industrial._** Rio de Janeiro: Embrapa Agroindústria de Alimentos, jan. 1998. Documentos nº 29, ISSN 0103-6068 · **gratuito**<br>[PDF na Infoteca](https://www.infoteca.cnptia.embrapa.br/bitstream/doc/415585/1/1998DOC0029.pdf) | **A fonte.** Traz (a) a Tabela 1, que classifica ~40 frutas por teor de pectina (rica/média/pobre) e acidez (alta/média/baixa), com goiaba, jabuticaba em quatro variedades, caju, maracujá, araçá, cajá-manga, acerola, carambola, caqui, fruta-do-conde, mamão, manga, pitanga, uvaia e nêspera; (b) a **janela de pH** que faltava — "o gel se forma apenas em pH ao redor de 3. Além de pH 3,4 não ocorre geleificação"; (c) a dose de pectina — "geralmente 1% é suficiente para produzir uma geléia firme"; (d) a acidez total alvo, 0,5–0,8%, "pois acima de 1% ocorre sinérese"; e (e) a definição legal brasileira de geleia comum e extra, com proporção fruta:açúcar. |
+| **JACKIX, Marta Hiromi. _Doces, geléias e frutas em calda._** Campinas: Ed. da Unicamp / São Paulo: Ícone, 1988. 172 p. **[a conferir]** | É de onde a Tabela 1 do Embrapa tira as linhas marcadas com asterisco. Fonte primária da classificação; vale ter se aparecer em sebo. |
+| **Embrapa, _Processamento de Frutas e Hortaliças em Agroindústrias da Agricultura Familiar_** (2021) · **gratuito**<br>[PDF na Infoteca](https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1131988/1/Cartilha-frutas-Sona-Web.pdf) | Régua caseira em vez de industrial, e nomeia as polpas naturalmente pobres em pectina: abacaxi, jabuticaba, caju, morango, acerola, maracujá e carambola. |
+| **Embrapa, _Produção de Doces, Geleias e Compotas em Agroindústria_** · **gratuito**<br>[PDF na Infoteca](https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1098842/1/DOC18008.pdf) | Doce de goiaba e afins. |
+| **FILGUEIRAS, H. A. C. et al. _Fabricação de geléias._** Belo Horizonte: CETEC, 1985. Manual Técnico, Série Alimentos, 4 **[a conferir]** | Outra referência citada pelo Embrapa. |
+
+**A legislação brasileira, transcrita do Documento 29:**
+
+> "Comum: quando preparadas numa proporção de quarenta partes de frutas frescas
+> ou seu equivalente para sessenta partes de açúcar. As geléias de marmelo,
+> laranja e maçã poderão ser preparadas com trinta e cinco partes de frutas
+> frescas ou seu equivalente à fruta fresca e sessenta e cinco partes de açúcar.
+> Extra: quando preparadas numa proporção de cinqüenta partes de frutas frescas
+> ou seu equivalente para cinqüenta partes de açúcar."
+
+Sólidos solúveis totais mínimos: **62% para a comum e 65% para a extra.** Repare
+que o 65% da extra bate com os 65% de Ferber, por caminhos completamente
+independentes — norma brasileira e confeiteira alsaciana.
+
+**O que isso corrige na nossa própria pesquisa.** `geleias.md` §3 registrou uma
+divergência aberta sobre a goiaba: o NCHFP a põe no grupo III ("always needs
+added acid, pectin or both") e McGee diz que ela é rica em pectina. O Embrapa
+decide: **goiaba vermelha, madura e de vez — pectina rica, acidez média.** A
+leitura que o documento já supunha estava certa: sobra pectina, falta ácido.
+
+**Cuidado ao citar.** As linhas com asterisco da Tabela 1 são do Jackix (1988), e
+o Embrapa é quem reproduz. A citação tem de dizer isso.
+
+## O que apareceu ao baixar os arquivos
+
+Os sete documentos estão em `references/jams/embrapa/`, com índice local. Seis
+têm camada de texto; o de maracujá (CT 31) é digitalização em imagem a 300 dpi e
+**não serve como fonte sem OCR conferido**, mesmo caso do Greweling.
+
+**O Documento 138 tem a tabela que faltava em metro e em Celsius.** Ele converte
+temperatura de ebulição em °Brix por altitude — nível do mar, 500, 1.000, 1.500 e
+2.000 m. É a corroboração brasileira do que a calculadora de geleias já faz pela
+tabela do NCHFP, e comparando as duas a 65 °Brix:
+
+| Altitude | Embrapa, 65 °Brix | O que a calculadora dá hoje | Diferença |
+|---|---|---|---|
+| nível do mar | 104,85 °C | 104,44 °C | +0,41 |
+| 500 m | 103,15 °C | 102,62 °C | +0,53 |
+| 1.000 m | 101,45 °C | 100,80 °C | +0,65 |
+| 1.500 m | 99,75 °C | 99,49 °C | +0,26 |
+| 2.000 m | 98,05 °C | 97,71 °C | +0,34 |
+
+Menos de sete décimos de grau em toda a faixa, e uma fonte não conhece a outra.
+Reescrito como diferença acima da fervura da água, ao nível do mar, aparece a
+divergência de verdade — e ela é pequena:
+
+- **NCHFP:** +4,44 °C (os 8 °F que ele publica)
+- **Embrapa:** +4,85 °C
+- **Ferber:** +5,00 °C (os 105 °C dele)
+
+Ferber e Embrapa ficam mais perto um do outro do que qualquer um dos dois do
+NCHFP. Repare também que as duas grandezas não são idênticas: o NCHFP define o
+ponto de gelificação, e o Embrapa tabela quando a calda chega a 65 °Brix. Que
+caiam a meio grau uma da outra é o argumento de que as duas descrevem o mesmo
+fenômeno.
+
+**A Embrapa credita a tabela a terceiro**: "Extraído de Curso de processamento de
+frutas". Terceira mão, e a citação tem de dizer.
+
+**Outras coisas que os arquivos trazem, para a revisão da calculadora de geleias:**
+
+- **Documento 138** — formulações pesadas com dose de pectina e de ácido em
+  grama: pêssego, morango, mirtilo, amora-preta, maçã. Resolve a dose de pectina
+  em pó, que hoje está declarada como pendência.
+- **Documento 180** — conversão de °Brix em açúcar a adicionar (429 g para
+  30 °Brix, 668 g para 40, 1.000 g para 50), e goiaba em sete pontos.
+- **Doce em massa (2015)** — pectina de alta metoxilação gelifica a 60–80% de
+  sólidos solúveis e pH 2,8–3,8. É a faixa de pH que faltava, agora com a
+  segunda fonte.
+- **Cupuaçu** — 65% a 68% de sólidos solúveis no processamento.
+- **Cartilha de 2021** — nomeia as polpas naturalmente pobres em pectina:
+  abacaxi, jabuticaba, caju, morango, acerola, maracujá e carambola.
 
 # Parte 5: lista de compras sugerida
 

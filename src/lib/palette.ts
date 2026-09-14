@@ -33,4 +33,8 @@ export const PALETTES: Record<RouteKey, Palette> = {
   pickles: { page: '#f8faf2', accent: '#5a7a45', accentDeep: '#40592f' },
   pasta: { page: '#fdf7f2', accent: '#b25733', accentDeep: '#8a3f22' },
   gelato: { page: '#fdf6f8', accent: '#a34e6a', accentDeep: '#7d374f' },
+  curing: { page: '#fcf7f4', accent: '#9c5f3c', accentDeep: '#74432a' },
+  jam: { page: '#fbf7fd', accent: '#7a4a86', accentDeep: '#5c3566' },
+  brine: { page: '#f5faf9', accent: '#3f6b6e', accentDeep: '#2f5154' },
+  ganache: { page: '#f9f5f2', accent: '#4e3a2e', accentDeep: '#382720' },
 };
