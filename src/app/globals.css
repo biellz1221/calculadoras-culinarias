@@ -56,6 +56,8 @@
   --color-tide-tint: #dceceb;
   --color-cocoa: #4e3a2e;
   --color-cocoa-tint: #e9e0d8;
+  --color-quartz: #4f628a;
+  --color-quartz-tint: #e2e7f1;
 
   /* ---- Faixas e estados (usados a partir das calculadoras, M1) ---------- */
   --color-ok: #3f6b4a;
@@ -171,6 +173,16 @@
     --color-accent-tint: #e9e0d8;
     --color-page: #f9f5f2;
     --color-page-edge: #ebe1d8;
+  }
+
+  /* Gelificantes: quartzo. Fria e clara, como um gel translúcido — é a única
+     página do site que não puxa para o quente, e é de propósito. */
+  [data-calculator='gelling'] {
+    --color-accent: #4f628a;
+    --color-accent-deep: #3a4a6b;
+    --color-accent-tint: #e2e7f1;
+    --color-page: #f6f7fb;
+    --color-page-edge: #e6e9f2;
   }
 
   html {

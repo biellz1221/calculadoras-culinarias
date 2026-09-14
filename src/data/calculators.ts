@@ -9,7 +9,8 @@ export type CalculatorId =
   | 'curing'
   | 'jam'
   | 'brine'
-  | 'ganache';
+  | 'ganache'
+  | 'gelling';
 
 /** Cor da aba de cada calculadora, no espírito das abas de um fichário. */
 export type CalculatorAccent =
@@ -20,7 +21,8 @@ export type CalculatorAccent =
   | 'ember'
   | 'damson'
   | 'tide'
-  | 'cocoa';
+  | 'cocoa'
+  | 'quartz';
 
 export interface Calculator {
   id: CalculatorId;
@@ -85,6 +87,12 @@ export const CALCULATORS: readonly Calculator[] = [
     route: 'ganache',
     accent: 'cocoa',
     sources: ['wybauw'],
+  },
+  {
+    id: 'gelling',
+    route: 'gelling',
+    accent: 'quartz',
+    sources: ['modernist-home', 'mcgee-ofc'],
   },
 ];
 

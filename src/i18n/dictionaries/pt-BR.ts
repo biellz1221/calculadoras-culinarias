@@ -228,6 +228,11 @@ export const ptBR = {
       blurb:
         'Açúcar e limão pela receita publicada de cada fruta, e a temperatura do ponto na altitude em que você cozinha.',
     },
+    gelling: {
+      name: 'Gelificantes',
+      blurb:
+        'Gelatina, ágar, xantana e carragena pelo peso do líquido — e a conversão entre folha e pó, que é onde quase toda receita erra.',
+    },
   } satisfies Record<CalculatorId, { name: string; blurb: string }>,
 
   footer: {

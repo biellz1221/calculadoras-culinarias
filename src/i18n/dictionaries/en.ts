@@ -206,6 +206,11 @@ export const en: Dictionary = {
       blurb:
         'Sugar and lemon from the published recipe for each fruit, and the setting temperature at the altitude you cook at.',
     },
+    gelling: {
+      name: 'Gelling agents',
+      blurb:
+        'Gelatin, agar, xanthan and carrageenan by the weight of your liquid — plus the sheet-to-powder conversion nearly every recipe gets wrong.',
+    },
   },
 
   footer: {
