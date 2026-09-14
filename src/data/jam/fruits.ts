@@ -1,4 +1,10 @@
-import { EMBRAPA_TABLE, EMBRAPA_TABLE_CITATIONS, LEGAL_CITATIONS, getEmbrapaRow } from './brazil';
+import {
+  EMBRAPA_TABLE,
+  EMBRAPA_TABLE_CITATIONS,
+  FRESH_RECIPES,
+  LEGAL_CITATIONS,
+  getEmbrapaRow,
+} from './brazil';
 import { cite } from '../citations';
 import type { JamFruit, SourceRecipe } from './types';
 
@@ -195,14 +201,51 @@ const CLASSIFIED_FRUITS: readonly JamFruit[] = EMBRAPA_TABLE.filter(
   id: row.id,
   embrapaId: row.id,
   legalException: LEGAL_EXCEPTION_IDS.has(row.id),
-  citations: [...EMBRAPA_TABLE_CITATIONS, ...LEGAL_CITATIONS],
+  fresh: FRESH_RECIPES[row.id],
+  citations: [
+    ...EMBRAPA_TABLE_CITATIONS,
+    ...LEGAL_CITATIONS,
+    ...(FRESH_RECIPES[row.id]?.citations ?? []),
+  ],
 }));
 
-export const JAM_FRUITS: readonly JamFruit[] = [...WEIGHED_FRUITS, ...CLASSIFIED_FRUITS];
+/**
+ * Fruta nativa que só o receituário do MMA cobre.
+ *
+ * Não está na Tabela 1 da Embrapa nem em livro de conserva nenhum: umbu,
+ * maracujá-do-cerrado, maracujá-do-mato, pera-do-cerrado e a jabuticaba sem
+ * caroço da compota. Entram sem classificação de pectina — o MMA não
+ * classifica — e com a proporção da receita, que é fresca.
+ *
+ * A jabuticaba sem caroço entra separada das quatro linhas de jabuticaba da
+ * Embrapa de propósito: "sem caroço" não é "sem casca", e a Tabela 1 distingue
+ * as duas coisas. Emparelhar seria inventar equivalência.
+ */
+const NATIVE_ONLY_IDS = [
+  'umbu',
+  'passionfruit-cerrado',
+  'passionfruit-mato',
+  'pera-do-cerrado',
+  'jaboticaba-seedless',
+] as const;
+
+const NATIVE_FRUITS: readonly JamFruit[] = NATIVE_ONLY_IDS.map((id) => ({
+  id,
+  fresh: FRESH_RECIPES[id],
+  citations: [...(FRESH_RECIPES[id]?.citations ?? []), ...LEGAL_CITATIONS],
+}));
+
+export const JAM_FRUITS: readonly JamFruit[] = [
+  ...WEIGHED_FRUITS,
+  ...CLASSIFIED_FRUITS,
+  ...NATIVE_FRUITS,
+];
 
 /** As duas famílias, para o seletor agrupar em vez de despejar 44 botões. */
 export const WEIGHED_FRUIT_IDS: readonly string[] = WEIGHED_FRUITS.map((f) => f.id);
 export const CLASSIFIED_FRUIT_IDS: readonly string[] = CLASSIFIED_FRUITS.map((f) => f.id);
+/** As que só existem no receituário do MMA. */
+export const NATIVE_FRUIT_IDS: readonly string[] = NATIVE_FRUITS.map((f) => f.id);
 
 export function getFruit(id: string): JamFruit | undefined {
   return JAM_FRUITS.find((fruit) => fruit.id === id);
@@ -226,9 +269,23 @@ export function sourceSugarRatio(fruit: JamFruit): number | null {
 export function sourceLemonRatio(
   fruit: JamFruit,
 ): { min: number; max: number } | null {
-  if (!fruit.recipe) return null;
-  const { fruitOz, lemonOz, lemonMaxOz } = fruit.recipe;
-  return { min: lemonOz / fruitOz, max: (lemonMaxOz ?? lemonOz) / fruitOz };
+  if (fruit.recipe) {
+    const { fruitOz, lemonOz, lemonMaxOz } = fruit.recipe;
+    return { min: lemonOz / fruitOz, max: (lemonMaxOz ?? lemonOz) / fruitOz };
+  }
+  // A receita fresca publica o limão em grama, e por isso fruta nativa deixou
+  // de cair no "a fonte não publica a dose".
+  if (fruit.fresh?.lemonGrams) {
+    const ratio = fruit.fresh.lemonGrams / fruit.fresh.fruitGrams;
+    return { min: ratio, max: ratio };
+  }
+  return null;
+}
+
+/** Açúcar da receita fresca, sobre a fruta. */
+export function freshSugarRatio(fruit: JamFruit): number | null {
+  if (!fruit.fresh) return null;
+  return fruit.fresh.sugarGrams / fruit.fresh.fruitGrams;
 }
 
 /**
@@ -283,4 +340,10 @@ export const PECTIN_GROUP_CITATIONS = [
 export function needsAddedPectin(fruit: JamFruit): boolean {
   if (fruit.group === 'iii') return true;
   return getEmbrapaRow(fruit.embrapaId)?.pectin === 'poor';
+}
+
+/** Se a receita fresca daquela fruta usa pectina em pó, e quanto sobre o açúcar. */
+export function freshPectinRatio(fruit: JamFruit): number | null {
+  if (!fruit.fresh?.pectinGrams) return null;
+  return fruit.fresh.pectinGrams / fruit.fresh.sugarGrams;
 }

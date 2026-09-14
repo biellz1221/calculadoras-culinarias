@@ -1,5 +1,10 @@
 import { cite } from '../citations';
-import type { EmbrapaAcidity, EmbrapaFruitRow, EmbrapaPectin } from './types';
+import type {
+  EmbrapaAcidity,
+  EmbrapaFruitRow,
+  EmbrapaPectin,
+  FreshRecipe,
+} from './types';
 
 /**
  * O que as duas obras da Embrapa trazem para a calculadora de geleias.
@@ -269,3 +274,83 @@ export const EMBRAPA_BRIX_CITATIONS = [
 
 /** Grau de maior altitude que a tabela brasileira cobre. */
 export const EMBRAPA_BRIX_MAX_METERS = 2000;
+
+/**
+ * As geleias frescas do receituário do MMA.
+ *
+ * Extração e conferência em docs/research/geleias.md, Parte III. Quantidades em
+ * grama, como a fonte publica — não há onça nenhuma para converter aqui.
+ *
+ * **Todas são de uso imediato.** O modo de preparo cozinha a 65–70 °C, que é a
+ * temperatura em que a pectina se dissolve e não a em que a geleia dá o ponto;
+ * não há pote, não há banho-maria, e o livro não declara validade. Entram por
+ * darem quantidade publicada a fruta que nenhum livro de conserva da estante
+ * cobre — e entram com o aviso colado.
+ *
+ * **Duas ficaram de fora de propósito.** O araçá, porque a Tabela 1 da Embrapa
+ * especifica "roxo" e o MMA não especifica variedade: aproximar seria inventar,
+ * como já se decidiu para a uva Concord. E o bacuri, porque a receita é de
+ * melado com açúcar mascavo, que é outro produto.
+ */
+const MMA = (page: number) => [cite('mma-biodiversidade', page)];
+
+export const FRESH_RECIPES: Readonly<Record<string, FreshRecipe>> = {
+  // p. 312, geleia picante de pitanga. A mesma fórmula da de umbu: é um molde
+  // de chef aplicado a duas frutas, e as duas estão no livro.
+  pitanga: {
+    fruitGrams: 100,
+    sugarGrams: 75,
+    pectinGrams: 1,
+    lemonGrams: 12,
+    citations: MMA(312),
+  },
+  // p. 324, geleia picante de umbu.
+  umbu: {
+    fruitGrams: 100,
+    sugarGrams: 75,
+    pectinGrams: 1,
+    lemonGrams: 12,
+    citations: MMA(324),
+  },
+  // p. 760, compota de jabuticaba sem caroço. Sem pectina: a jabuticaba traz a
+  // dela, e o limão aqui é generoso — 15% sobre a fruta.
+  'jaboticaba-seedless': {
+    fruitGrams: 200,
+    sugarGrams: 100,
+    lemonGrams: 30,
+    citations: MMA(760),
+  },
+  // p. 714, geleia de maracujá-do-mato.
+  'passionfruit-mato': { fruitGrams: 120, sugarGrams: 55, citations: MMA(714) },
+  // p. 226, geleia de maracujá-do-cerrado.
+  'passionfruit-cerrado': {
+    fruitGrams: 100,
+    sugarGrams: 50,
+    lemonGrams: 15,
+    citations: MMA(226),
+  },
+  // p. 228, compota de pera-do-cerrado.
+  'pera-do-cerrado': {
+    fruitGrams: 450,
+    sugarGrams: 150,
+    lemonGrams: 40,
+    citations: MMA(228),
+  },
+  // p. 172, compota de caju.
+  'cashew-apple': { fruitGrams: 300, sugarGrams: 100, citations: MMA(172) },
+};
+
+/**
+ * A tabela de medidas caseiras que o MMA padroniza, em mL.
+ *
+ * Entra como referência de glossário, não como conta: o estado desta
+ * calculadora é sempre grama. Vale porque é a única padronização **brasileira e
+ * oficial** que temos de xícara e colher.
+ */
+export const MMA_HOUSEHOLD_MEASURES = {
+  cup: 240,
+  tablespoon: 15,
+  teaspoon: 5,
+} as const;
+
+export const MMA_MEASURES_CITATIONS = [cite('mma-biodiversidade', 32)];

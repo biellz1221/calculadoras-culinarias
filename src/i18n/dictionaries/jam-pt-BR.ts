@@ -82,6 +82,7 @@ export const jamPtBR = {
     fruit: 'Fruta',
     weighedGroup: 'Com receita pesada (Blue Chair)',
     classifiedGroup: 'Tabela da Embrapa (sem receita)',
+    nativeGroup: 'Receituário do MMA (geleia fresca)',
     fruitGrams: 'Fruta preparada (g)',
     fruitHint: 'Já descascada, sem caroço e cortada. É sobre este peso que as proporções foram escritas.',
     altitude: 'Altitude (m)',
@@ -147,6 +148,11 @@ export const jamPtBR = {
     'grape-american': 'Uva ananás, catawba e empire state',
     'grape-isabel': 'Uva isabel e niágara',
     uvaia: 'Uvaia',
+    'umbu': 'Umbu',
+    'passionfruit-cerrado': 'Maracujá-do-cerrado',
+    'passionfruit-mato': 'Maracujá-do-mato',
+    'pera-do-cerrado': 'Pera-do-cerrado',
+    'jaboticaba-seedless': 'Jabuticaba sem caroço',
   },
 
   /** O grupo é a classificação do NCHFP, e decide se o limão é obrigatório. */
@@ -180,12 +186,15 @@ export const jamPtBR = {
 
   sugarLevels: {
     source: 'A da receita',
+    fresh: 'A do receituário',
     ferber: 'Ferber (80%)',
     extra: 'Extra (50:50)',
     common: 'Comum (40:60)',
     custom: 'Escolher',
     sourceNote:
       'A proporção que o Blue Chair Jam Cookbook publica para esta fruta, sobre o peso da fruta preparada. Cada fruta tem a sua, e é isso que uma média esconderia.',
+    freshNote:
+      'A proporção que o receituário de biodiversidade do Ministério do Meio Ambiente publica para esta fruta. É geleia de prato, para comer no dia — cozinha a 65–70 °C, não vai a pote nem a banho-maria, e o livro não declara validade.',
     ferberNote:
       'A proporção da casa de Christine Ferber: 800 g de açúcar por quilo de fruta. É o valor de 93 das 218 receitas do livro dela, o mais frequente de longe.',
     extraNote:
@@ -292,11 +301,22 @@ export const jamPtBR = {
       'A própria Embrapa credita esta tabela a terceiro: "extraído de Curso de processamento de frutas".',
   },
 
+  fresh: {
+    notice: 'Geleia de uso imediato. O receituário do MMA cozinha esta a 65–70 °C, o suficiente para dissolver a pectina e bem longe do ponto de gelificação; não enche pote, não passa por banho-maria e não declara validade. Guarde na geladeira e coma nos próximos dias — nenhuma proporção desta página transforma isto em conserva de prateleira.',
+    title: 'A geleia fresca, e por que ela não é conserva',
+    body: 'O receituário de biodiversidade do Ministério do Meio Ambiente publica geleia pesada de fruta que nenhum livro de conserva da estante cobre: umbu, pitanga, maracujá-do-cerrado, maracujá-do-mato, pera-do-cerrado, jabuticaba e caju. São quantidades em grama, de publicação oficial e gratuita, e é o que faltava para essas frutas saírem da régua genérica da norma.',
+    body2: 'O que elas não são é conserva. O modo de preparo para nos 65–70 °C, que é onde a pectina se dissolve — o ponto de gelificação fica trinta e cinco graus acima. Não há pote, não há banho-maria, e o livro não declara prazo. É componente de prato, e a página diz isso toda vez que uma dessas frutas é escolhida.',
+    pectinNote: 'As quatro doses de pectina do receituário — 1,33%, 1,33%, 1,00% e 0,50% sobre o açúcar — caem todas dentro da faixa que a Embrapa publica. Terceira instituição, terceiro tipo de publicação, quatro em quatro.',
+  },
+
   status: {
     source: 'A proporção da fonte',
     aboveSource: 'Acima da fonte',
     belowSource: 'Abaixo da fonte',
     sourceLabel: 'Receita citada',
+    freshLabel: 'Receita do MMA',
+    freshAboveBody: 'Mais açúcar do que o receituário pede para esta fruta. Conserva um pouco melhor na geladeira e gelifica mais fácil; continua não sendo conserva de prateleira, porque o que define isso aqui não é a proporção — é o processo, que não tem pote nem banho-maria.',
+    freshBelowBody: 'Menos açúcar do que o receituário pede para esta fruta. Numa geleia de uso imediato isso não é risco de prateleira, porque prateleira não há: é textura e sabor, e a geleia vai ficar mais mole e menos doce. Continua valendo o mesmo: geladeira, e comer nos próximos dias.',
     normLabel: 'Geleia extra da norma',
     normSource: 'A proporção da norma',
     normAbove: 'Acima da norma',
@@ -351,6 +371,13 @@ export const jamPtBR = {
           'NCHFP: banho-maria, 5 a 15 min conforme a altitude. Saunders: forno a 250 °F. Ferber: enche até a borda, fecha quente e vira o pote.',
         decision:
           'Informa o tempo do NCHFP, que é o único com tabela por altitude, e diz que os outros dois métodos são dos autores citados. O NCHFP não endossa a inversão.',
+      },
+      {
+        topic: 'Geleia de livro de prato e geleia de conserva',
+        sources:
+          'O receituário do MMA publica geleias entre 0,40 e 0,77 de açúcar sobre a fruta. A legislação brasileira exige no mínimo 1,00 para chamar o produto de geleia extra, e Saunders trabalha entre 0,42 e 1,00 em receitas que vão a pote.',
+        decision:
+          'Mostra as três réguas e diz que medem produtos diferentes. Um livro do Ministério do Meio Ambiente publica como geleia o que a norma de rótulo não deixaria — e está certo, porque a dele se come no dia. A calculadora entrega a proporção da fonte que cobre aquela fruta, com o aviso que aquela fonte justifica.',
       },
       {
         topic: 'Quanto açúcar, de novo: receita ou norma',

@@ -668,3 +668,116 @@ Quatro mudanças, e a primeira é a que obriga as outras.
   a citação é de terceira mão e diz isso.
 - **CT 31, geleia de maracujá** — digitalização em imagem, sem camada de texto.
   Só entra depois de OCR conferido à mão.
+
+---
+
+# Parte III — a geleia que não é conserva (2026-09-14)
+
+## 18. O receituário do MMA
+
+**BRASIL. Ministério do Meio Ambiente. _Biodiversidade brasileira: sabores e
+aromas_. Brasília: MMA, 2019. (Biodiversidade, 52).** Gratuito, oficial,
+908 páginas. Paginação conferida em cinco pontos: impressa = PDF menos 1.
+
+Trezentas e sessenta e oito receitas pesadas em grama, com espécie nativa. Vinte
+delas são conserva doce, e sete entraram na calculadora:
+
+| Fruta | Açúcar/fruta | Pectina/açúcar | Limão/fruta | p. |
+|---|---|---|---|---|
+| Pitanga | 0,75 | 1,33% | 12% | 312 |
+| Umbu | 0,75 | 1,33% | 12% | 324 |
+| Jabuticaba sem caroço | 0,50 | — | 15% | 760 |
+| Maracujá-do-mato | 0,46 | — | — | 714 |
+| Maracujá-do-cerrado | 0,50 | — | 15% | 226 |
+| Pera-do-cerrado | 0,33 | — | 9% | 228 |
+| Caju | 0,33 | — | — | 172 |
+
+**Duas ficaram de fora de propósito.** O **araçá**, porque a Tabela 1 da Embrapa
+especifica "roxo" e o MMA não especifica variedade — mesma decisão já tomada
+para a uva Concord na Parte I. E o **bacuri**, porque a receita é de melado com
+açúcar mascavo, que é outro produto.
+
+## 19. Por que elas não são conserva, e por que isso entra na tela
+
+O modo de preparo da geleia de pitanga (p. 312), na íntegra:
+
+> "1. Cozinhar, em uma panela de fundo grosso, a polpa de pitanga […] com a água
+> e o açúcar, mantendo o fogo moderado (**65‑70 °C**). 2. Dissolver a pectina na
+> polpa reservada e acrescentar na mistura […] 3. Acrescentar o caldo de limão,
+> mexer e retirar do fogo."
+
+**Acaba aí.** Sessenta e cinco a setenta graus é a temperatura em que a pectina
+se dissolve — a mesma que o Embrapa Doc 138 manda no passo 3. O ponto de
+gelificação fica **trinta e cinco graus acima**. Não há concentração, não há
+pote, não há banho-maria, e o livro não declara validade em nenhuma das vinte.
+
+Então a fonte é boa e o produto é outro. A calculadora trata isso como terceira
+base — `fresh` —, e o aviso que a acompanha **não é sobre quanto tempo dura**: é
+sobre o produto não ir para a prateleira em proporção nenhuma. Mudar o açúcar
+numa geleia fresca muda textura e doçura, não segurança, porque segurança de
+prateleira ali não existe para começo de conversa.
+
+## 20. A divergência das três réguas
+
+| | Açúcar sobre a fruta |
+|---|---|
+| Receituário do MMA (prato) | 0,33 a 0,77 |
+| Blue Chair (conserva) | 0,42 a 1,00 |
+| Legislação brasileira (rótulo) | 1,00 a 1,86 |
+
+**As sete geleias do MMA ficam todas abaixo do mínimo legal**, e há teste
+garantindo isso. Um livro do Ministério do Meio Ambiente publica como "geleia" o
+que a norma de rótulo do mesmo país não deixaria chamar assim.
+
+Nenhum dos dois está errado. A norma classifica produto industrial embalado; o
+receituário descreve o que vai no prato naquela noite. É a terceira linha da
+mesma divergência que a Parte II já tinha aberto, e a mais clara das três.
+
+## 21. Terceira corroboração da faixa de pectina
+
+As quatro doses de pectina do receituário — 1,33%, 1,33%, 1,00% e 0,50% sobre o
+**açúcar** — caem todas dentro do 0,5% a 1,5% do Embrapa Doc 138.
+
+São agora três instituições e três tipos de publicação a dizer o mesmo: o manual
+industrial (Doc 29), o manual de bancada com onze formulações (Doc 138) e o
+receituário de chef do MMA. Quatro em quatro, dez em onze, e a regra explícita.
+
+## 22. O que o livro **não** deu, e eu fui verificar
+
+**Densidade de ingrediente brasileiro.** As 368 receitas trazem grama *e* medida
+caseira, e o livro padroniza a medida caseira num quadro próprio (xícara 240 mL,
+colher de sopa 15 mL, colher de chá 5 mL, p. 32). Parecia fechar a pendência do
+**peso do sal brasileiro** que a pesquisa de salmoura carrega.
+
+Agreguei tudo — 136 entradas de sal, 100 de água, 95 de farinha:
+
+```
+sal      n=136   mediana 1,00 g/mL   min 0,33  max 1,60
+água     n=100   mediana 1,00 g/mL   min 0,00  max 1,50
+farinha   n=95   mediana 0,50 g/mL   min 0,40  max 1,11
+```
+
+**A água é o diagnóstico.** A densidade dela é exatamente 1,00, e os dados do
+próprio livro espalham de 0,00 a 1,50. Olhando entrada por entrada: a maioria
+converte exato pelo quadro (240 g = 1 xícara, 120 g = ½, 60 g = ¼, 80 g = ⅓),
+mas uma minoria arredonda para número redondo — 500 g para 2 xícaras, quando
+seriam 480; 200 g para ¾, quando seriam 180.
+
+O livro **converte** usando uma densidade que nunca declara, e afrouxa no
+arredondamento. Uma densidade tirada daí seria estatística minha, não número
+dele. **Não entra**, e a pendência do sal brasileiro continua aberta.
+
+O que entra é o **quadro de medidas caseiras**, que é publicado explicitamente e
+é a única padronização brasileira e oficial de xícara e colher que temos. Entra
+como registro de glossário, não como conta: o estado desta calculadora continua
+sendo sempre grama.
+
+## 23. O que a Parte III deixa aberto
+
+- **Rendimento e validade** continuam fora para toda fruta brasileira. O MMA
+  declara rendimento do prato inteiro, não da geleia.
+- **Classificação de pectina e acidez das nativas.** Umbu, maracujá-do-cerrado,
+  maracujá-do-mato e pera-do-cerrado não estão na Tabela 1 da Embrapa, e o MMA
+  não classifica. Elas entram só com a proporção.
+- **Araçá e bacuri**, pelos motivos da §18.
+- **Densidade de ingrediente brasileiro**, pelo motivo da §22.

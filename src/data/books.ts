@@ -34,6 +34,7 @@ export type BookId =
   | 'embrapa-geleias-artesanal'
   | 'embrapa-hortalicas'
   | 'embrapa-processamento'
+  | 'mma-biodiversidade'
   | 'marianski'
   | 'anvisa-in211'
   | 'dipoa-of15'
@@ -350,6 +351,32 @@ export const BOOKS: readonly Book[] = [
     shortName: 'Embrapa Hortaliças',
     publisher: 'Embrapa Hortaliças',
     year: 2008,
+    locator: 'page',
+    kind: 'official',
+  },
+  {
+    /**
+     * O receituário da biodiversidade brasileira, do Ministério do Meio
+     * Ambiente.
+     *
+     * Trezentas e sessenta e oito receitas pesadas em grama, com espécie
+     * nativa. Entra na estante pelo que nenhuma outra obra daqui tem: geleia de
+     * umbu, de pitanga, de maracujá-do-cerrado, com quantidade publicada.
+     *
+     * **É livro de cozinha de prato, não de conserva.** As geleias dele cozinham
+     * a 65–70 °C, sem pote e sem banho-maria, e o livro não declara validade.
+     * O site as trata como o que são — ver `FreshRecipe` em jam/types.ts.
+     *
+     * Paginação conferida em cinco pontos: impressa = PDF menos 1.
+     */
+    id: 'mma-biodiversidade',
+    title: 'Biodiversidade brasileira: sabores e aromas',
+    authors: ['Ministério do Meio Ambiente'],
+    authorKind: 'organization',
+    shortName: 'MMA, Biodiversidade 52',
+    publisher: 'Ministério do Meio Ambiente',
+    year: 2019,
+    url: 'https://www.gov.br/mma/pt-br',
     locator: 'page',
     kind: 'official',
   },

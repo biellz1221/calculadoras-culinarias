@@ -9,6 +9,7 @@ import {
   FERBER_SUGAR_RATIO,
   FERBER_TARGET_SUGAR,
   FRUIT_OWN_SUGAR,
+  freshSugarRatio,
   getFruit,
   needsAddedPectin,
   sourceLemonRatio,
@@ -78,6 +79,10 @@ export function referenceFor(fruit: JamFruit): {
 } {
   const recipe = sourceSugarRatio(fruit);
   if (recipe !== null) return { ratio: recipe, basis: 'recipe' };
+  // A receita fresca vem antes da norma: proporção publicada para **aquela**
+  // fruta vale mais que a régua geral de rótulo, mesmo sendo de outro produto.
+  const fresh = freshSugarRatio(fruit);
+  if (fresh !== null) return { ratio: fresh, basis: 'fresh' };
   return { ratio: LEGAL_EXTRA_RATIO, basis: 'norm' };
 }
 
@@ -86,6 +91,7 @@ export function sugarRatioFor(
   level: SugarLevel,
   custom: number,
 ): number {
+  if (level === 'fresh') return freshSugarRatio(fruit) ?? LEGAL_EXTRA_RATIO;
   if (level === 'ferber') return FERBER_SUGAR_RATIO;
   if (level === 'extra') return LEGAL_EXTRA_RATIO;
   if (level === 'common') return legalCommonRatio(fruit);

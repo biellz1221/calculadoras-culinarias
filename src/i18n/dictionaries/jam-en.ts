@@ -84,6 +84,7 @@ export const jamEn: JamDictionary = {
     fruit: 'Fruit',
     weighedGroup: 'With a weighed recipe (Blue Chair)',
     classifiedGroup: 'Embrapa table (no recipe)',
+    nativeGroup: 'MMA cookbook (fresh jam)',
     fruitGrams: 'Prepared fruit (g)',
     fruitHint: 'Peeled, pitted and cut already. This is the weight the ratios were written against.',
     altitude: 'Altitude (m)',
@@ -145,6 +146,11 @@ export const jamEn: JamDictionary = {
     'grape-american': 'Grape: ananás, catawba, empire state',
     'grape-isabel': 'Grape: isabel and niágara',
     uvaia: 'Uvaia',
+    'umbu': 'Umbu',
+    'passionfruit-cerrado': 'Cerrado passion fruit',
+    'passionfruit-mato': 'Wild passion fruit',
+    'pera-do-cerrado': 'Cerrado pear',
+    'jaboticaba-seedless': 'Jaboticaba, pitted',
   },
 
   groups: {
@@ -177,12 +183,15 @@ export const jamEn: JamDictionary = {
 
   sugarLevels: {
     source: 'From the recipe',
+    fresh: 'From the MMA book',
     ferber: 'Ferber (80%)',
     extra: 'Extra (50:50)',
     common: 'Standard (40:60)',
     custom: 'Choose',
     sourceNote:
       'The ratio the Blue Chair Jam Cookbook publishes for this fruit, against the weight of prepared fruit. Every fruit has its own, and that is what an average would hide.',
+    freshNote:
+      'The ratio Brazil’s environment ministry publishes for this fruit in its biodiversity cookbook. It is a plated jam, to be eaten the same day — cooked at 65–70 °C, never jarred or water-bathed, and the book declares no shelf life.',
     ferberNote:
       'Christine Ferber’s house ratio: 800 g of sugar per kilo of fruit. It is the figure in 93 of the 218 recipes in her book, by far the most frequent.',
     extraNote:
@@ -289,11 +298,22 @@ export const jamEn: JamDictionary = {
       'Embrapa credits this table onward itself: "taken from a fruit processing course".',
   },
 
+  fresh: {
+    notice: 'A jam for immediate use. The MMA cookbook cooks this one at 65–70 °C, enough to dissolve the pectin and well short of the setting point; it fills no jars, takes no water bath and declares no shelf life. Keep it refrigerated and eat it within days — no ratio on this page turns it into a shelf-stable preserve.',
+    title: 'The fresh jam, and why it is not a preserve',
+    body: 'The biodiversity cookbook from Brazil’s environment ministry publishes weighed jams for fruit no preserving book on this shelf covers: umbu, pitanga, cerrado and wild passion fruit, cerrado pear, jaboticaba and cashew apple. Quantities in grams, from a free official publication, and it is what those fruits needed to step off the norm’s generic ruler.',
+    body2: 'What they are not is preserves. The method stops at 65–70 °C, where pectin dissolves — the setting point is thirty-five degrees above that. No jars, no water bath, no shelf life declared. It is a plated component, and the page says so every time one of those fruits is chosen.',
+    pectinNote: 'The four pectin doses in the cookbook — 1.33%, 1.33%, 1.00% and 0.50% against the sugar — all land inside the band Embrapa publishes. A third institution, a third kind of publication, four out of four.',
+  },
+
   status: {
     source: 'The source ratio',
     aboveSource: 'Above the source',
     belowSource: 'Below the source',
     sourceLabel: 'Cited recipe',
+    freshLabel: 'MMA recipe',
+    freshAboveBody: 'More sugar than the cookbook calls for with this fruit. It keeps slightly better in the fridge and sets more readily; it still is not a shelf-stable preserve, because what decides that here is not the ratio — it is the process, which has no jars and no water bath.',
+    freshBelowBody: 'Less sugar than the cookbook calls for with this fruit. In a jam for immediate use that is not a shelf-stability risk, because there is no shelf: it is texture and sweetness, and the jam will be looser and less sweet. The same rule holds — refrigerated, eaten within days.',
     normLabel: 'Legal “extra” jam',
     normSource: 'The ratio in the norm',
     normAbove: 'Above the norm',
@@ -348,6 +368,13 @@ export const jamEn: JamDictionary = {
           'NCHFP: boiling-water canner, 5 to 15 min by altitude. Saunders: oven at 250 °F. Ferber: fill to the brim, cap hot and invert.',
         decision:
           'Reports the NCHFP time, the only one with a table by altitude, and says the other two methods belong to the authors cited. The NCHFP does not endorse inverting.',
+      },
+      {
+        topic: 'Jam from a plating book and jam from a preserving book',
+        sources:
+          'The MMA cookbook publishes jams between 0.40 and 0.77 sugar against fruit. Brazilian law requires at least 1.00 before the product may be called extra jam, and Saunders works between 0.42 and 1.00 in recipes that go into jars.',
+        decision:
+          'Shows all three rulers and says they measure different products. An environment ministry cookbook prints as jam what the labelling norm would not allow — and it is right, because its jam is eaten the same day. The calculator gives the ratio from whichever source covers that fruit, with the warning that source justifies.',
       },
       {
         topic: 'How much sugar, again: recipe or norm',
