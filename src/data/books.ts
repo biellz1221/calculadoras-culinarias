@@ -41,7 +41,8 @@ export type BookId =
   | 'fsis-424'
   | 'gelato-course'
   | 'scheft'
-  | 'cho';
+  | 'cho'
+  | 'modernist-1';
 
 export interface Book {
   id: BookId;
@@ -216,6 +217,22 @@ export const BOOKS: readonly Book[] = [
     authors: ['Harold McGee'],
     publisher: 'Scribner',
     locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    // Volume 1 do conjunto: história, microbiologia, nutrição e física da
+    // cozinha. Não é o volume dos hidrocoloides — esse é o 4, que não temos.
+    //
+    // O PDF traz **duas páginas impressas por página de PDF** (é digitalização
+    // de página dupla), e a conta é `impressa = 2 × PDF − 15`, conferida em seis
+    // pontos com o fólio visível na imagem. O texto é digital, não OCR:
+    // fontes embutidas e `Producer: 3-Heights PDF Producer`.
+    id: 'modernist-1',
+    title: 'Modernist Cuisine, vol. 1: History and Fundamentals',
+    authors: ['Nathan Myhrvold', 'Chris Young', 'Maxime Bilet'],
+    publisher: 'The Cooking Lab',
+    year: 2011,
+    locator: 'page',
     kind: 'book',
   },
   {

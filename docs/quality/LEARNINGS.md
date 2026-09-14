@@ -239,6 +239,19 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   livro arredonda a própria receita. A afirmação forte foi parar na pesquisa e
   nos dois dicionários antes de alguém multiplicar — e o que restou, mais fraco,
   é o que era verdade desde o começo.
+- **Deslocamento de página que cresce pode ser página dupla, não paginação
+  quebrada.** No *Modernist Cuisine* vol. 1 os deslocamentos eram 25, 65, 105,
+  145 — parecia o caso de mandar a obra para `locator: 'chapter'`. São dois
+  fólios por página de PDF: `impressa = 2 × PDF − 15`, exata em seis pontos.
+  Antes de desistir da paginação, teste se a razão entre páginas de PDF e
+  páginas impressas é 2. E lembre que aí a camada de texto mistura duas
+  páginas: só a imagem diz em qual delas a frase está.
+- **Quando duas fontes concordam, diga onde elas discordam de si mesmas.** A
+  tabela do NCHFP contraria a regra de bolso da própria página, e isso vinha
+  como incômodo comentado no código. O Modernist, chegando à mesma curva por
+  física, transformou o incômodo em resposta: a diferença interna é de
+  arredondamento. Convergência externa é o que resolve contradição interna —
+  procure a segunda fonte justamente onde a primeira se contradiz.
 - **Fonte oficial pode discordar de si mesma.** O NCHFP resume a temperatura por
   altitude como "subtract 2 degrees F" por mil pés, e a tabela da mesma página
   não segue a regra a partir de 5.000 pés. A tabela é o dado, a regra é a

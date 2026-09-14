@@ -781,3 +781,87 @@ sendo sempre grama.
   não classifica. Elas entram só com a proporção.
 - **Araçá e bacuri**, pelos motivos da §18.
 - **Densidade de ingrediente brasileiro**, pelo motivo da §22.
+
+---
+
+# Parte IV — Segunda fonte para a curva de altitude (2026-09-14)
+
+A calculadora sempre interpolou a tabela do NCHFP, com um incômodo escrito no
+próprio código: **a tabela contraria a regra de bolso impressa na mesma página**
+a partir dos 5.000 pés. A tabela cai um grau entre 4.000 e 5.000 pés onde a
+regra manda cair dois, e fica um grau acima dela daí para cima. Faltava saber se
+o errado era a tabela ou a regra.
+
+## 4.1 A fonte
+
+**Myhrvold, Young & Bilet, *Modernist Cuisine*, vol. 1, p. 318.** Não é o volume
+dos hidrocoloides — esse é o 4, que não temos —, mas o capítulo 6 é física de
+cozinha, e é exatamente onde mora o ponto de ebulição.
+
+O PDF é digital, não OCR: fontes embutidas e `Producer: 3-Heights PDF Producer`.
+A paginação tem uma peculiaridade: **cada página de PDF traz duas páginas
+impressas**, porque é digitalização de página dupla. A conta é
+`impressa = 2 × PDF − 15`, conferida em seis pontos, e o fólio "318" aparece na
+imagem renderizada.
+
+## 4.2 A regra, por outro caminho
+
+> "about a **1 °C / 2 °F decrease in boiling point for every 300 m / 1,000 ft**
+> increase in altitude"
+
+É a mesma regra do NCHFP, escrita em Celsius por um livro de física em vez de um
+serviço de extensão agrícola. E a convergência é forte: **a tabela do NCHFP fica
+a menos de meio grau da regra do Modernist em todas as nove linhas**, inclusive
+nas quatro em que ela discorda do próprio resumo.
+
+| Pés | NCHFP (tabela) | Modernist (regra) | Diferença |
+| ---: | ---: | ---: | ---: |
+| 0 | 100,0 °C | 100,0 °C | 0,0 |
+| 2.000 | 97,8 °C | 98,0 °C | 0,2 |
+| 4.000 | 95,6 °C | 96,0 °C | 0,4 |
+| 5.000 | 95,0 °C | 95,0 °C | 0,0 |
+| 8.000 | 91,7 °C | 92,0 °C | 0,3 |
+
+**Conclusão: a divergência interna do NCHFP é de arredondamento, não de física.**
+As duas obras descrevem a mesma curva, e continuar interpolando a tabela — que é
+o que o código faz — está certo.
+
+Uma ressalva honesta sobre a regra do Modernist: "300 m / 1.000 ft" e "1 °C /
+2 °F" são pares de números redondos, não conversões exatas (300 m são 984 pés, e
+1 °C é 1,8 °F). A folga é de 10%. Aceitável numa regra de bolso, e é por isso
+que a calculadora usa a tabela e não a regra.
+
+## 4.3 Dois pontos medidos, e o que cada um confere
+
+| Lugar | Altitude | O livro diz | A nossa curva dá |
+| --- | ---: | --- | --- |
+| Denver | 1.600 m | 93–95 °C | dentro da faixa |
+| Cume do Everest | 8.849 m | 69 °C | erra por menos de 1 °C |
+
+O Everest é o mais útil dos dois, e não para fazer geleia. A tabela do NCHFP
+termina nos 8.000 pés; acima disso o código **estende a inclinação do último
+trecho**, e até agora não havia como saber se isso ainda dizia alguma coisa. O
+cume tem 29.029 pés — mais de três vezes o fim da tabela — e a extrapolação erra
+por menos de um grau. Não é prova de que a reta valha em todo lugar; é o
+bastante para que ela não seja invenção.
+
+## 4.4 Por que a geleia dá o ponto acima da fervura
+
+O NCHFP publica os 8 °F como fato. O Modernist explica o mecanismo:
+
+> "dissolving a solute in water will *raise* its boiling point because it lowers
+> the water's activity, so fewer molecules are free to evaporate and the vapor
+> pressure drops. This is called **boiling point elevation**."
+
+E dá dois extremos que calibram a intuição: água do mar (3,5% de sal) ferve a
+**103 °C**; calda de confeitaria (95% de açúcar) ferve a **135–145 °C**.
+
+Os 104,4 °C da geleia caem entre os dois, muito mais perto da água do mar — que
+é onde uma calda a 65% de sólidos solúveis tem de estar. A ordem dos três
+números é, por si só, uma conferência de que a régua faz sentido, e há teste
+travando essa ordem.
+
+## 4.5 O que este volume **não** tem
+
+Hidrocoloides. O volume 1 cita alginato, gellan e metilcelulose e manda procurar
+no volume 4 (`[4·42]`, `[4·175]`). Ver `gelificantes.md` §6.
