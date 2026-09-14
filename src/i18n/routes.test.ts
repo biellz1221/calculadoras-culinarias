@@ -21,6 +21,7 @@ const ALL_KEYS = [
   'jam',
   'brine',
   'ganache',
+  'gelling',
 ] as const;
 
 describe('registro de rotas', () => {

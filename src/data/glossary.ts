@@ -386,8 +386,40 @@ const GANACHE: readonly GlossaryEntry[] = [
   },
 ];
 
+/** docs/research/gelificantes.md */
+const GELLING: readonly GlossaryEntry[] = [
+  {
+    id: 'hydrocolloid',
+    citations: [
+      cite('modernist-home', 'cap. "Sauces" — "How to Make Gels and Fluid Gels"'),
+      cite('mcgee-ofc', 'cap. 11, "Plant Gums"'),
+    ],
+  },
+  {
+    id: 'fluid-gel',
+    citations: [
+      cite('modernist-home', 'cap. "Sauces" — "How to Make Gels and Fluid Gels"'),
+      cite('modernist-home', 'cap. "Sauces" — "Onion Fluid Gel"'),
+    ],
+  },
+  {
+    id: 'bloom-strength',
+    citations: [
+      cite('modernist-home', 'cap. "Custards and Pies" — "Working with Gelatin"'),
+      cite('mcgee-ofc', 'cap. 11, "Jelly Consistency"'),
+    ],
+  },
+  {
+    // A dose não tem fonte na estante e por isso não há calculadora; o
+    // mecanismo tem, e o verbete existe justamente para dizer as duas coisas.
+    id: 'spherification',
+    citations: [cite('mcgee-ofc', 'cap. 11, "Carrageenan, Alginates, Gellan"')],
+  },
+];
+
 export const GLOSSARY: Record<CalculatorId, readonly GlossaryEntry[]> = {
   bread: BREAD,
+  gelling: GELLING,
   pickles: PICKLES,
   pasta: PASTA,
   gelato: GELATO,

@@ -37,4 +37,5 @@ export const PALETTES: Record<RouteKey, Palette> = {
   jam: { page: '#fbf7fd', accent: '#7a4a86', accentDeep: '#5c3566' },
   brine: { page: '#f5faf9', accent: '#3f6b6e', accentDeep: '#2f5154' },
   ganache: { page: '#f9f5f2', accent: '#4e3a2e', accentDeep: '#382720' },
+  gelling: { page: '#f6f7fb', accent: '#4f628a', accentDeep: '#3a4a6b' },
 };

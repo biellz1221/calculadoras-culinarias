@@ -222,6 +222,23 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   Wybauw, que entrou na estante fora da lista, trouxe a tabela **e** dados de
   atividade de água que nenhuma outra obra tem. Antes de dar um tema por
   bloqueado, confira a camada de texto de tudo que chegou.
+- **`pdfinfo` denuncia o OCR antes de `pdffonts`.** `Creator: ABBYY FineReader`
+  é a confissão direta; fonte única `GlyphLessFont` é a do Tesseract. Rode os
+  dois **em toda obra da estante, não só nas novas** — o *Modernist Cuisine at
+  Home* alimentava a calculadora de salmoura havia semanas antes de alguém
+  perguntar de onde vinha o PDF. As quatro receitas estavam certas; a
+  conferência é que estava faltando.
+- **Fonte que se confere sozinha substitui a segunda fonte — até certo ponto.**
+  O *Modernist at Home* publica a fórmula de Bloom e depois publica três
+  substituições que saem dela; publica a regra de 0,8% e depois uma receita que
+  a obedece. Isso valida a transcrição, não o número: se o livro estiver errado,
+  ele estará coerentemente errado. Vale como trava de extração, não como
+  corroboração científica — e a página tem de dizer que é fonte única.
+- **Escreva o teste depois da conta, não antes.** Afirmei que 0,8% de 530 g
+  "devolve as 4,3 g impressas". Devolve 4,24 g. O teste caiu e estava certo: o
+  livro arredonda a própria receita. A afirmação forte foi parar na pesquisa e
+  nos dois dicionários antes de alguém multiplicar — e o que restou, mais fraco,
+  é o que era verdade desde o começo.
 - **Fonte oficial pode discordar de si mesma.** O NCHFP resume a temperatura por
   altitude como "subtract 2 degrees F" por mil pés, e a tabela da mesma página
   não segue a regra a partir de 5.000 pés. A tabela é o dado, a regra é a
