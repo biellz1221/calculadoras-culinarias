@@ -251,6 +251,26 @@ do livro — não "uma folha = uma colher".
 
 ---
 
+## 7.1 Uma pista para depois: lecitina
+
+Uma varredura tardia achou lecitina de soja líquida em duas receitas do mesmo
+livro — 1,6 g no *Home Jus Gras* e 2 g numa vinagrete. **Não entrou na
+calculadora e não deve entrar nesta**: lecitina emulsiona, não gelifica nem
+engrossa, e o assunto é outra página.
+
+Fica registrado com duas ressalvas que terão de ser resolvidas antes de virar
+número:
+
+1. **Não foi conferida na imagem da página.** Saiu da camada de texto, que nesta
+   obra é OCR. Vale como pista, não como dado.
+2. **As bases são diferentes.** No jus a coluna de escala é sobre o jus (0,8%);
+   na vinagrete é sobre o azeite (2%). Chamar as duas de "dose de lecitina"
+   seria somar grandezas diferentes — exatamente o erro que a calculadora de
+   picles existe para não cometer com sal sobre água contra sal sobre peso total.
+
+A estante tem dois livros de molho do Peterson em `references/emulsions/` que
+nunca foram abertos. Se emulsão virar página, é por aí que ela começa.
+
 ## 8. Pendências
 
 - **Modernist Cuisine vol. 4** — destrava esferificação (alginato/cálcio),
