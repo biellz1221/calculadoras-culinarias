@@ -448,6 +448,56 @@ leitura que o documento já supunha estava certa: sobra pectina, falta ácido.
 **Cuidado ao citar.** As linhas com asterisco da Tabela 1 são do Jackix (1988), e
 o Embrapa é quem reproduz. A citação tem de dizer isso.
 
+## O que apareceu ao baixar os arquivos
+
+Os sete documentos estão em `references/jams/embrapa/`, com índice local. Seis
+têm camada de texto; o de maracujá (CT 31) é digitalização em imagem a 300 dpi e
+**não serve como fonte sem OCR conferido**, mesmo caso do Greweling.
+
+**O Documento 138 tem a tabela que faltava em metro e em Celsius.** Ele converte
+temperatura de ebulição em °Brix por altitude — nível do mar, 500, 1.000, 1.500 e
+2.000 m. É a corroboração brasileira do que a calculadora de geleias já faz pela
+tabela do NCHFP, e comparando as duas a 65 °Brix:
+
+| Altitude | Embrapa, 65 °Brix | O que a calculadora dá hoje | Diferença |
+|---|---|---|---|
+| nível do mar | 104,85 °C | 104,44 °C | +0,41 |
+| 500 m | 103,15 °C | 102,62 °C | +0,53 |
+| 1.000 m | 101,45 °C | 100,80 °C | +0,65 |
+| 1.500 m | 99,75 °C | 99,49 °C | +0,26 |
+| 2.000 m | 98,05 °C | 97,71 °C | +0,34 |
+
+Menos de sete décimos de grau em toda a faixa, e uma fonte não conhece a outra.
+Reescrito como diferença acima da fervura da água, ao nível do mar, aparece a
+divergência de verdade — e ela é pequena:
+
+- **NCHFP:** +4,44 °C (os 8 °F que ele publica)
+- **Embrapa:** +4,85 °C
+- **Ferber:** +5,00 °C (os 105 °C dele)
+
+Ferber e Embrapa ficam mais perto um do outro do que qualquer um dos dois do
+NCHFP. Repare também que as duas grandezas não são idênticas: o NCHFP define o
+ponto de gelificação, e o Embrapa tabela quando a calda chega a 65 °Brix. Que
+caiam a meio grau uma da outra é o argumento de que as duas descrevem o mesmo
+fenômeno.
+
+**A Embrapa credita a tabela a terceiro**: "Extraído de Curso de processamento de
+frutas". Terceira mão, e a citação tem de dizer.
+
+**Outras coisas que os arquivos trazem, para a revisão da calculadora de geleias:**
+
+- **Documento 138** — formulações pesadas com dose de pectina e de ácido em
+  grama: pêssego, morango, mirtilo, amora-preta, maçã. Resolve a dose de pectina
+  em pó, que hoje está declarada como pendência.
+- **Documento 180** — conversão de °Brix em açúcar a adicionar (429 g para
+  30 °Brix, 668 g para 40, 1.000 g para 50), e goiaba em sete pontos.
+- **Doce em massa (2015)** — pectina de alta metoxilação gelifica a 60–80% de
+  sólidos solúveis e pH 2,8–3,8. É a faixa de pH que faltava, agora com a
+  segunda fonte.
+- **Cupuaçu** — 65% a 68% de sólidos solúveis no processamento.
+- **Cartilha de 2021** — nomeia as polpas naturalmente pobres em pectina:
+  abacaxi, jabuticaba, caju, morango, acerola, maracujá e carambola.
+
 # Parte 5: lista de compras sugerida
 
 Ordenada por quanto cada compra destrava, não por preço.
