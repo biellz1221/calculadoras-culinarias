@@ -281,6 +281,12 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   faixa está errada ou se o preset está, e escrever a exceção com nome e motivo
   quando a resposta é "nenhum dos dois".
 
+- **A suíte de e2e fica mais frágil a cada calculadora, e a culpa é da imagem
+  de compartilhamento.** O `/og/[slug]/image.png` renderiza PNG sob demanda no
+  dev server; com 10 calculadoras × 2 idiomas são 20 imagens disputando o mesmo
+  processo. Na fusão dos gelificantes, dois testes de OG de uma página que nem
+  foi tocada falharam por tempo e passaram na repetição. Antes de investigar
+  falha de OG, repita a suíte: se some, é disputa de recurso, não regressão.
 - **Playwright em `127.0.0.1` não hidrata**: o dev server do Next bloqueia
   `/_next` de outra origem. A página carrega e todo teste de interação falha
   parecendo bug de estado. O `baseURL` usa `localhost`.
