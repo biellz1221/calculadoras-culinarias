@@ -173,10 +173,12 @@ const PASTA: readonly GlossaryEntry[] = [
  * tolerância. A temperatura de serviço foi conferida na fonte: a célula C24 da
  * aba de receita calcula `PAC/25`, sob o rótulo "Temperatura Média de Serviço".
  *
- * `overrun` e `syrup-density` ficam sem citação porque **não existem na
- * planilha** — procurei por overrun, aeração, litro, volume, ml e densidade, e
- * não há nada. A definição continua na tela; a fonte é que não há, e a tela
- * passa a dizer isso.
+ * `overrun` e `syrup-density` ficaram sem citação até 2026-09-14, porque **não
+ * existem na planilha** — procurei por overrun, aeração, litro, volume, ml e
+ * densidade, e não havia nada. Eram os dois únicos verbetes sem fonte do site
+ * inteiro. Agora citam livro, e não a planilha: Corvitto para o ar que o gelato
+ * incorpora, Clarke para o peso de um litro de mistura. Ver
+ * docs/research/gelato.md.
  */
 const GELATO: readonly GlossaryEntry[] = [
   { id: 'pod', citations: [GELATO_CITATIONS.ingredients] },
@@ -186,10 +188,13 @@ const GELATO: readonly GlossaryEntry[] = [
     id: 'total-solids',
     citations: [GELATO_CITATIONS.ingredients, GELATO_CITATIONS.ranges],
   },
-  { id: 'overrun', citations: [] },
+  {
+    id: 'overrun',
+    citations: [cite('corvitto', 44), cite('clarke', 153), cite('clarke', 18)],
+  },
   { id: 'neutro', citations: [GELATO_CITATIONS.ingredients] },
   { id: 'serving-temperature', citations: [GELATO_CITATIONS.ranges] },
-  { id: 'syrup-density', citations: [] },
+  { id: 'syrup-density', citations: [cite('clarke', 81), cite('corvitto', 44)] },
 ];
 
 /**

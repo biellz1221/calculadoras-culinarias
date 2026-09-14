@@ -1,3 +1,4 @@
+import { MIX_DENSITY } from '@/data/gelato/aeration';
 import type {
   Ingredient,
   MetricKey,
@@ -32,14 +33,21 @@ export function isPerKgMetric(key: MetricKey): boolean {
   return PER_KG_METRICS.has(key);
 }
 
-/** Densidade padrão da calda de gelato, em g/mL. Usada para converter litros em gramas. */
-export const DEFAULT_DENSITY = 1.1;
+/**
+ * Densidade padrão da calda, em g/mL. Converte o lote em litros para gramas.
+ *
+ * Foi valor de trabalho declarado até 2026-09-14, quando ganhou fonte: Clarke,
+ * p. 81, "one litre of a typical ice cream mix weighs 1.1 kg". O palpite
+ * estava certo. A constante mora em `@/data/gelato/aeration` junto da citação,
+ * e aqui só é reexportada para não quebrar quem já importava daqui.
+ */
+export { MIX_DENSITY as DEFAULT_DENSITY } from '@/data/gelato/aeration';
 
-export function litersToGrams(liters: number, density = DEFAULT_DENSITY): number {
+export function litersToGrams(liters: number, density = MIX_DENSITY): number {
   return liters * 1000 * density;
 }
 
-export function gramsToLiters(grams: number, density = DEFAULT_DENSITY): number {
+export function gramsToLiters(grams: number, density = MIX_DENSITY): number {
   return grams / (1000 * density);
 }
 

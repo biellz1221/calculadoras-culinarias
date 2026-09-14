@@ -32,6 +32,16 @@ export const gelatoPtBR = {
     title: 'Perguntas frequentes',
     items: [
       {
+        question: 'Quanto ar meu gelato deveria ter?',
+        answer:
+          'Entre 30% e 40% de overrun, com 35% como alvo — é a faixa que Angelo Corvitto fixa para gelato de máxima qualidade. Sorvete industrial trabalha bem mais alto: Clarke mede de 20% a 100%, e cem por cento é um litro de mistura virando dois de sorvete. Para medir o seu, pese o mesmo copo cheio de mix e depois cheio de gelato e divida um pelo outro: as duas casas decimais são o overrun.',
+      },
+      {
+        question: 'Por que a densidade padrão é 1,10 g/mL?',
+        answer:
+          'Porque é o peso de um litro de mistura em The Science of Ice Cream, de Chris Clarke. Corvitto trabalha com 1,00 sem declarar, e a diferença não é pequena: a 35% de overrun, um litro de gelato pesaria 815 g pelo número de Clarke e 740 g pelo de Corvitto. Nenhum dos dois publica a composição da mistura de que fala, então a calculadora mostra os dois e deixa o campo editável.',
+      },
+      {
         question: 'O que são POD e PAC?',
         answer:
           'POD é o poder de doçura e PAC o poder anticongelante, os dois medidos por quilo de mistura. São eles que explicam por que duas receitas com a mesma quantidade de açúcar podem ter doçura e textura bem diferentes: cada açúcar adoça e abaixa o ponto de congelamento no seu ritmo.',
@@ -101,13 +111,57 @@ export const gelatoPtBR = {
     density: 'Densidade da calda',
     densityUnit: 'g/mL',
     densityHint:
-      'O padrão é 1,10 g/mL. A massa da calda sai de litros × 1000 × densidade.',
+      'O padrão é 1,10 g/mL, que é o peso de um litro de mistura em Clarke. A massa da calda sai de litros × 1000 × densidade. Corvitto trabalha com 1,00 — se a sua calda for mais leve, mude aqui.',
     mass: 'Massa da calda',
     rescaleHint:
       'Mudar o volume ou a densidade reescala a receita inteira, preservando as proporções.',
     driftAbove: 'A receita está acima da meta do lote em',
     driftBelow: 'A receita está abaixo da meta do lote em',
     scaleToBatch: 'Ajustar ao lote',
+  },
+
+  aeration: {
+    title: 'O ar, e o peso de um litro',
+    lead: 'Balanceamento é o que entra na panela. O que sai da máquina depende também de quanto ar entrou — e esse número nenhuma planilha de balanceamento dá, porque ele é da máquina e do processo. Dá para medir na bancada com uma balança e um copo.',
+
+    targetTitle: 'Quanto ar um gelato quer',
+    targetBody:
+      'Corvitto fixa a faixa de qualidade entre 30% e 40% de overrun, e escolhe 35%. Não é limite de máquina: é escolha. Ar de menos deixa o gelato pesado; ar demais tira o corpo, e ele "perde frescor e sabor, assumindo o aspecto de mousse e dando uma sensação de vazio na boca".',
+    industrialBody:
+      'Sorvete industrial joga em outro campeonato. Clarke mede amostras de 17% a 50% de ar em volume — 20% a 100% de overrun — e diz que a estrutura ainda se sustenta até cerca de 120%. Cem por cento de overrun é um litro de mistura virando dois litros de sorvete. É por isso que gelato é mais pesado que pote de supermercado, e a diferença é escolha de quem faz, não limitação de quem não tem a máquina.',
+    sorbetNote:
+      'Sem gordura e sem proteína, como no sorbetto, passar de 60% é difícil mesmo querendo — diz Clarke. É teto técnico, não alvo: nenhuma das duas obras publica um alvo de qualidade separado para sorbetto, e esta página não inventa um.',
+
+    measureTitle: 'Como medir o seu, com um copo e uma balança',
+    measureBody:
+      'A conta é de Corvitto e cabe em uma linha: divida o peso do mix pelo peso do gelato, no mesmo recipiente. As duas casas decimais são o overrun. Pese o copo vazio para achar a tara, encha até a boca com o mix e anote; encha o mesmo copo com o gelato pronto, sem deixar bolha, e anote. Duzentos e setenta gramas de mix para duzentos de gelato dão 1,35, ou seja, 35%.',
+    sameEquation:
+      'Clarke chega ao mesmo lugar pela densidade, e é a mesma equação: pesar o mesmo copo duas vezes é medir densidade com o volume se cancelando. Dois livros que não se citam, escrevendo a mesma conta de dois jeitos.',
+    cupNote:
+      'Para gelato já endurecido a pesagem no copo não serve — forçar gelato duro para dentro mudaria o volume. Clarke usa uma câmara de deslocamento: pesa-se a porção e mede-se a água que ela desloca.',
+
+    densityLabel: 'Densidade da sua calda',
+    targetLabel: 'Overrun que você quer',
+    resultLabel: 'Um litro do seu gelato deve pesar',
+    resultHint:
+      'A partir da densidade da calda que está no campo do lote. Se o seu litro pesar mais que isso, entrou menos ar do que você queria; se pesar menos, entrou mais.',
+    mixLabel: 'Peso do copo com mix',
+    gelatoLabel: 'Peso do copo com gelato',
+    measuredLabel: 'Overrun medido',
+    measuredHint: 'Os dois pesos já sem a tara do copo, no mesmo recipiente.',
+    inRange: 'Dentro da faixa de Corvitto',
+    aboveRange: 'Acima da faixa de Corvitto',
+    belowRange: 'Abaixo da faixa de Corvitto',
+
+    iceTitle: 'A ressalva dos 105%',
+    iceBody:
+      'A água cresce cerca de 8% ao virar gelo, então parte do volume que a conta lê como ar não é ar. Clarke mostra o caso: 100% de overrun nominal dá 105% de fato. Ele mesmo diz que o efeito "costuma ser ignorado", e esta página ignora também — corrigir exigiria saber o teor de gelo da receita na temperatura de serviço, que a planilha do curso não fornece. Fica como ressalva, não como conta.',
+
+    divergenceTitle: 'Onde as duas obras discordam',
+    divergenceBody:
+      'Clarke escreve que um litro de mistura típica pesa 1,1 kg. Corvitto nunca declara densidade, mas a aritmética dele pressupõe 1,0: ele parte de 1.000 g de mix para concluir que um litro de gelato a 35% pesa 740 g. Com o número de Clarke, o mesmo litro pesaria 815 g. São 75 g por litro, quase 400 g numa cuba de cinco litros.',
+    divergenceDecision:
+      'A calculadora não desempata. O padrão é 1,10 com a página de Clarke ao lado, o campo continua editável, e os dois números ficam à vista. Nenhum dos dois publica a composição da mistura de que fala, e sem isso não dá para saber qual descreve a sua calda — que é justamente por que a régua do copo importa: quem pesa não precisa acreditar em nenhum dos dois.',
   },
 
   picker: {
@@ -294,7 +348,8 @@ export const gelatoPtBR = {
       'Cada ingrediente da planilha é descrito como a composição de 1 grama dele: quanto é açúcar, quanto é gordura, quanto é sólido do leite, quanto é outro sólido, quanto é água. A receita inteira é a soma dessas frações vezes os gramas de cada linha, nada além disso. É por isso que trocar 50 g de leite por 50 g de creme mexe em quatro métricas ao mesmo tempo.',
       'Seis das oito métricas são frações da massa total, então elas se leem como porcentagem da calda. POD e PAC são diferentes: são normalizados por quilo de mistura, porque medem intensidade, não quantidade. Duas receitas com a mesma quantidade de açúcar podem ter doçuras bem diferentes conforme o açúcar usado.',
       'A faixa de cada métrica muda com o tipo de base. Um sorbet trabalha com mais açúcar e mais PAC que um gelato de leite justamente porque não tem gordura nem sólidos do leite segurando a água: sem esse reforço, o anticongelante precisa fazer o trabalho sozinho. Trocar o tipo de base não mexe na receita, só na régua com que ela é medida.',
-      'O lote é dimensionado em litros e convertido em massa por uma densidade ajustável, com padrão de 1,10 g/mL. Mexer no volume reescala todas as linhas na mesma proporção: a receita continua a mesma, só maior. Se você editar uma linha à mão e a massa total sair da meta, aparece o botão de ajustar ao lote.',
+      'O lote é dimensionado em litros e convertido em massa por uma densidade ajustável. O padrão de 1,10 g/mL foi valor de trabalho declarado até setembro de 2026, quando ganhou fonte: é o peso de um litro de mistura em Clarke. Mexer no volume reescala todas as linhas na mesma proporção: a receita continua a mesma, só maior. Se você editar uma linha à mão e a massa total sair da meta, aparece o botão de ajustar ao lote.',
+      'Uma coisa esta calculadora continua não fazendo, e agora diz melhor por quê: o ar. Balanceamento é o que entra na panela; quanto ar entra depende da máquina, da temperatura de saída e da receita. O que dá para fazer, e a página passou a fazer, é dar a régua de bancada — o peso que um litro do seu gelato deveria ter para o overrun que você quer, e a divisão que mede o que você conseguiu.',
     ],
   },
 
@@ -336,7 +391,7 @@ export const gelatoPtBR = {
       'overrun': {
         term: 'Overrun',
         definition:
-          'O ar incorporado durante o batimento, medido como aumento de volume. Esta calculadora balanceia a calda; o overrun é da máquina e do processo, e não entra em nenhuma conta daqui.',
+          'O ar incorporado durante o batimento, medido como aumento de volume: 100% de overrun é um litro de mistura virando dois de sorvete. Corvitto põe a faixa de qualidade do gelato entre 30% e 40%, e fixa 35%; Clarke, falando de sorvete industrial, mede de 20% a 100%. Não entra no balanceamento — é da máquina e do processo —, mas mede-se com um copo e uma balança.',
       },
       'neutro': {
         term: 'Neutro',
@@ -351,14 +406,14 @@ export const gelatoPtBR = {
       'syrup-density': {
         term: 'Densidade da calda',
         definition:
-          'Quantos gramas cabem em um mililitro de mistura antes de bater, o que converte o lote em litros para a massa em gramas. O padrão de 1,10 g/mL é valor de trabalho declarado, não número de fonte: o campo fica editável justamente por isso.',
+          'Quantos gramas cabem em um mililitro de mistura antes de bater, o que converte o lote em litros para a massa em gramas. O padrão de 1,10 g/mL é o peso de um litro de mistura em Clarke. A aritmética de Corvitto pressupõe 1,00, sem declarar — os dois números estão na página, e o campo continua editável.',
       },
     },
   },
 
   sources: {
     title: 'Fontes desta calculadora',
-    lead: 'Esta é a única calculadora do site que não se apoia em obra publicada. Os 164 ingredientes, os coeficientes de POD e PAC e as faixas dos cinco tipos de base vêm da planilha de balanceamento do curso Gelato Direto ao Ponto, de Luis Paulo dos Santos Barros, o Lulo Fouet. É material didático e não bibliografia: não tem página nem capítulo para citar, então a citação aponta a aba da planilha e o curso de origem, em vez de ganhar ares de livro.',
+    lead: 'O balanceamento desta calculadora não se apoia em obra publicada: os 164 ingredientes, os coeficientes de POD e PAC e as faixas dos cinco tipos de base vêm da planilha do curso Gelato Direto ao Ponto, de Luis Paulo dos Santos Barros, o Lulo Fouet. É material didático e não bibliografia — não tem página nem capítulo —, e por isso a citação aponta a aba da planilha em vez de ganhar ares de livro. O ar e o peso de um litro, que a planilha não cobre, vêm de dois livros: Clarke pela química do sorvete e Corvitto pelo gelato de bancada.',
     page: 'p.',
     section: 'seção',
   },
