@@ -14,6 +14,7 @@ import {
   EMBRAPA_BRIX_TABLE,
   EMBRAPA_TABLE,
   EMBRAPA_TABLE_CITATIONS,
+  FRESH_RECIPES,
   LEGAL_CITATIONS,
   LEGAL_PARTS,
   LEGAL_SOLUBLE_SOLIDS,
@@ -56,6 +57,7 @@ function collectCitations(): Citation[] {
     ...PH_FIELD_RULE_CITATIONS,
     ...TOTAL_ACIDITY_CITATIONS,
     ...EMBRAPA_BRIX_CITATIONS,
+    ...Object.values(FRESH_RECIPES).flatMap((recipe) => recipe.citations),
   ];
 }
 
@@ -225,6 +227,22 @@ export function JamPage({ locale }: { locale: Locale }) {
             />
           </div>
         </div>
+
+        <h3 className="mt-10 font-display text-lg font-semibold text-ink">
+          {dict.fresh.title}
+        </h3>
+        <p className="mt-2 max-w-prose leading-relaxed text-ink-soft">{dict.fresh.body}</p>
+        <p className="mt-3 max-w-prose rounded-card border-2 border-warn/50 bg-warn-tint px-4 py-3 leading-relaxed text-ink">
+          {dict.fresh.body2}
+        </p>
+        <p className="mt-3 max-w-prose text-sm leading-relaxed text-ink-muted">
+          {dict.fresh.pectinNote}
+        </p>
+        <CitationRef
+          citations={Object.values(FRESH_RECIPES).flatMap((recipe) => recipe.citations)}
+          labels={dict.sources}
+          className="mt-2 block"
+        />
 
         <h3 className="mt-10 font-display text-lg font-semibold text-ink">
           {dict.brazil.tableTitle}

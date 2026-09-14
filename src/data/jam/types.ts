@@ -57,7 +57,34 @@ export interface EmbrapaFruitRow {
  * isso pedem mais açúcar que qualquer receita de casa da estante — a menor
  * delas é um para um. Está na tela como divergência, não como escolha calada.
  */
-export type SugarLevel = 'source' | 'ferber' | 'extra' | 'common' | 'custom';
+export type SugarLevel =
+  | 'source'
+  | 'fresh'
+  | 'ferber'
+  | 'extra'
+  | 'common'
+  | 'custom';
+
+/**
+ * Uma geleia de uso imediato, como o receituário do MMA publica.
+ *
+ * **Não é conserva, e a diferença é de segurança, não de estilo.** O modo de
+ * preparo cozinha a 65–70 °C — o suficiente para dissolver a pectina, longe do
+ * ponto de gelificação —, não enche pote, não passa por banho-maria, e o livro
+ * não declara validade. É componente de prato, para comer no dia.
+ *
+ * As quantidades ficam **em grama**, que é como a fonte publica. Ao contrário
+ * das receitas de Saunders, aqui não há onça nenhuma para converter.
+ */
+export interface FreshRecipe {
+  fruitGrams: number;
+  sugarGrams: number;
+  /** Pectina em pó, quando a receita usa. */
+  pectinGrams?: number;
+  /** Caldo de limão, quando a receita usa. */
+  lemonGrams?: number;
+  citations: readonly Citation[];
+}
 
 /** A receita da fonte, nas unidades em que ela foi publicada. */
 export interface SourceRecipe {
@@ -92,6 +119,14 @@ export interface JamFruit {
   recipe?: SourceRecipe;
   /** Linha da Tabela 1 do Embrapa Doc 29, quando a fruta está lá. */
   embrapaId?: string;
+  /**
+   * Receita fresca do receituário do MMA, quando existe.
+   *
+   * É a terceira base possível de uma fruta, e a mais fraca das três em
+   * conservação: vale como proporção publicada para fruta que nenhum livro de
+   * conserva cobre, e **sempre** vem com o aviso de uso imediato.
+   */
+  fresh?: FreshRecipe;
   /**
    * Marmelo, laranja e maçã: a norma deixa a geleia comum ir a 35:65 em vez de
    * 40:60. É exceção escrita na própria definição legal.
@@ -153,12 +188,15 @@ export interface JamResult {
  *
  * `recipe` — a receita publicada para aquela fruta, e o aviso é o do NCHFP
  * sobre reduzir açúcar de receita testada.
+ * `fresh` — a receita fresca do MMA, para fruta nativa que nenhum livro de
+ * conserva cobre. O aviso aí não é sobre prateleira: é que o produto **não
+ * vai** para a prateleira, qualquer que seja a proporção.
  * `norm` — a geleia extra da legislação brasileira (um para um), para fruta que
  * não tem receita em lugar nenhum. O aviso aí é outro: abaixo dela o produto
  * não é o que a norma chama de geleia. Dizer "doce de geladeira" para quem está
  * a 0,80 seguindo Ferber seria alarme falso.
  */
-export type ReferenceBasis = 'recipe' | 'norm';
+export type ReferenceBasis = 'recipe' | 'fresh' | 'norm';
 
 /**
  * `below-source` é o caso que dispara aviso: menos açúcar do que a própria

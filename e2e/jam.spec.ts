@@ -213,3 +213,63 @@ test('a página em inglês traz a fruta brasileira com o nome em inglês', async
 
   await expect(page.getByText(/pectin rich, acidity medium/i).first()).toBeVisible();
 });
+
+test('fruta nativa traz a receita do MMA com o aviso de uso imediato', async ({
+  page,
+}) => {
+  await page.goto('/geleias');
+
+  await expect(async () => {
+    await page.getByLabel('Fruta preparada (g)').fill('1000');
+    await page.getByLabel('Fruta', { exact: true }).selectOption('umbu');
+    // 0,75 do receituário: 1 kg de polpa pede 750 g de açúcar.
+    await expect(page.locator('#conteudo').getByText('750 g').first()).toBeVisible();
+  }).toPass({ timeout: 15_000 });
+
+  // O aviso vem junto da escolha da fruta, não escondido no resultado: o que
+  // ele diz não é quanto tempo dura, é que isto não vai para a prateleira.
+  await expect(
+    page.getByText(/Geleia de uso imediato/).first(),
+  ).toBeVisible();
+  await expect(page.getByText(/65–70 °C/).first()).toBeVisible();
+
+  // E a dose de limão, que o receituário publica e a Embrapa não publicava.
+  await expect(page.locator('#conteudo').getByText('120 g').first()).toBeVisible();
+});
+
+test('a régua da fruta nativa é a receita, não a norma', async ({ page }) => {
+  await page.goto('/geleias');
+
+  await expect(async () => {
+    await page.getByLabel('Fruta', { exact: true }).selectOption('passionfruit-cerrado');
+    await expect(page.getByRole('button', { name: 'A do receituário' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+  }).toPass({ timeout: 15_000 });
+
+  await expect(page.locator('#conteudo').getByText('Receita do MMA')).toBeVisible();
+
+  // Abaixo da receita fresca o aviso é de textura, não de prateleira — porque
+  // prateleira não há em proporção nenhuma.
+  await expect(async () => {
+    await page.getByRole('button', { name: 'Escolher' }).click();
+    await page.getByLabel('Açúcar sobre a fruta (%)').fill('20');
+    await expect(page.getByText('Abaixo da fonte')).toBeVisible();
+  }).toPass({ timeout: 15_000 });
+
+  await expect(
+    page.locator('#conteudo').getByText(/prateleira não há/).first(),
+  ).toBeVisible();
+});
+
+test('a seção da geleia fresca explica por que ela não é conserva', async ({
+  page,
+}) => {
+  await page.goto('/geleias');
+
+  await expect(
+    page.getByRole('heading', { name: 'A geleia fresca, e por que ela não é conserva' }),
+  ).toBeVisible();
+  await expect(page.getByText(/quatro doses de pectina/).first()).toBeVisible();
+});

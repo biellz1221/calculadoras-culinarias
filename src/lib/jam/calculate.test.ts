@@ -13,7 +13,9 @@ import {
 } from './calculate';
 import {
   EMBRAPA_TABLE,
+  FRESH_RECIPES,
   LEGAL_PARTS,
+  MMA_HOUSEHOLD_MEASURES,
   PECTIN_DOSE_OVER_SUGAR,
   getEmbrapaRow,
 } from '@/data/jam/brazil';
@@ -21,7 +23,10 @@ import {
   CLASSIFIED_FRUIT_IDS,
   FERBER_SUGAR_RATIO,
   JAM_FRUITS,
+  NATIVE_FRUIT_IDS,
   WEIGHED_FRUIT_IDS,
+  freshPectinRatio,
+  freshSugarRatio,
   getFruit,
   sourceLemonRatio,
   sourceSugarRatio,
@@ -405,19 +410,26 @@ describe('a Tabela 1 da Embrapa, como transcrita', () => {
   });
 
   it('toda fruta tem pelo menos uma base, e todo vínculo existe', () => {
+    // São três bases possíveis desde 2026-09-14: receita de conserva, linha da
+    // Tabela 1 e receita fresca do MMA. Nenhuma fruta entra sem pelo menos uma.
     for (const fruit of JAM_FRUITS) {
-      expect(Boolean(fruit.recipe || fruit.embrapaId), fruit.id).toBe(true);
+      expect(
+        Boolean(fruit.recipe || fruit.embrapaId || fruit.fresh),
+        fruit.id,
+      ).toBe(true);
       if (fruit.embrapaId) {
         expect(getEmbrapaRow(fruit.embrapaId), fruit.id).toBeDefined();
       }
     }
 
-    // As duas famílias somam o catálogo inteiro, sem sobra nem repetição.
+    // As três famílias somam o catálogo inteiro, sem sobra nem repetição.
     expect(WEIGHED_FRUIT_IDS).toHaveLength(9);
     expect(CLASSIFIED_FRUIT_IDS).toHaveLength(35);
-    expect(new Set([...WEIGHED_FRUIT_IDS, ...CLASSIFIED_FRUIT_IDS]).size).toBe(
-      JAM_FRUITS.length,
-    );
+    expect(NATIVE_FRUIT_IDS).toHaveLength(5);
+    expect(
+      new Set([...WEIGHED_FRUIT_IDS, ...CLASSIFIED_FRUIT_IDS, ...NATIVE_FRUIT_IDS])
+        .size,
+    ).toBe(JAM_FRUITS.length);
   });
 });
 
@@ -601,5 +613,100 @@ describe('todo id tem rótulo nos dois idiomas', () => {
     ]) {
       expect(labelFor(dict.fruits, id), `${locale}: ${id}`).not.toBe('');
     }
+  });
+});
+
+describe('as geleias frescas do receituário do MMA', () => {
+  it('reproduz as quantidades que o livro publica', () => {
+    // As duas geleias picantes, p. 312 e p. 324: o mesmo molde aplicado a duas
+    // frutas. 100 g de polpa, 75 de açúcar, 1 de pectina, 12 de limão.
+    for (const id of ['pitanga', 'umbu']) {
+      const recipe = FRESH_RECIPES[id];
+      expect(recipe?.fruitGrams, id).toBe(100);
+      expect(recipe?.sugarGrams, id).toBe(75);
+      expect(recipe?.pectinGrams, id).toBe(1);
+      expect(recipe?.lemonGrams, id).toBe(12);
+    }
+
+    const result = calculateJam({
+      fruitId: 'umbu',
+      fruitGrams: 100,
+      sugarLevel: 'fresh',
+      customSugarRatio: 0,
+      altitudeMeters: 0,
+    });
+    expect(result.sugarGrams).toBeCloseTo(75, 10);
+    expect(result.lemonGrams.min).toBeCloseTo(12, 10);
+  });
+
+  it('a pectina do receituário cai na faixa que a Embrapa publica', () => {
+    // Terceira instituição a confirmar o 0,5% a 1,5% sobre o açúcar, e por um
+    // tipo de publicação completamente diferente: receita de chef, não manual.
+    const comPectina = JAM_FRUITS.filter((fruit) => fruit.fresh?.pectinGrams);
+    expect(comPectina.length).toBeGreaterThan(0);
+
+    for (const fruit of comPectina) {
+      const ratio = freshPectinRatio(fruit);
+      expect(ratio, fruit.id).not.toBeNull();
+      expect(ratio!, fruit.id).toBeGreaterThanOrEqual(PECTIN_DOSE_OVER_SUGAR[0]);
+      expect(ratio!, fruit.id).toBeLessThanOrEqual(PECTIN_DOSE_OVER_SUGAR[1]);
+    }
+  });
+
+  it('toda geleia fresca fica abaixo do mínimo legal, e isso é o conteúdo', () => {
+    // Um livro do Ministério do Meio Ambiente publica como geleia o que a norma
+    // de rótulo não deixaria chamar assim. Não é erro de nenhum dos dois: são
+    // produtos diferentes, e é a divergência que a página publica.
+    for (const fruit of JAM_FRUITS.filter((f) => f.fresh)) {
+      const ratio = freshSugarRatio(fruit);
+      expect(ratio, fruit.id).not.toBeNull();
+      expect(ratio!, fruit.id).toBeLessThan(LEGAL_EXTRA_RATIO);
+    }
+  });
+
+  it('fruta nativa usa a receita como régua, e não a norma', () => {
+    const umbu = calculateJam({
+      fruitId: 'umbu',
+      fruitGrams: 1000,
+      sugarLevel: 'fresh',
+      customSugarRatio: 0,
+      altitudeMeters: 0,
+    });
+
+    expect(umbu.referenceBasis).toBe('fresh');
+    expect(umbu.referenceRatio).toBeCloseTo(0.75, 10);
+    expect(umbu.status).toBe('source');
+
+    // E continua sem rendimento: o MMA declara rendimento do prato inteiro, não
+    // da geleia, e escalar de outra fruta seria inventar.
+    expect(umbu.jars).toBeNull();
+  });
+
+  it('fruta que tem receita de conserva não é rebaixada para a fresca', () => {
+    // Pitanga e caju estão nos dois lugares — Tabela 1 e receituário —, mas
+    // nenhuma das nove do Blue Chair tem receita fresca, e a precedência é a da
+    // conserva. Se alguém inverter, este teste cai.
+    for (const fruit of JAM_FRUITS.filter((f) => f.recipe)) {
+      expect(referenceFor(fruit).basis, fruit.id).toBe('recipe');
+    }
+  });
+
+  it('as frutas nativas não fingem ter classificação que ninguém publicou', () => {
+    // O MMA não classifica pectina nem acidez. Elas entram sem grupo do NCHFP e
+    // sem linha da Embrapa, e a tela mostra o que existe.
+    for (const id of NATIVE_FRUIT_IDS) {
+      const fruit = ofFruit(id);
+      expect(fruit.group, id).toBeUndefined();
+      expect(fruit.embrapaId, id).toBeUndefined();
+      expect(fruit.fresh, id).toBeDefined();
+    }
+  });
+
+  it('a medida caseira do MMA é registro, não conta', () => {
+    // O estado desta calculadora é sempre grama. A tabela entra por ser a única
+    // padronização brasileira e oficial de xícara e colher que temos.
+    expect(MMA_HOUSEHOLD_MEASURES.cup).toBe(240);
+    expect(MMA_HOUSEHOLD_MEASURES.tablespoon).toBe(15);
+    expect(MMA_HOUSEHOLD_MEASURES.teaspoon).toBe(5);
   });
 });

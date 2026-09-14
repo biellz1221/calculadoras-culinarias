@@ -15,6 +15,7 @@ export interface JamState {
 
 const SUGAR_LEVELS: Record<SugarLevel, true> = {
   source: true,
+  fresh: true,
   ferber: true,
   extra: true,
   common: true,
@@ -28,10 +29,11 @@ const SUGAR_LEVELS: Record<SugarLevel, true> = {
  * da receita publicada", e goiaba não tem receita publicada em lugar nenhum.
  */
 export function sugarLevelsFor(fruitId: string): readonly SugarLevel[] {
-  const hasRecipe = Boolean(getFruit(fruitId)?.recipe);
-  return hasRecipe
-    ? ['source', 'ferber', 'extra', 'common', 'custom']
-    : ['extra', 'common', 'ferber', 'custom'];
+  const fruit = getFruit(fruitId);
+  if (fruit?.recipe) return ['source', 'ferber', 'extra', 'common', 'custom'];
+  // Fruta nativa abre na receita fresca, que é a proporção publicada para ela.
+  if (fruit?.fresh) return ['fresh', 'extra', 'common', 'ferber', 'custom'];
+  return ['extra', 'common', 'ferber', 'custom'];
 }
 
 /**
@@ -42,7 +44,11 @@ export function sugarLevelsFor(fruitId: string): readonly SugarLevel[] {
  * passa a valer para aquela fruta, e não num silêncio.
  */
 export function levelForFruit(fruitId: string, level: SugarLevel): SugarLevel {
-  return sugarLevelsFor(fruitId).includes(level) ? level : 'extra';
+  const levels = sugarLevelsFor(fruitId);
+  if (levels.includes(level)) return level;
+  // Cai no primeiro nível que aquela fruta tem: a receita dela, quando existe,
+  // e a geleia extra da norma quando não existe nenhuma.
+  return levels[0] ?? 'extra';
 }
 
 /**

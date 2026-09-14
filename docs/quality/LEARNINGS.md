@@ -326,3 +326,16 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   inteira como JPEG a 150 ppi por baixo. Não descarta a fonte, mas muda o que se
   pode tirar dela: nome de ingrediente o OCR acerta, número de tabela é onde ele
   erra, e este projeto já se queimou duas vezes aí.
+- **Fonte boa para o produto errado é pior que fonte ausente.** O receituário do
+  MMA publica geleia pesada de fruta nativa, com página e tudo — e cozinha a
+  65–70 °C, sem pote e sem validade. Se entrasse como receita de conserva, o
+  aviso de açúcar baixo da calculadora passaria a mentir sobre a natureza do
+  risco. Antes de usar uma proporção, leia o **modo de preparo**: ele diz que
+  produto é aquilo.
+- **Quando um livro converte grama em medida caseira, ele não publica
+  densidade.** Tentei extrair o peso do sal brasileiro de 136 receitas. As
+  medianas caíam onde a física manda, mas a água — que é exatamente 1,00 g/mL —
+  espalhou de 0,00 a 1,50 nos dados do próprio livro, porque parte das entradas
+  arredonda para número redondo. Teste a extração contra um valor que você já
+  conhece: se ele não fecha, o método não serve para os que você não conhece.
+

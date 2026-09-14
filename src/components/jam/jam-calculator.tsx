@@ -16,6 +16,7 @@ import {
 } from '@/data/jam/brazil';
 import {
   CLASSIFIED_FRUIT_IDS,
+  NATIVE_FRUIT_IDS,
   FERBER_APPLE_JELLY_CITATIONS,
   FERBER_SUGAR_CITATIONS,
   PECTIN_GROUP_CITATIONS,
@@ -28,7 +29,7 @@ import {
   SETTING_POINT_CITATIONS,
   settingCelsius,
 } from '@/data/jam/setting-point';
-import type { EmbrapaFruitRow, Range } from '@/data/jam/types';
+import type { EmbrapaFruitRow, Range, ReferenceBasis } from '@/data/jam/types';
 import type { JamDictionary } from '@/i18n/dictionaries/jam';
 import type { Locale } from '@/i18n/locales';
 import { calculateJam } from '@/lib/jam/calculate';
@@ -109,6 +110,10 @@ export function JamCalculator({
     : null;
 
   const byNorm = result.referenceBasis === 'norm';
+  // A receita fresca tem régua própria: comparar com ela é comparar com uma
+  // proporção publicada, como a de Saunders — o que muda é o aviso, que é de
+  // produto e não de prateleira.
+  const byFresh = result.referenceBasis === 'fresh';
 
   return (
     <div className="mt-10">
@@ -162,6 +167,13 @@ export function JamCalculator({
               </option>
             ))}
           </optgroup>
+          <optgroup label={dict.input.nativeGroup}>
+            {NATIVE_FRUIT_IDS.map((id) => (
+              <option key={id} value={id}>
+                {labelFor(dict.fruits, id)}
+              </option>
+            ))}
+          </optgroup>
         </select>
 
         {fruit?.group && (
@@ -173,9 +185,24 @@ export function JamCalculator({
 
         {embrapa && <EmbrapaLine row={embrapa} dict={dict} both={Boolean(fruit?.group)} />}
 
-        {fruit && !fruit.recipe && (
+        {fruit && !fruit.recipe && !fruit.fresh && (
           <p className="mt-3 max-w-xl rounded-card bg-accent-tint/60 px-4 py-3 text-sm leading-relaxed text-ink">
             {dict.embrapa.noRecipe}
+          </p>
+        )}
+
+        {/* O aviso que acompanha toda fruta com receita fresca. Não é sobre
+            quanto tempo dura: é sobre o produto não ser de prateleira em
+            proporção nenhuma. Por isso fica aqui em cima, na escolha da fruta,
+            e não só no resultado. */}
+        {fruit?.fresh && !fruit.recipe && (
+          <p className="mt-3 max-w-xl rounded-card border-2 border-warn/50 bg-warn-tint px-4 py-3 text-sm leading-relaxed text-ink">
+            {dict.fresh.notice}
+            <CitationRef
+              citations={fruit.fresh.citations}
+              labels={dict.sources}
+              className="mt-2 block"
+            />
           </p>
         )}
       </div>
@@ -309,14 +336,14 @@ export function JamCalculator({
                     ? 'above'
                     : 'below'
               }
-              beyondHardLimit={result.status === 'below-source' && !byNorm}
-              label={statusLabel(result.status, byNorm, dict)}
+              beyondHardLimit={result.status === 'below-source' && !byNorm && !byFresh}
+              label={statusLabel(result.status, result.referenceBasis, dict)}
             />
           </div>
 
           {fruit && (
             <p className="mt-1 text-xs text-ink-muted">
-              {`${byNorm ? dict.status.normLabel : dict.status.sourceLabel}: ${fmt.percent(
+              {`${byNorm ? dict.status.normLabel : byFresh ? dict.status.freshLabel : dict.status.sourceLabel}: ${fmt.percent(
                 result.referenceRatio * 100,
                 1,
               )}`}
@@ -328,12 +355,12 @@ export function JamCalculator({
           {result.status !== 'source' && (
             <p
               className={`mt-3 max-w-prose rounded-card px-4 py-3 text-sm leading-relaxed text-ink ${
-                result.status === 'below-source' && !byNorm
+                result.status === 'below-source' && !byNorm && !byFresh
                   ? 'bg-danger-tint'
                   : 'bg-warn-tint'
               }`}
             >
-              {statusBody(result.status, byNorm, dict)}
+              {statusBody(result.status, result.referenceBasis, dict)}
             </p>
           )}
         </div>
@@ -430,21 +457,28 @@ function EmbrapaLine({
 
 function statusLabel(
   status: string,
-  byNorm: boolean,
+  basis: ReferenceBasis,
   dict: JamDictionary,
 ): string {
-  if (status === 'source') return byNorm ? dict.status.normSource : dict.status.source;
-  if (status === 'above-source') {
-    return byNorm ? dict.status.normAbove : dict.status.aboveSource;
+  if (basis === 'norm') {
+    if (status === 'source') return dict.status.normSource;
+    return status === 'above-source' ? dict.status.normAbove : dict.status.normBelow;
   }
-  return byNorm ? dict.status.normBelow : dict.status.belowSource;
+  // Receita fresca e receita de conserva usam os mesmos rótulos: as duas são
+  // "a proporção da fonte". O que difere entre elas é o corpo do aviso.
+  if (status === 'source') return dict.status.source;
+  return status === 'above-source' ? dict.status.aboveSource : dict.status.belowSource;
 }
 
-function statusBody(status: string, byNorm: boolean, dict: JamDictionary): string {
-  if (status === 'above-source') {
-    return byNorm ? dict.status.normAboveBody : dict.status.aboveBody;
-  }
-  return byNorm ? dict.status.normBelowBody : dict.status.belowBody;
+function statusBody(
+  status: string,
+  basis: ReferenceBasis,
+  dict: JamDictionary,
+): string {
+  const above = status === 'above-source';
+  if (basis === 'norm') return above ? dict.status.normAboveBody : dict.status.normBelowBody;
+  if (basis === 'fresh') return above ? dict.status.freshAboveBody : dict.status.freshBelowBody;
+  return above ? dict.status.aboveBody : dict.status.belowBody;
 }
 
 function formatRange(range: Range, format: (value: number) => string): string {
