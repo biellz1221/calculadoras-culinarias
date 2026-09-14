@@ -273,3 +273,22 @@ test('a seção da geleia fresca explica por que ela não é conserva', async ({
   ).toBeVisible();
   await expect(page.getByText(/quatro doses de pectina/).first()).toBeVisible();
 });
+
+/**
+ * A segunda fonte da curva de altitude (docs/research/geleias.md, Parte IV).
+ *
+ * O que este teste protege é a convergência: a página passou a dizer que duas
+ * obras independentes descrevem a mesma curva, e o Modernist entrou na lista de
+ * fontes. Se a citação sumir, a afirmação vira palavra do site.
+ */
+test('a convergência entre NCHFP e Modernist aparece, com a fonte junto', async ({
+  page,
+}) => {
+  await page.goto('/geleias');
+
+  const conteudo = page.locator('#conteudo');
+  await expect(conteudo.getByText(/Modernist Cuisine/i).first()).toBeVisible();
+  await expect(
+    conteudo.getByText(/elevação do ponto de ebulição/i).first(),
+  ).toBeVisible();
+});

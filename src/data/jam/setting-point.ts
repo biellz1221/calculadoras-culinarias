@@ -101,6 +101,67 @@ export const SETTING_POINT_CITATIONS = [
 
 export const ALTITUDE_CITATIONS = [cite('mcgee-keys', 104)];
 
+/* -------------------------------------------------------------------------- */
+/* Segunda fonte da curva de altitude                                         */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * A regra de bolso do Modernist Cuisine, vol. 1, p. 318:
+ *
+ *   "about a 1 °C / 2 °F decrease in boiling point for every 300 m /
+ *   1,000 ft increase in altitude"
+ *
+ * É a **mesma** regra que o NCHFP escreve em Fahrenheit, vinda de um livro de
+ * física de cozinha em vez de um serviço de extensão agrícola. Duas obras
+ * independentes, e a tabela do NCHFP fica a menos de meio grau da regra do
+ * Modernist em todos os oito mil pés que ela cobre — ver `setting-point.test.ts`.
+ *
+ * Isso importa porque a tabela do NCHFP **contraria a regra de bolso da própria
+ * página** a partir dos 5.000 pés (ver acima). Saber que a divergência é de
+ * arredondamento, e não de física, é o que autoriza continuar interpolando a
+ * tabela em vez de trocar de régua.
+ */
+export const MODERNIST_ALTITUDE_RULE = {
+  metersPerStep: 300,
+  feetPerStep: 1000,
+  celsiusPerStep: 1,
+  fahrenheitPerStep: 2,
+  citations: [cite('modernist-1', 318)],
+} as const;
+
+/**
+ * Os dois pontos que a mesma página publica, e que servem de caso-verdade da
+ * regra: Denver e o cume do Everest.
+ *
+ * Denver está dentro da faixa da tabela do NCHFP e cai em cima dela. O Everest
+ * está quatro vezes acima do fim da tabela, e serve para conferir se a
+ * extrapolação do último trecho — que o código faz — ainda diz algo razoável.
+ */
+export const MODERNIST_ANCHORS: readonly {
+  id: string;
+  meters: number;
+  boilingCelsius: readonly [number, number];
+}[] = [
+  { id: 'denver', meters: 1600, boilingCelsius: [93, 95] },
+  { id: 'everest', meters: 8849, boilingCelsius: [69, 69] },
+];
+
+/**
+ * Por que a geleia dá o ponto **acima** da fervura da água.
+ *
+ * O NCHFP publica os 8 °F como fato. O Modernist explica o mecanismo: soluto
+ * dissolvido baixa a atividade de água, menos moléculas escapam, a pressão de
+ * vapor cai e o ponto de ebulição sobe. É chamado de elevação do ponto de
+ * ebulição, e a página dá dois extremos para calibrar a intuição.
+ */
+export const BOILING_POINT_ELEVATION = {
+  /** Água do mar, 3,5% de sal. */
+  seawater: { solutePercent: 3.5, celsius: 103 },
+  /** Calda de confeitaria a 95% de açúcar. */
+  candySyrup: { solutePercent: 95, celsius: [135, 145] as const },
+  citations: [cite('modernist-1', 318)],
+} as const;
+
 /**
  * Banho-maria para geleia sem pectina adicionada, tabela 2 do NCHFP:
  * 5 min até 1.000 pés, 10 min de 1.001 a 6.000, 15 min acima disso.
