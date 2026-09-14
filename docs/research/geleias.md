@@ -83,15 +83,22 @@ Repare no que isso significa para a calculadora: o grupo não muda a quantidade
 de açúcar, muda **se o suco de limão é obrigatório ou opcional**. Grupo III sem
 ácido adicionado não gelifica — é a própria norma que diz "always".
 
-**Divergência sobre a goiaba.** O NCHFP põe a goiaba no grupo III, "always needs
-added acid, pectin or both". McGee diz o contrário sobre a pectina: os
-colonizadores espanhóis "exploited their high pectin content to make a New World
-version of quince paste" (*On Food and Cooking*, cap. 7, "Fruits from Warm
-Climates"). Saunders, que trabalha com goiaba branca, também a trata como fruta
-firme e rica em pectina. A leitura que concilia os três: a goiaba tem pectina de
-sobra e **falta ácido** — e o grupo III do NCHFP é "ácido, pectina **ou ambos**".
-Como não temos fonte que separe os dois casos para a goiaba, ela **não vira
-preset** nesta versão. Fica registrada aqui como pendência (§9).
+**Divergência sobre a goiaba — resolvida em 2026-09-13.** O NCHFP põe a goiaba no
+grupo III, "always needs added acid, pectin or both". McGee diz o contrário sobre
+a pectina: os colonizadores espanhóis "exploited their high pectin content to
+make a New World version of quince paste" (*On Food and Cooking*, cap. 7).
+Saunders, que trabalha com goiaba branca, também a trata como fruta firme e rica
+em pectina.
+
+**A Embrapa decide, e a favor do McGee.** A Tabela 1 do *Manual para a produção
+de geléias de frutas em escala industrial* (Documentos nº 29, 1998) classifica
+"Goiaba (vermelha madura e de vez)" como **pectina rica, acidez média**. A
+leitura que este documento já supunha estava certa: sobra pectina, falta ácido —
+e o grupo III do NCHFP é "ácido, pectina **ou ambos**", o que acomoda os dois.
+
+A mesma tabela cobre ~40 frutas brasileiras, e o mesmo manual traz a janela de pH
+e a dose de pectina que a §9 listava como pendência. Ver
+`bibliografia-candidata.md`, Parte 4.13.
 
 ---
 

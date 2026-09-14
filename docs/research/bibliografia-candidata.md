@@ -410,6 +410,43 @@ Por ordem de quanto trava uma calculadora do roadmap:
   que este documento citava (2,8 a 3,5) não vieram de fonte lida e continuam
   fora do código. Os manuais de fabricante de pectina da §4.6 resolveriam.
 
+# Parte 4.13: fruta brasileira em conserva doce — resolvido (2026-09-13)
+
+A maior lacuna aberta pela calculadora de geleias era não ter fruta de quintal
+brasileiro. **Está resolvida, e de graça.** A rede pública de pesquisa publica
+exatamente o tipo de material que este site precisa: institucional, citável,
+com número e sem paywall.
+
+| Obra | O que resolve |
+| --- | --- |
+| **TORREZAN, Renata. _Manual para a produção de geléias de frutas em escala industrial._** Rio de Janeiro: Embrapa Agroindústria de Alimentos, jan. 1998. Documentos nº 29, ISSN 0103-6068 · **gratuito**<br>[PDF na Infoteca](https://www.infoteca.cnptia.embrapa.br/bitstream/doc/415585/1/1998DOC0029.pdf) | **A fonte.** Traz (a) a Tabela 1, que classifica ~40 frutas por teor de pectina (rica/média/pobre) e acidez (alta/média/baixa), com goiaba, jabuticaba em quatro variedades, caju, maracujá, araçá, cajá-manga, acerola, carambola, caqui, fruta-do-conde, mamão, manga, pitanga, uvaia e nêspera; (b) a **janela de pH** que faltava — "o gel se forma apenas em pH ao redor de 3. Além de pH 3,4 não ocorre geleificação"; (c) a dose de pectina — "geralmente 1% é suficiente para produzir uma geléia firme"; (d) a acidez total alvo, 0,5–0,8%, "pois acima de 1% ocorre sinérese"; e (e) a definição legal brasileira de geleia comum e extra, com proporção fruta:açúcar. |
+| **JACKIX, Marta Hiromi. _Doces, geléias e frutas em calda._** Campinas: Ed. da Unicamp / São Paulo: Ícone, 1988. 172 p. **[a conferir]** | É de onde a Tabela 1 do Embrapa tira as linhas marcadas com asterisco. Fonte primária da classificação; vale ter se aparecer em sebo. |
+| **Embrapa, _Processamento de Frutas e Hortaliças em Agroindústrias da Agricultura Familiar_** (2021) · **gratuito**<br>[PDF na Infoteca](https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1131988/1/Cartilha-frutas-Sona-Web.pdf) | Régua caseira em vez de industrial, e nomeia as polpas naturalmente pobres em pectina: abacaxi, jabuticaba, caju, morango, acerola, maracujá e carambola. |
+| **Embrapa, _Produção de Doces, Geleias e Compotas em Agroindústria_** · **gratuito**<br>[PDF na Infoteca](https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1098842/1/DOC18008.pdf) | Doce de goiaba e afins. |
+| **FILGUEIRAS, H. A. C. et al. _Fabricação de geléias._** Belo Horizonte: CETEC, 1985. Manual Técnico, Série Alimentos, 4 **[a conferir]** | Outra referência citada pelo Embrapa. |
+
+**A legislação brasileira, transcrita do Documento 29:**
+
+> "Comum: quando preparadas numa proporção de quarenta partes de frutas frescas
+> ou seu equivalente para sessenta partes de açúcar. As geléias de marmelo,
+> laranja e maçã poderão ser preparadas com trinta e cinco partes de frutas
+> frescas ou seu equivalente à fruta fresca e sessenta e cinco partes de açúcar.
+> Extra: quando preparadas numa proporção de cinqüenta partes de frutas frescas
+> ou seu equivalente para cinqüenta partes de açúcar."
+
+Sólidos solúveis totais mínimos: **62% para a comum e 65% para a extra.** Repare
+que o 65% da extra bate com os 65% de Ferber, por caminhos completamente
+independentes — norma brasileira e confeiteira alsaciana.
+
+**O que isso corrige na nossa própria pesquisa.** `geleias.md` §3 registrou uma
+divergência aberta sobre a goiaba: o NCHFP a põe no grupo III ("always needs
+added acid, pectin or both") e McGee diz que ela é rica em pectina. O Embrapa
+decide: **goiaba vermelha, madura e de vez — pectina rica, acidez média.** A
+leitura que o documento já supunha estava certa: sobra pectina, falta ácido.
+
+**Cuidado ao citar.** As linhas com asterisco da Tabela 1 são do Jackix (1988), e
+o Embrapa é quem reproduz. A citação tem de dizer isso.
+
 # Parte 5: lista de compras sugerida
 
 Ordenada por quanto cada compra destrava, não por preço.
