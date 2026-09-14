@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { JAM_SNAPSHOT, initialJamState, parseJamState } from './state';
+import {
+  JAM_SNAPSHOT,
+  initialJamState,
+  levelForFruit,
+  parseJamState,
+  sugarLevelsFor,
+} from './state';
 import { MAX_ALTITUDE_METERS } from '@/data/jam/setting-point';
 import { decodeSnapshot, encodeSnapshot } from '@/lib/recipes/snapshot';
 
@@ -76,5 +82,78 @@ describe('estado de geleia vindo de fora', () => {
   it('a linha de base do snapshot só existe para fruta do catálogo', () => {
     expect(JAM_SNAPSHOT.baselineFor('fig')).toMatchObject({ fruitId: 'fig' });
     expect(JAM_SNAPSHOT.baselineFor('jabuticaba')).toBeNull();
+  });
+});
+
+describe('níveis de açúcar por fruta', () => {
+  it('só oferece "a da receita" para fruta que tem receita', () => {
+    expect(sugarLevelsFor('strawberry')).toContain('source');
+    expect(sugarLevelsFor('guava')).not.toContain('source');
+
+    // As duas classes da norma valem para qualquer fruta: são definição legal
+    // de produto, não receita de fruta.
+    for (const id of ['strawberry', 'guava']) {
+      expect(sugarLevelsFor(id), id).toEqual(expect.arrayContaining(['extra', 'common']));
+    }
+  });
+
+  it('trocar para fruta sem receita cai na geleia extra, não no silêncio', () => {
+    expect(levelForFruit('guava', 'source')).toBe('extra');
+    // O que continua valendo não é mexido.
+    expect(levelForFruit('guava', 'ferber')).toBe('ferber');
+    expect(levelForFruit('strawberry', 'source')).toBe('source');
+  });
+
+  it('recusa link que pede a receita de uma fruta que não tem receita', () => {
+    // Entrada não confiável: a combinação é impossível, e meia receita na tela
+    // é pior que nenhuma.
+    expect(
+      parseJamState({
+        fruitId: 'guava',
+        fruitGrams: 1000,
+        sugarLevel: 'source',
+        customSugarRatio: 0.6,
+        altitudeMeters: 0,
+      }),
+    ).toBeNull();
+
+    // A mesma fruta com um nível que existe passa.
+    expect(
+      parseJamState({
+        fruitId: 'guava',
+        fruitGrams: 1000,
+        sugarLevel: 'extra',
+        customSugarRatio: 0.6,
+        altitudeMeters: 0,
+      }),
+    ).not.toBeNull();
+  });
+
+  it('aceita as classes da norma e recusa qualquer outra palavra', () => {
+    for (const sugarLevel of ['extra', 'common', 'ferber', 'custom']) {
+      expect(
+        parseJamState({
+          fruitId: 'guava',
+          fruitGrams: 500,
+          sugarLevel,
+          customSugarRatio: 0.6,
+          altitudeMeters: 0,
+        }),
+        sugarLevel,
+      ).not.toBeNull();
+    }
+
+    for (const sugarLevel of ['__proto__', 'constructor', 'toString', 'comum']) {
+      expect(
+        parseJamState({
+          fruitId: 'guava',
+          fruitGrams: 500,
+          sugarLevel,
+          customSugarRatio: 0.6,
+          altitudeMeters: 0,
+        }),
+        sugarLevel,
+      ).toBeNull();
+    }
   });
 });

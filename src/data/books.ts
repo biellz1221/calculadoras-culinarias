@@ -28,6 +28,8 @@ export type BookId =
   | 'foodlab'
   | 'wybauw'
   | 'nchfp'
+  | 'embrapa-geleias'
+  | 'embrapa-geleias-artesanal'
   | 'marianski'
   | 'anvisa-in211'
   | 'fsis-424'
@@ -222,6 +224,54 @@ export const BOOKS: readonly Book[] = [
     shortName: 'NCHFP',
     publisher: 'USDA',
     url: 'https://nchfp.uga.edu/',
+    locator: 'chapter',
+    kind: 'official',
+  },
+  {
+    /**
+     * O manual industrial de geleia da Embrapa, e a Tabela 1 que ele publica.
+     *
+     * Entra como obra oficial: publicação de empresa pública de pesquisa, com
+     * ISSN, série numerada e endereço permanente. Quem duvidar do número abre o
+     * PDF na Infoteca-e e confere.
+     *
+     * Citada por seção, não por página: o PDF diagrama duas páginas impressas
+     * por página de arquivo e não traz numeração na camada de texto. Mesmo caso
+     * do Wybauw — deslocamento que não se confere de ponta a ponta não vira
+     * citação de página.
+     *
+     * **Trinta das 38 linhas da Tabela 1 são de JACKIX (1988)**, e a Embrapa
+     * reproduz. As citações dessas linhas dizem isso; ver docs/research/
+     * geleias.md §12.
+     */
+    id: 'embrapa-geleias',
+    title: 'Manual para a produção de geléias de frutas em escala industrial',
+    authors: ['Renata Torrezan'],
+    shortName: 'Embrapa, Documentos 29',
+    publisher: 'Embrapa Agroindústria de Alimentos',
+    year: 1998,
+    url: 'https://www.infoteca.cnptia.embrapa.br/bitstream/doc/415585/1/1998DOC0029.pdf',
+    locator: 'chapter',
+    kind: 'official',
+  },
+  {
+    /**
+     * A régua caseira da mesma casa, e a que publica a dose de pectina.
+     *
+     * O Doc 29 é de escala industrial; este é de bancada, e traz onze
+     * formulações pesadas que obedecem à faixa de pectina que ele próprio
+     * publica — a autoconferência que autorizou transcrever a faixa.
+     *
+     * Por seção pelo mesmo motivo do irmão: manter as duas obras da Embrapa
+     * endereçadas do mesmo jeito.
+     */
+    id: 'embrapa-geleias-artesanal',
+    title: 'Preparo artesanal de geleias e geleiadas',
+    authors: ['Ana Cristina Richter Krolow'],
+    shortName: 'Embrapa, Documentos 138',
+    publisher: 'Embrapa Clima Temperado',
+    year: 2013,
+    url: 'https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1018391/1/Documento138.pdf',
     locator: 'chapter',
     kind: 'official',
   },

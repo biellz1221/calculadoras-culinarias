@@ -267,6 +267,28 @@ const JAM: readonly GlossaryEntry[] = [
     ],
   },
   {
+    id: 'embrapa-table',
+    citations: [
+      cite(
+        'embrapa-geleias',
+        'Tabela 1 — classificação de algumas frutas segundo teores de pectina e acidez',
+      ),
+    ],
+  },
+  {
+    id: 'legal-jam',
+    citations: [
+      cite('embrapa-geleias', '§1 Introdução — classificação legal de geléia comum e extra'),
+    ],
+  },
+  {
+    id: 'soluble-solids',
+    citations: [
+      cite('embrapa-geleias', '§1 Introdução — classificação legal de geléia comum e extra'),
+      cite('ferber', 'cap. "Le sucre et la cuisson"'),
+    ],
+  },
+  {
     id: 'apple-jelly',
     citations: [
       cite('ferber', 'cap. "Le sucre et la cuisson"'),
@@ -277,6 +299,7 @@ const JAM: readonly GlossaryEntry[] = [
     id: 'syneresis',
     citations: [
       cite('nchfp', 'Causes and Possible Solutions for Problems with Jellied Fruit Products'),
+      cite('embrapa-geleias', '§1 Introdução — acidez total e sinérese'),
     ],
   },
   {

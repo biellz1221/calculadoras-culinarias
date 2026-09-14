@@ -270,3 +270,38 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
 - **Prove que o teste pega o bug.** Desfaça a correção, rode e veja falhar. Foi
   o que confirmou tanto a regressão do `__proto__` quanto o teste de offline —
   este passava alegremente com o service worker desligado até ser conferido.
+- **`git checkout <arquivo>` descarta trabalho não commitado, e não avisa.** Ao
+  provar que um teste novo pega a regressão, apaguei uma linha do dicionário,
+  rodei o teste, vi falhar — e desfiz com `git checkout` no arquivo. Voltou para
+  o `HEAD`, levando junto duas horas de tradução que ainda não estavam
+  commitadas. Para desfazer um experimento, desfaça **com a mesma ferramenta que
+  fez**: se a mudança foi um `sed`, o inverso é outro `sed`. Se for mesmo
+  preciso restaurar do git, `git stash` primeiro. E o momento seguro de fazer
+  esse teste é **depois** do commit.
+- **Catálogo desenhado por duas superfícies precisa de rótulo para a união.**
+  Duas linhas da tabela da Embrapa saíram do seletor (foram absorvidas por
+  receitas) mas continuaram sendo linhas da tabela publicada na página — e
+  ficaram em branco nos dois idiomas. Nenhum teste de contagem pega isso: a
+  contagem estava certa. O teste que pega é `todo id de A **e** de B tem rótulo
+  não vazio em todo idioma`.
+- **Afirmação numérica em prosa é número sem fonte igual aos outros.** Escrevi
+  "mais açúcar do que sete das nove receitas" em quatro lugares; eram oito e uma
+  empatada. Não veio de extração errada — veio de contar de cabeça sobre dados
+  que o código já tinha. Se a frase afirma uma contagem, escreva o teste **a
+  partir da frase** e deixe o código responder.
+- **Teste preso ao número de uma norma quebra junto com a norma.** O e2e de cura
+  afirmava "conformidade com a RDC 272" e sobreviveu à troca para a IN 211 só
+  porque a suíte completa não foi rodada no commit da correção. Asserção de
+  texto deve mirar a **promessa** ("não certifica conformidade com a norma
+  brasileira"), não o identificador que muda.
+- **Fonte que se repete de dois jeitos é fonte conferível.** O Doc 138 publica
+  uma regra de dose e onze formulações que a obedecem; o Wybauw publica a tabela
+  de ganache em razão e em porcentagem. Nos dois casos a redundância virou
+  `it.each` e é o que autoriza transcrever de PDF com ruído. Procure a segunda
+  forma antes de transcrever a primeira.
+- **Bloco tipograficamente quebrado na publicação não vira número.** Duas
+  receitas do Doc 138 ficam num trecho em que a frase corta no meio e um título
+  some — conferido na imagem da página, o defeito é do documento. Elas também
+  eram as duas únicas fora da faixa que o documento publica. Coincidência que
+  vale como sinal: número que destoa, confira a integridade da página antes de
+  concluir que a fonte se contradiz.

@@ -22,7 +22,7 @@ citar à vontade.
 |---|---|---|
 | **RDC 272/2019 foi revogada** | **Corrigido e no ar** | A calculadora de cura citava norma morta. §2 |
 | **Fator de conversão de nitrato para nitrito** | **Pronto para implementar** | Fecha a conta que a página de cura hoje só descreve. §2.1 |
-| **Tabela de frutas brasileiras** (Embrapa Doc 29) | Pesquisa feita, código pendente | Fruta brasileira nas geleias. Ver `bibliografia-candidata.md` §4.13 |
+| **Tabela de frutas brasileiras** (Embrapa Doc 29) | **No ar desde 2026-09-14** | 35 frutas novas na calculadora de geleias, mais a régua legal, a dose de pectina e a janela de pH. Ver `geleias.md`, Parte II |
 | **pH 4,5 como limiar de segurança** | Segunda fonte disponível | Corrobora o picles com fonte brasileira. §3 |
 | **Salmoura fraca 1,5 a 2% de sal** | Segunda fonte disponível | Corrobora a faixa de salga do picles. §3 |
 | **Sorvete: overrun e densidade** | **Procurado e não achado** | A lacuna do gelato continua. §4 |
@@ -180,12 +180,15 @@ norma citada; a RDC 272 estava corretamente transcrita e mesmo assim morta.
 
 ## 7. O que fazer com isso, em ordem
 
-1. **Somar nitrato ao nitrito na calculadora de cura**, com o fator 1,231 do
+1. ~~**Fruta brasileira nas geleias.**~~ **Feito em 2026-09-14.** Rendeu mais do
+   que a tabela de frutas: fechou também a dose de pectina em pó e a janela de
+   pH, duas pendências que a pesquisa de geleias carregava declaradas desde o
+   começo. E a mudança de modelo que ela pedia — receita deixar de ser
+   obrigatória, duas classificações convivendo, o aviso ganhar segunda régua —
+   é o que vai permitir entrar qualquer fruta que só tenha classificação.
+2. **Somar nitrato ao nitrito na calculadora de cura**, com o fator 1,231 do
    Ofício DIPOA 15/2009. Muda uma página de segurança alimentar, então merece
    passe próprio.
-2. **Fruta brasileira nas geleias**, com a Tabela 1 do Embrapa Doc 29 e a régua
-   da legislação. Pede mudança de modelo (duas classificações convivendo, receita
-   opcional, açúcar vindo da norma).
 3. **Segunda fonte brasileira no picles**, para o pH 4,5 e para a faixa de sal.
    É acréscimo de citação, barato.
 4. Gelato e pão sem glúten continuam dependendo de livro estrangeiro.

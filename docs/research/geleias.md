@@ -383,18 +383,20 @@ até um mês.
   diferente — volume de suco extraído, não peso de fruta — e um segundo dia de
   processo. Ficam para outra versão. A calculadora diz que é de geleia com
   pedaço de fruta, e as definições estão no glossário.
-- **Goiaba, jabuticaba, maracujá, manga, caju** — a fruta brasileira. Nenhuma
-  das três fontes principais publica proporção pesada para elas; a goiaba
-  aparece só na classificação do NCHFP, e com a ambiguidade da §3. Isto é a
-  maior lacuna desta calculadora e está registrado em
-  `docs/research/bibliografia-candidata.md`.
-- **Pectina comercial em pó.** Saunders manda usar "extremely sparingly and only
-  if absolutely necessary", e o NCHFP manda seguir a bula do fabricante, que
-  varia por marca. Sem dose citável, não entra. A pectina emprestada da gelatina
-  de maçã de Ferber entra porque tem número.
-- **pH.** Todas as fontes falam de ácido; nenhuma das três publica a janela de
-  pH da gelificação. Os valores que circulam (2,8–3,5) vieram do documento de
-  bibliografia, não de fonte lida — e por isso **não** estão na tela. Pendência.
+- ~~**Goiaba, jabuticaba, maracujá, manga, caju** — a fruta brasileira.~~
+  **Resolvido em 2026-09-14, na Parte II.** A Embrapa publica a classificação
+  dessas frutas por pectina e acidez (§12), e a legislação publica a proporção
+  (§13). O que continua sem fonte para elas é receita pesada, rendimento e
+  validade — e a calculadora omite os três em vez de escalar o de outra fruta.
+- ~~**Pectina comercial em pó.**~~ **Resolvido em 2026-09-14, na Parte II §14.**
+  Saunders manda usar "extremely sparingly" e o NCHFP manda seguir a bula do
+  fabricante; nenhum dos dois dá número. A Embrapa dá: 0,5% a 1,5% **sobre o
+  açúcar**, com as próprias formulações do documento obedecendo à faixa.
+- ~~**pH.**~~ **Resolvido em 2026-09-14, na Parte II §15.** Nenhuma das três
+  fontes originais publica a janela de gelificação, e os valores que circulavam
+  (2,8–3,5) não vinham de fonte lida. A Embrapa publica: gel só em torno de
+  pH 3, nada acima de 3,4, alvo final 3,0–3,2. A **dose de ácido** por fruta
+  continua sem fonte.
 - **Manuais de fabricante de pectina** (CP Kelco, Herbstreith & Fox), que
   publicariam grau de gelificação e janela de pH com rigor de folha de
   especificação. Continuam na lista de compras.
@@ -414,3 +416,255 @@ até um mês.
 5. O aviso de açúcar baixo compara com **a fonte**, não com um limiar nosso.
 6. O rendimento fica em **potes**, a unidade do livro, porque converter para
    gramas exigiria densidade que ninguém publica.
+
+---
+
+# Parte II — as fontes brasileiras (2026-09-14)
+
+A pesquisa acima fechou com uma lacuna declarada na §9: **fruta brasileira**.
+Nenhuma das três fontes originais publica proporção para goiaba, jabuticaba,
+maracujá, caju ou acerola. A varredura dos órgãos públicos brasileiros
+(`fontes-publicas-br.md`) resolveu isso, e resolveu de um jeito que muda o
+modelo da calculadora — não só acrescenta linha.
+
+## 11. As duas obras da Embrapa
+
+| Sigla aqui | Obra |
+|---|---|
+| **Doc 29** | TORREZAN, Renata. *Manual para a produção de geléias de frutas em escala industrial*. Rio de Janeiro: EMBRAPA‑CTAA, 1998. 27 p. (EMBRAPA‑CTAA. Documentos, 29). ISSN 0103‑6068. |
+| **Doc 138** | KROLOW, Ana Cristina Richter. *Preparo artesanal de geleias e geleiadas*. 2. ed. Pelotas: Embrapa Clima Temperado, 2013. 40 p. (Documentos, 138). ISSN 1516‑8840. |
+
+As duas são gratuitas, institucionais, em português, e estão em
+`references/jams/embrapa/`.
+
+**As duas são citadas por seção, não por página.** O PDF do Doc 29 diagrama duas
+páginas impressas por página de PDF e não carrega numeração na camada de texto —
+mesmo caso do Wybauw e do *Charcuterie*. O Doc 138 tem numeração impressa, mas
+citá‑lo por página enquanto o irmão vai por seção só produziria confusão; os dois
+entram com `locator: 'chapter'`, e as seções deles são numeradas e curtas.
+
+**Atenção à autoria de terceira mão.** Na Tabela 1 do Doc 29, as linhas marcadas
+com asterisco são de JACKIX (1988) — a Embrapa reproduz. São 30 das 38. A citação
+diz isso, e o site marca as linhas na tela.
+
+## 12. A Tabela 1, conferida duas vezes
+
+Trinta e oito frutas classificadas em duas dimensões: **pectina** (rica, média,
+pobre) e **acidez** (alta, média, baixa).
+
+A tabela veio de PDF, que é onde este projeto já se queimou. O procedimento foi:
+extrair com `pdftotext -layout`, localizar as colunas pelos deslocamentos do
+cabeçalho, atribuir cada `x` à coluna mais próxima **por programa**, e depois
+conferir o resultado contra a **página renderizada como imagem**, linha a linha.
+As duas leituras batem nas 38 linhas.
+
+Duas travas ajudam: toda linha tem exatamente uma marca de pectina e uma de
+acidez — se uma coluna tivesse escorregado, alguma linha apareceria com duas
+marcas do mesmo lado ou nenhuma —, e nenhuma linha ficou órfã.
+
+| Fruta | Pectina | Acidez | Fonte |
+|---|---|---|---|
+| Abacaxi | pobre | alta | Jackix |
+| Acerola | pobre | média | Torrezan |
+| Ameixa-do-japão (amarela ou vermelha) | rica | alta | Jackix |
+| Araçá (roxo) | rica | alta | Torrezan |
+| Banana (d'água ou nanica) | média | baixa | Torrezan |
+| Cajá-manga | pobre | alta | Torrezan |
+| Caju | pobre | média | Jackix |
+| Caqui | pobre | baixa | Jackix |
+| Carambola (ácida) | pobre | média | Jackix |
+| Carambola (doce) | pobre | baixa | Jackix |
+| Figo maduro | pobre | baixa | Jackix |
+| Figo verde e de vez | rica | baixa | Jackix |
+| Fruta-do-conde | pobre | média | Torrezan |
+| Goiaba (vermelha madura e de vez) | rica | média | Jackix |
+| Groselha | rica | alta | Jackix |
+| Jabuticaba (comum) | pobre | média | Jackix |
+| Jabuticaba (ponhema) | pobre | alta | Jackix |
+| Jabuticaba (sabará), com casca | média | alta | Jackix |
+| Jabuticaba (sabará), sem casca | pobre | baixa | Jackix |
+| Laranja (baía e pêra), fruta inteira | rica | alta | Jackix |
+| Limão (cidra e siciliano) | rica | alta | Jackix |
+| Maçã (ácida, argentina) | média | alta | Jackix |
+| Maçã (ohio beauty e são joão — amarela, de vez e madura) | rica | média | Jackix |
+| Mamão | pobre | baixa | Jackix |
+| Manga (espada) | média | alta | Jackix |
+| Manga (espadão e santa alexandrina) | rica | alta | Jackix |
+| Maracujá (amarelo e roxo), suco | pobre | alta | Torrezan |
+| Marmelo | rica | média | Jackix |
+| Morango | pobre | média | Jackix |
+| Nêspera | média | alta | Jackix |
+| Pêra d'água madura | pobre | baixa | Jackix |
+| Pêssego amarelo maduro | pobre | baixa | Jackix |
+| Pêssego verde | rica | alta | Torrezan |
+| Pitanga | média | alta | Jackix |
+| Romã | pobre | média | Torrezan |
+| Uva (ananás, catawba e empire state) | pobre | alta | Jackix |
+| Uva (isabel e niágara) | média | alta | Jackix |
+| Uvaia | pobre | alta | Jackix |
+
+**O que a tabela diz e o NCHFP não dizia.** A classificação americana tem um eixo
+só, com três grupos que misturam pectina e ácido ("needs added acid, pectin or
+both"). A brasileira separa os dois eixos. Para a goiaba isso é a diferença entre
+não saber o que fazer e saber: rica em pectina, média em acidez — falta ácido,
+não falta pectina.
+
+**O que a tabela não diz.** Nenhuma quantidade. A Tabela 1 é classificação, não
+receita. Fruta que só existe aqui entra na calculadora **sem receita pesada**, e
+isso é o que obriga a mudança de modelo da §14.
+
+## 13. A régua legal brasileira
+
+O Doc 29 transcreve a definição da legislação de alimentos:
+
+> "**Comum**: quando preparadas numa proporção de quarenta partes de frutas
+> frescas ou seu equivalente para sessenta partes de açúcar. As geléias de
+> marmelo, laranja e maçã poderão ser preparadas com trinta e cinco partes de
+> frutas frescas ou seu equivalente à fruta fresca e sessenta e cinco partes de
+> açúcar.
+> **Extra**: quando preparadas numa proporção de cinqüenta partes de frutas
+> frescas ou seu equivalente para cinqüenta partes de açúcar."
+
+> "O teor de sólidos solúveis totais mínimos para geléia comum e extra (%p/p)
+> devem ser de respectivamente **62 e 65%**."
+
+Traduzido para a base que esta calculadora usa — açúcar **sobre o peso da
+fruta**:
+
+| Classe | Partes fruta : açúcar | Açúcar sobre a fruta |
+|---|---|---|
+| Extra | 50 : 50 | **1,00** |
+| Comum | 40 : 60 | **1,50** |
+| Comum de marmelo, laranja e maçã | 35 : 65 | **1,857** |
+
+**Aqui mora a maior divergência desta calculadora**, e ela não estava prevista.
+A menor proporção que a norma brasileira admite para chamar o produto de geleia é
+**1 : 1** — mais açúcar do que oito das nove receitas de Saunders (a nona, a
+framboesa, empata) e mais do que os 0,80 de Ferber. Não é contradição: a norma classifica **produto industrial
+rotulado**, e Saunders escreve **receita de casa**. São réguas de coisas
+diferentes, e o site diz isso em vez de escolher uma calada.
+
+**A confirmação que fecha o círculo.** Os 65% de sólidos solúveis da geleia extra
+são exatamente os 65% de açúcar que Ferber dá como ponto de conservação
+("*la confiture doit contenir 65 % de sucre*"). Uma norma brasileira de 1988 e uma
+confeiteira alsaciana, sem se conhecerem, no mesmo número. A conta de água a
+evaporar da calculadora, que até agora se apoiava só em Ferber e vinha declarada
+como estimativa de fonte única, passa a ter segunda fonte independente.
+
+## 14. Pectina em pó: a dose que faltava
+
+A §9 registrava "pectina comercial em pó" como pendência — Saunders manda usar
+"extremely sparingly" e o NCHFP manda seguir a bula. O Doc 138 publica a regra:
+
+> "A quantidade de pectina a ser acrescentada na fabricação de geleias está
+> relacionada com a quantidade de açúcar adicionado e com o teor de pectina
+> presente na própria fruta ou suco. Normalmente, essa quantidade é calculada em
+> **0,5% a 1,5% de pectina em relação à quantidade de açúcar** usado na
+> formulação. Esse teor pode variar dependendo de a fruta apresentar maior ou
+> menor quantidade presente naturalmente."
+
+**A base é o açúcar, e isso importa.** É o tipo de detalhe que some numa
+transcrição apressada e produz dose errada por um fator de dois.
+
+**O documento se confere sozinho.** O mesmo Doc 138 publica onze formulações
+pesadas, e dez delas caem dentro da própria faixa:
+
+| Formulação | Pectina ÷ açúcar |
+|---|---|
+| Geleiada de pêssego comum (30 g / 4,5 kg) | 0,67% |
+| Geleiada de pêssego comum (45 g / 5,8 kg) | 0,78% |
+| Geleia de pêssego extra (45 g / 8,6 kg) | 0,52% |
+| Geleia de pêssego comum (40 g / 8,8 kg) | **0,45%** |
+| Geleia de pêssego comum (80 g / 7,5 kg) | 1,07% |
+| Geleia de caroço de pêssego (40 g / 4 kg) | 1,00% |
+| Geleia de morango extra (25 g / 3,7 kg) | 0,68% |
+| Geleia de morango extra (10 g / 1 kg) | 1,00% |
+| Geleia de morango extra (25 g / 2,5 kg) | 1,00% |
+| Geleia de morango comum (45 g / 6 kg) | 0,75% |
+| Geleia de uva comum (35 g / 5,5 kg) | 0,64% |
+
+A única fora cai 0,05 ponto abaixo do piso. Uma fonte cujos exemplos obedecem à
+própria regra é uma fonte que se pode transcrever com confiança.
+
+**O Doc 29 chega ao mesmo lugar por outro caminho**: "Geralmente 1% é suficiente
+para produzir uma geléia firme", e a Fig. 1 dele tem o eixo de concentração de
+pectina marcado em 0,5 — 1,0 — 1,5. Mesma faixa, mesmo centro. O Doc 29 **não
+declara a base**; o Doc 138 declara. Por isso a dose na tela cita o Doc 138.
+
+**O que ficou de fora de propósito.** As formulações de butiá e de uvaia do Doc
+138 usam 16,7 g de pectina por quilo de açúcar — 1,67%, acima da faixa que o
+próprio documento publica. Elas estão num bloco **defeituoso da publicação**: na
+p. 29 impressa, a frase do butiá é cortada no meio ("*acrescentar o 16,5*") e o
+título da receita de uvaia desaparece, colado ao nome da formuladora. Conferido
+na imagem da página: o defeito é do documento, não da extração. Bloco com defeito
+tipográfico não vira número na tela.
+
+## 15. A janela de pH, enfim com fonte
+
+A §9 registrava a janela de pH como pendência explícita: "os valores que circulam
+(2,8–3,5) vieram do documento de bibliografia, não de fonte lida". Agora vieram.
+
+| Afirmação | Fonte |
+|---|---|
+| "O gel se forma apenas em pH ao redor de 3. Além de pH 3,4 não ocorre geleificação." | Doc 29, §1 |
+| "Para se conseguir uma adequada geleificação, o pH final deve estar entre 3,0 a 3,2." | Doc 29, §2.7 |
+| "A acidez total da geléia deve estar ao redor de 0,5‑0,8, pois, acima de 1%, ocorre sinérese." | Doc 29, §1 |
+| "A concentração ótima de açúcar está ao redor de 67,5%." | Doc 29, §1 |
+| "Antes do preparo, medir o pH da polpa: se estiver entre 3,0 e 3,3, não há necessidade de adicionar o ácido cítrico." | Doc 138, formulações de mirtilo e amora-preta |
+| Pectina de alta metoxilação gelifica a 60–80% de sólidos solúveis e pH 2,8–3,8 | Embrapa, *Doce em massa* (2015) |
+
+A última linha é a segunda fonte para a mesma janela, por outro produto.
+
+**A sinérese ganha número.** O glossário já tinha o verbete, definido pelo NCHFP
+como consequência de ácido em excesso. Agora tem o limiar: acima de 1% de acidez
+total. O verbete passa a citar os dois.
+
+**O que continua de fora:** a **dose de ácido**. As onze formulações do Doc 138
+variam de 0,05% a 0,6% do açúcar em ácido cítrico, sem regra publicada que
+explique a variação. O que entra na tela é o alvo (pH 3,0–3,2) e a regra prática
+do Doc 138 — medir antes, e só acidificar se estiver fora. Alvo verificável vale
+mais que dose inventada.
+
+## 16. O que isso muda no modelo da calculadora
+
+Quatro mudanças, e a primeira é a que obriga as outras.
+
+1. **A receita pesada deixa de ser obrigatória.** Goiaba não tem receita em
+   nenhuma fonte da estante. Ela entra com a classificação da Tabela 1, e a
+   proporção vem da norma. Uma fruta passa a poder ter receita, classificação, ou
+   as duas coisas.
+2. **Convivem duas classificações.** A do NCHFP (I/II/III, um eixo) e a da
+   Embrapa (pectina × acidez, dois eixos). Não são traduzíveis uma na outra, e
+   tentar seria inventar. Cada fruta mostra a que a fonte dela publica.
+3. **O aviso de açúcar baixo passa a ter duas réguas.** Para fruta com receita, a
+   régua continua sendo a receita, com o aviso do NCHFP sobre reduzir açúcar de
+   receita testada. Para fruta que só tem a norma, a régua é a geleia extra
+   (1 : 1), e o aviso é outro: abaixo dela o produto não é o que a norma
+   brasileira chama de geleia, e os sólidos solúveis caem abaixo dos 62–65% que
+   norma e Ferber apontam como nível de conservação. Misturar os dois avisos
+   seria dizer "doce de geladeira" para quem está a 0,80 seguindo Ferber.
+4. **A pectina em pó entra como faixa**, sobre o açúcar, com a classificação da
+   fruta ao lado para dizer de que lado da faixa ficar. Sem ponto inventado no
+   meio.
+
+## 17. O que a Parte II fecha e o que deixa aberto
+
+**Fecha:**
+
+- fruta brasileira na calculadora (§12);
+- dose de pectina em pó, que a §9 listava como pendência (§14);
+- janela de pH, que a §9 listava como pendência (§15);
+- segunda fonte independente para os 65% da conta de evaporação (§13);
+- a divergência da goiaba, já resolvida em 2026‑09‑13 na §3.
+
+**Deixa aberto:**
+
+- **Dose de ácido por fruta.** Nenhuma fonte publica regra (§15).
+- **Rendimento e validade da fruta brasileira.** A Embrapa não declara nem potes
+  nem prazo. A calculadora omite os dois para essas frutas em vez de escalar o
+  número de outra fruta.
+- **JACKIX, Marta Hiromi.** *Doces, geléias e frutas em calda* (Unicamp/Ícone,
+  1988) é a fonte primária de 30 das 38 linhas da Tabela 1. Enquanto não chegar,
+  a citação é de terceira mão e diz isso.
+- **CT 31, geleia de maracujá** — digitalização em imagem, sem camada de texto.
+  Só entra depois de OCR conferido à mão.

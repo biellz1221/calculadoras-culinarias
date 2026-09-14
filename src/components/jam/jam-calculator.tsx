@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 
 import { jamRecipeCard } from './recipe-card';
 import { CitationRef } from '@/components/citation';
@@ -8,10 +8,18 @@ import { MassField, NumberField, Segmented } from '@/components/field';
 import { RangeBadge } from '@/components/range-badge';
 import { RecipeActions } from '@/components/recipes/recipe-actions';
 import {
+  PECTIN_DOSE_CITATIONS,
+  PH_CITATIONS,
+  PH_FIELD_RULE_CITATIONS,
+  PH_WINDOW,
+  getEmbrapaRow,
+} from '@/data/jam/brazil';
+import {
+  CLASSIFIED_FRUIT_IDS,
   FERBER_APPLE_JELLY_CITATIONS,
   FERBER_SUGAR_CITATIONS,
-  JAM_FRUITS,
   PECTIN_GROUP_CITATIONS,
+  WEIGHED_FRUIT_IDS,
   getFruit,
 } from '@/data/jam/fruits';
 import {
@@ -20,14 +28,23 @@ import {
   SETTING_POINT_CITATIONS,
   settingCelsius,
 } from '@/data/jam/setting-point';
-import type { SugarLevel } from '@/data/jam/types';
+import type { EmbrapaFruitRow, Range } from '@/data/jam/types';
 import type { JamDictionary } from '@/i18n/dictionaries/jam';
 import type { Locale } from '@/i18n/locales';
 import { calculateJam } from '@/lib/jam/calculate';
-import { JAM_SNAPSHOT, MAX_SUGAR_RATIO, initialJamState, type JamState } from '@/lib/jam/state';
+import {
+  JAM_SNAPSHOT,
+  MAX_SUGAR_RATIO,
+  initialJamState,
+  levelForFruit,
+  sugarLevelsFor,
+  type JamState,
+} from '@/lib/jam/state';
+import { labelFor } from '@/lib/recipes/card';
 import { useFormatters } from '@/lib/use-formatters';
 
-const SUGAR_LEVELS: readonly SugarLevel[] = ['source', 'ferber', 'custom'];
+/** O pH sai com uma casa: 3,0 e 3,2 são os números que a fonte escreve. */
+const DECIMAL = { minimumFractionDigits: 1, maximumFractionDigits: 1 };
 
 /**
  * A calculadora de geleias.
@@ -36,6 +53,11 @@ const SUGAR_LEVELS: readonly SugarLevel[] = ['source', 'ferber', 'custom'];
  * opção escondida. É o que separa esta calculadora das outras: o açúcar
  * qualquer livro dá, mas a temperatura em que a geleia dá o ponto na cozinha de
  * quem está lendo nenhum deles dá — os dois publicam o número do nível do mar.
+ *
+ * Desde 2026-09-14 a fruta vem de duas famílias. Nove têm receita pesada do
+ * Blue Chair; trinta e cinco entram pela Tabela 1 da Embrapa, sem receita, com
+ * a proporção vindo da norma. O seletor agrupa as duas e diz qual é qual, e o
+ * resultado muda de forma — some o que a fonte não publica em vez de inventar.
  */
 export function JamCalculator({
   dict,
@@ -45,9 +67,14 @@ export function JamCalculator({
   locale: Locale;
 }) {
   const fmt = useFormatters(locale);
+  const resultId = useId();
+  const fruitId = useId();
   const [state, setState] = useState<JamState>(initialJamState);
 
   const fruit = getFruit(state.fruitId);
+  const embrapa = getEmbrapaRow(fruit?.embrapaId);
+  const levels = sugarLevelsFor(state.fruitId);
+
   const result = useMemo(
     () =>
       calculateJam({
@@ -65,9 +92,23 @@ export function JamCalculator({
     [state, result, dict, fmt],
   );
 
+  // Trocar de fruta pode invalidar o nível de açúcar: "a da receita" não existe
+  // para goiaba. A troca cai na geleia extra da norma em vez de num silêncio.
+  const chooseFruit = (next: string) =>
+    setState((s) => ({
+      ...s,
+      fruitId: next,
+      sugarLevel: levelForFruit(next, s.sugarLevel),
+    }));
+
   const lemonRange = formatRange(result.lemonGrams, (value) => fmt.mass(value, 0));
+  const pectinRange = formatRange(result.pectinGrams, (value) => fmt.mass(value, 1));
   const evaporation = formatRange(result.evaporationGrams, (value) => fmt.mass(value, 0));
-  const jars = formatRange(result.jars, (value) => fmt.number(Math.round(value)));
+  const jars = result.jars
+    ? formatRange(result.jars, (value) => fmt.number(Math.round(value)))
+    : null;
+
+  const byNorm = result.referenceBasis === 'norm';
 
   return (
     <div className="mt-10">
@@ -94,21 +135,47 @@ export function JamCalculator({
         </div>
       </fieldset>
 
+      {/* Quarenta e quatro frutas não cabem em botões. O `<select>` agrupa por
+          origem, que é a informação que decide o que a pessoa vai receber: com
+          receita pesada ou com a régua da norma. */}
       <div className="mt-8">
-        <Segmented
-          legend={dict.input.fruit}
+        <label htmlFor={fruitId} className="label-caps text-ink-muted">
+          {dict.input.fruit}
+        </label>
+        <select
+          id={fruitId}
           value={state.fruitId}
-          onChange={(fruitId) => setState((s) => ({ ...s, fruitId }))}
-          emphasis
-          options={JAM_FRUITS.map((item) => ({
-            value: item.id,
-            label: dict.fruits[item.id as keyof JamDictionary['fruits']],
-          }))}
-        />
-        {fruit && (
+          onChange={(event) => chooseFruit(event.target.value)}
+          className="mt-3 block w-full max-w-sm rounded-sm border border-rule bg-paper px-3 py-2 text-ink focus:border-accent focus:outline-none"
+        >
+          <optgroup label={dict.input.weighedGroup}>
+            {WEIGHED_FRUIT_IDS.map((id) => (
+              <option key={id} value={id}>
+                {labelFor(dict.fruits, id)}
+              </option>
+            ))}
+          </optgroup>
+          <optgroup label={dict.input.classifiedGroup}>
+            {CLASSIFIED_FRUIT_IDS.map((id) => (
+              <option key={id} value={id}>
+                {labelFor(dict.fruits, id)}
+              </option>
+            ))}
+          </optgroup>
+        </select>
+
+        {fruit?.group && (
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-muted">
             {dict.groups[`${fruit.group}Hint` as keyof JamDictionary['groups']]}{' '}
             <CitationRef citations={PECTIN_GROUP_CITATIONS} labels={dict.sources} />
+          </p>
+        )}
+
+        {embrapa && <EmbrapaLine row={embrapa} dict={dict} both={Boolean(fruit?.group)} />}
+
+        {fruit && !fruit.recipe && (
+          <p className="mt-3 max-w-xl rounded-card bg-accent-tint/60 px-4 py-3 text-sm leading-relaxed text-ink">
+            {dict.embrapa.noRecipe}
           </p>
         )}
       </div>
@@ -118,7 +185,7 @@ export function JamCalculator({
           legend={dict.input.sugar}
           value={state.sugarLevel}
           onChange={(sugarLevel) => setState((s) => ({ ...s, sugarLevel }))}
-          options={SUGAR_LEVELS.map((value) => ({
+          options={levels.map((value) => ({
             value,
             label: dict.sugarLevels[value],
           }))}
@@ -152,8 +219,13 @@ export function JamCalculator({
         )}
       </div>
 
-      <section aria-live="polite" className="mt-10">
-        <h2 className="label-caps text-accent-deep">{dict.result.title}</h2>
+      {/* A região do resultado tem nome próprio: sem `aria-labelledby` um
+          `<section>` não vira landmark, e quem navega por regiões não acha o
+          resultado que a página acabou de recalcular. */}
+      <section aria-live="polite" aria-labelledby={resultId} className="mt-10">
+        <h2 id={resultId} className="label-caps text-accent-deep">
+          {dict.result.title}
+        </h2>
 
         <div className="mt-4 rounded-card border border-rule bg-surface px-5 py-4">
           <p className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -164,10 +236,17 @@ export function JamCalculator({
           </p>
 
           <dl className="mt-4 border-t border-rule pt-3">
-            <Row
-              label={dict.result.lemon}
-              value={result.lemonGrams.max > 0 ? lemonRange : dict.result.lemonNone}
-            />
+            {result.lemonGrams.max > 0 ? (
+              <Row label={dict.result.lemon} value={lemonRange} />
+            ) : fruit?.recipe ? (
+              <Row label={dict.result.lemon} value={dict.result.lemonNone} />
+            ) : (
+              <Row
+                label={dict.result.lemon}
+                value={dict.result.lemonUnknown}
+                hint={dict.result.lemonUnknownHint}
+              />
+            )}
             {result.appleJellyGrams > 0 && (
               <Row
                 label={dict.result.appleJelly}
@@ -176,24 +255,41 @@ export function JamCalculator({
               />
             )}
             <Row
+              label={dict.result.pectin}
+              value={pectinRange}
+              hint={dict.result.pectinHint}
+            />
+            <Row
               label={dict.result.ratio}
               value={fmt.percent(result.sugarRatio * 100, 1)}
             />
-            <Row
-              label={dict.result.jars}
-              value={`${jars} ${dict.result.jarsUnit}`}
-              hint={dict.result.jarsHint}
-            />
+            {jars && (
+              <Row
+                label={dict.result.jars}
+                value={`${jars} ${dict.result.jarsUnit}`}
+                hint={dict.result.jarsHint}
+              />
+            )}
             <Row
               label={dict.result.evaporation}
               value={evaporation}
               hint={dict.result.evaporationHint}
             />
+            <Row
+              label={dict.result.ph}
+              value={`${fmt.number(PH_WINDOW.targetMin, DECIMAL)} – ${fmt.number(PH_WINDOW.targetMax, DECIMAL)}`}
+              hint={dict.result.phHint}
+            />
           </dl>
 
           {fruit && (
             <CitationRef
-              citations={fruit.citations}
+              citations={[
+                ...fruit.citations,
+                ...PECTIN_DOSE_CITATIONS,
+                ...PH_CITATIONS,
+                ...PH_FIELD_RULE_CITATIONS,
+              ]}
               labels={dict.sources}
               className="mt-3 block"
             />
@@ -213,35 +309,31 @@ export function JamCalculator({
                     ? 'above'
                     : 'below'
               }
-              beyondHardLimit={result.status === 'below-source'}
-              label={
-                result.status === 'source'
-                  ? dict.status.source
-                  : result.status === 'above-source'
-                    ? dict.status.aboveSource
-                    : dict.status.belowSource
-              }
+              beyondHardLimit={result.status === 'below-source' && !byNorm}
+              label={statusLabel(result.status, byNorm, dict)}
             />
           </div>
 
           {fruit && (
             <p className="mt-1 text-xs text-ink-muted">
-              {`${dict.status.sourceLabel}: ${fmt.percent(
-                (fruit.recipe.sugarOz / fruit.recipe.fruitOz) * 100,
+              {`${byNorm ? dict.status.normLabel : dict.status.sourceLabel}: ${fmt.percent(
+                result.referenceRatio * 100,
                 1,
-              )} · ${dict.result.shelf}: ${shelfLabel(fruit.recipe.shelfMonths, dict)}`}
+              )}`}
+              {fruit.recipe &&
+                ` · ${dict.result.shelf}: ${shelfLabel(fruit.recipe.shelfMonths, dict)}`}
             </p>
           )}
 
           {result.status !== 'source' && (
             <p
               className={`mt-3 max-w-prose rounded-card px-4 py-3 text-sm leading-relaxed text-ink ${
-                result.status === 'below-source' ? 'bg-danger-tint' : 'bg-warn-tint'
+                result.status === 'below-source' && !byNorm
+                  ? 'bg-danger-tint'
+                  : 'bg-warn-tint'
               }`}
             >
-              {result.status === 'below-source'
-                ? dict.status.belowBody
-                : dict.status.aboveBody}
+              {statusBody(result.status, byNorm, dict)}
             </p>
           )}
         </div>
@@ -311,10 +403,51 @@ export function JamCalculator({
   );
 }
 
-function formatRange(
-  range: { min: number; max: number },
-  format: (value: number) => string,
+/** A linha da Tabela 1, com a procedência da linha declarada ao lado. */
+function EmbrapaLine({
+  row,
+  dict,
+  both,
+}: {
+  row: EmbrapaFruitRow;
+  dict: JamDictionary;
+  both: boolean;
+}) {
+  const pectin = dict.embrapa.pectinLevels[row.pectin];
+  const acidity = dict.embrapa.acidityLevels[row.acidity];
+
+  return (
+    <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-muted">
+      <span className="font-semibold text-ink">{dict.embrapa.label}</span>
+      {` — ${dict.embrapa.pectin.toLowerCase()} ${pectin}, ${dict.embrapa.acidity.toLowerCase()} ${acidity}. `}
+      {both ? dict.embrapa.bothSources : dict.embrapa.hint}{' '}
+      <span className="text-xs">
+        {row.viaJackix ? dict.embrapa.viaJackix : dict.embrapa.ownRow}
+      </span>
+    </p>
+  );
+}
+
+function statusLabel(
+  status: string,
+  byNorm: boolean,
+  dict: JamDictionary,
 ): string {
+  if (status === 'source') return byNorm ? dict.status.normSource : dict.status.source;
+  if (status === 'above-source') {
+    return byNorm ? dict.status.normAbove : dict.status.aboveSource;
+  }
+  return byNorm ? dict.status.normBelow : dict.status.belowSource;
+}
+
+function statusBody(status: string, byNorm: boolean, dict: JamDictionary): string {
+  if (status === 'above-source') {
+    return byNorm ? dict.status.normAboveBody : dict.status.aboveBody;
+  }
+  return byNorm ? dict.status.normBelowBody : dict.status.belowBody;
+}
+
+function formatRange(range: Range, format: (value: number) => string): string {
   // A comparação é entre os textos, não entre os números. Duas pontas que
   // arredondam para o mesmo valor exibiriam "5 – 5"; e um limiar numérico em
   // gramas colapsaria a faixa de potes (5,2 a 5,6), que arredonda para 5 e 6 e

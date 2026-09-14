@@ -54,9 +54,20 @@ export function jamRecipeCard({
     });
   }
 
+  lines.push({
+    label: dict.result.pectin,
+    value: range(result.pectinGrams.min, result.pectinGrams.max, 1),
+    strong: false,
+  });
+
+  const byNorm = result.referenceBasis === 'norm';
   const notices: string[] = [];
-  if (result.status === 'below-source') notices.push(dict.status.belowBody);
-  if (result.status === 'above-source') notices.push(dict.status.aboveBody);
+  if (result.status === 'below-source') {
+    notices.push(byNorm ? dict.status.normBelowBody : dict.status.belowBody);
+  }
+  if (result.status === 'above-source') {
+    notices.push(byNorm ? dict.status.normAboveBody : dict.status.aboveBody);
+  }
   // Vai sempre: é o aviso que impede alguém de cozinhar até o número do livro
   // francês numa cidade a mil metros.
   notices.push(dict.point.honesty);
@@ -68,6 +79,9 @@ export function jamRecipeCard({
       { lines },
       {
         heading: dict.point.resultTitle,
+        // O rendimento entra aqui só quando a receita declara rendimento. Para
+        // fruta que veio da tabela da Embrapa a linha some: escalar o número de
+        // outra fruta seria imprimir um dado que fonte nenhuma publicou.
         lines: [
           {
             label: dict.point.setting,
@@ -79,10 +93,14 @@ export function jamRecipeCard({
             label: dict.point.processing,
             value: `${fmt.number(result.processingMinutes)} ${dict.point.minutes}`,
           },
-          {
-            label: dict.result.jars,
-            value: `${fmt.number(Math.round(result.jars.min))}–${fmt.number(Math.round(result.jars.max))} ${dict.result.jarsUnit}`,
-          },
+          ...(result.jars
+            ? [
+                {
+                  label: dict.result.jars,
+                  value: `${fmt.number(Math.round(result.jars.min))}–${fmt.number(Math.round(result.jars.max))} ${dict.result.jarsUnit}`,
+                },
+              ]
+            : []),
         ],
       },
     ],

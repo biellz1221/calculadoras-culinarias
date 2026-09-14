@@ -27,8 +27,37 @@ import type { Citation } from '../citations';
  */
 export type PectinGroup = 'i' | 'ii' | 'iii';
 
-/** De onde sai a proporção de açúcar que a calculadora usa. */
-export type SugarLevel = 'source' | 'ferber' | 'custom';
+/**
+ * Classificação da Tabela 1 do Embrapa Doc 29, em dois eixos.
+ *
+ * Não é traduzível no grupo do NCHFP e não tenta ser. A americana tem um eixo
+ * só, que mistura as duas carências ("acid, pectin or both"); a brasileira
+ * separa. Para a goiaba isso é a diferença entre não saber o que fazer e saber:
+ * pectina rica, acidez média — falta ácido, não falta pectina.
+ */
+export type EmbrapaPectin = 'rich' | 'medium' | 'poor';
+export type EmbrapaAcidity = 'high' | 'medium' | 'low';
+
+export interface EmbrapaFruitRow {
+  id: string;
+  pectin: EmbrapaPectin;
+  acidity: EmbrapaAcidity;
+  /**
+   * Linha marcada com asterisco na tabela: é de JACKIX (1988), e a Embrapa
+   * reproduz. São 30 das 38, e a tela marca quais.
+   */
+  viaJackix: boolean;
+}
+
+/**
+ * De onde sai a proporção de açúcar que a calculadora usa.
+ *
+ * `extra` e `common` são as duas classes da legislação brasileira de alimentos,
+ * transcritas no Doc 29. São régua de **produto industrial rotulado**, e por
+ * isso pedem mais açúcar que qualquer receita de casa da estante — a menor
+ * delas é um para um. Está na tela como divergência, não como escolha calada.
+ */
+export type SugarLevel = 'source' | 'ferber' | 'extra' | 'common' | 'custom';
 
 /** A receita da fonte, nas unidades em que ela foi publicada. */
 export interface SourceRecipe {
@@ -46,10 +75,28 @@ export interface SourceRecipe {
   shelfMonths: readonly [number, number];
 }
 
+/**
+ * Uma fruta da calculadora.
+ *
+ * `recipe` e `group` deixaram de ser obrigatórios em 2026-09-14. Goiaba,
+ * jabuticaba e maracujá não têm receita pesada em nenhuma obra da estante e não
+ * estão na tabela do NCHFP; entram pela classificação da Embrapa, com a
+ * proporção vindo da norma. Uma fruta precisa de **pelo menos uma** das duas
+ * bases, e há teste garantindo isso.
+ */
 export interface JamFruit {
   id: string;
-  group: PectinGroup;
-  recipe: SourceRecipe;
+  /** Grupo do NCHFP. Fruta que não está na tabela americana não tem. */
+  group?: PectinGroup;
+  /** Receita pesada do Blue Chair. Fruta brasileira não tem. */
+  recipe?: SourceRecipe;
+  /** Linha da Tabela 1 do Embrapa Doc 29, quando a fruta está lá. */
+  embrapaId?: string;
+  /**
+   * Marmelo, laranja e maçã: a norma deixa a geleia comum ir a 35:65 em vez de
+   * 40:60. É exceção escrita na própria definição legal.
+   */
+  legalException?: boolean;
   /** A receita citada. O grupo de pectina cita o NCHFP à parte. */
   citations: readonly Citation[];
 }
@@ -75,6 +122,11 @@ export interface JamResult {
   sugarGrams: number;
   /** Proporção efetiva de açúcar sobre a fruta. */
   sugarRatio: number;
+  /** Contra o que o aviso compara, e de onde essa régua vem. */
+  referenceRatio: number;
+  referenceBasis: ReferenceBasis;
+  /** Pectina em pó: 0,5% a 1,5% **do açúcar**, do Embrapa Doc 138. */
+  pectinGrams: Range;
   lemonGrams: Range;
   /** Gelatina de maçã do Ferber, para fruta que não gelifica sozinha. */
   appleJellyGrams: number;
@@ -86,10 +138,27 @@ export interface JamResult {
   processingMinutes: number;
   /** Água a evaporar até os 65 % de Ferber. Faixa, porque a fruta é faixa. */
   evaporationGrams: Range;
-  /** Rendimento em potes de 8 oz fl, escalado do que a receita declara. */
-  jars: Range;
+  /**
+   * Rendimento em potes de 8 oz fl, escalado do que a receita declara.
+   *
+   * `null` para fruta sem receita pesada: a Embrapa não declara rendimento, e
+   * escalar o de outra fruta seria inventar.
+   */
+  jars: Range | null;
   status: JamStatus;
 }
+
+/**
+ * Contra o que o aviso de açúcar compara.
+ *
+ * `recipe` — a receita publicada para aquela fruta, e o aviso é o do NCHFP
+ * sobre reduzir açúcar de receita testada.
+ * `norm` — a geleia extra da legislação brasileira (um para um), para fruta que
+ * não tem receita em lugar nenhum. O aviso aí é outro: abaixo dela o produto
+ * não é o que a norma chama de geleia. Dizer "doce de geladeira" para quem está
+ * a 0,80 seguindo Ferber seria alarme falso.
+ */
+export type ReferenceBasis = 'recipe' | 'norm';
 
 /**
  * `below-source` é o caso que dispara aviso: menos açúcar do que a própria

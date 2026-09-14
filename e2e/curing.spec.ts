@@ -65,9 +65,12 @@ test('o teto muda com o método', async ({ page }) => {
 test('não promete conformidade que não pode provar', async ({ page }) => {
   await page.goto('/cura');
 
-  // A frase que separa esta calculadora das de charcutaria em inglês.
+  // A frase que separa esta calculadora das de charcutaria em inglês. Repare
+  // que ela não nomeia a norma: a IN 211/2023 substituiu a RDC 272/2019 em
+  // março de 2023, e um teste preso ao número de uma norma quebra junto com
+  // ela — foi exatamente o que aconteceu aqui.
   await expect(
-    page.locator('#conteudo').getByText(/não certifica conformidade com a RDC 272/),
+    page.locator('#conteudo').getByText(/não certifica conformidade com a norma brasileira/),
   ).toBeVisible();
   await expect(page.getByText(/150 mg\/kg/).first()).toBeVisible();
 });

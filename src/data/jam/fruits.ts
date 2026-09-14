@@ -1,5 +1,6 @@
+import { EMBRAPA_TABLE, EMBRAPA_TABLE_CITATIONS, LEGAL_CITATIONS, getEmbrapaRow } from './brazil';
 import { cite } from '../citations';
-import type { JamFruit, PectinGroup, SourceRecipe } from './types';
+import type { JamFruit, SourceRecipe } from './types';
 
 /**
  * As frutas, cada uma com uma receita pesada de verdade por trás.
@@ -23,12 +24,26 @@ function recipe(value: SourceRecipe): SourceRecipe {
   return value;
 }
 
-export const JAM_FRUITS: readonly JamFruit[] = [
+/**
+ * As frutas com receita pesada: as nove do Blue Chair.
+ *
+ * Três delas também estão na Tabela 1 da Embrapa, e o vínculo está declarado em
+ * `embrapaId`. Onde as duas classificações se encontram — morango, pêssego
+ * maduro e figo maduro — elas concordam: o NCHFP põe as três no grupo III e a
+ * Embrapa as chama de pobres em pectina. Duas réguas construídas em continentes
+ * diferentes dizendo a mesma coisa é o tipo de coincidência que vale mostrar.
+ *
+ * Uva e ameixa **não** ganharam vínculo. A uva de Saunders é Concord, que não
+ * está entre as variedades da tabela brasileira, e a ameixa do livro não tem
+ * cultivar declarada. Aproximar seria inventar.
+ */
+const WEIGHED_FRUITS: readonly JamFruit[] = [
   {
     // p. 178: "3 pounds 14 ounces hulled strawberries", "2½ pounds white cane
     // sugar", "4 ounces plus 2 ounces strained freshly squeezed lemon juice".
     id: 'strawberry',
     group: 'iii',
+    embrapaId: 'strawberry',
     recipe: recipe({
       fruitOz: 3 * LB + 14,
       sugarOz: 2.5 * LB,
@@ -87,6 +102,7 @@ export const JAM_FRUITS: readonly JamFruit[] = [
     // juices". O que vale é o preparado.
     id: 'peach',
     group: 'iii',
+    embrapaId: 'peach-ripe',
     recipe: recipe({
       fruitOz: 5.5 * LB,
       sugarOz: 3 * LB,
@@ -116,6 +132,7 @@ export const JAM_FRUITS: readonly JamFruit[] = [
     // white cane sugar", "6 ounces ... lemon juice".
     id: 'fig',
     group: 'iii',
+    embrapaId: 'fig-ripe',
     recipe: recipe({
       fruitOz: 2.5 * LB + 3 * LB,
       sugarOz: 3 * LB,
@@ -156,6 +173,37 @@ export const JAM_FRUITS: readonly JamFruit[] = [
   },
 ];
 
+/**
+ * As frutas que entram só pela classificação brasileira.
+ *
+ * Toda linha da Tabela 1 vira fruta escolhível, menos as três que já têm receita
+ * pesada acima. Não há curadoria: cada linha da fonte tem o mesmo direito de
+ * estar aqui, e escolher um punhado seria eu decidindo qual fruta brasileira
+ * importa. A proporção delas vem da norma (§13 da pesquisa), não de receita —
+ * receita pesada de goiaba não existe em obra nenhuma da estante.
+ *
+ * `legalException` marca marmelo, laranja e maçã, as três frutas que a própria
+ * definição legal autoriza a ir a 35:65 em vez de 40:60.
+ */
+const LEGAL_EXCEPTION_IDS = new Set(['quince', 'orange', 'apple-tart', 'apple-sweet']);
+
+const ABSORBED_BY_RECIPE = new Set(['strawberry', 'peach-ripe', 'fig-ripe']);
+
+const CLASSIFIED_FRUITS: readonly JamFruit[] = EMBRAPA_TABLE.filter(
+  (row) => !ABSORBED_BY_RECIPE.has(row.id),
+).map((row) => ({
+  id: row.id,
+  embrapaId: row.id,
+  legalException: LEGAL_EXCEPTION_IDS.has(row.id),
+  citations: [...EMBRAPA_TABLE_CITATIONS, ...LEGAL_CITATIONS],
+}));
+
+export const JAM_FRUITS: readonly JamFruit[] = [...WEIGHED_FRUITS, ...CLASSIFIED_FRUITS];
+
+/** As duas famílias, para o seletor agrupar em vez de despejar 44 botões. */
+export const WEIGHED_FRUIT_IDS: readonly string[] = WEIGHED_FRUITS.map((f) => f.id);
+export const CLASSIFIED_FRUIT_IDS: readonly string[] = CLASSIFIED_FRUITS.map((f) => f.id);
+
 export function getFruit(id: string): JamFruit | undefined {
   return JAM_FRUITS.find((fruit) => fruit.id === id);
 }
@@ -163,12 +211,22 @@ export function getFruit(id: string): JamFruit | undefined {
 export const DEFAULT_FRUIT_ID = 'strawberry';
 
 /** Açúcar da receita citada, sobre o peso da fruta preparada. */
-export function sourceSugarRatio(fruit: JamFruit): number {
+export function sourceSugarRatio(fruit: JamFruit): number | null {
+  if (!fruit.recipe) return null;
   return fruit.recipe.sugarOz / fruit.recipe.fruitOz;
 }
 
-/** Suco de limão da receita citada, sobre o peso da fruta preparada. */
-export function sourceLemonRatio(fruit: JamFruit): { min: number; max: number } {
+/**
+ * Suco de limão da receita citada, sobre o peso da fruta preparada.
+ *
+ * `null` para fruta sem receita: a Embrapa classifica a acidez em três níveis e
+ * **não publica dose**. O que entra na tela no lugar é o alvo de pH e a regra de
+ * medir antes de acidificar. Alvo verificável vale mais que dose inventada.
+ */
+export function sourceLemonRatio(
+  fruit: JamFruit,
+): { min: number; max: number } | null {
+  if (!fruit.recipe) return null;
   const { fruitOz, lemonOz, lemonMaxOz } = fruit.recipe;
   return { min: lemonOz / fruitOz, max: (lemonMaxOz ?? lemonOz) / fruitOz };
 }
@@ -214,7 +272,15 @@ export const PECTIN_GROUP_CITATIONS = [
   cite('nchfp', 'Jellied Product Ingredients — Pectin and Acid Content of Common Fruits'),
 ];
 
-/** Grupo III é o que a norma chama de "always needs added acid, pectin or both". */
-export function needsAddedPectin(group: PectinGroup): boolean {
-  return group === 'iii';
+/**
+ * Se a fruta precisa de pectina emprestada.
+ *
+ * Duas fontes respondem, cada uma no seu vocabulário: o grupo III do NCHFP
+ * ("always needs added acid, pectin or both") e a coluna "pobre" da Tabela 1. Se
+ * qualquer uma das duas apontar carência, a sugestão aparece — nenhuma das duas
+ * tem autoridade sobre a outra, e onde as duas falam elas concordam.
+ */
+export function needsAddedPectin(fruit: JamFruit): boolean {
+  if (fruit.group === 'iii') return true;
+  return getEmbrapaRow(fruit.embrapaId)?.pectin === 'poor';
 }

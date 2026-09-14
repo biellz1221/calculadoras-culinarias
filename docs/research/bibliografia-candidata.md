@@ -411,7 +411,12 @@ Por ordem de quanto trava uma calculadora do roadmap:
   que este documento citava (2,8 a 3,5) não vieram de fonte lida e continuam
   fora do código. Os manuais de fabricante de pectina da §4.6 resolveriam.
 
-# Parte 4.13: fruta brasileira em conserva doce — resolvido (2026-09-13)
+# Parte 4.13: fruta brasileira em conserva doce — resolvido (2026-09-13), implementado (2026-09-14)
+
+> **No ar.** A calculadora de geleias entrega 44 frutas desde 2026-09-14, 35
+> delas vindas da Tabela 1 abaixo. A extração conferida, a régua legal e o que
+> ficou de fora estão em `geleias.md`, Parte II; o relatório de qualidade, em
+> `docs/quality/2026-09-14-fruta-brasileira-nas-geleias.md`.
 
 A maior lacuna aberta pela calculadora de geleias era não ter fruta de quintal
 brasileiro. **Está resolvida, e de graça.** A rede pública de pesquisa publica
