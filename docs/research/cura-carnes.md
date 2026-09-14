@@ -150,6 +150,72 @@ se compara ao teto de entrada americano (o único que existe), e o aviso de que 
 limite brasileiro é de resíduo e só se verifica com análise no produto final.
 Prometer conformidade com a norma brasileira a partir da entrada seria mentira.
 
+## 4.1 A aritmética da soma, enfim publicada (2026-09-14)
+
+A §4 fecha dizendo que o limite brasileiro é de **soma** de nitrito e nitrato,
+como nitrito de sódio, e que a calculadora só podia afirmar que a soma existe. O
+**Ofício Circular DIPOA nº 15/2009**, achado na varredura de órgãos públicos
+(`fontes-publicas-br.md` §2.1), publica como ela se faz:
+
+> "O valor de nitrato (NaNO3) obtido dever ser dividido por **1,231** para ter o
+> valor expresso em nitrito (NaNO2). Este valor deve ser somado ao resultado de
+> nitrito para se obter o valor total que deverá ser de no máximo **150 ppm ou
+> 0,015%**. Em casos de análise de nitrato de potássio, dividir o resultado desta
+> análise por **1,4637** para expressão dos resultados em nitrito de sódio,
+> somando-se ao resultado a quantidade de nitrito de sódio da análise."
+> — Ofício Circular 15/2009/GAB/DIPOA, p. 5, seção "Cálculo do nitrito residual"
+
+**O ofício se confere sozinho**, porque publica as próprias massas molares na
+linha seguinte:
+
+> "PM NaNO2 = 69,00 g · PM NaNO3 = 84,99 g · PM KNO3 = 101,10 g"
+
+| Fator | Pela massa molar do próprio ofício | Publicado | Diferença |
+|---|---|---|---|
+| Nitrato de sódio | 84,99 ÷ 69,00 = **1,23174** | 1,231 | truncamento, 0,006% |
+| Nitrato de potássio | 101,10 ÷ 69,00 = **1,46522** | 1,4637 | **0,104%** |
+
+O de sódio é o publicado truncado na terceira casa. O de potássio **não fecha**
+com as massas do próprio documento: erra por um milésimo, e erra para o lado
+seguro — divisor menor dá equivalente em nitrito maior, e portanto atinge o teto
+de 150 antes. Registrado, e o site usa o número publicado, não o recalculado:
+citar é reproduzir o que a norma manda fazer, não corrigir a norma.
+
+### O outro número que estava faltando
+
+O mesmo ofício, na p. 2, dá um teto que a nossa pesquisa não tinha:
+
+> "[…] a empresa que utilizar níveis acima de **150 ppm para nitrito** (de sódio
+> ou de potássio), ou **150 ppm para combinações** de nitrito […] com nitrato
+> […], ou ainda, **300 ppm de nitrato** (de sódio ou de potássio) […] deverá
+> declarar […] que no produto final […] os níveis residuais máximos […] atendem
+> o previsto na IN 51/06."
+
+Três tetos, então, e não um: 150 para nitrito sozinho, 150 para a combinação, e
+**300 para nitrato sozinho**.
+
+E aponta a peça que a §6 listava como inacessível: a norma de referência é a
+**Instrução Normativa nº 51 SDA, de 29/12/2006**, que remete à Resolução
+MERCOSUL GMC nº 73/97.
+
+### O que isso muda na calculadora, e o que não muda
+
+**Muda:** com o sal de cura #2, que leva nitrato, a página passa a mostrar a
+soma na moeda da norma. A 156 ppm de nitrito, o #2 entrega 99,8 ppm de nitrato
+(a razão das frações do sal, 4,00 ÷ 6,25 = 0,64), e a soma vira
+156 + 99,8 ÷ 1,231 = **237 ppm expressos como nitrito de sódio**. É um número que
+ninguém adivinha de cabeça, e é o que a norma mediria.
+
+**Não muda, e é o mais importante:** isso continua sendo **entrada**, e o teto de
+150 continua sendo de **resíduo**. A própria seção do ofício se chama "Cálculo do
+nitrito **residual**". Pôr um sinal de aprovado ou reprovado comparando os 237
+com os 150 seria cometer exatamente o erro que a §4 desta pesquisa existe para
+não cometer.
+
+Então a tela mostra a soma, mostra a conta que a produziu, e diz que a
+comparação com o teto só se faz com análise do produto pronto. A decisão de
+projeto nº 1 da §7 continua valendo sem uma vírgula de exceção.
+
 ## 5. Sal de cura: composição e conversão
 
 Ruhlman & Polcyn: o sal de cura com nitrito, vendido como *pink salt*, T.C.M.,
@@ -182,10 +248,12 @@ fechada.
 
 ## 6. O que ainda falta antes de escrever a calculadora
 
-- [ ] **Regulamento do MAPA** (RIISPOA e Instruções Normativas de produtos
-      cárneos). A ANVISA cobre aditivo; o MAPA cobre identidade e qualidade de
-      produto cárneo, e pode fixar limite por tipo (linguiça, presunto, bacon).
-      Tentei baixar de `gov.br` e recebi 403.
+- [x] ~~**Regulamento do MAPA**~~ — parcialmente resolvido em 2026-09-14. O
+      `gov.br` continua devolvendo 403, mas `wikisda.agricultura.gov.br` serve a
+      base legal do DIPOA direto. Entraram o Ofício Circular 15/2009 (§4.1), a
+      IN 21/2000 e a IN 92/2020. A **IN 51/2006**, que é a norma de limite
+      residual que o ofício invoca, está nomeada mas ainda não foi lida no
+      original — o que o site cita é o ofício, que é o que temos em mãos.
 - [ ] **Bacon**, que nos EUA tem regra própria e mais restritiva (120 ppm de
       entrada, contra 156). Confirmar no 9 CFR 424.22(b), não no 424.21.
 - [x] ~~**Marianski**~~ — chegou em 2026-09-13 e está incorporado: composição do

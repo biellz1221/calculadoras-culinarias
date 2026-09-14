@@ -243,6 +243,13 @@ export const picklesEn: typeof picklesPtBR = {
     },
     items: [
       {
+        topic: 'Where acidity stops protecting',
+        sources:
+          'The NCHFP draws the line at pH 4.6: above it a food is "low-acid" and needs a pressure canner. Embrapa, Brazil’s agricultural research agency, draws it at 4.5 — "low-acid foods: pH > 4.5".',
+        decision:
+          'Computes with 4.6, the ruler of the safety source this site follows throughout, and publishes both. The gap is one tenth and the Brazilian line is the stricter one: aim for 4.5 and you satisfy both; stop between 4.5 and 4.6 and you are inside the American rule and outside the Brazilian one. Swapping a safety ruler over one tenth would call for the Brazilian regulation itself, not a technical manual — and that one has not been read yet.',
+      },
+      {
         topic: 'What salt is measured against',
         sources:
           'Katz measures against the weight of the water (5% for cucumber pickles). Noma and Brazilian Way Fermentation measure against the total weight of the jar, vegetables included (2%).',

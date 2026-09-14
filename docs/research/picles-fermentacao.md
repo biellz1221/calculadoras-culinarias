@@ -239,3 +239,70 @@ Complementos: melhor qualidade <21 °C, ideal 10–15 °C (April McGreger, em Ka
 ---
 
 *Documento gerado a partir da leitura direta das três obras em 2026-09-02. Para o número de acidez mínima de quick pickles de prateleira, complementar com fonte regulatória (USDA/NCHFP) — ver seção 4.*
+
+---
+
+# Parte II — a segunda fonte brasileira (2026-09-14)
+
+A varredura de órgãos públicos (`fontes-publicas-br.md` §3) trouxe duas
+publicações da Embrapa que tocam exatamente dois números desta calculadora. Uma
+corrobora; a outra **diverge**, e a divergência é a parte interessante.
+
+| Obra | Paginação conferida |
+|---|---|
+| KROLOW, Ana Cristina Richter. *Hortaliças em conserva*. Brasília: Embrapa Informação Tecnológica, 2006. 40 p. (Agroindústria Familiar). ISBN 85‑7383‑334‑3. | impressa = PDF − 2 |
+| MACHADO, Cristina Maria Monteiro. *Processamento de hortaliças em pequena escala*. Brasília: Embrapa Hortaliças, 2008. | impressa = PDF − 1, conferido em quatro pontos |
+
+## 8. A faixa de salga, corroborada por outro caminho
+
+> "O principal uso desse conservante é no preparo de salmouras fracas na
+> preparação de produtos enlatados, com uma concentração de **1,5 a 2% de sal**."
+> — Machado, p. 78
+
+É **exatamente** a faixa de `dry-salt` que a calculadora já publicava, vinda do
+Katz como padrão comercial da salga seca. Duas fontes que não se conhecem, e que
+chegaram lá por rotas diferentes: Katz pela fermentação de bancada, o manual
+brasileiro pela conserva enlatada.
+
+Não muda número nenhum. Muda a robustez de um número que sustenta um **aviso de
+segurança** — o `MIN_SAFE_SALINITY` de 1,5% —, e por isso entra.
+
+## 9. O pH: onde a régua brasileira e a americana não coincidem
+
+A calculadora trabalha com **pH 4,6**, que é a fronteira do NCHFP: acima disso o
+alimento é *low-acid* e exige autoclave. A régua brasileira traça a linha em
+**4,5**:
+
+> "Conforme sua acidez, os alimentos são divididos em:
+> • alimentos de baixa acidez: pH > 4,5
+> • alimentos ácidos: pH entre 4,0 e 4,5 […]
+> Para manter o pH **abaixo de 4,5**, as hortaliças ácidas, ou com possibilidade
+> de acidificação, são submetidas a tratamento térmico brando […]
+> Os produtos com pH menor que 4,5 recebem um tratamento mais suave […] mantidas
+> em fervura durante 15 minutos."
+> — Krolow, p. 23
+
+Um décimo de diferença, e **a brasileira é a mais restritiva**. Quem mira 4,5
+satisfaz as duas; quem para entre 4,5 e 4,6 está dentro da régua americana e fora
+da brasileira.
+
+**Decisão:** a calculadora continua computando com 4,6, porque é o número da
+fonte de segurança que ela já adota de ponta a ponta, e **publica os dois** na
+tabela de divergências. Trocar a régua de segurança por causa de um décimo, sem
+ler a norma brasileira original — a Embrapa aqui é manual técnico, não norma —
+seria mexer no que menos se deve mexer por menos do que seria preciso.
+
+**Defeito da fonte, registrado.** A mesma lista traz uma terceira linha,
+"alimentos muito ácidos: pH < 4,5", que contradiz a segunda — deveria ser 4,0. É
+erro de impressão do documento. O site usa só as duas primeiras faixas, e o
+comentário no código diz por quê.
+
+## 10. O que a Parte II deixa aberto
+
+- **A norma brasileira original de conserva vegetal.** A Embrapa é manual
+  técnico de extensão, não texto legal. Se o limiar de 4,5 estiver fixado em
+  norma — RDC da ANVISA ou IN do MAPA —, é essa que teria peso para mudar a
+  régua da calculadora. Não foi procurada ainda.
+- **O tempo de 15 minutos de fervura** que Krolow dá para produto abaixo de 4,5.
+  É tratamento térmico de conserva enlatada, não de picles fermentado de
+  geladeira, e por isso **não** entrou: aplicaria a régua de um processo a outro.

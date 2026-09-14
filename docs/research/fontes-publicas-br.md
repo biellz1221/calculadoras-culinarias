@@ -21,10 +21,10 @@ citar à vontade.
 | Achado | Estado | O que muda |
 |---|---|---|
 | **RDC 272/2019 foi revogada** | **Corrigido e no ar** | A calculadora de cura citava norma morta. §2 |
-| **Fator de conversão de nitrato para nitrito** | **Pronto para implementar** | Fecha a conta que a página de cura hoje só descreve. §2.1 |
+| **Fator de conversão de nitrato para nitrito** | **No ar desde 2026-09-14** | A página de cura mostra a soma na moeda da norma, e a conta que a produziu. §2.1 |
 | **Tabela de frutas brasileiras** (Embrapa Doc 29) | **No ar desde 2026-09-14** | 35 frutas novas na calculadora de geleias, mais a régua legal, a dose de pectina e a janela de pH. Ver `geleias.md`, Parte II |
-| **pH 4,5 como limiar de segurança** | Segunda fonte disponível | Corrobora o picles com fonte brasileira. §3 |
-| **Salmoura fraca 1,5 a 2% de sal** | Segunda fonte disponível | Corrobora a faixa de salga do picles. §3 |
+| **pH 4,5 como limiar de segurança** | **No ar desde 2026-09-14** | Não era corroboração: é **divergência**. O NCHFP traça em 4,6 e a Embrapa em 4,5, e os dois estão na tabela. §3 |
+| **Salmoura fraca 1,5 a 2% de sal** | **No ar desde 2026-09-14** | Corrobora a faixa de salga seca, que sustenta um aviso de segurança. §3 |
 | **Sorvete: overrun e densidade** | **Procurado e não achado** | A lacuna do gelato continua. §4 |
 | **Pão sem glúten: dose de hidrocoloide** | **Procurado e não achado** | A calculadora continua travada. §5 |
 
@@ -186,9 +186,12 @@ norma citada; a RDC 272 estava corretamente transcrita e mesmo assim morta.
    começo. E a mudança de modelo que ela pedia — receita deixar de ser
    obrigatória, duas classificações convivendo, o aviso ganhar segunda régua —
    é o que vai permitir entrar qualquer fruta que só tenha classificação.
-2. **Somar nitrato ao nitrito na calculadora de cura**, com o fator 1,231 do
-   Ofício DIPOA 15/2009. Muda uma página de segurança alimentar, então merece
-   passe próprio.
-3. **Segunda fonte brasileira no picles**, para o pH 4,5 e para a faixa de sal.
-   É acréscimo de citação, barato.
-4. Gelato e pão sem glúten continuam dependendo de livro estrangeiro.
+2. ~~**Somar nitrato ao nitrito na calculadora de cura.**~~ **Feito em
+   2026-09-14.** Rendeu também um teto que a pesquisa não tinha — 300 ppm para
+   nitrato sozinho — e o nome da norma que faltava, a IN 51/2006 do MAPA.
+3. ~~**Segunda fonte brasileira no picles.**~~ **Feito em 2026-09-14**, e com
+   uma correção: o pH **não** era corroboração. As duas réguas divergem em um
+   décimo, e a calculadora publica as duas sem trocar a sua.
+4. ~~**Gelato**~~ deixou de depender de livro que não tínhamos: Clarke e
+   Corvitto estavam na pasta desde 12/09 e fecharam overrun e densidade em
+   2026-09-14. **Pão sem glúten** continua parado no Arendt & Dal Bello.

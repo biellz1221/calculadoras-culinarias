@@ -81,3 +81,46 @@ test('a versão em inglês responde em /en/curing', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Nitrite');
 });
+
+test('o sal nº 2 mostra a soma na moeda da norma, sem selo de conformidade', async ({
+  page,
+}) => {
+  await page.goto('/cura');
+
+  const content = page.locator('#conteudo');
+
+  // O nº 1 não leva nitrato: a linha da soma não teria o que dizer.
+  await expect(content.getByText('Soma, como nitrito de sódio')).toHaveCount(0);
+
+  await expect(async () => {
+    await page.getByRole('button', { name: /nº 2|#2/i }).click();
+    await expect(content.getByText('Soma, como nitrito de sódio')).toBeVisible();
+  }).toPass({ timeout: 15_000 });
+
+  // No alvo padrão de 150 ppm, o nº 2 traz 96 ppm de nitrato junto, e a soma
+  // na moeda da norma dá 228 — número que ninguém adivinha de cabeça, e é
+  // exatamente por isso que vale mostrá-lo.
+  // `exact` porque a prosa da seção de limites repete os mesmos números — o
+  // que é proposital: o texto explica exatamente o caso que a tela mostra.
+  await expect(content.getByText('96 ppm', { exact: true })).toBeVisible();
+  await expect(content.getByText('228 ppm', { exact: true })).toBeVisible();
+
+  // E a trava que importa: passar dos 150 ppm brasileiros não vira reprovação,
+  // porque aquilo é resíduo e isto é entrada.
+  await expect(page.getByText('Dentro da faixa')).toBeVisible();
+});
+
+test('a página explica como a soma é feita, e com que massas molares', async ({
+  page,
+}) => {
+  await page.goto('/cura');
+
+  await expect(
+    page.getByRole('heading', { name: 'Como a soma é feita' }),
+  ).toBeVisible();
+  await expect(page.getByText(/dividida? por 1,231|dividir o nitrato por 1,231|divida o nitrato por 1,231/i).first()).toBeVisible();
+  await expect(page.getByText(/84,99/)).toBeVisible();
+
+  // E o terceiro teto, que a pesquisa não tinha.
+  await expect(page.getByText(/300 ppm para nitrato sozinho/)).toBeVisible();
+});

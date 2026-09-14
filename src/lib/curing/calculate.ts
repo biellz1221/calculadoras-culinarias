@@ -1,4 +1,9 @@
-import { getCure, METHOD_CEILING_PPM, MIN_INGOING_PPM } from '@/data/curing/cures';
+import {
+  METHOD_CEILING_PPM,
+  MIN_INGOING_PPM,
+  combinedAsSodiumNitrite,
+  getCure,
+} from '@/data/curing/cures';
 import type {
   CuringInput,
   CuringMethod,
@@ -60,17 +65,23 @@ export function calculateCure(
       cureGrams: 0,
       nitritePpm: 0,
       nitratePpm: 0,
+      combinedAsNitritePpm: 0,
       saltFromCureGrams: 0,
       status: 'below-minimum',
     };
   }
 
   const cureGrams = cureGramsFor(targetPpm, meatGrams, cure.nitrite);
+  const nitritePpm = ingoingPpm(cureGrams, meatGrams, cure.nitrite);
+  const nitratePpm = ingoingPpm(cureGrams, meatGrams, cure.nitrate);
 
   return {
     cureGrams,
-    nitritePpm: ingoingPpm(cureGrams, meatGrams, cure.nitrite),
-    nitratePpm: ingoingPpm(cureGrams, meatGrams, cure.nitrate),
+    nitritePpm,
+    nitratePpm,
+    // A soma na moeda da norma. Entrada, não resíduo — ver o comentário do
+    // campo em `types.ts` e a §4.1 da pesquisa.
+    combinedAsNitritePpm: combinedAsSodiumNitrite(nitritePpm, nitratePpm),
     // O que sobra do sal de cura é sal comum, e conta no sal total da receita:
     // esquecer isso é o erro que deixa o produto salgado demais.
     saltFromCureGrams: cureGrams * (1 - cure.nitrite - cure.nitrate),

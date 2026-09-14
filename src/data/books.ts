@@ -30,8 +30,11 @@ export type BookId =
   | 'nchfp'
   | 'embrapa-geleias'
   | 'embrapa-geleias-artesanal'
+  | 'embrapa-hortalicas'
+  | 'embrapa-processamento'
   | 'marianski'
   | 'anvisa-in211'
+  | 'dipoa-of15'
   | 'fsis-424'
   | 'gelato-course';
 
@@ -276,6 +279,43 @@ export const BOOKS: readonly Book[] = [
     kind: 'official',
   },
   {
+    /**
+     * A cartilha de conserva de hortaliça da Embrapa.
+     *
+     * Mesma autora do Documentos 138 de geleias. Entra pela classificação de
+     * acidez, que é onde ela **diverge** do NCHFP: a régua brasileira traça a
+     * linha em pH 4,5 e a americana em 4,6. Ver picles-fermentacao.md.
+     *
+     * Paginação conferida: impressa = PDF menos 2.
+     */
+    id: 'embrapa-hortalicas',
+    title: 'Hortaliças em conserva',
+    authors: ['Ana Cristina Richter Krolow'],
+    shortName: 'Embrapa, Agroindústria Familiar',
+    publisher: 'Embrapa Informação Tecnológica',
+    year: 2006,
+    locator: 'page',
+    kind: 'official',
+  },
+  {
+    /**
+     * O manual grande de hortaliça, e a segunda fonte da faixa de salga.
+     *
+     * Ele corrobora em português o 1,5% a 2% que o Katz publica como padrão
+     * comercial da salga seca — duas fontes que não se conhecem, mesma faixa.
+     *
+     * Paginação conferida em quatro pontos: impressa = PDF menos 1.
+     */
+    id: 'embrapa-processamento',
+    title: 'Processamento de hortaliças em pequena escala',
+    authors: ['Cristina Maria Monteiro Machado'],
+    shortName: 'Embrapa Hortaliças',
+    publisher: 'Embrapa Hortaliças',
+    year: 2008,
+    locator: 'page',
+    kind: 'official',
+  },
+  {
     id: 'marianski',
     title: 'Home Production of Quality Meats and Sausages',
     authors: ['Stanley Marianski', 'Adam Marianski'],
@@ -308,6 +348,34 @@ export const BOOKS: readonly Book[] = [
     year: 2023,
     url: 'https://www.gov.br/anvisa/pt-br/assuntos/regulamentacao/legislacao',
     locator: 'chapter',
+    kind: 'official',
+  },
+  {
+    /**
+     * O ofício que publica a aritmética da soma.
+     *
+     * A ANVISA fixa o teto de 150 mg/kg como soma de nitrito e nitrato; quem
+     * publica **como** somar é o DIPOA, e é isto aqui. Entra na estante pelo
+     * mesmo motivo das outras normas: texto oficial com número, data e endereço
+     * público.
+     *
+     * Ele se confere sozinho — imprime as próprias massas molares na linha
+     * seguinte aos fatores. Ver docs/research/cura-carnes.md §4.1, inclusive
+     * para a divergência de 0,1% no fator do nitrato de potássio, que o site
+     * registra e não corrige: citar norma é reproduzir o que ela manda fazer.
+     *
+     * Paginação 1:1, conferida pelo rodapé de cada página.
+     */
+    id: 'dipoa-of15',
+    title:
+      'Ofício Circular nº 15/2009/GAB/DIPOA — uso de conservantes e aditivos em produtos cárneos',
+    authors: ['Departamento de Inspeção de Produtos de Origem Animal'],
+    authorKind: 'organization',
+    shortName: 'DIPOA',
+    publisher: 'Ministério da Agricultura, Pecuária e Abastecimento',
+    year: 2009,
+    url: 'https://wikisda.agricultura.gov.br/',
+    locator: 'page',
     kind: 'official',
   },
   {
