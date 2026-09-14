@@ -206,7 +206,7 @@ const CURING: readonly GlossaryEntry[] = [
   {
     id: 'residual',
     citations: [
-      cite('anvisa-rdc272', 'Anexo — conservadores INS 249 a 252'),
+      cite('anvisa-in211', 'Anexo, categoria 08.2 — conservadores INS 249 a 252'),
       cite('fsis-424', '424.21(c)'),
     ],
   },

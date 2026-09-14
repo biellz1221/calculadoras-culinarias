@@ -29,7 +29,7 @@ export type BookId =
   | 'wybauw'
   | 'nchfp'
   | 'marianski'
-  | 'anvisa-rdc272'
+  | 'anvisa-in211'
   | 'fsis-424'
   | 'gelato-course';
 
@@ -241,16 +241,22 @@ export const BOOKS: readonly Book[] = [
      * Entra na estante como obra oficial, e não como livro, porque é o que ela
      * é: texto legal com data, número e endereço público. Quem duvidar do
      * número abre o DOU e confere.
+     *
+     * **Substituiu a RDC 272/2019**, que era o que citávamos até 2026-09-14. A
+     * RDC 778/2023 consolidou a legislação de aditivos e revogou 67 normas, a
+     * 272 entre elas (art. 13, LVI). O número não mudou — a IN 211 repete os
+     * mesmos 150 mg/kg, com a mesma redação —, mas página de segurança
+     * alimentar tem de apontar para o texto em vigor.
      */
-    id: 'anvisa-rdc272',
+    id: 'anvisa-in211',
     title:
-      'RDC nº 272, de 14 de março de 2019 — aditivos alimentares autorizados para uso em carnes e produtos cárneos',
+      'Instrução Normativa nº 211, de 1º de março de 2023 — limites máximos e condições de uso dos aditivos alimentares autorizados',
     authors: ['Agência Nacional de Vigilância Sanitária'],
     authorKind: 'organization',
     shortName: 'ANVISA',
     publisher: 'Ministério da Saúde',
-    year: 2019,
-    url: 'https://bvsms.saude.gov.br/bvs/saudelegis/anvisa/2019/rdc0272_14_03_2019.pdf',
+    year: 2023,
+    url: 'https://www.gov.br/anvisa/pt-br/assuntos/regulamentacao/legislacao',
     locator: 'chapter',
     kind: 'official',
   },

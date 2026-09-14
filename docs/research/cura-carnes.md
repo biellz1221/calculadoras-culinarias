@@ -9,7 +9,8 @@ lido na fonte primária não entra, nem como referência.
 
 | Fonte | O que é | Como foi conferida |
 | --- | --- | --- |
-| **ANVISA, RDC nº 272, de 14/03/2019** — "Estabelece os aditivos alimentares autorizados para uso em carnes e produtos cárneos" (DOU nº 52, 18/03/2019) | A norma brasileira. Incorpora a Resolução GMC/MERCOSUL nº 63/18. | Texto integral lido, tabela do Anexo por categoria |
+| **ANVISA, Instrução Normativa nº 211, de 1º/03/2023** — limites máximos e condições de uso dos aditivos autorizados, com a RDC nº 778/2023 | A norma brasileira **em vigor**. | PDF oficial de 1.966 páginas baixado e lido; tabela do Anexo, categoria 08.2 |
+| ~~**ANVISA, RDC nº 272, de 14/03/2019**~~ | **Revogada.** Era a norma que este documento citava até 2026-09-14. | Revogação conferida: RDC 778/2023, art. 13, inciso LVI |
 | **9 CFR 424.21(c)** — *Use of food ingredients and sources of radiation*, tabela de curing agents | A norma americana. | Lida via API do eCFR (texto vigente) |
 | **Ruhlman & Polcyn, _Charcuterie_** | Composição do sal de cura e proporção de trabalho caseira. | PDF na estante, texto extraído |
 | **Marianski & Marianski, _Home Production of Quality Meats and Sausages_** | Composição do #1 e do #2, tabela de dose por quilo e a política de piso do FSIS. | EPUB na estante, texto extraído |
@@ -47,7 +48,37 @@ brasileiro — embora, de novo, por caminhos diferentes.
 
 ## 2. O que a norma brasileira diz, ao pé da letra
 
-Anexo da RDC 272/2019, função **CONSERVADOR**, nas categorias de carnes e
+### 2.0 Correção de 2026-09-14: a norma citada tinha sido revogada
+
+Este documento citava a **RDC 272/2019**. Ela foi **revogada pela RDC 778/2023**,
+que consolidou a legislação de aditivos e derrubou 67 normas de uma vez — a 272
+é o inciso LVI do artigo 13. O que vale hoje é a **Instrução Normativa nº 211, de
+1º de março de 2023**, que acompanha a RDC 778.
+
+**O número não mudou, e a redação quase não.** A IN 211 diz, no Anexo, categoria
+08.2 e subcategorias:
+
+> "Limite para os aditivos INS 250 e 251 sozinhos ou combinados. A soma dos
+> nitritos e nitratos, determinados como quantidade máxima residual, não deve
+> superar **150 mg/kg**, expressa como nitrito de sódio."
+
+A mesma nota aparece pareando INS 249 e 250 (os dois nitritos). O limite de 150
+mg/kg como **soma, expressa como nitrito de sódio e medida como resíduo**, é
+exatamente o que este documento já registrava e o que a calculadora já publica.
+
+As subcategorias de produto cárneo que carregam nitrito na IN 211 são sete:
+08.2.1.1 (processados frescos), 08.2.1.2 (secos), 08.2.1.3 (cozidos), 08.2.2.1
+(salgados crus), 08.2.2.2 (salgados cozidos), 08.2.3.1 (conservas cárneas e
+mistas) e 08.2.3.2 (semiconservas). Em 08.1.1, carne in natura, "não são
+autorizados aditivos alimentares".
+
+**A lição de processo:** número de norma envelhece mesmo quando o número da
+norma não muda. Citação de texto legal precisa de conferência de vigência, e não
+só de leitura no original. Registrado em `docs/quality/LEARNINGS.md`.
+
+### 2.1 A tabela, como publicada
+
+Anexo da IN 211/2023, função **CONSERVADOR**, nas categorias de carnes e
 produtos cárneos:
 
 | INS | Aditivo | Limite máximo (g/100 g) |
@@ -117,7 +148,7 @@ pessoa pesa. Não há como prever o resíduo sem medir o produto pronto. Então 
 que a interface pode honestamente dizer é: quanto você vai adicionar, como isso
 se compara ao teto de entrada americano (o único que existe), e o aviso de que o
 limite brasileiro é de resíduo e só se verifica com análise no produto final.
-Prometer conformidade com a RDC 272 a partir da entrada seria mentira.
+Prometer conformidade com a norma brasileira a partir da entrada seria mentira.
 
 ## 5. Sal de cura: composição e conversão
 

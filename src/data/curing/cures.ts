@@ -84,10 +84,10 @@ export const METHOD_CITATIONS = [cite('fsis-424', '424.21(c), curing agents')];
  * pronto; entrada é o que se pesa. Ver docs/research/cura-carnes.md §4.
  */
 export const RESIDUAL_LIMITS = {
-  /** Soma de nitrito e nitrato, como nitrito de sódio. RDC 272/2019, Anexo. */
+  /** Soma de nitrito e nitrato, como nitrito de sódio. IN 211/2023, Anexo. */
   br: {
     ppm: 150,
-    citations: [cite('anvisa-rdc272', 'Anexo — conservadores INS 249 a 252')],
+    citations: [cite('anvisa-in211', 'Anexo, categoria 08.2 — conservadores INS 249 a 252')],
   },
   /** Só nitrito, como nitrito de sódio. */
   us: { ppm: 200, citations: [cite('fsis-424', '424.21(c)')] },

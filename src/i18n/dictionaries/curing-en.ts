@@ -30,7 +30,7 @@ export const curingEn: typeof curingPtBR = {
       {
         question: 'What is the nitrite limit in Brazil?',
         answer:
-          'ANVISA’s RDC 272/2019 sets 0.015 g/100 g, which is 150 mg/kg, as the maximum residual — and it counts nitrite and nitrate together, expressed as sodium nitrite. Note that this is residual in the finished product, not what you weigh: different quantities.',
+          'The rule in force is ANVISA’s Normative Instruction 211/2023, which sets 150 mg/kg as the maximum residual — and it counts nitrite and nitrate together, expressed as sodium nitrite. Note that this is residual in the finished product, not what you weigh: different quantities.',
       },
       {
         question: 'Why do some say 150 and others 156?',
@@ -126,7 +126,7 @@ export const curingEn: typeof curingPtBR = {
     residualBody:
       'Brazil regulates here instead: at most 150 mg/kg, counting nitrite and nitrate together and expressed as sodium nitrite. The United States allows 200 ppm residual. Residual cannot be computed from ingoing — nitrite reacts and decays during curing, and only analysis of the finished product measures what is left.',
     honesty:
-      'The honest consequence: this calculator does not certify compliance with RDC 272. It gives the ingoing figure, compares it against the US ceiling — the only ingoing one that exists — and makes clear that the Brazilian number is a different kind of thing. Anyone producing for sale needs laboratory analysis, not a calculator.',
+      'The honest consequence: this calculator does not certify compliance with the Brazilian rule. It gives the ingoing figure, compares it against the US ceiling — the only ingoing one that exists — and makes clear that the Brazilian number is a different kind of thing. Anyone producing for sale needs laboratory analysis, not a calculator.',
   },
 
   method: {

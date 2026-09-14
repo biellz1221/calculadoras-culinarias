@@ -166,6 +166,13 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
 
 ## Citar
 
+- **Norma tem prazo de validade, e ler no original não basta.** A calculadora de
+  cura citava a RDC 272/2019 da ANVISA, lida no texto oficial e transcrita
+  corretamente. Em 2023 a RDC 778 consolidou os aditivos e revogou 67 normas de
+  uma vez, a 272 entre elas. O **número não mudou** — a IN 211/2023 repete os
+  mesmos 150 mg/kg com a mesma redação —, mas o site apontava para texto morto
+  numa página de segurança alimentar. Citação de norma precisa de **conferência
+  de vigência**, não só de leitura. Procure o ato revogador antes de citar.
 - **Livro do mesmo autor não é o mesmo livro.** `ruhlman` na estante é o
   `Ratio`; a composição do sal de cura é do `Charcuterie`, dele com Brian
   Polcyn. A citação passou no `assertCitation` porque a forma estava certa — id

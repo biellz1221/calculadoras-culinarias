@@ -66,7 +66,7 @@ export const CALCULATORS: readonly Calculator[] = [
     id: 'curing',
     route: 'curing',
     accent: 'ember',
-    sources: ['anvisa-rdc272', 'fsis-424', 'marianski', 'ruhlman-charcuterie'],
+    sources: ['anvisa-in211', 'fsis-424', 'marianski', 'ruhlman-charcuterie'],
   },
   {
     id: 'jam',

@@ -28,7 +28,7 @@ export const curingPtBR = {
       {
         question: 'Qual o limite de nitrito no Brasil?',
         answer:
-          'A RDC 272/2019 da ANVISA fixa 0,015 g/100 g, ou seja 150 mg/kg, como resíduo máximo — e conta a soma de nitrito e nitrato, expressa como nitrito de sódio. Repare que é resíduo no produto pronto, não o que você pesa: são grandezas diferentes.',
+          'A norma em vigor é a Instrução Normativa 211/2023 da ANVISA, que fixa 150 mg/kg como resíduo máximo — e conta a soma de nitrito e nitrato, expressa como nitrito de sódio. Repare que é resíduo no produto pronto, não o que você pesa: são grandezas diferentes.',
       },
       {
         question: 'Por que uns dizem 150 e outros 156?',
@@ -124,7 +124,7 @@ export const curingPtBR = {
     residualBody:
       'O Brasil regula por aqui: no máximo 150 mg/kg, contando nitrito e nitrato somados e expressos como nitrito de sódio. Os Estados Unidos permitem 200 ppm de resíduo. Resíduo não se calcula a partir da entrada — o nitrito reage e decai durante a cura, e só análise no produto pronto mede quanto sobrou.',
     honesty:
-      'Consequência honesta: esta calculadora não certifica conformidade com a RDC 272. Ela dá a entrada, compara com o teto americano — o único de entrada que existe — e deixa claro que o número brasileiro é de outra natureza. Quem produz para vender precisa de análise laboratorial, não de calculadora.',
+      'Consequência honesta: esta calculadora não certifica conformidade com a norma brasileira. Ela dá a entrada, compara com o teto americano — o único de entrada que existe — e deixa claro que o número brasileiro é de outra natureza. Quem produz para vender precisa de análise laboratorial, não de calculadora.',
   },
 
   method: {
