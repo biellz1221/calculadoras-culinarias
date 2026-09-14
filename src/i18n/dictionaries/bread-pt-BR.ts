@@ -66,6 +66,12 @@ export const breadPtBR = {
     'pao-de-leite': 'Pão de leite',
     brioche: 'Brioche',
     broa: 'Broa portuguesa',
+    pita: 'Pita de frigideira',
+    laffa: 'Laffa',
+    challah: 'Chalá',
+    'jerusalem-bagel': 'Bagel de Jerusalém',
+    malawach: 'Malawach',
+    jachnun: 'Jachnun',
   },
 
   ingredients: {
@@ -87,12 +93,16 @@ export const breadPtBR = {
     'milk-powder': 'Leite em pó',
     'creme-fraiche': 'Creme de leite fresco',
     xanthan: 'Goma xantana',
+    'neutral-oil': 'Óleo neutro',
+    honey: 'Mel',
+    'baking-powder': 'Fermento químico',
     'yeast-fresh': 'Fermento fresco',
     'yeast-active-dry': 'Fermento seco ativo',
     'yeast-instant': 'Fermento seco instantâneo',
     'levain-liquid': 'Levain líquido',
     poolish: 'Poolish',
     'fermented-dough': 'Massa fermentada',
+    tangzhong: 'Tangzhong',
   },
 
   target: {
@@ -136,10 +146,10 @@ export const breadPtBR = {
 
   notes: {
     hydration:
-      'Mais água dá miolo mais alveolado e massa mais difícil de manusear. Abaixo de 50% a massa vira massa de cilindro, de miolo fechado; acima de 80% é alta hidratação e pede dobras em vez de sova.',
-    salt: 'O sal também freia a fermentação. Abaixo de 1% o pão fica sem graça e a massa acelera demais; acima de 2,5% a levedura começa a sofrer.',
+      'Mais água dá miolo mais alveolado e massa mais difícil de manusear. Acima de 80% é alta hidratação e pede dobras em vez de sova. A faixa de 60 a 70% é de massa magra: em massa enriquecida o líquido vem de ovo, manteiga e leite, e a água cai muito abaixo disso sem que nada esteja errado — o brioche do Kayser não leva água nenhuma, e a chalá do Scheft tem 40%.',
+    salt: 'O sal também freia a fermentação. Abaixo de 1% o pão fica sem graça e a massa acelera demais. Acima de 2,2% já é mais sal do que o pão europeu costuma levar, mas não é erro: a pita do Scheft trabalha com 2,7% e o bagel de Jerusalém, com 3%. Passando de 3% a levedura sofre de verdade.',
     instantYeast:
-      'O teto prático é 1% sobre a farinha: mais que isso acelera a fermentação sem ganhar sabor. Menos fermento e mais tempo é quase sempre o melhor negócio.',
+      'O teto prático é 1% sobre a farinha: mais que isso acelera a fermentação sem ganhar sabor. Menos fermento e mais tempo é quase sempre o melhor negócio. O teto é do Camargo — e a broa do próprio Camargo passa dele por um décimo, com 1,1%. Deixamos os dois como estão: a regra é dele e a receita também.',
     dryYeast:
       'O seco ativo precisa ser dissolvido em água morna antes de entrar na massa.',
     freshYeast:
@@ -180,6 +190,18 @@ export const breadPtBR = {
         'Depois da primeira fermentação, uma hora de geladeira para a manteiga firmar antes de modelar.',
       scald:
         'A farinha de milho é escaldada com água fervente antes de entrar na massa.',
+      skillet:
+        'Não vai ao forno: assa em frigideira antiaderente ou de ferro, tampada, de 2 a 3 minutos de cada lado. A tampa segura o vapor, e é o vapor que abre o bolso.',
+      laffa:
+        'Mesma massa da pita, sem bolso: fure a massa aberta com um garfo antes de enfornar, na pedra, no forno no máximo.',
+      challah:
+        'Entra a 220 °C e a temperatura cai para 165 °C logo depois. Trançada, 25 minutos; em pãezinhos, de 12 a 14.',
+      jerusalemBagel:
+        'Nada a ver com o bagel americano: não é cozido em água. Vai direto ao forno, pincelado com ovo e coberto de gergelim.',
+      malawach:
+        'Não leva fermento biológico e não fermenta. A massa descansa, é laminada com manteiga em cima da bancada, gela por 1 hora e frita na frigideira, de 3 a 5 minutos de cada lado. Os 270 g de manteiga da receita original são de laminação e não entram na conta da massa.',
+      jachnun:
+        'Doze horas a 107 °C, na assadeira lacrada com papel-alumínio. Como no malawach, a manteiga é de laminação e fica fora da massa.',
     },
   },
 
@@ -391,6 +413,11 @@ export const breadPtBR = {
         term: 'Massa fermentada',
         definition:
           'Um pedaço de massa pronta da véspera incorporado à massa nova, de 15 a 30% do peso da farinha.',
+      },
+      'tangzhong': {
+        term: 'Tangzhong',
+        definition:
+          'Mingau de farinha cozido no leite, na proporção de 1 para 5, incorporado à massa. Gelatiniza o amido e prende água: o pão fica mais macio e seca mais devagar. Não fermenta — mas, como um pré-fermento, carrega farinha e líquido escondidos, e por isso entra na conta da hidratação real.',
       },
       'pointage-appret': {
         term: 'Pointage e apprêt',

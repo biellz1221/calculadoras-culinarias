@@ -226,8 +226,43 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   altitude como "subtract 2 degrees F" por mil pés, e a tabela da mesma página
   não segue a regra a partir de 5.000 pés. A tabela é o dado, a regra é a
   aproximação — e a divergência vira conteúdo, não escolha silenciosa.
+- **O rendimento declarado é um caso-verdade de graça.** Quase toda receita do
+  Scheft publica o peso da massa pronta ("900 grams of dough"). Somar a lista de
+  ingredientes e comparar com esse número pegou dois erros de transcrição que
+  nenhuma outra conferência pegaria: 270 g de manteiga que laminam e não entram
+  na massa, e 100 g de água de segunda adição que ficaram para trás. Procure o
+  rendimento antes de transcrever a receita, e depois confira contra ele.
+- **Em livro ilustrado, a tabela mais próxima do título não é necessariamente a
+  tabela do título.** A lista de ingredientes que vem logo depois da variação do
+  kubaneh é do *Light Brioche*, três páginas adiante. Extração por proximidade
+  atribui receita ao pão errado sem errar nenhum número. Confira pelo sumário do
+  capítulo, não pela ordem do texto extraído.
+- **`pdffonts` responde antes de abrir o livro.** Fonte única chamada
+  `GlyphLessFont` é camada de OCR do Tesseract sobre imagem: não é o que a
+  editora compôs, é o que o reconhecedor achou. Em Kassis, `Makes 8-l0` e toda
+  fração `½` virando `%`. Três dos nove livros de pão regional caíram nessa
+  triagem em dois minutos, antes de qualquer leitura.
+- **"Pesa" e "tem camada de texto" são perguntas diferentes, e as duas vêm antes
+  da leitura.** *Flatbreads & Flavors* tem 484 páginas, 184 receitas, subtítulo
+  "a baker's atlas" — e nove ocorrências da palavra "gram" no livro inteiro.
+  Helou pesa farinha, água e gordura em 311 receitas e nunca pesa o sal nem o
+  fermento. Meia fórmula não vira preset. Meça as duas coisas por obra antes de
+  planejar o que dá para extrair.
+- **Ponto fora da curva dentro de uma fonte não é divergência entre fontes.** O
+  kubaneh do Scheft pede 4% de sal onde o mesmo autor usa 1,5% a 3% em todo o
+  resto do livro — e a obra é internamente coerente no número (as colheres
+  batem com as gramas). Coerência interna não valida um valor: é o padrão de um
+  erro de edição. Divergência entre obras vira conteúdo; discrepância dentro de
+  uma obra vira pendência de segunda fonte.
 
 ## Testes
+
+- **"Nenhum preset estoura o limite duro" é um invariante que se paga sozinho.**
+  Escrito para os pães novos, ele derrubou um preset antigo: a broa do Camargo
+  leva 1,11% de fermento onde o próprio Camargo enuncia um teto de 1%. Quando um
+  invariante desses cai, a saída **não** é afrouxar o teste — é decidir se a
+  faixa está errada ou se o preset está, e escrever a exceção com nome e motivo
+  quando a resposta é "nenhum dos dois".
 
 - **Playwright em `127.0.0.1` não hidrata**: o dev server do Next bloqueia
   `/_next` de outra origem. A página carrega e todo teste de interação falha

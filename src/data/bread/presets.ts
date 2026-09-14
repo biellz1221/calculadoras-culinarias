@@ -306,6 +306,124 @@ export const BREAD_PRESETS: readonly BreadPreset[] = [
     { count: 4, unitGrams: 300 },
   ),
 
+  // ---------------------------------------------------------------------------
+  // Pães do Levante — Uri Scheft, *Breaking Breads*.
+  //
+  // Seis receitas de um padeiro que pesa tudo, inclusive o sal. Cada uma foi
+  // conferida contra o peso de massa que o próprio livro declara; foi esse
+  // confronto que mostrou que a manteiga do malawach e do jachnun lamina, não
+  // entra na massa (docs/research/paes-regionais.md §2.3).
+  //
+  // Ovo grande = 50 g, pela aritmética do próprio livro: 6 gemas = 120 g e
+  // 4 claras = 120 g.
+  // ---------------------------------------------------------------------------
+
+  preset(
+    'pita',
+    WHITE_ONLY,
+    [l('water', 60.91), l('yeast-fresh', 3.64), l('sugar', 3.64), l('salt', 2.73)],
+    [cite('scheft', 116)],
+    {
+      firstRiseMinutes: [30, 30],
+      secondRiseMinutes: [40, 40],
+      noteKey: 'skillet',
+    },
+    // 900 g declarados para 8 pães.
+    { count: 8, unitGrams: 112 },
+  ),
+
+  preset(
+    'laffa',
+    WHITE_ONLY,
+    // Mesma massa da pita: o livro manda seguir a receita da p. 116 até o
+    // passo 3 e muda só a modelagem e o forno.
+    [l('water', 60.91), l('yeast-fresh', 3.64), l('sugar', 3.64), l('salt', 2.73)],
+    [cite('scheft', 121), cite('scheft', 116)],
+    {
+      firstRiseMinutes: [30, 30],
+      secondRiseMinutes: [30, 30],
+      ovenCelsius: 274,
+      bakeMinutes: [4, 5],
+      noteKey: 'laffa',
+    },
+    { count: 8, unitGrams: 112 },
+  ),
+
+  preset(
+    'challah',
+    WHITE_ONLY,
+    [
+      l('water', 40),
+      l('yeast-fresh', 4),
+      l('egg', 10),
+      l('sugar', 10),
+      l('neutral-oil', 7.5),
+      l('salt', 1.5),
+    ],
+    [cite('scheft', 27)],
+    {
+      firstRiseMinutes: [40, 40],
+      secondRiseMinutes: [60, 60],
+      ovenCelsius: 220,
+      bakeMinutes: [25, 25],
+      noteKey: 'challah',
+    },
+    // 1,75 kg declarados para 3 tranças.
+    { count: 3, unitGrams: 583 },
+  ),
+
+  preset(
+    'jerusalem-bagel',
+    WHITE_ONLY,
+    [
+      l('water', 56),
+      l('yeast-fresh', 5),
+      l('milk-powder', 12),
+      l('sugar', 10),
+      l('olive-oil', 4),
+      l('salt', 3),
+    ],
+    [cite('scheft', 176)],
+    {
+      firstRiseMinutes: [30, 30],
+      secondRiseMinutes: [30, 30],
+      ovenCelsius: 177,
+      bakeMinutes: [12, 14],
+      noteKey: 'jerusalemBagel',
+    },
+    { count: 6, unitGrams: 158 },
+  ),
+
+  preset(
+    'malawach',
+    WHITE_ONLY,
+    [l('water', 63), l('sugar', 5), l('salt', 2), l('baking-powder', 0.4)],
+    [cite('scheft', 145)],
+    { noteKey: 'malawach' },
+    // 1,7 kg declarados para 8 discos — e a soma da massa sem a manteiga de
+    // laminação dá 1.704 g.
+    { count: 8, unitGrams: 212 },
+  ),
+
+  preset(
+    'jachnun',
+    WHITE_ONLY,
+    [
+      l('water', 67.5),
+      l('sugar', 5),
+      l('honey', 3.5),
+      l('salt', 2),
+      l('baking-powder', 0.2),
+    ],
+    [cite('scheft', 149)],
+    {
+      ovenCelsius: 107,
+      bakeMinutes: [720, 720],
+      noteKey: 'jachnun',
+    },
+    { count: 10, unitGrams: 178 },
+  ),
+
   preset(
     'broa',
     [l('flour-corn', 66.7), l('flour-rye', 22.2), l('flour-white', 11.1)],
