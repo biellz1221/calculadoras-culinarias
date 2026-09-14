@@ -305,3 +305,24 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   eram as duas únicas fora da faixa que o documento publica. Coincidência que
   vale como sinal: número que destoa, confira a integridade da página antes de
   concluir que a fonte se contradiz.
+- **Quando a lacuna fecha, o teste da lacuna precisa de casa nova.** O e2e que
+  provava a tela "sem fonte na nossa bibliografia" só funcionava porque havia um
+  verbete sem fonte. Ao dar fonte aos dois últimos, aquele ramo do componente
+  ficaria sem teste nenhum — e ele é promessa de projeto, não detalhe de layout.
+  A saída foi injetar um registro falso num teste de componente. Antes de
+  comemorar o fim de uma pendência, veja o que ela estava sustentando.
+- **Reusar um rótulo de campo em outra seção cria ambiguidade de verdade.** Dois
+  `<label>` com o mesmo texto na mesma página deixam quem navega por rótulo sem
+  saber qual pegou — e quebram `getByLabel` junto, que foi como isto apareceu. O
+  segundo campo pediu nome próprio, e o nome próprio ("densidade da **sua**
+  calda") acabou explicando melhor o que ele é.
+- **Estimativa declarada é barata de corrigir; estimativa escondida não.** A
+  densidade de 1,10 g/mL estava na tela dizendo "valor de trabalho, não número
+  de fonte". Quando Clarke chegou, bateu — e não houve nada a mexer. Se o número
+  tivesse entrado disfarçado de fonte, a conferência nunca teria acontecido.
+- **PDF de 400 páginas com camada de texto pode ser OCR.** `pdffonts` entrega o
+  jogo: fonte de corpo misturada com Courier New e MS Sans Serif é saída de
+  motor de OCR, não livro diagramado. `pdfimages -list` confirma — página
+  inteira como JPEG a 150 ppi por baixo. Não descarta a fonte, mas muda o que se
+  pode tirar dela: nome de ingrediente o OCR acerta, número de tabela é onde ele
+  erra, e este projeto já se queimou duas vezes aí.

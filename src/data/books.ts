@@ -27,6 +27,8 @@ export type BookId =
   | 'modernist-home'
   | 'foodlab'
   | 'wybauw'
+  | 'clarke'
+  | 'corvitto'
   | 'nchfp'
   | 'embrapa-geleias'
   | 'embrapa-geleias-artesanal'
@@ -211,6 +213,42 @@ export const BOOKS: readonly Book[] = [
     authors: ['Jean-Pierre Wybauw'],
     publisher: 'Lannoo',
     locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    /**
+     * O livro de química do sorvete, e o que dá fonte ao overrun.
+     *
+     * Publicado pela Royal Society of Chemistry: descreve sorvete industrial,
+     * não gelato artesanal, e é justamente por isso que ele e o Corvitto não
+     * dizem o mesmo número. A divergência está na tela.
+     *
+     * Paginação conferida: o PDF tem deslocamento constante de 18, com o número
+     * impresso no cabeçalho de cada página. Confirmado em seis pontos.
+     */
+    id: 'clarke',
+    title: 'The Science of Ice Cream',
+    authors: ['Chris Clarke'],
+    publisher: 'Royal Society of Chemistry',
+    year: 2004,
+    locator: 'page',
+    kind: 'book',
+  },
+  {
+    /**
+     * O livro de gelato, enfim.
+     *
+     * Edição bilíngue italiano–inglês, que imprime o mesmo assunto duas vezes
+     * em páginas diferentes. As citações apontam para a página **inglesa**, que
+     * é a que mais gente consegue conferir.
+     *
+     * Paginação conferida em seis pontos: impressa = PDF mais 2.
+     */
+    id: 'corvitto',
+    title: 'Los secretos del helado',
+    authors: ['Angelo Corvitto'],
+    publisher: 'Grupo Vilbo',
+    locator: 'page',
     kind: 'book',
   },
   {

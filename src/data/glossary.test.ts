@@ -62,16 +62,20 @@ describe('glossário', () => {
     expect(glossaryAnchor('autolyse')).toBe('glossario-autolyse');
   });
 
-  it('só admite verbete sem fonte onde a ausência foi apurada', () => {
-    // Hoje são dois, os dois de gelato: `overrun` e a densidade da calda não
-    // aparecem na planilha do curso, e não há outra obra na estante que fale
-    // dos dois. Verbete novo sem citação precisa passar por aqui de propósito.
+  it('todo verbete do site tem fonte', () => {
+    // Já foram dois sem fonte, os dois de gelato: `overrun` e a densidade da
+    // calda não aparecem na planilha do curso. Em 2026-09-14 ganharam livro —
+    // Corvitto e Clarke — e a lista zerou.
+    //
+    // A asserção continua sendo a lista, e não um `toHaveLength(0)`, porque se
+    // um verbete novo entrar sem citação o teste tem de **dizer qual**. Se a
+    // ausência for legítima, o id entra aqui de propósito, com o motivo escrito.
     const semFonte = CALCULATORS.flatMap((calculator) =>
       GLOSSARY[calculator.id]
         .filter((entry) => entry.citations.length === 0)
         .map((entry) => `${calculator.id}/${entry.id}`),
     );
 
-    expect(semFonte.sort()).toEqual(['gelato/overrun', 'gelato/syrup-density']);
+    expect(semFonte.sort()).toEqual([]);
   });
 });

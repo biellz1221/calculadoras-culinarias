@@ -34,13 +34,20 @@ test('o termo explica a si mesmo sem sair do cálculo', async ({ page }) => {
   await expect(page.getByRole('note')).toBeHidden();
 });
 
-test('o verbete sem fonte diz que não tem, em vez de omitir', async ({ page }) => {
+test('o verbete que estava sem fonte agora cita livro', async ({ page }) => {
   await page.goto('/gelato#glossario-overrun');
 
+  // Foi o último verbete sem procedência do site, e por um ano a asserção aqui
+  // era a oposta: que ele dizia "sem fonte" e que o número não estava lá. Em
+  // 2026-09-14 Corvitto e Clarke entraram na estante e os dois voltaram.
+  //
+  // O aviso de ausência continua testado, com registro falso, em
+  // src/components/glossary-no-source.test.tsx — a tela que declara a lacuna
+  // não pode deixar de existir só porque hoje não há lacuna.
   const entry = page.locator('#glossario-overrun');
-  await expect(entry).toContainText('Sem fonte na nossa bibliografia');
-  // E o número que estava ali sem procedência não voltou.
-  await expect(entry).not.toContainText('35%');
+  await expect(entry).not.toContainText('Sem fonte na nossa bibliografia');
+  await expect(entry).toContainText('35%');
+  await expect(entry).toContainText('Corvitto');
 });
 
 test('a versão em inglês tem os mesmos verbetes, no mesmo endereço', async ({ page }) => {

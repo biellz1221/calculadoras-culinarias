@@ -30,6 +30,16 @@ export const gelatoEn: typeof gelatoPtBR = {
     title: 'Common questions',
     items: [
       {
+        question: 'How much air should my gelato have?',
+        answer:
+          'Between 30% and 40% overrun, with 35% as the target — that is the band Angelo Corvitto sets for maximum-quality gelato. Industrial ice cream plays much higher: Clarke measures 20% to 100%, and a hundred per cent means one litre of mix becoming two litres of ice cream. To measure yours, weigh the same glass filled with mix and then filled with gelato, and divide one by the other: the two decimal places are the overrun.',
+      },
+      {
+        question: 'Why is the default density 1.10 g/mL?',
+        answer:
+          'Because that is the weight of a litre of mix in Chris Clarke’s The Science of Ice Cream. Corvitto works with 1.00 without saying so, and the gap is not small: at 35% overrun a litre of gelato would weigh 815 g by Clarke’s figure and 740 g by Corvitto’s. Neither publishes the composition of the mix he is talking about, so the calculator shows both and leaves the field editable.',
+      },
+      {
         question: 'What are POD and PAC?',
         answer:
           'POD is sweetening power and PAC is antifreezing power, both measured per kilo of mix. They explain why two recipes carrying the same amount of sugar can taste and scoop very differently: each sugar sweetens and lowers the freezing point at its own rate.',
@@ -99,13 +109,57 @@ export const gelatoEn: typeof gelatoPtBR = {
     density: 'Mix density',
     densityUnit: 'g/mL',
     densityHint:
-      'Default is 1.10 g/mL. Batch mass comes from litres × 1000 × density.',
+      'The default is 1.10 g/mL, the weight of a litre of mix in Clarke. The syrup mass comes from litres × 1000 × density. Corvitto works with 1.00 — if your mix is lighter, change it here.',
     mass: 'Mix mass',
     rescaleHint:
       'Changing the volume or the density rescales the whole recipe, keeping the proportions.',
     driftAbove: 'The recipe is over the batch target by',
     driftBelow: 'The recipe is under the batch target by',
     scaleToBatch: 'Scale to batch',
+  },
+
+  aeration: {
+    title: 'The air, and what a litre weighs',
+    lead: 'Balancing is what goes into the pan. What comes out of the machine also depends on how much air went in — and no balancing spreadsheet gives you that, because it belongs to the machine and the process. You can measure it on the bench with a scale and a glass.',
+
+    targetTitle: 'How much air gelato wants',
+    targetBody:
+      'Corvitto sets the quality band between 30% and 40% overrun, and picks 35%. It is not a machine limit, it is a choice. Too little air leaves gelato heavy; too much strips its body, and it "loses freshness and flavour, looking like mousse and leaving an empty taste in one’s mouth".',
+    industrialBody:
+      'Industrial ice cream plays a different game. Clarke measures samples from 17% to 50% air by volume — 20% to 100% overrun — and says the structure still holds up to around 120%. A hundred per cent overrun is one litre of mix becoming two litres of ice cream. That is why gelato weighs more than a supermarket tub, and the difference is a maker’s choice, not a limitation of whoever lacks the machine.',
+    sorbetNote:
+      'With no fat and no protein, as in sorbetto, going past 60% is hard even if you want to — so says Clarke. That is a technical ceiling, not a target: neither book publishes a separate quality target for sorbetto, and this page does not invent one.',
+
+    measureTitle: 'How to measure yours, with a glass and a scale',
+    measureBody:
+      'The arithmetic is Corvitto’s and fits on one line: divide the weight of the mix by the weight of the gelato, in the same container. The two decimal places are the overrun. Weigh the empty glass for its tare, fill it to the brim with mix and note the weight; fill the same glass with finished gelato, leaving no bubbles, and note that. Two hundred and seventy grams of mix to two hundred of gelato gives 1.35, which is 35%.',
+    sameEquation:
+      'Clarke arrives at the same place through density, and it is the same equation: weighing the same glass twice is measuring density with the volume cancelling out. Two books that do not cite each other, writing one calculation two ways.',
+    cupNote:
+      'For hardened gelato the glass will not do — forcing hard ice cream into it would change the volume. Clarke uses a displacement chamber: weigh the portion and measure the water it displaces.',
+
+    densityLabel: 'Your syrup density',
+    targetLabel: 'Overrun you want',
+    resultLabel: 'A litre of your gelato should weigh',
+    resultHint:
+      'Worked out from the syrup density in the batch field. If your litre weighs more than this, less air went in than you wanted; if it weighs less, more did.',
+    mixLabel: 'Glass with mix',
+    gelatoLabel: 'Glass with gelato',
+    measuredLabel: 'Measured overrun',
+    measuredHint: 'Both weights with the glass tare already removed, same container.',
+    inRange: 'Inside Corvitto’s band',
+    aboveRange: 'Above Corvitto’s band',
+    belowRange: 'Below Corvitto’s band',
+
+    iceTitle: 'The 105% caveat',
+    iceBody:
+      'Water grows about 8% when it turns to ice, so part of the volume the calculation reads as air is not air. Clarke shows the case: 100% nominal overrun is really 105%. He says himself the effect "is often ignored", and this page ignores it too — correcting for it would require the recipe’s ice content at serving temperature, which the course spreadsheet does not supply. It stays a caveat, not a calculation.',
+
+    divergenceTitle: 'Where the two books disagree',
+    divergenceBody:
+      'Clarke writes that a litre of typical mix weighs 1.1 kg. Corvitto never states a density, but his arithmetic assumes 1.0: he starts from 1,000 g of mix to conclude that a litre of gelato at 35% weighs 740 g. With Clarke’s figure the same litre would weigh 815 g. That is 75 g per litre, nearly 400 g in a five-litre tub.',
+    divergenceDecision:
+      'The calculator does not break the tie. The default is 1.10 with Clarke’s page beside it, the field stays editable, and both numbers stay in view. Neither author publishes the composition of the mix he describes, and without that there is no telling which one matches your syrup — which is exactly why the glass matters: whoever weighs does not have to believe either of them.',
   },
 
   picker: {
@@ -292,7 +346,8 @@ export const gelatoEn: typeof gelatoPtBR = {
       'Every ingredient in the spreadsheet is described as the composition of one gram of it: how much is sugar, how much is fat, how much is milk solids, how much is other solids, how much is water. The whole recipe is those fractions multiplied by the grams on each line, and nothing else. That is why swapping 50 g of milk for 50 g of cream moves four metrics at once.',
       'Six of the eight metrics are fractions of total mass, so they read as a percentage of the mix. POD and PAC are different: they are normalised per kilo of mix, because they measure intensity rather than quantity. Two recipes with the same amount of sugar can be very differently sweet depending on which sugar it is.',
       'The range for each metric changes with the base type. A sorbet works with more sugar and more PAC than a milk gelato precisely because it has no fat and no milk solids holding the water: without that support, the antifreeze has to do the job alone. Changing the base type does not touch the recipe, only the ruler it is measured with.',
-      'The batch is sized in litres and converted to mass by an adjustable density, defaulting to 1.10 g/mL. Changing the volume rescales every line by the same factor: the recipe stays the same, just bigger. If you edit a line by hand and total mass drifts off target, a button appears to scale it back.',
+      'The batch is sized in litres and turned into mass by an adjustable density. The 1.10 g/mL default was a declared working value until September 2026, when it gained a source: it is the weight of a litre of mix in Clarke. Changing the volume rescales every line in the same proportion — the recipe stays the same, just bigger. If you edit a line by hand and the total drifts off target, the scale-to-batch button appears.',
+      'One thing this calculator still does not do, and now says why better: the air. Balancing is what goes into the pan; how much air goes in depends on the machine, the draw temperature and the recipe. What can be done, and what the page now does, is hand you the bench ruler — the weight a litre of your gelato should reach for the overrun you want, and the division that measures what you got.',
     ],
   },
 
@@ -334,7 +389,7 @@ export const gelatoEn: typeof gelatoPtBR = {
       'overrun': {
         term: 'Overrun',
         definition:
-          'The air whipped in during churning, measured as the gain in volume. This calculator balances the mix; overrun belongs to the machine and the process, and enters none of the arithmetic here.',
+          'The air whipped in, measured as increase in volume: 100% overrun is one litre of mix becoming two litres of ice cream. Corvitto puts the gelato quality band between 30% and 40% and settles on 35%; Clarke, writing about industrial ice cream, measures 20% to 100%. It does not enter the balancing — it belongs to the machine and the process — but it can be measured with a glass and a scale.',
       },
       'neutro': {
         term: 'Stabiliser blend',
@@ -349,14 +404,14 @@ export const gelatoEn: typeof gelatoPtBR = {
       'syrup-density': {
         term: 'Mix density',
         definition:
-          'How many grams fit in a millilitre of mix before churning, which is what turns a batch in litres into mass in grams. The 1.10 g/mL default is a declared working value, not a sourced number: that is exactly why the field stays editable.',
+          'How many grams fit in a millilitre of mix before churning, which turns a batch in litres into a mass in grams. The 1.10 g/mL default is the weight of a litre of mix in Clarke. Corvitto’s arithmetic assumes 1.00 without saying so — both numbers are on the page, and the field stays editable.',
       },
     },
   },
 
   sources: {
     title: 'Sources for this calculator',
-    lead: 'This is the only calculator on the site that does not rest on a published work. The 164 ingredients, the POD and PAC coefficients and the ranges for the five base types come from the balancing spreadsheet of the Brazilian course Gelato Direto ao Ponto, by Luis Paulo dos Santos Barros, known as Lulo Fouet. It is teaching material rather than a bibliography: there is no page or chapter to cite, so the citation names the sheet and the course it came from, rather than dressing itself up as a book.',
+    lead: 'The balancing in this calculator does not rest on a published work: the 164 ingredients, the POD and PAC coefficients and the bands for the five base types come from the balancing spreadsheet of the Gelato Direto ao Ponto course, by Luis Paulo dos Santos Barros, known as Lulo Fouet. It is teaching material rather than bibliography — no page, no chapter — so the citation points at the spreadsheet tab instead of dressing up as a book. The air and the weight of a litre, which the spreadsheet does not cover, come from two books: Clarke for the chemistry of ice cream and Corvitto for gelato on the bench.',
     page: 'p.',
     section: 'section',
   },

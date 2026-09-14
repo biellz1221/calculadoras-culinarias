@@ -139,9 +139,13 @@ test('mostra a estimativa nutricional como orientação, não rotulagem', async 
 test('a seção de fontes diz que não há obra publicada por trás', async ({ page }) => {
   await page.goto('/gelato');
 
+  // O balanceamento continua sem obra publicada por trás — é a planilha do
+  // curso. O ar e o peso de um litro, que a planilha não cobre, ganharam livro
+  // em setembro de 2026, e a chamada diz as duas coisas.
   await expect(
-    page.getByText(/única calculadora do site que não se apoia em obra publicada/),
+    page.getByText(/não se apoia em obra publicada/),
   ).toBeVisible();
+  await expect(page.getByText(/Clarke pela química do sorvete/)).toBeVisible();
 });
 
 test('a versão em inglês responde em /en/gelato', async ({ page }) => {
@@ -166,4 +170,73 @@ test('a página de gelato não rola horizontalmente em 360 px', async ({ page })
   );
 
   expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test('a régua de bancada do overrun está na página, fora da parte explicativa', async ({
+  page,
+}) => {
+  await page.goto('/gelato');
+
+  // Era a única parte desta página sem fonte; não pode sumir na interface
+  // simplificada.
+  await expect(
+    page.getByRole('heading', { name: 'O ar, e o peso de um litro' }),
+  ).toBeVisible();
+
+  // O exemplo de bancada de Corvitto, já preenchido: 270 g de mix para 200 g
+  // de gelato dão 35%.
+  await expect(page.getByText('35%').first()).toBeVisible();
+  await expect(page.getByText('Dentro da faixa de Corvitto')).toBeVisible();
+});
+
+test('medir menos ar do que a faixa dispara o aviso certo', async ({ page }) => {
+  await page.goto('/gelato');
+
+  await expect(async () => {
+    // Mesmo copo, quase o mesmo peso: quase nenhum ar entrou.
+    await page.getByLabel('Peso do copo com mix').fill('210');
+    await expect(page.getByText('Abaixo da faixa de Corvitto')).toBeVisible();
+  }).toPass({ timeout: 15_000 });
+
+  await expect(async () => {
+    // O dobro do peso: 100% de overrun, que é sorvete industrial, não gelato.
+    await page.getByLabel('Peso do copo com mix').fill('400');
+    await expect(page.getByText('Acima da faixa de Corvitto')).toBeVisible();
+  }).toPass({ timeout: 15_000 });
+});
+
+test('o caminho inverso dá o peso que um litro deveria ter', async ({ page }) => {
+  await page.goto('/gelato');
+
+  const content = page.locator('#conteudo');
+
+  // 1,10 g/mL de Clarke a 35% de overrun: 815 g por litro.
+  await expect(content.getByText('815 g').first()).toBeVisible();
+
+  await expect(async () => {
+    // Com a densidade que a aritmética de Corvitto pressupõe, 741 g.
+    await page.getByLabel('Densidade da sua calda').fill('1');
+    await expect(content.getByText('741 g').first()).toBeVisible();
+  }).toPass({ timeout: 15_000 });
+});
+
+test('a divergência de densidade aparece com os dois números', async ({ page }) => {
+  await page.goto('/gelato');
+
+  await expect(
+    page.getByRole('heading', { name: 'Onde as duas obras discordam' }),
+  ).toBeVisible();
+
+  const content = page.locator('#conteudo');
+  await expect(content.getByText(/Clarke · 1,10/)).toBeVisible();
+  await expect(content.getByText(/Corvitto · 1,00/)).toBeVisible();
+});
+
+test('a versão em inglês traz a mesma régua', async ({ page }) => {
+  await page.goto('/en/gelato');
+
+  await expect(
+    page.getByRole('heading', { name: 'The air, and what a litre weighs' }),
+  ).toBeVisible();
+  await expect(page.getByText('Inside Corvitto’s band')).toBeVisible();
 });
