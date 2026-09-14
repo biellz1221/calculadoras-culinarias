@@ -213,6 +213,11 @@ export const ptBR = {
       blurb:
         'Nitrito em ppm por quilo de carne, com a norma brasileira e a americana lado a lado — e a diferença entre elas explicada.',
     },
+    ganache: {
+      name: 'Ganache',
+      blurb:
+        'Chocolate e manteiga pela textura que você quer, e o prazo de validade que quase nenhuma receita de ganache publica.',
+    },
     brine: {
       name: 'Salmoura e salga',
       blurb:

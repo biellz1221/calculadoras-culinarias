@@ -322,6 +322,39 @@ const BRINE: readonly GlossaryEntry[] = [
   { id: 'salting-out', citations: [cite('foodlab', 578)] },
 ];
 
+/**
+ * docs/research/ganache.md §8.
+ *
+ * Uma obra só sustenta todos os verbetes, e é a única calculadora do site em que
+ * isso acontece. A página diz.
+ */
+const GANACHE: readonly GlossaryEntry[] = [
+  { id: 'ganache', citations: [cite('wybauw', '"Balancing ganache recipes"')] },
+  {
+    id: 'soft-substances',
+    citations: [
+      cite('wybauw', '"Balancing ganache recipes" — tabela de proporções médias'),
+    ],
+  },
+  { id: 'couverture', citations: [cite('wybauw', '"Balancing ganache recipes"')] },
+  {
+    id: 'water-activity',
+    citations: [cite('wybauw', '"Improved shelf life in practice"')],
+  },
+  {
+    id: 'precrystallising',
+    citations: [
+      cite('wybauw', '"Optimising the quality of the ganache" — Emulsifying, homogenising'),
+    ],
+  },
+  {
+    id: 'syneresis',
+    citations: [
+      cite('wybauw', '"Optimising the quality of the ganache" — Emulsifying, homogenising'),
+    ],
+  },
+];
+
 export const GLOSSARY: Record<CalculatorId, readonly GlossaryEntry[]> = {
   bread: BREAD,
   pickles: PICKLES,
@@ -330,6 +363,7 @@ export const GLOSSARY: Record<CalculatorId, readonly GlossaryEntry[]> = {
   curing: CURING,
   jam: JAM,
   brine: BRINE,
+  ganache: GANACHE,
 };
 
 /** Âncora do verbete na página. O mesmo id nos dois idiomas. */

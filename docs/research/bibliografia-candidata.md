@@ -344,8 +344,9 @@ página e camada de texto. O que segue é o estado real, não a lista de desejos
 Sem camada de texto: não dá para extrair número sem passar tesseract, e OCR de
 tabela erra. **Ler estes exige trabalho extra antes de citar.**
 
-- **Greweling, _Chocolates and Confections_** — 200 páginas, imagem. É a fonte
-  principal da calculadora de ganache.
+- **Greweling, _Chocolates and Confections_** — 200 páginas, imagem. Era para ser
+  a fonte da ganache; o Wybauw resolveu no lugar dele. Hoje o que falta é o
+  contraponto: a ganache é a única calculadora do site com uma fonte só.
 - **Modernist Bread vol. 1** — 409 páginas, imagem.
 - **Modernist Pizza vol. 1-3** — 448 páginas, imagem.
 
@@ -383,7 +384,7 @@ Por ordem de quanto trava uma calculadora do roadmap:
 | **Cura de carnes** | No ar. ANVISA e 9 CFR lidos no original, Marianski e Ruhlman & Polcyn na estante. | `cura-carnes.md` |
 | **Geleias** | No ar. Saunders (nove receitas pesadas), Ferber (proporção da casa e pectina de maçã), NCHFP (classificação das frutas, temperatura por altitude, conservação), McGee *Keys* (o limiar de 300 m). | `geleias.md` |
 | **Salmoura de proteína** | No ar. Modernist at Home (quatro receitas), Food Lab (salga seca e o experimento dos doze peitos), Ruhlman & Polcyn (o peso de uma xícara de sal kosher, que é o que torna a dose do Food Lab executável). | `salmoura.md` |
-| **Ganache** | Travada: Greweling é digitalização em imagem e precisa de OCR conferido à mão. | — |
+| **Ganache** | No ar, e **não pelo Greweling**. O Wybauw (_Fine Chocolates_), que entrou fora da lista original, tem texto extraível, a tabela de proporções por textura e — o que o Greweling talvez nem tivesse — atividade de água e prazo de validade. O Greweling continua sendo o contraponto que falta. | `ganache.md` |
 | **Pão sem glúten** | Travada: Arendt & Dal Bello não chegou. | — |
 
 **Duas correções nesta revisão.**

@@ -26,6 +26,7 @@ export type BookId =
   | 'mcgee-ofc'
   | 'modernist-home'
   | 'foodlab'
+  | 'wybauw'
   | 'nchfp'
   | 'marianski'
   | 'anvisa-rdc272'
@@ -197,6 +198,17 @@ export const BOOKS: readonly Book[] = [
     publisher: 'W. W. Norton',
     year: 2015,
     locator: 'page',
+    kind: 'book',
+  },
+  {
+    // O PDF traz a paginação impressa na margem em algumas páginas, mas o
+    // deslocamento não se confirma no fim do volume. Deslocamento que não se
+    // confere de ponta a ponta não é conversão: cita-se por seção.
+    id: 'wybauw',
+    title: 'Fine Chocolates: Great Experience',
+    authors: ['Jean-Pierre Wybauw'],
+    publisher: 'Lannoo',
+    locator: 'chapter',
     kind: 'book',
   },
   {

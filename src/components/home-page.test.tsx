@@ -53,10 +53,17 @@ describe('home', () => {
   });
 
   it('mostra a estante inteira, que é a promessa do produto', () => {
-    render(<HomePage locale="en" />);
+    const { container } = render(<HomePage locale="en" />);
+
+    // Escopado na estante de propósito. O cartão de cada calculadora também
+    // nomeia as obras em que ela se apoia, e quando a calculadora tem **uma
+    // fonte só** — a ganache é a primeira — esse cartão vira um nó cujo texto
+    // é exatamente o título do livro, e a busca global acha dois.
+    const shelf = container.querySelector('#estante');
+    expect(shelf).not.toBeNull();
 
     for (const book of BOOKS.filter((item) => item.kind === 'book')) {
-      expect(screen.getByText(book.title), book.id).toBeInTheDocument();
+      expect(within(shelf as HTMLElement).getByText(book.title), book.id).toBeInTheDocument();
     }
   });
 

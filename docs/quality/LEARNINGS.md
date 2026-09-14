@@ -202,6 +202,19 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   divergência, e por isso a convergência passa despercebida. Quando duas obras
   independentes chegam ao mesmo número, isso vale ser dito na página — é a
   informação mais forte que se pode dar.
+- **Tabela publicada duas vezes é o melhor caso-verdade que existe.** O Wybauw
+  imprime as proporções de ganache em razão e em porcentagem, e foi essa
+  redundância — não a minha atenção — que validou uma transcrição feita a partir
+  de um PDF que troca "TOO" por "100" e "IO%" por "10%". Quando a fonte se
+  confere sozinha, o teste confere as duas formas.
+- **Porcentagem publicada pode não ser o arredondamento da razão.** As do Wybauw
+  foram ajustadas para somar 100: 40,8 vira 40 e 49,0 vira 50, na mesma linha.
+  Tolerância frouxa num teste só se justifica com o motivo escrito ao lado.
+- **PDF em imagem não é fonte, e o bônus pode ser melhor que o planejado.** O
+  Greweling, previsto como fonte da ganache, é digitalização sem texto. O
+  Wybauw, que entrou na estante fora da lista, trouxe a tabela **e** dados de
+  atividade de água que nenhuma outra obra tem. Antes de dar um tema por
+  bloqueado, confira a camada de texto de tudo que chegou.
 - **Fonte oficial pode discordar de si mesma.** O NCHFP resume a temperatura por
   altitude como "subtract 2 degrees F" por mil pés, e a tabela da mesma página
   não segue a regra a partir de 5.000 pés. A tabela é o dado, a regra é a
@@ -239,6 +252,14 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   pontas por limiar numérico apagava o rendimento "5 a 6 potes" (5,2 e 5,6
   diferem por 0,4). Compare os textos **já formatados**: só colapsa quando as
   duas pontas exibem a mesma coisa.
+- **`getByRole('term')` com `name` nunca casa.** `term` — o papel do `<dt>` — não
+  recebe nome acessível a partir do conteúdo, então a busca não acha nada nunca,
+  e uma asserção de ausência passa pelo motivo errado. Para escopar resultado,
+  dê `aria-labelledby` à `<section>` e busque dentro dela: `<section>` sem nome
+  não é landmark, então isso conserta o teste **e** a navegação por regiões.
+- **Calculadora com uma fonte só quebra o teste da estante.** O cartão da home
+  junta os títulos das obras com " · "; com uma fonte, o nó vira exatamente o
+  título do livro e a busca global acha dois. Escope na estante.
 - **Prove que o teste pega o bug.** Desfaça a correção, rode e veja falhar. Foi
   o que confirmou tanto a regressão do `__proto__` quanto o teste de offline —
   este passava alegremente com o service worker desligado até ser conferido.

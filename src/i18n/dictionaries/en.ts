@@ -191,6 +191,11 @@ export const en: Dictionary = {
       blurb:
         'Nitrite in ppm per kilo of meat, with the Brazilian and US rules side by side — and the difference between them explained.',
     },
+    ganache: {
+      name: 'Ganache',
+      blurb:
+        'Chocolate and butter by the texture you want, and the shelf life almost no ganache recipe ever prints.',
+    },
     brine: {
       name: 'Brining and salting',
       blurb:

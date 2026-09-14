@@ -54,6 +54,8 @@
   --color-damson-tint: #efe6f4;
   --color-tide: #3f6b6e;
   --color-tide-tint: #dceceb;
+  --color-cocoa: #4e3a2e;
+  --color-cocoa-tint: #e9e0d8;
 
   /* ---- Faixas e estados (usados a partir das calculadoras, M1) ---------- */
   --color-ok: #3f6b4a;
@@ -159,6 +161,16 @@
     --color-accent-tint: #dceceb;
     --color-page: #f5faf9;
     --color-page-edge: #e3eeed;
+  }
+
+  /* Ganache: cacau escuro. Mais fechado que a brasa da cura de propósito —
+     as duas são marrons e precisam se distinguir na aba. */
+  [data-calculator='ganache'] {
+    --color-accent: #4e3a2e;
+    --color-accent-deep: #382720;
+    --color-accent-tint: #e9e0d8;
+    --color-page: #f9f5f2;
+    --color-page-edge: #ebe1d8;
   }
 
   html {

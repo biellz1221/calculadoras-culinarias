@@ -36,4 +36,5 @@ export const PALETTES: Record<RouteKey, Palette> = {
   curing: { page: '#fcf7f4', accent: '#9c5f3c', accentDeep: '#74432a' },
   jam: { page: '#fbf7fd', accent: '#7a4a86', accentDeep: '#5c3566' },
   brine: { page: '#f5faf9', accent: '#3f6b6e', accentDeep: '#2f5154' },
+  ganache: { page: '#f9f5f2', accent: '#4e3a2e', accentDeep: '#382720' },
 };

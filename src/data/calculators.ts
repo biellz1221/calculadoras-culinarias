@@ -8,7 +8,8 @@ export type CalculatorId =
   | 'gelato'
   | 'curing'
   | 'jam'
-  | 'brine';
+  | 'brine'
+  | 'ganache';
 
 /** Cor da aba de cada calculadora, no espírito das abas de um fichário. */
 export type CalculatorAccent =
@@ -18,7 +19,8 @@ export type CalculatorAccent =
   | 'rose'
   | 'ember'
   | 'damson'
-  | 'tide';
+  | 'tide'
+  | 'cocoa';
 
 export interface Calculator {
   id: CalculatorId;
@@ -77,6 +79,12 @@ export const CALCULATORS: readonly Calculator[] = [
     route: 'brine',
     accent: 'tide',
     sources: ['modernist-home', 'foodlab', 'ruhlman-charcuterie'],
+  },
+  {
+    id: 'ganache',
+    route: 'ganache',
+    accent: 'cocoa',
+    sources: ['wybauw'],
   },
 ];
 

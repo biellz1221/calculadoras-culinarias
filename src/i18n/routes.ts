@@ -21,6 +21,7 @@ const ROUTES = {
   curing: { 'pt-BR': '/cura', en: '/en/curing' },
   jam: { 'pt-BR': '/geleias', en: '/en/jam' },
   brine: { 'pt-BR': '/salmoura', en: '/en/brine' },
+  ganache: { 'pt-BR': '/ganache', en: '/en/ganache' },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type RouteKey = keyof typeof ROUTES;
@@ -39,6 +40,7 @@ export const PUBLISHED_ROUTES: readonly RouteKey[] = [
   'curing',
   'jam',
   'brine',
+  'ganache',
 ];
 
 export function pathFor(key: RouteKey, locale: Locale): string {

@@ -49,6 +49,9 @@ describe('dicionários', () => {
     // Nomes próprios e unidades se escrevem igual nos dois idiomas. Qualquer
     // outra chave idêntica é tradução esquecida, e o teste falha por isso.
     const SAME_IN_BOTH = [
+      // Nomes que são a mesma palavra nos dois idiomas. Não é tradução
+      // esquecida: é como se escreve.
+      'calculators.ganache.name',
       'calculators.gelato.name',
       'preferences.celsius',
       'preferences.fahrenheit',

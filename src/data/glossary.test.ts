@@ -6,6 +6,7 @@ import { CALCULATORS } from './calculators';
 import { getBreadDictionary } from '@/i18n/dictionaries/bread';
 import { getBrineDictionary } from '@/i18n/dictionaries/brine';
 import { getCuringDictionary } from '@/i18n/dictionaries/curing';
+import { getGanacheDictionary } from '@/i18n/dictionaries/ganache';
 import { getGelatoDictionary } from '@/i18n/dictionaries/gelato';
 import { getJamDictionary } from '@/i18n/dictionaries/jam';
 import { getPastaDictionary } from '@/i18n/dictionaries/pasta';
@@ -24,6 +25,7 @@ const GLOSSARIES: Record<
   curing: getCuringDictionary,
   jam: getJamDictionary,
   brine: getBrineDictionary,
+  ganache: getGanacheDictionary,
 };
 
 const cases = CALCULATORS.flatMap((calculator) =>

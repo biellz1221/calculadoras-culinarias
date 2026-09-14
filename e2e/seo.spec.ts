@@ -9,6 +9,7 @@ const PAGES = [
   { path: '/cura', key: 'curing', locale: 'pt-BR' },
   { path: '/geleias', key: 'jam', locale: 'pt-BR' },
   { path: '/salmoura', key: 'brine', locale: 'pt-BR' },
+  { path: '/ganache', key: 'ganache', locale: 'pt-BR' },
   { path: '/en', key: 'home', locale: 'en' },
   { path: '/en/bread', key: 'bread', locale: 'en' },
   { path: '/en/pickles', key: 'pickles', locale: 'en' },
@@ -17,6 +18,7 @@ const PAGES = [
   { path: '/en/curing', key: 'curing', locale: 'en' },
   { path: '/en/jam', key: 'jam', locale: 'en' },
   { path: '/en/brine', key: 'brine', locale: 'en' },
+  { path: '/en/ganache', key: 'ganache', locale: 'en' },
 ];
 
 async function meta(page: Page, selector: string): Promise<string> {

@@ -1,6 +1,7 @@
 import { getBreadDictionary } from './dictionaries/bread';
 import { getBrineDictionary } from './dictionaries/brine';
 import { getCuringDictionary } from './dictionaries/curing';
+import { getGanacheDictionary } from './dictionaries/ganache';
 import { getGelatoDictionary } from './dictionaries/gelato';
 import { getJamDictionary } from './dictionaries/jam';
 import { getPastaDictionary } from './dictionaries/pasta';
@@ -41,6 +42,7 @@ const DICTIONARIES: Record<CalculatorId, (locale: Locale) => CalculatorCopy> = {
   curing: getCuringDictionary,
   jam: getJamDictionary,
   brine: getBrineDictionary,
+  ganache: getGanacheDictionary,
 };
 
 export function getCalculatorCopy(id: CalculatorId, locale: Locale): CalculatorCopy {

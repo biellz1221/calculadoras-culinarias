@@ -12,7 +12,7 @@ export function BookShelf() {
   const shelf = BOOKS.filter((book) => book.kind === 'book');
 
   return (
-    <ul className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2">
+    <ul id="estante" className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2">
       {shelf.map((book) => (
         <li key={book.id} className="flex gap-3 border-t border-rule pt-4">
           <span
