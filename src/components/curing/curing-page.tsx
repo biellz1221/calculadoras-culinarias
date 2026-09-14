@@ -6,9 +6,16 @@ import {
   GlossaryList,
   Prose,
 } from '@/components/calculator-layout';
-import { SourceList } from '@/components/citation';
+import { CitationRef, SourceList } from '@/components/citation';
 import { FaqList } from '@/components/faq';
-import { CURE_SALTS, METHOD_CITATIONS, MIN_INGOING_CITATIONS, RESIDUAL_LIMITS } from '@/data/curing/cures';
+import {
+  CONVERSION_CITATIONS,
+  CURE_SALTS,
+  METHOD_CITATIONS,
+  MIN_INGOING_CITATIONS,
+  NITRATE_ONLY_CITATIONS,
+  RESIDUAL_LIMITS,
+} from '@/data/curing/cures';
 import type { Citation } from '@/data/citations';
 import { getCuringDictionary } from '@/i18n/dictionaries/curing';
 import type { Locale } from '@/i18n/locales';
@@ -20,6 +27,8 @@ function collectCitations(): Citation[] {
     ...METHOD_CITATIONS,
     ...RESIDUAL_LIMITS.br.citations,
     ...RESIDUAL_LIMITS.us.citations,
+    ...CONVERSION_CITATIONS,
+    ...NITRATE_ONLY_CITATIONS,
   ];
 }
 
@@ -57,6 +66,37 @@ export function CuringPage({ locale }: { locale: Locale }) {
             </p>
           </div>
         </div>
+        {/* A conta da soma vem depois dos dois blocos de propósito: ela só faz
+            sentido depois que a diferença entre entrada e resíduo está dita. */}
+        <div className="mt-8 border-t border-rule pt-6">
+          <h3 className="font-display text-base font-semibold text-ink">
+            {dict.limits.sumTitle}
+          </h3>
+          <p className="mt-2 max-w-prose leading-relaxed text-ink-soft">
+            {dict.limits.sumBody}
+          </p>
+          <p className="mt-3 max-w-prose leading-relaxed text-ink-soft">
+            {dict.limits.sumConsequence}
+          </p>
+          <CitationRef
+            citations={CONVERSION_CITATIONS}
+            labels={dict.sources}
+            className="mt-2 block"
+          />
+
+          <h3 className="mt-6 font-display text-base font-semibold text-ink">
+            {dict.limits.nitrateOnlyTitle}
+          </h3>
+          <p className="mt-2 max-w-prose leading-relaxed text-ink-soft">
+            {dict.limits.nitrateOnlyBody}
+          </p>
+          <CitationRef
+            citations={NITRATE_ONLY_CITATIONS}
+            labels={dict.sources}
+            className="mt-2 block"
+          />
+        </div>
+
         <p className="mt-6 max-w-prose rounded-card bg-warn-tint px-4 py-3 leading-relaxed text-warn">
           {dict.limits.honesty}
         </p>

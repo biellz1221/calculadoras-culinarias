@@ -92,3 +92,62 @@ export const RESIDUAL_LIMITS = {
   /** Só nitrito, como nitrito de sódio. */
   us: { ppm: 200, citations: [cite('fsis-424', '424.21(c)')] },
 } as const;
+
+/**
+ * Como se soma nitrato a nitrito, na moeda da norma brasileira.
+ *
+ * "O valor de nitrato (NaNO3) obtido dever ser dividido por 1,231 para ter o
+ * valor expresso em nitrito (NaNO2). Este valor deve ser somado ao resultado de
+ * nitrito […]" — Ofício Circular DIPOA 15/2009, p. 5.
+ *
+ * O ofício publica as próprias massas molares na linha seguinte, o que deixa
+ * conferi-lo contra ele mesmo: 84,99 ÷ 69,00 dá 1,23174, que é o publicado
+ * truncado. O fator do potássio não fecha igual — 101,10 ÷ 69,00 dá 1,46522
+ * contra os 1,4637 impressos —, e o site usa **o publicado**, não o
+ * recalculado. Citar norma é reproduzir o que ela manda fazer; corrigir a
+ * aritmética dela seria assinar uma régua que não é a dela. A diferença é de
+ * um milésimo e cai para o lado restritivo.
+ */
+export const NITRATE_TO_NITRITE = {
+  /** Nitrato de sódio, o do sal de cura #2. */
+  sodium: 1.231,
+  /** Nitrato de potássio, o salitre. Entra como referência, não como conta. */
+  potassium: 1.4637,
+} as const;
+
+/** As massas molares que o próprio ofício imprime, para o teste conferir. */
+export const MOLAR_MASSES = {
+  sodiumNitrite: 69.0,
+  sodiumNitrate: 84.99,
+  potassiumNitrate: 101.1,
+} as const;
+
+export const CONVERSION_CITATIONS = [
+  cite('dipoa-of15', 5),
+];
+
+/**
+ * Nitrato sozinho tem teto próprio, e ele é o dobro.
+ *
+ * "[…] ou ainda, 300 ppm de nitrato (de sódio ou de potássio) […]" — mesmo
+ * ofício, p. 2. São três tetos e não um: 150 para nitrito, 150 para a
+ * combinação, 300 para nitrato sozinho. Todos de **resíduo**.
+ */
+export const NITRATE_ONLY_RESIDUAL_PPM = 300;
+
+export const NITRATE_ONLY_CITATIONS = [cite('dipoa-of15', 2)];
+
+/**
+ * Nitrito de entrada mais nitrato convertido, expresso como nitrito de sódio.
+ *
+ * **Isto é entrada, e o teto de 150 é de resíduo.** A própria seção do ofício se
+ * chama "Cálculo do nitrito residual". O número serve para mostrar em que moeda
+ * a norma mede, e não para dizer se um produto está conforme — conformidade só
+ * se verifica com análise do produto pronto. A tela diz isso ao lado do número.
+ */
+export function combinedAsSodiumNitrite(
+  nitritePpm: number,
+  nitratePpm: number,
+): number {
+  return nitritePpm + nitratePpm / NITRATE_TO_NITRITE.sodium;
+}

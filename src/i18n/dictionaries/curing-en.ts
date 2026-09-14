@@ -101,6 +101,8 @@ export const curingEn: typeof curingPtBR = {
       'Curing salt is almost all ordinary salt. Subtract this from your recipe’s salt, or the product comes out too salty.',
     nitrite: 'Ingoing nitrite',
     nitrate: 'Ingoing nitrate',
+    combined: 'Sum, as sodium nitrite',
+    combinedHint: 'This is the currency the Brazilian norm measures in: nitrate divided by 1.231 and added to the nitrite. It is still ingoing, not residual — the arithmetic is',
     perKilo: 'per kilo of meat',
   },
 
@@ -125,6 +127,14 @@ export const curingEn: typeof curingPtBR = {
     residualTitle: 'Residual — what remains in the finished product',
     residualBody:
       'Brazil regulates here instead: at most 150 mg/kg, counting nitrite and nitrate together and expressed as sodium nitrite. The United States allows 200 ppm residual. Residual cannot be computed from ingoing — nitrite reacts and decays during curing, and only analysis of the finished product measures what is left.',
+    sumTitle: 'How the sum is done',
+    sumBody:
+      'Adding nitrite to nitrate is not adding the two numbers: they are different substances, and the norm speaks in sodium nitrite. Circular Letter 15/2009 from DIPOA, Brazil’s animal products inspection department, publishes the conversion — divide the nitrate by 1.231 and add it to the nitrite. For potassium nitrate, saltpetre, the divisor is 1.4637. The circular prints its own molar masses on the next line, which lets you check it against itself: 84.99 divided by 69.00 is exactly 1.2317.',
+    sumConsequence:
+      'With cure #2, which carries nitrate, this changes the picture. At the default target of 150 ppm of nitrite it brings 96 ppm of nitrate along — and the sum, in the norm’s currency, comes to 228 ppm. It is a figure nobody works out in their head, and it is what a lab analysis would measure. The calculator shows the arithmetic beside the result, and puts no pass mark next to it: what it computes is ingoing, and the 150 ppm ceiling is residual. The circular’s own section is headed "calculation of residual nitrite".',
+    nitrateOnlyTitle: 'And there is a third ceiling',
+    nitrateOnlyBody:
+      'The same circular lists three, not one: 150 ppm for nitrite alone, 150 ppm for nitrite combined with nitrate, and 300 ppm for nitrate alone. All residual. The norm it invokes is Instrução Normativa nº 51 of 2006, from Brazil’s agriculture ministry.',
     honesty:
       'The honest consequence: this calculator does not certify compliance with the Brazilian rule. It gives the ingoing figure, compares it against the US ceiling — the only ingoing one that exists — and makes clear that the Brazilian number is a different kind of thing. Anyone producing for sale needs laboratory analysis, not a calculator.',
   },

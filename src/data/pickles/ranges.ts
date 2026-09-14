@@ -58,8 +58,33 @@ export const MIN_BRINE_ACIDITY = 2.5;
 /** Acidez do vinagre comercial de referência. */
 export const REFERENCE_ACIDITY = 5;
 
-/** pH alvo de qualquer conserva ácida. */
+/**
+ * pH alvo de qualquer conserva ácida — pela régua americana.
+ *
+ * 4,6 é a fronteira do NCHFP: acima disso o alimento é "low-acid" e precisa de
+ * autoclave. É o número que a calculadora usa.
+ */
 export const TARGET_PH = 4.6;
+
+/**
+ * A mesma fronteira, pela régua brasileira: **4,5**.
+ *
+ * "Alimentos de baixa acidez: pH > 4,5 · alimentos ácidos: pH entre 4,0 e 4,5"
+ * e "para manter o pH abaixo de 4,5, as hortaliças ácidas [...] são submetidas
+ * a tratamento térmico brando" — Embrapa, *Hortaliças em conserva*, p. 23.
+ *
+ * Um décimo de diferença, e a brasileira é a mais restritiva. A calculadora
+ * continua trabalhando com 4,6, que é o número da fonte de segurança que ela
+ * já adota, e publica os dois: quem mira 4,5 satisfaz as duas réguas, e quem
+ * fica entre 4,5 e 4,6 está conforme nos EUA e fora aqui.
+ *
+ * **Defeito da fonte, registrado:** a mesma lista traz "alimentos muito
+ * ácidos: pH < 4,5", que contradiz a linha anterior — deveria ser 4,0. É erro
+ * de impressão do documento, e por isso o site usa só as duas primeiras faixas.
+ */
+export const EMBRAPA_PH_THRESHOLD = 4.5;
+
+export const EMBRAPA_PH_CITATIONS = [cite('embrapa-hortalicas', 23)];
 
 /**
  * Conversão do volume do pote em peso. Água é ~1 g/ml e vegetais picados ficam
@@ -108,10 +133,15 @@ export const RANGES: Record<PickleRangeKey, RangeRule> = {
     max: 2,
     hardMin: MIN_SAFE_SALINITY,
     hardMax: 3,
+    // A Embrapa corrobora a faixa inteira em português, e por outro caminho:
+    // "o principal uso desse conservante é no preparo de salmouras fracas [...]
+    // com uma concentração de 1,5 a 2% de sal". Katz chegou nela como padrão
+    // comercial da salga seca; o manual brasileiro, pela conserva enlatada.
     citations: [
       cite('katz', 'cap. 3, "Tabela de proporções de sal"'),
       cite('bwf', 199),
       cite('katz', 'cap. 5, "Kimchi"'),
+      cite('embrapa-processamento', 78),
     ],
     noteKey: 'drySalt',
   },
@@ -185,7 +215,10 @@ export const SAFETY_CITATIONS = {
     cite('bwf', 47),
     cite('noma', 'cap. "Primer" — "Cleanliness, Pathogens, and Safety"'),
   ],
-  phOfficial: [cite('nchfp', '"Ensuring Safe Canned Foods"')],
+  phOfficial: [
+    cite('nchfp', '"Ensuring Safe Canned Foods"'),
+    cite('embrapa-hortalicas', 23),
+  ],
   saltFloor: [
     cite('katz', 'cap. 3, "Tabela de proporções de sal"'),
     cite('bwf', 17),

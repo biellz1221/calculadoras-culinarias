@@ -243,6 +243,13 @@ export const picklesPtBR = {
     },
     items: [
       {
+        topic: 'Onde a acidez deixa de proteger',
+        sources:
+          'O NCHFP traça a linha em pH 4,6: acima disso o alimento é "low-acid" e precisa de autoclave. A Embrapa, em Hortaliças em conserva, traça em 4,5 — "alimentos de baixa acidez: pH > 4,5".',
+        decision:
+          'Calcula com 4,6, que é a régua da fonte de segurança que o site adota inteira, e publica os dois. A diferença é de um décimo e a brasileira é a mais restritiva: quem mira 4,5 satisfaz as duas, quem para entre 4,5 e 4,6 está dentro da americana e fora da brasileira. Trocar uma régua de segurança por um décimo pediria a norma legal brasileira, não um manual técnico — e essa ainda não foi lida.',
+      },
+      {
         topic: 'Base do cálculo do sal',
         sources:
           'Katz calcula sobre o peso da água (5% para picles de pepino). Noma e Fermentação à Brasileira calculam sobre o peso total do pote, vegetais incluídos (2%).',

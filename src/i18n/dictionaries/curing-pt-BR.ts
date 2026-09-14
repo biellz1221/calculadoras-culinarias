@@ -99,6 +99,8 @@ export const curingPtBR = {
       'O sal de cura é quase todo sal comum. Desconte isto do sal da sua receita, ou o produto sai salgado demais.',
     nitrite: 'Nitrito de entrada',
     nitrate: 'Nitrato de entrada',
+    combined: 'Soma, como nitrito de sódio',
+    combinedHint: 'É a moeda em que a norma brasileira mede: nitrato dividido por 1,231 e somado ao nitrito. Continua sendo entrada, não resíduo — a conta é',
     perKilo: 'por quilo de carne',
   },
 
@@ -123,6 +125,14 @@ export const curingPtBR = {
     residualTitle: 'Resíduo — o que sobra no produto pronto',
     residualBody:
       'O Brasil regula por aqui: no máximo 150 mg/kg, contando nitrito e nitrato somados e expressos como nitrito de sódio. Os Estados Unidos permitem 200 ppm de resíduo. Resíduo não se calcula a partir da entrada — o nitrito reage e decai durante a cura, e só análise no produto pronto mede quanto sobrou.',
+    sumTitle: 'Como a soma é feita',
+    sumBody:
+      'Somar nitrito com nitrato não é somar os dois números: eles são substâncias diferentes, e a norma fala em nitrito de sódio. O Ofício Circular DIPOA 15/2009 publica a conversão — divida o nitrato por 1,231 e some ao nitrito. Para nitrato de potássio, o salitre, o divisor é 1,4637. O ofício imprime as próprias massas molares na linha seguinte, o que deixa conferi-lo contra ele mesmo: 84,99 dividido por 69,00 dá justamente 1,2317.',
+    sumConsequence:
+      'Com o sal de cura nº 2, que leva nitrato, isso muda o retrato. No alvo padrão de 150 ppm de nitrito, ele entrega 96 ppm de nitrato junto — e a soma, na moeda da norma, dá 228 ppm. É um número que ninguém adivinha de cabeça, e é o que uma análise mediria. A calculadora mostra a conta acima, ao lado do resultado, e não põe selo de aprovado nenhum: o que ela calcula é entrada, e o teto de 150 é de resíduo. A própria seção do ofício se chama "cálculo do nitrito residual".',
+    nitrateOnlyTitle: 'E há um terceiro teto',
+    nitrateOnlyBody:
+      'O mesmo ofício lista três, não um: 150 ppm para nitrito sozinho, 150 ppm para a combinação de nitrito com nitrato, e 300 ppm para nitrato sozinho. Todos de resíduo. A norma de referência que ele invoca é a Instrução Normativa nº 51 do MAPA, de 2006.',
     honesty:
       'Consequência honesta: esta calculadora não certifica conformidade com a norma brasileira. Ela dá a entrada, compara com o teto americano — o único de entrada que existe — e deixa claro que o número brasileiro é de outra natureza. Quem produz para vender precisa de análise laboratorial, não de calculadora.',
   },

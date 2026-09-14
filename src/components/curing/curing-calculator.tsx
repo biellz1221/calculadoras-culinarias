@@ -8,11 +8,13 @@ import { MassField, NumberField, Segmented } from '@/components/field';
 import { RangeBadge } from '@/components/range-badge';
 import { RecipeActions } from '@/components/recipes/recipe-actions';
 import {
+  CONVERSION_CITATIONS,
   CURE_SALTS,
   METHOD_CEILING_PPM,
   METHOD_CITATIONS,
   MIN_INGOING_CITATIONS,
   MIN_INGOING_PPM,
+  NITRATE_TO_NITRITE,
   getCure,
 } from '@/data/curing/cures';
 import type { CuringMethod } from '@/data/curing/types';
@@ -153,12 +155,36 @@ export function CuringCalculator({
               value={`${fmt.number(Math.round(result.nitritePpm))} ppm`}
             />
             {cure && cure.nitrate > 0 && (
-              <Row
-                label={dict.result.nitrate}
-                value={`${fmt.number(Math.round(result.nitratePpm))} ppm`}
-              />
+              <>
+                <Row
+                  label={dict.result.nitrate}
+                  value={`${fmt.number(Math.round(result.nitratePpm))} ppm`}
+                />
+                {/* A soma na moeda da norma brasileira. Só aparece com sal que
+                    leva nitrato, porque só aí ela diz algo que o número de
+                    cima já não dizia. Sem selo de aprovação ao lado, e de
+                    propósito: isto é entrada, e o teto de 150 é de resíduo. */}
+                <Row
+                  label={dict.result.combined}
+                  value={`${fmt.number(Math.round(result.combinedAsNitritePpm))} ppm`}
+                  hint={`${dict.result.combinedHint} ${fmt.number(
+                    Math.round(result.nitritePpm),
+                  )} + ${fmt.number(Math.round(result.nitratePpm))} ÷ ${fmt.number(
+                    NITRATE_TO_NITRITE.sodium,
+                    { minimumFractionDigits: 3, maximumFractionDigits: 3 },
+                  )}`}
+                />
+              </>
             )}
           </dl>
+
+          {cure && cure.nitrate > 0 && (
+            <CitationRef
+              citations={CONVERSION_CITATIONS}
+              labels={dict.sources}
+              className="mt-3 block"
+            />
+          )}
         </div>
 
         <div className="mt-6 border-t border-rule pt-4">

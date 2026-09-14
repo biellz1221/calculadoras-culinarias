@@ -36,6 +36,16 @@ export interface CuringResult {
   nitritePpm: number;
   /** Nitrato de entrada, em ppm. Zero com o #1. */
   nitratePpm: number;
+  /**
+   * Nitrito mais nitrato convertido, expresso como nitrito de sódio.
+   *
+   * É a moeda em que a norma brasileira mede — nitrato ÷ 1,231 + nitrito, do
+   * Ofício DIPOA 15/2009. **Continua sendo entrada**, e o teto de 150 ppm da
+   * norma é de resíduo: o número mostra em que unidade a régua fala, e não se o
+   * produto está conforme. Com o #1, que não leva nitrato, é igual a
+   * `nitritePpm`.
+   */
+  combinedAsNitritePpm: number;
   /** Sal comum que o sal de cura traz junto, em gramas. */
   saltFromCureGrams: number;
   status: CuringStatus;
