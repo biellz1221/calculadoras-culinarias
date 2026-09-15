@@ -105,6 +105,32 @@ export const en: Dictionary = {
     dismiss: 'Got it',
   },
 
+  audit: {
+    yourValue: 'In your recipe',
+
+    status: {
+      below: 'Below the range',
+      in: 'Within the range',
+      above: 'Above the range',
+    },
+    pointStatus: {
+      below: 'Less than the source',
+      in: 'As in the source',
+      above: 'More than the source',
+    },
+    hardLimit: 'Beyond what the sources back',
+
+    referenceRange: 'Range across the sources: {min} to {max}',
+    referencePoint: 'In the source: {value}',
+
+    correctionRange: 'To land in the range: {subject} between {min} and {max}.',
+    correctionPoint: "To match the source's ratio: {subject} at {value}.",
+    correctionLead:
+      'The suggestion moves a single ingredient and leaves the rest alone.',
+
+    empty: 'Fill in the weights above to see where your recipe lands.',
+  },
+
   home: {
     eyebrow: 'Kitchen ratios with a cited source',
     title: 'The ratios that make a recipe work',
