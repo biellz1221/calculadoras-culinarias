@@ -4,7 +4,11 @@ import { useMemo, useState } from 'react';
 
 import { MassField, NumberField, Segmented } from '@/components/field';
 import { MetricRow } from '@/components/range-badge';
-import { isBeyondHardLimit, statusFor } from '@/data/bread/ranges';
+import {
+  isBeyondHardLimit,
+  statusFor,
+  type RangeRule,
+} from '@/data/bread/ranges';
 import type { BreadDictionary } from '@/i18n/dictionaries/bread';
 import type { Locale } from '@/i18n/locales';
 import {
@@ -305,7 +309,7 @@ function Metric({
 }: {
   label: string;
   percent: number;
-  rule: Parameters<typeof statusFor>[1];
+  rule: RangeRule;
   note: string;
   dict: BreadDictionary;
   locale: Locale;

@@ -1,4 +1,5 @@
 import { cite, type Citation } from '../citations';
+import type { RangeRule } from '../ranges';
 import type { ClimateKey, PickleRangeKey } from './types';
 
 /**
@@ -12,18 +13,13 @@ import type { ClimateKey, PickleRangeKey } from './types';
  * (`MIN_SAFE_SALINITY`) e o piso de acidez do picles de vinagre
  * (`MIN_BRINE_ACIDITY`) são verificados à parte, com aviso próprio.
  *
+ * A forma da regra e as duas funções de comparação moram em `../ranges`.
+ *
  * Consolidação em docs/research/picles-fermentacao.md, seções 2, 3, 4 e 6.
  */
 
-export interface RangeRule {
-  min: number;
-  max: number;
-  hardMin?: number;
-  hardMax?: number;
-  citations: readonly Citation[];
-  /** Chave no dicionário com a consequência de sair da faixa. */
-  noteKey: string;
-}
+export { isBeyondHardLimit, statusFor } from '../ranges';
+export type { RangeRule, RangeStatus } from '../ranges';
 
 /**
  * Piso de sal, em % sobre o peso total (vegetais + água).
@@ -233,22 +229,6 @@ export const SAFETY_CITATIONS = {
   shelf: [cite('bwf', 202), cite('bwf', 203)],
   shelfOfficial: [cite('nchfp', '"General Information on Pickling"')],
 } as const;
-
-export function statusFor(
-  value: number,
-  rule: RangeRule,
-): 'below' | 'in' | 'above' {
-  if (value < rule.min) return 'below';
-  if (value > rule.max) return 'above';
-  return 'in';
-}
-
-/** Passou do limite em que as fontes deixam de dar respaldo. */
-export function isBeyondHardLimit(value: number, rule: RangeRule): boolean {
-  if (rule.hardMin !== undefined && value < rule.hardMin) return true;
-  if (rule.hardMax !== undefined && value > rule.hardMax) return true;
-  return false;
-}
 
 export function ruleFor(key: PickleRangeKey): RangeRule {
   return RANGES[key];

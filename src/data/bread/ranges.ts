@@ -1,4 +1,5 @@
-import { cite, type Citation } from '../citations';
+import { cite } from '../citations';
+import type { RangeRule } from '../ranges';
 
 /**
  * Faixas recomendadas da calculadora de pães.
@@ -8,8 +9,14 @@ import { cite, type Citation } from '../citations';
  * ponto em que o resultado deixa de ser questão de gosto e passa a ser
  * problema (massa que não fecha, fermentação que não anda).
  *
+ * A forma da regra e as duas funções de comparação moram em `../ranges`; aqui
+ * ficam só os números e as obras que os sustentam.
+ *
  * Consolidação em docs/research/paes.md, seções 2.5 e 3.
  */
+
+export { isBeyondHardLimit, statusFor } from '../ranges';
+export type { RangeRule, RangeStatus } from '../ranges';
 
 export type RangeKey =
   | 'hydration'
@@ -22,21 +29,6 @@ export type RangeKey =
   | 'fermented-dough'
   | 'sugar'
   | 'fat';
-
-export type RangeStatus = 'below' | 'in' | 'above';
-
-export interface RangeRule {
-  min: number;
-  max: number;
-  hardMin?: number;
-  hardMax?: number;
-  citations: readonly Citation[];
-  /**
-   * Chave no dicionário com a consequência de sair da faixa. É o que transforma
-   * um alerta de cor em informação útil.
-   */
-  noteKey: string;
-}
 
 export const RANGES: Record<RangeKey, RangeRule> = {
   // A faixa de 60–70% é de **massa magra**, e é onde Kayser e Camargo
@@ -147,19 +139,6 @@ export const RANGES: Record<RangeKey, RangeRule> = {
     noteKey: 'fat',
   },
 };
-
-export function statusFor(value: number, rule: RangeRule): RangeStatus {
-  if (value < rule.min) return 'below';
-  if (value > rule.max) return 'above';
-  return 'in';
-}
-
-/** Passou do limite duro: aqui o aviso deixa de ser sugestão. */
-export function isBeyondHardLimit(value: number, rule: RangeRule): boolean {
-  if (rule.hardMin !== undefined && value < rule.hardMin) return true;
-  if (rule.hardMax !== undefined && value > rule.hardMax) return true;
-  return false;
-}
 
 export function ruleFor(key: string): RangeRule | undefined {
   return key in RANGES ? RANGES[key as RangeKey] : undefined;

@@ -1,4 +1,5 @@
 import { cite, type Citation } from '../citations';
+import type { RangeRule } from '../ranges';
 import type { ServingStyle } from './types';
 
 /**
@@ -6,25 +7,17 @@ import type { ServingStyle } from './types';
  *
  * Como no pão, `min`/`max` é a faixa recomendada: fora dela a tela sinaliza,
  * mas não impede. `hardMin`/`hardMax` marcam o ponto onde nenhuma das
- * fontes dá respaldo. Consolidação em docs/research/massas.md, seções 3 e 4.
+ * fontes dá respaldo. A forma da regra e as funções de comparação moram em
+ * `../ranges`. Consolidação em docs/research/massas.md, seções 3 e 4.
  */
+
+export { isBeyondHardLimit, statusFor } from '../ranges';
+export type { RangeRule, RangeStatus } from '../ranges';
 
 export type PastaRangeKey =
   | 'serving-grams'
   | 'flour-per-egg-mass'
   | 'water-hydration';
-
-export type RangeStatus = 'below' | 'in' | 'above';
-
-export interface RangeRule {
-  min: number;
-  max: number;
-  hardMin?: number;
-  hardMax?: number;
-  citations: readonly Citation[];
-  /** Chave no dicionário com a consequência de sair da faixa. */
-  noteKey: string;
-}
 
 const Z = (section: string): Citation => cite('zielonka', section);
 const H = (section: string): Citation => cite('hazan', section);
@@ -67,19 +60,6 @@ export const PASTA_RANGES: Record<PastaRangeKey, RangeRule> = {
     noteKey: 'waterHydration',
   },
 };
-
-export function statusFor(value: number, rule: RangeRule): RangeStatus {
-  if (value < rule.min) return 'below';
-  if (value > rule.max) return 'above';
-  return 'in';
-}
-
-/** Passou do limite onde nenhuma das fontes dá respaldo. */
-export function isBeyondHardLimit(value: number, rule: RangeRule): boolean {
-  if (rule.hardMin !== undefined && value < rule.hardMin) return true;
-  if (rule.hardMax !== undefined && value > rule.hardMax) return true;
-  return false;
-}
 
 /**
  * Gramas de massa fresca por pessoa em cada contexto de refeição.
