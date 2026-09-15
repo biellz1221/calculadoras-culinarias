@@ -10,6 +10,8 @@ import type {
   Dose,
   GelatinGrade,
   GellingInput,
+  SpherificationAdditive,
+  SpherificationMethod,
   TextureId,
 } from '@/data/gelling/types';
 
@@ -103,6 +105,37 @@ export function gelatinFor(
 /** Os agentes que gelificam de verdade, para separar do que só engrossa. */
 export function gellingAgents(): readonly Agent[] {
   return AGENTS.filter((agent) => agent.gels);
+}
+
+/**
+ * As doses de uma técnica de esferificação, já em grama.
+ *
+ * Base e banho saem separados de propósito: as porcentagens são sobre líquidos
+ * diferentes, e somá-las daria um número que não existe.
+ */
+export interface SpherificationDose {
+  additive: SpherificationAdditive;
+  grams: Dose;
+}
+
+export function spherificationFor(
+  method: SpherificationMethod,
+  liquidGrams: number,
+  bathGrams: number,
+): { base: SpherificationDose[]; bath: SpherificationDose[] } {
+  const scaleAll = (
+    items: readonly SpherificationAdditive[],
+    grams: number,
+  ): SpherificationDose[] =>
+    items.map((additive) => ({
+      additive,
+      grams: scale(additive.percent, Math.max(0, grams)),
+    }));
+
+  return {
+    base: scaleAll(method.base, liquidGrams),
+    bath: scaleAll(method.bath, bathGrams),
+  };
 }
 
 /** Todas as texturas em que algum agente tem dose publicada. */

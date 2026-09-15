@@ -271,12 +271,245 @@ número:
 A estante tem dois livros de molho do Peterson em `references/emulsions/` que
 nunca foram abertos. Se emulsão virar página, é por aí que ela começa.
 
-## 8. Pendências
+## 8. Pendências da Parte I
+
+*(Resolvidas na Parte II, abaixo, com a chegada do material do Scoolinary em
+2026-09-15. Ficam registradas porque descrevem o estado em que a calculadora foi
+ao ar.)*
 
 - **Modernist Cuisine vol. 4** — destrava esferificação (alginato/cálcio),
-  gellan, metilcelulose e as faixas completas de hidrocoloide. É a compra de
-  maior retorno da lista inteira.
-- Segunda fonte para qualquer uma destas doses. Hoje a calculadora é de fonte
-  única, como a ganache era antes do Wybauw.
-- Manuais gratuitos de fabricante (CP Kelco para xantana e gellan) — mesma
-  pendência que já existe para pectina em `geleias.md`.
+  gellan, metilcelulose e as faixas completas de hidrocoloide.
+- Segunda fonte para qualquer uma destas doses.
+- Manuais gratuitos de fabricante (CP Kelco para xantana e gellan).
+
+---
+
+# Parte II — O material do Scoolinary (2026-09-15)
+
+Gabriel trouxe sete PDFs de cursos que fez na Scoolinary, em
+`references/molecular/`. São 282 páginas, **todas com texto digital** — slides
+do Google exportados, fontes Manrope embutidas, nada de OCR.
+
+**Resolvem as três pendências da Parte I de uma vez**: a esferificação ganha
+dose, cinco agentes novos entram, e ágar e xantana deixam de ser de fonte única.
+
+## 9. O que é esta fonte, e como ela é citada
+
+Quatro cursos, todos de **Rais Esteve** — Head de P&D do 100%Lab (100%Chef),
+com passagem por Disfrutar, Dani García e Hotel Mercer. Cada curso tem um
+*Recipe book* e um *Additional material*.
+
+**É material de curso, e o site diz isso.** Entra com `kind: 'course'`, como o
+curso de gelato do Lulo Fouet que já estava na estante, sob a regra que o
+projeto escreveu quando aquele entrou: material de curso **não é bibliografia e
+não deve se disfarçar de uma**.
+
+Três consequências práticas, todas registradas na tela:
+
+1. **Não tem paginação de livro.** Cita-se por curso, documento e número do
+   slide: `Esteve, Basic Spherification Techniques (Scoolinary), Additional
+   material, slide 8`.
+2. **Não tem bibliografia própria.** O material traça a linhagem até o elBulli
+   — cita Ferran e Albert Adrià, Blumenthal, a caviarera do elBulli — mas não
+   referencia obra nenhuma. É conhecimento de praticante, apresentado como tal:
+   fonte primária do que uma chef de P&D usa, e não algo que se possa rastrear
+   para trás.
+3. **É conteúdo pago.** O site publica **proporções com atribuição**, que é
+   citação, e não reproduz receita, texto ou imagem. É o mesmo tratamento dado a
+   Kayser, Scheft e Wybauw, todos sob direito autoral.
+
+## 10. A qualidade da fonte, medida
+
+O teste é o de sempre: **as receitas obedecem às proporções genéricas que o
+próprio curso enuncia?**
+
+O curso avançado de esferificação declara, para a reversa, `1-3% de
+gluconolactato` e `0-0,3% de xantana`. As receitas do mesmo livro:
+
+| Receita | Gluconolactato | Xantana |
+| --- | ---: | ---: |
+| 1 | 1,96% | 0,29% |
+| 2 | 1,96% | 0,29% |
+| 3 | 0,98% | — |
+| 4 | 2,00% | — |
+| 5 | 1,03% | — |
+| 6 | 1,93% | 0,16% |
+| 7 | 2,43% | 0,29% |
+| 8 | 1,96% | 0,29% |
+
+**Oito receitas, zero exceções.** Todas dentro das duas faixas, e o
+gluconolactato agrupado em torno de 2%. É a autoconsistência mais forte que
+este projeto mediu — melhor que os 10 em 11 da Embrapa.
+
+## 11. Três defeitos da fonte, e o que fazemos com cada um
+
+Material de praticante não passa por revisão técnica de editora, e aparece.
+
+### 11.1 Xantana escrita duas vezes (slide 8, esferificação básica)
+
+A linha das proporções genéricas da esferificação direta imprime:
+
+> product: **0-0.3% xanthan + 0-0.3% xanthan**
+> 0.1-0.2% sodium citrate + 0.5-1% alginate
+
+Conferido na imagem do slide: **a duplicação está no original**, não na
+extração. É erro de composição. Lemos a linha como xantana 0–0,3%, citrato de
+sódio 0,1–0,2%, alginato 0,5–1%.
+
+### 11.2 Metilcelulose: "2%, 2 gramas por litro" (slide 55)
+
+> "it is always around 1-1.5% for hot texture reinforcement, 2-2.5% for
+> temperature gelling, and 3% for use as a binder (glue). **(At a rate of 2%,
+> 2 grams per liter)**."
+
+**2% de um litro são 20 g, não 2 g.** Erro de uma ordem de grandeza.
+
+Que é erro, e não outra convenção, o próprio curso prova: na kappa (slide 43)
+ele escreve "0.1 and 1% (between 1 and 10 grams per liter)", conversão correta;
+no gellan (slide 39), "0.7 and 2% (between 7 and 20 grams per kilo)", também
+correta. Só a metilcelulose escorrega.
+
+**Usamos as porcentagens e descartamos o parêntese.** Está escrito na tela,
+porque é o tipo de erro que estraga uma receita em silêncio.
+
+### 11.3 Faixas que variam entre slides do mesmo curso
+
+| Agente | Slide dedicado | Slides de textura (66 e 69) |
+| --- | --- | --- |
+| Gellan | 0,7–2% (39) | 0,6–2% (69) |
+| Ágar | 0,3–2% (34) | macio 0,25–0,3%; duro a partir de 0,5% |
+| Iota | 0,2–1,5% (50) | 0,1–0,6% (66) |
+
+Nenhuma contradição grave — são faixas de trabalho aproximadas, e as dos slides
+de textura são recortes por aplicação. **Regra editorial adotada:** a dose vem
+do **slide dedicado ao agente**, que é o que o curso apresenta como "Dosages and
+limitations"; os slides de textura entram como corroboração e como nota de
+aplicação. A divergência fica registrada aqui.
+
+## 12. Segunda fonte para o que já estava no ar
+
+| Número | Modernist at Home | Scoolinary | Veredito |
+| --- | --- | --- | --- |
+| **Ágar aguenta** | 85 °C | **85 °C** | número idêntico, obras independentes |
+| Ágar, faixa útil | 0,25–1,1% | 0,3–2% | sobrepostas |
+| Xantana | 0,1–0,3% | 0–0,3% | sobrepostas |
+| Iota (panna cotta) | 0,12% | 0,1–0,6% (macio) | o ponto cai dentro da faixa |
+| Kappa (panna cotta) | 0,094% | 0,1–1% | um fio abaixo do piso |
+
+**Os 85 °C do ágar são a notícia.** Um livro de cozinha científica americano e
+uma chef de P&D catalã publicam o mesmo número por caminhos que não se cruzam.
+A calculadora deixa de ser de fonte única nos dois agentes que mais usa.
+
+Os 0,094% de kappa do Modernist ficam logo abaixo do piso de 0,1% do Scoolinary
+— diferença de arredondamento, registrada e não alisada.
+
+---
+
+# Parte III — Os cinco agentes novos
+
+Todos do *Gelation Techniques – Additional material*, slide dedicado a cada um,
+conferidos na imagem.
+
+| Agente | Dose | Gelifica a | Aguenta | Reversível? |
+| --- | --- | --- | --- | --- |
+| **Gellan** | 0,7–2% | 70 °C | assa no forno | **irreversível** |
+| **Kappa** | 0,1–1% | 50 °C | 70 °C | sim |
+| **Iota** | 0,2–1,5% | 36 °C | 65 °C | sim (tixotrópico) |
+| **Metilcelulose** | 1–1,5% reforço a quente · 2–2,5% gel a quente · 3% cola | **60 °C** | — | sim, **ao contrário** |
+| **Pectina** | 1–2% da receita | variável | — | HM: irreversível |
+
+Dois deles mudam o que a calculadora consegue dizer:
+
+- **Gellan é termo-irreversível.** É o único da lista que, uma vez gelificado,
+  não derrete — vai ao forno, aguenta maçarico, serve de recheio de confeitaria.
+  Nenhum outro agente da página faz isso.
+- **Metilcelulose gelifica quando esquenta e derrete quando esfria.** É o
+  inverso de todos os outros, e é por isso que existe fritura de gel. Dissolve a
+  3–4 °C, gelifica a 60 °C, e tem só dez graus entre derreter e gelificar — a
+  menor margem de manobra de todos.
+
+A tabela comparativa do slide 76 dá origem, textura, uso típico, temperatura de
+gelificação e reversibilidade dos sete agentes. É ela que vira a tabela de
+escolha na tela.
+
+---
+
+# Parte IV — Esferificação
+
+A lacuna que a página declarava desde que foi ao ar.
+
+## 13. As duas técnicas
+
+**Direta** — o líquido leva o alginato e cai num banho de cálcio. É o caviar.
+
+| | Proporção |
+| --- | --- |
+| Banho | **0,5% de cloreto de cálcio** (5 g/L) |
+| Produto | **0,5–1% de alginato de sódio** |
+| | 0–0,3% de xantana |
+| | 0,1–0,2% de citrato de sódio |
+
+**Reversa** — o líquido leva o cálcio e cai num banho de alginato.
+
+| | Proporção |
+| --- | --- |
+| Banho | **0,4–0,5% de alginato de sódio** |
+| Produto | **1–3% de gluconolactato** |
+| | 0–0,3% de xantana |
+
+Fonte: *Basic Spherification Techniques – Additional material*, slides 8 e 10.
+
+## 14. Por que existem duas, e por que isso é o conteúdo
+
+A diferença não é de gosto, é de física, e o curso explica bem:
+
+> "alginate is a very large molecule (it is a polysaccharide, polymeric in
+> nature), calcium is a small ion."
+
+Na **direta**, o cálcio de fora entra e não para: ele atravessa a esfera
+inteira, ligando as moléculas de alginato pelo caminho. **A reação não pode ser
+interrompida** — por mais que se lave a esfera, em cerca de 30 minutos ela vira
+textura única, gelificada até o centro. Caviar se come na hora.
+
+Na **reversa**, o alginato de fora é grande demais para entrar; ele só reage na
+superfície. O cálcio continua se movendo por dentro, mas a membrana já está
+formada. **A reação fica controlada, e o miolo continua líquido** — duas
+texturas, e a esfera se guarda.
+
+## 15. Os limites da direta, que valem tanto quanto a dose
+
+A esferificação direta **não aceita**:
+
+- **gordura**
+- **laticínio, ou qualquer produto que já tenha cálcio** — o cálcio de dentro
+  reagiria com o alginate antes da hora
+- **álcool puro acima de 30°**
+- **meio ácido** — o alginato precipita
+
+É por isso que o molho de parmesão do curso é feito por **reversa**: leite e
+queijo são cálcio puro. E é por isso que o citrato de sódio aparece na lista da
+direta — ele corrige a acidez da base.
+
+Esses limites são a parte que uma calculadora tem obrigação de dizer. Uma dose
+certa numa base impossível não faz esfera nenhuma.
+
+## 16. Caso-verdade das receitas de caviar
+
+| Receita | Base | Alginato | % |
+| --- | ---: | ---: | ---: |
+| Caviar de maçã e caramelo | 450 g | 2,2 g | **0,489%** |
+| Caviar de framboesa, nori e wasabi | 465 g | 2,3 g | **0,495%** |
+
+Duas receitas independentes caindo em 0,49%. Consistentes entre si — e **um fio
+abaixo** do piso de 0,5% que o próprio curso declara. Não é contradição: 0,489
+arredonda para 0,5. Fica registrado porque mostra onde a chef trabalha de fato
+dentro da faixa que publica: no piso dela.
+
+## 17. O que continua faltando
+
+- **Segunda fonte para a esferificação.** Hoje é o Scoolinary sozinho. Manual da
+  Texturas (Adrià) ou o Modernist vol. 4 resolveriam.
+- **Metilcelulose e gellan também são de fonte única.**
+- A pectina do curso (1–2% da receita) não conversa direto com a faixa da
+  Embrapa usada nas geleias (0,5–1,5% sobre o açúcar), porque **as bases são
+  diferentes**. Não foram cruzadas de propósito.

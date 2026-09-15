@@ -62,17 +62,21 @@ export const gellingEn: typeof gellingPtBR = {
   textures: {
     thin: 'Thickened broth',
     sauce: 'Sauce',
-    'fluid-gel': 'Fluid gel',
     puree: 'Purée thickness',
+    'fluid-gel': 'Fluid gel',
+    'soft-set': 'Soft, spoonable gel',
     set: 'Demoulded gel',
+    'hard-set': 'Hard gel, cuttable',
   },
 
   textureNotes: {
     thin: 'A broth that gains body without ceasing to be a broth — it still runs off the spoon.',
     sauce: 'The thickness of salad dressing or ketchup: it coats the back of a spoon.',
-    'fluid-gel': 'It sets solid and is then blended smooth. Thick on the spoon, thinning in the mouth, with a creamier texture than a starch-thickened sauce.',
     puree: 'As thick as a purée, and still a pure liquid underneath.',
-    set: 'It sets in the mould and comes out whole: panna cotta, aspic, fruit jelly.',
+    'fluid-gel': 'It sets solid and is then blended smooth. Thick on the spoon, thinning in the mouth, with a creamier texture than a starch-thickened sauce.',
+    'soft-set': 'Set, but wobbling and melting in the mouth: flan, panna cotta, spoon creams.',
+    set: 'It sets in the mould and comes out whole: firm panna cotta, aspic, fruit jelly.',
+    'hard-set': 'Firm enough to cube, sheet or grate — and, with some agents, to go in the oven.',
   },
 
   agents: {
@@ -81,15 +85,21 @@ export const gellingEn: typeof gellingPtBR = {
     xanthan: 'Xanthan gum',
     iota: 'Iota carrageenan',
     kappa: 'Kappa carrageenan',
+    gellan: 'Gellan gum',
+    methylcellulose: 'Methylcellulose',
+    pectin: 'Pectin',
     wondra: 'Wondra starch',
   },
 
   agentNotes: {
     gelatin: 'Melts at 37 °C — body temperature, which is exactly why it dissolves in your mouth. No use for anything that will be served hot.',
-    agar: 'It has to boil to hydrate, which rules it out for raw preparations and cold soups. In exchange it holds to 85 °C once set.',
+    agar: 'It has to boil to hydrate, which rules it out for raw preparations and cold soups. In exchange it holds to 85 °C once set — and that number is the one figure on this page where two independent works say exactly the same thing.',
     xanthan: 'Thickens, does not gel. Works cold, no boiling. It is potent: weigh it, do not measure by spoon — a sticky liquid means you overshot.',
-    iota: 'Makes soft, elastic gels. The source always uses it together with kappa.',
-    kappa: 'Makes firm, brittle gels. The source always uses it together with iota.',
+    iota: 'Makes soft, elastic gels, of the flan or panna cotta kind. It is thixotropic: once set you can break the texture with a whisk and it rebuilds itself resting in the cold.',
+    kappa: 'Makes firm, brittle gels, of the moulded-jelly kind. It sets fast, at 50 °C — work hot and keep it moving.',
+    gellan: 'The only one here that does not melt once set. It goes in the oven, takes a blowtorch and works as a pastry filling — no other agent on this page does that.',
+    methylcellulose: 'It works backwards from everything else: it gels when heated and melts when cooled. That is what makes fried gel possible. It dissolves cold, at 3–4 °C, and sets at 60 °C — with only ten degrees between melting and gelling, the narrowest margin on the page.',
+    pectin: 'The same one from jam, here at gelling doses. Low-methoxyl pectins give soft gels; high-methoxyl ones give the firm gel of a pâte de fruit.',
     wondra: 'Starch, not a hydrocolloid — which is why the dose is ten times larger. Dust it and whisk; blending makes the texture gummy.',
   },
 
@@ -103,6 +113,9 @@ export const gellingEn: typeof gellingPtBR = {
     boil: 'Must boil',
     noBoil: 'No boiling needed',
     holds: 'Holds to',
+    sets: 'Sets at',
+    irreversible: 'Does not melt once set',
+    gelsWhenHot: 'Sets with heat',
     pairNote: 'Iota and kappa go together in this recipe: the mixture lands between the soft gel of one and the firm gel of the other.',
     empty: 'The source publishes no dose for any agent at this texture.',
   },
@@ -160,11 +173,50 @@ export const gellingEn: typeof gellingPtBR = {
   },
 
   spherification: {
-    title: 'Spherification stays out, and why',
+    title: 'Spherification',
+    lead: 'How much liquid you are spherifying, and by which of the two techniques. The product dose and the bath dose come out separately, because they are percentages of different things.',
+    liquid: 'Liquid to spherify',
+    liquidHint: 'The flavoured base that becomes the sphere.',
+    bath: 'Bath water',
+    bathHint: 'The bath is reusable: make a volume that fits your container.',
+    method: 'Technique',
+    methods: {
+      direct: 'Direct (caviar)',
+      reverse: 'Reverse',
+    },
+    methodNotes: {
+      direct: 'The alginate goes in the liquid and the sphere drops into a calcium bath. The calcium moves in and does not stop: in about 30 minutes the sphere gels through and becomes a single texture. Caviar is eaten straight away.',
+      reverse: 'The calcium goes in the liquid and the sphere drops into an alginate bath. Alginate is too large a molecule to move in, so it reacts only at the surface: the membrane closes and the centre stays liquid. This is the one that keeps.',
+    },
+    baseTitle: 'In the liquid',
+    bathTitle: 'In the bath',
+    optional: 'optional',
+    limitsTitle: 'What the direct method will not take',
+    limits: {
+      fat: 'Fat.',
+      dairy: 'Dairy, or anything that already carries calcium — the calcium inside would react with the alginate too early. This is why the course makes its Parmesan sauce by the reverse method.',
+      alcohol: 'Pure alcohol above 30° proof.',
+      acid: 'An acid medium: the alginate precipitates. The sodium citrate on the list is there precisely to correct the acidity of the base.',
+      irreversible: 'The reaction cannot be stopped. Rinsing the sphere does not help: the calcium is already inside.',
+    },
+    additives: {
+      alginate: 'Sodium alginate',
+      'calcium-chloride': 'Calcium chloride',
+      gluconolactate: 'Gluconolactate',
+      xanthan: 'Xanthan gum',
+      'sodium-citrate': 'Sodium citrate',
+    },
+    truthTitle: 'The course’s own recipes',
+    truthBody:
+      'The two caviar recipes in the course itself land at 0.489% and 0.495% alginate — consistent with each other and a hair below the 0.5% floor it states. Not a contradiction: it is where the chef actually works inside the band she publishes, at the bottom of it. And across the eight reverse-spherification recipes, the gluconolactate and the xanthan stay inside the course’s generic bands without a single exception.',
+  },
+
+  sourceNote: {
+    title: 'About the source for this part',
     body: [
-      'Sodium alginate and calcium chloride have not a single published dose anywhere on our shelf. Volume 1 of Modernist Cuisine names the technique and sends you to volume 4; the at-home volume does not cover spherification; McGee describes the mechanism without publishing a quantity.',
-      'The mechanism does have a source: alginate gels only in the presence of calcium. You make a calcium-free alginate solution of the flavour and colour you want, then drip or inject it into a calcium solution, where it gels on contact.',
-      'What is missing is the number, and a number without a source does not go on screen. When volume 4 reaches the shelf, this section becomes a calculator.',
+      'The spherification doses and the new agents come from course material — two courses by Rais Esteve, head of R&D at 100%Lab, published by Scoolinary. Course material is not a bibliography, and this page would rather say so than disguise it: no book pagination, no bibliography of its own, and not free to open. We cite by document and slide number.',
+      'Nor is it a flawless source, and the defects are on the record because they change how it should be read. The slide giving the direct-spherification proportions prints "xanthan" twice on the same line. And the methylcellulose slide writes "2%, 2 grams per liter" — 2% of a liter is 20 g, an error of one order of magnitude. That it is an error and not another convention, the course itself proves: it gets the same conversion right for kappa and for gellan. We use the percentages and drop the parenthesis.',
+      'What carries confidence in the rest is internal coherence: the course’s recipes obey the proportions it states, in all eight that can be checked. It is the same test that validated Wybauw for ganache and Corvitto for gelato.',
     ],
   },
 

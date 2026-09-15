@@ -1,4 +1,5 @@
 import { GellingCalculator } from './gelling-calculator';
+import { SpherificationPanel } from './spherification-panel';
 import {
   CalculatorLayout,
   CalculatorSection,
@@ -15,6 +16,7 @@ import {
   GEL_MODIFIERS,
   MODIFIER_CITATIONS,
   SPHERIFICATION_CITATIONS,
+  SPHERIFICATION_METHODS,
 } from '@/data/gelling/agents';
 import { getGellingDictionary } from '@/i18n/dictionaries/gelling';
 import type { Locale } from '@/i18n/locales';
@@ -26,6 +28,7 @@ function collectCitations(): Citation[] {
     ...FIRM_CUSTARD_CITATIONS,
     ...MODIFIER_CITATIONS,
     ...SPHERIFICATION_CITATIONS,
+    ...SPHERIFICATION_METHODS.flatMap((m) => m.citations),
   ];
 }
 
@@ -68,8 +71,17 @@ export function GellingPage({ locale }: { locale: Locale }) {
         <Prose paragraphs={dict.truth.body} />
       </CalculatorSection>
 
-      <CalculatorSection label={dict.spherification.title} educational>
-        <Prose paragraphs={dict.spherification.body} />
+      {/* Não é `educational`: a esferificação era a lacuna declarada da página
+          até 2026-09-15, e agora é metade do que ela entrega. */}
+      <CalculatorSection
+        label={dict.spherification.title}
+        lead={dict.spherification.lead}
+      >
+        <SpherificationPanel dict={dict} locale={locale} />
+      </CalculatorSection>
+
+      <CalculatorSection label={dict.sourceNote.title} educational>
+        <Prose paragraphs={dict.sourceNote.body} />
       </CalculatorSection>
 
       <CalculatorSection label={dict.ocr.title} educational>
