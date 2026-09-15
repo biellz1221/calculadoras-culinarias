@@ -93,7 +93,20 @@ export function auditJam(fruit: JamFruit, input: JamAuditInput): JamAuditResult 
  */
 function citationsFor(fruit: JamFruit, basis: ReferenceBasis) {
   if (basis === 'recipe') return fruit.citations;
-  if (basis === 'fresh' && fruit.fresh) return fruit.fresh.citations;
+
+  if (basis === 'fresh') {
+    // `referenceFor` só devolve 'fresh' para fruta que tem receita fresca, e
+    // esta é a outra ponta dessa promessa. Cair calado na régua legal aqui
+    // trocaria a citação de uma receita publicada pela do mínimo de rótulo —
+    // a página anunciaria a fonte errada, que é a falha mais cara deste site.
+    if (!fruit.fresh) {
+      throw new Error(
+        `fruta ${fruit.id} caiu na base 'fresh' sem receita fresca publicada`,
+      );
+    }
+    return fruit.fresh.citations;
+  }
+
   return LEGAL_CITATIONS;
 }
 

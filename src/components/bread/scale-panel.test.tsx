@@ -35,7 +35,7 @@ describe('escalar uma receita colada', () => {
     paste(RECIPE);
 
     expect(
-      screen.getByRole('heading', { name: dict.balance.hydration }),
+      screen.getByRole('heading', { name: copy.hydration }),
     ).toBeInTheDocument();
     // 650 de água sobre 1000 de farinha: 65%, dentro da faixa das fontes.
     expect(screen.getByText('65%')).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe('escalar uma receita colada', () => {
     fireEvent.change(screen.getByLabelText(copy.newTotal), { target: { value: '700' } });
 
     expect(screen.getByText(copy.noAnalysis)).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: dict.balance.hydration })).toBeNull();
+    expect(screen.queryByRole('heading', { name: copy.hydration })).toBeNull();
     // A escala proporcional simples continua funcionando.
     expect(resultRow('Manteiga')).toHaveTextContent('400,0 g');
   });

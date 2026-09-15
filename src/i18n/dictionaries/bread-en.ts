@@ -242,6 +242,9 @@ export const breadEn: typeof breadPtBR = {
 
     totalFlour: 'Flour',
 
+    hydration: 'Hydration of your recipe',
+    saltPercent: 'Salt in your recipe',
+
     subjects: {
       water: 'the liquid',
       salt: 'the salt',

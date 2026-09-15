@@ -108,6 +108,10 @@ export const ganachePtBR = {
 
   shelf: {
     title: 'Três semanas, e congelar não muda isso',
+    /* O mesmo assunto aparece em dois lugares: o aviso ao lado do resultado e
+       a seção que o explica. O aviso é um dado da receita que está na tela, e
+       pede nome de dado; o título editorial fica com a seção. */
+    readout: 'Validade desta ganache',
     lead: 'O dado que quase nenhuma receita de ganache publica, e o que faz dele um dado e não um palpite.',
     weeks: 'semanas',
     body: 'Wybauw traduz atividade de água em prazo: produtos entre 0,85 e 1 de Aw, "such as many ganache recipes", duram três semanas. Entre 0,6 e 0,85, como creme de manteiga, chegam a cerca de três meses. Abaixo de 0,6 nada cresce.',

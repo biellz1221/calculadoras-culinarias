@@ -170,3 +170,53 @@ test('o gelato diz quanto de cada grandeza cabe no lote atual', async ({ page })
     await expect(content.getByText(/Para entrar na faixa neste lote de/).first()).toBeVisible();
   }).toPass({ timeout: 20_000 });
 });
+
+/**
+ * Nenhuma das nove páginas repete um cabeçalho.
+ *
+ * O painel de balanço e o de conferência falam do mesmo assunto, e por quatro
+ * vezes nesta tarefa os dois acabaram chamando a leitura pelo mesmo nome —
+ * massa, picles, cura e, por último, o pão, que escapou porque o e2e dele
+ * procurava a frase de correção por texto e não por cabeçalho. Quem navega por
+ * cabeçalho ouve o mesmo nome duas vezes sem saber qual é qual.
+ *
+ * Este é o teste que impede a quinta vez. Ele roda sobre as nove porque a
+ * verificação que pegou as três primeiras foi feita à mão e não ficou em lugar
+ * nenhum.
+ */
+const PAGES: readonly { path: string; fill?: string }[] = [
+  { path: '/paes', fill: 'Farinha 1000 g\nÁgua 500 g\nSal 20 g' },
+  { path: '/picles' },
+  { path: '/massas' },
+  { path: '/gelato' },
+  { path: '/cura' },
+  { path: '/geleias' },
+  { path: '/salmoura' },
+  { path: '/ganache' },
+  { path: '/gelificantes' },
+];
+
+for (const { path, fill } of PAGES) {
+  test(`${path} não repete nenhum cabeçalho`, async ({ page }) => {
+    await page.goto(path);
+
+    if (fill) {
+      await expect(async () => {
+        await page.getByLabel('Ingredientes da sua receita, um por linha').fill(fill);
+        await expect(
+          page.locator(CONTENT).getByText(/Para entrar na faixa/),
+        ).toBeVisible();
+      }).toPass({ timeout: 15_000 });
+    } else {
+      // Sem hidratação não há painel de conferência montado para comparar.
+      await expect(async () => {
+        await expect(page.locator(CONTENT).locator('h3').first()).toBeVisible();
+      }).toPass({ timeout: 15_000 });
+    }
+
+    const headings = await page.locator(CONTENT).locator('h1, h2, h3').allTextContents();
+    const repeated = [...new Set(headings.filter((name, i) => headings.indexOf(name) !== i))];
+
+    expect(repeated).toEqual([]);
+  });
+}

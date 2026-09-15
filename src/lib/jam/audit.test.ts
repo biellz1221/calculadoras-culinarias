@@ -96,6 +96,38 @@ describe('auditJam', () => {
     expect(result.metrics).toEqual([]);
   });
 
+  it('cita a receita fresca quando é ela que responde, e não a régua legal', () => {
+    // Trocar uma pela outra faria a página anunciar a fonte errada: receita
+    // publicada e mínimo de rótulo não têm a mesma autoridade.
+    const fresh = JAM_FRUITS.find((fruit) => !fruit.recipe && fruit.fresh);
+    if (!fresh) return;
+
+    const result = auditJam(fresh, {
+      fruitGrams: 1000,
+      sugarGrams: 100,
+      pectinGrams: 0,
+    });
+
+    expect(result.basis).toBe('fresh');
+    expect(result.metrics[0]?.citations).toEqual(fresh.fresh?.citations);
+  });
+
+  it('recusa a fruta que caiu na base errada em vez de citar outra obra', () => {
+    // Invariante entre dois arquivos: `referenceFor` só devolve 'fresh' para
+    // fruta com receita fresca. Se algum dia devolver sem, é melhor quebrar o
+    // painel do que exibir a citação de outra fonte.
+    const semFresca = { ...STRAWBERRY, recipe: undefined, fresh: undefined };
+    const result = auditJam(semFresca, {
+      fruitGrams: 1000,
+      sugarGrams: 600,
+      pectinGrams: 0,
+    });
+
+    // Sem receita nenhuma, a base é a norma — e aí a régua legal é a certa.
+    expect(result.basis).toBe('norm');
+    expect(result.metrics[0]?.citations.length).toBeGreaterThan(0);
+  });
+
   it('cita a fonte de toda métrica que emite', () => {
     const result = auditJam(STRAWBERRY, {
       fruitGrams: 1000,

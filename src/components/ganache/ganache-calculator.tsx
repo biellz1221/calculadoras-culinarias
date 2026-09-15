@@ -186,7 +186,7 @@ export function GanacheCalculator({
         <div className="mt-6 rounded-card border-2 border-warn/50 bg-warn-tint px-5 py-4">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h3 className="font-display text-base font-semibold text-ink">
-              {dict.shelf.title}
+              {dict.shelf.readout}
             </h3>
             <span data-numeric className="font-display text-2xl font-semibold text-ink">
               {`${fmt.number(SHELF_LIFE_WEEKS)} ${dict.shelf.weeks}`}

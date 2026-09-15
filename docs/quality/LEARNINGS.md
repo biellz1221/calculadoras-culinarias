@@ -87,6 +87,14 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   **dois** elementos — o campo e a seção inteira —, e três testes que passavam
   quebraram. O nome de uma região descreve a região ("Calculadora de massa
   fresca"), não repete a manchete.
+- **A página que escapa da auditoria é a que o teste procura por outro
+  seletor.** Corrigi título duplicado em massa, picles e cura conferindo com
+  `getByRole('heading')`; o pão ficou com dois "Hidratação" e dois "Sal" e
+  passou limpo, porque o e2e dele procura a frase de correção por `getByText` e
+  o *strict mode* nunca foi acionado. Verificação que depende de qual seletor o
+  teste daquela página usa não é verificação — vira teste que roda sobre
+  **todas**, ou não existe. O que ficou no lugar, `e2e/audit.spec.ts`, nasceu
+  achando uma décima ocorrência que nenhuma tarefa tinha visto.
 - **Título duplicado e controle duplicado têm saídas opostas.** Quando o painel
   de balanço e o de auditoria mostravam os dois "Sal sobre o pote", a saída foi
   renomear: o segundo ganhou nome próprio ("O seu sal sobre o pote") e ficou
@@ -340,6 +348,26 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   inteira até a asserção passar, e um clique em "acrescentar ingrediente" lá
   dentro soma uma linha por tentativa — o teste morreu com catorze. Dentro do
   laço, só o que se pode repetir sem consequência; o resto vai depois dele.
+- **Os dicionários por calculadora não estavam cobertos, e é onde mora o
+  texto.** `dictionaries.test.ts` só olhava `getDictionary()` — o dicionário do
+  site. Os nove `get<Calc>Dictionary` nunca tiveram teste de mesmas chaves, de
+  texto vazio nem de tradução esquecida, e é neles que está quase toda a prosa
+  do projeto. A tipagem `typeof xPtBR` obriga as chaves a baterem e não diz nada
+  sobre o resto. Ao acrescentar a cobertura, a allowlist de "igual nos dois
+  idiomas" acabou virando documentação útil: nome próprio de receita, termo
+  técnico na língua de origem, unidade abreviada e nome de marca.
+- **Faixa invertida não quebra nada — e é por isso que precisa de teste.** Com
+  `min` acima de `max`, `statusFor` responde "acima" para todo valor e "abaixo"
+  para nenhum; nenhum motor reclama e nenhuma tela fica em branco. `min ≤ max`
+  sobre toda faixa publicada é asserção de uma linha, e junto dela cabe o
+  invariante que ninguém tinha enunciado: **o limite duro fica sempre por fora
+  da faixa recomendada**, senão a régua marcaria como "sem respaldo" um valor
+  que ela mesma recomenda.
+- **`x && x.y` num caminho de citação esconde troca de fonte.** Em
+  `citationsFor` do jam, `basis === 'fresh' && fruit.fresh` caía calado na régua
+  legal — a página anunciaria o mínimo de rótulo no lugar de uma receita
+  publicada. Quando o `&&` guarda uma invariante que **outro arquivo** promete,
+  ele não está defendendo: está mascarando. Lance.
 - **Teste que roda sobre a tabela inteira encontra o que falta numa.** O
   invariante "a correção sugerida resolve a métrica que ela corrige", escrito com
   `describe.each` sobre os nove motores, foi conferido quebrando `solveDominant`

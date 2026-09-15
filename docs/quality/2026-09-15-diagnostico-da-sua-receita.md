@@ -17,15 +17,17 @@ estava publicada, citada e na página.
 | Passo | Resultado |
 | --- | --- |
 | `pnpm verify` | **exit 0** |
-| Vitest | **1094 testes / 70 arquivos** (eram 937 / 57) |
-| Playwright | **386 passando** (eram 366) |
+| Vitest | **1274 testes / 68 arquivos** (eram 937 / 57) |
+| Playwright | **404 passando** (eram 366) |
 | `npx tsc --noEmit` com cache limpo | sem erro |
 | `pnpm audit` | sem vulnerabilidade conhecida |
 
-**Sobre os agentes de QA**: o `code-reviewer` e o `security-auditor` foram
-lançados e morreram no meio, os dois por limite de sessão da API. A revisão
-abaixo foi feita à mão, com as mesmas perguntas que eles levavam — e uma delas
-achou um bug (§7).
+**Sobre os agentes de QA**: a primeira tentativa de rodar `code-reviewer` e
+`security-auditor` morreu no meio, nos dois casos por limite de sessão da API. A
+revisão foi então feita à mão (§1 a §7 abaixo), e refeita pelos agentes quando o
+limite liberou. Valeu a pena: a passada manual tinha deixado passar um defeito
+real (§8), e o `security-auditor` confirmou a seção de segurança ponto a ponto
+sem achar nada além dela.
 
 ---
 
@@ -129,6 +131,64 @@ deixou a gelana e a metilcelulose sem comportamento na tela.
 que a sugestão mexe num ingrediente só, uma vez por relatório em vez de em cada
 linha. `yourValue` era redundante com o próprio valor exibido e saiu.
 
+### 8. ALTO — o pão era a nona página, e escapou da auditoria que as outras oito tiveram
+
+**Achado pelo `code-reviewer`, não pela passada manual.** A página `/paes` ficava
+com **dois** `<h3>Hidratação</h3>` e **dois** `<h3>Sal</h3>` assim que uma receita
+era colada: o painel de balanço da calculadora e o `AuditReport` usavam os mesmos
+`dict.balance.hydration` e `dict.balance.salt`.
+
+É exatamente o defeito do §2, que eu tinha corrigido em massa, picles e cura — e
+o pão escapou por um motivo que vale registrar: **o e2e do pão procura a frase de
+correção por `getByText`, não por `getByRole('heading')`**, então o *strict mode*
+do Playwright nunca teve chance de acusar. A causa-raiz é que o pão foi a única
+das nove a não ganhar bloco `audit` próprio no dicionário: sem rótulo dedicado, o
+painel reaproveitou o do balanço.
+
+**Corrigido** com nome próprio, no mesmo padrão das outras: "Hidratação da sua
+receita" e "Sal da sua receita".
+
+**E corrigido de vez**: a verificação de cabeçalho repetido, que até aqui eu vinha
+fazendo com um teste descartável, virou `e2e/audit.spec.ts` rodando sobre as
+**nove** páginas. Ele nasceu achando uma décima ocorrência que não é desta tarefa
+— o ganache usava `shelf.title` tanto no aviso de validade ao lado do resultado
+quanto como título da seção que o explica. O aviso é um dado da receita na tela e
+ganhou nome de dado ("Validade desta ganache"); o título editorial ficou com a
+seção.
+
+### 9. MÉDIO — os dicionários por calculadora nunca tiveram teste de tradução
+
+`dictionaries.test.ts` cobria só o dicionário do site. Os nove por calculadora —
+onde mora quase todo o texto, inclusive os nove blocos desta feature — não tinham
+nada que exigisse mesmas chaves, texto não vazio e tradução de fato. Não é
+regressão desta tarefa, mas é onde o texto novo foi parar.
+
+**Corrigido**: `describe.each` sobre os nove acessores, com a mesma allowlist
+explícita que o teste do site já usava. Ela documenta os quatro tipos de texto que
+se escrevem igual nos dois idiomas de propósito — nome próprio de receita ou
+forma, termo técnico na língua de origem, unidade abreviada, e nome de
+ingrediente ou marca. Qualquer chave nova que apareça ali é tradução esquecida.
+
+### 10. BAIXO — faixa invertida não tinha rede
+
+Nenhum teste garantia que `min ≤ max` numa faixa publicada. Não havia nenhuma
+invertida, mas `statusFor` responderia "acima" para todo valor e "abaixo" para
+nenhum — uma troca de dois números numa edição futura passaria calada.
+
+**Corrigido**: `src/data/ranges.test.ts`, 151 asserções sobre as cinco famílias de
+dados (pão, massa, picles, ganache, gelificantes). Além de `min ≤ max`, cobre
+ponta negativa, número não finito, e o invariante que eu não sabia que valia — o
+limite duro está **sempre por fora** da faixa recomendada. Conferido invertendo
+uma faixa de propósito e vendo o teste cair.
+
+### 11. BAIXO — um `&&` que mascarava troca de fonte
+
+Em `src/lib/jam/audit.ts`, `basis === 'fresh' && fruit.fresh` caía calado na régua
+legal se a fruta não tivesse receita fresca. É inalcançável hoje, mas a
+consequência seria a página **anunciar a fonte errada** — trocar uma receita
+publicada pelo mínimo de rótulo é a falha mais cara que este site pode ter.
+**Corrigido**: a invariante entre os dois arquivos agora é explícita, e lança.
+
 ---
 
 ## Segurança
@@ -148,6 +208,18 @@ As três asserções `as keyof` novas (`dict.methods[item.id as keyof …]`) ind
 com id vindo de catálogo interno — `CURE_SALTS`, `BRINE_METHODS`,
 `GANACHE_TEXTURES` —, não de entrada do usuário, e repetem o padrão que os
 calculadores já usavam. Não é o caso do `__proto__`, que vinha de URL.
+
+**Conferido por auditoria independente** (agente `security-auditor`, segunda
+tentativa depois que o limite de sessão liberou): zero achados em todas as
+severidades, e a tabela acima confirmada ponto a ponto. Duas observações que a
+passada manual não tinha visto:
+
+- `copy.basis[result.basis]` no painel de geleia é o caso mais seguro dos três
+  padrões da base: indexa com união fechada calculada pelo próprio motor, sem
+  precisar de `as keyof`. É o exemplo a copiar quando houver dúvida.
+- O `add()` do picles **não tinha** teto de linhas antes desta tarefa. Ao migrar
+  para o `LineEditor`, ganhou o de 50 de graça. Não é regressão: é o contrário,
+  e não estava previsto.
 
 **Prova de que os testes pegam o que dizem pegar**: a proteção de `labelFor` foi
 desfeita à mão para ver o teste falhar, e `solveDominant` teve o piso dividido

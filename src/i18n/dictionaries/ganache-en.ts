@@ -109,6 +109,7 @@ export const ganacheEn: GanacheDictionary = {
 
   shelf: {
     title: 'Three weeks, and freezing does not change that',
+    readout: 'Shelf life of this ganache',
     lead: 'The figure almost no ganache recipe prints, and what makes it a figure rather than a guess.',
     weeks: 'weeks',
     body: 'Wybauw translates water activity into time: products between 0.85 and 1 Aw, "such as many ganache recipes", last three weeks. Between 0.6 and 0.85, like buttercream, they reach about three months. Below 0.6 nothing grows at all.',

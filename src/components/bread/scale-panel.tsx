@@ -325,8 +325,8 @@ export function ScalePanel({
               <AuditReport
                 metrics={audit.metrics}
                 labels={{
-                  hydration: dict.balance.hydration,
-                  saltPercent: dict.balance.salt,
+                  hydration: copy.hydration,
+                  saltPercent: copy.saltPercent,
                   water: copy.subjects.water,
                   salt: copy.subjects.salt,
                 }}

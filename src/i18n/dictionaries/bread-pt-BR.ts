@@ -252,6 +252,12 @@ export const breadPtBR = {
 
     totalFlour: 'Farinha',
 
+    /* Nome próprio, e não os rótulos do painel de balanço: os dois falam de
+       hidratação na mesma página, e "Hidratação" duas vezes deixa quem navega
+       por cabeçalho sem saber qual das duas leituras está ouvindo. */
+    hydration: 'Hidratação da sua receita',
+    saltPercent: 'Sal da sua receita',
+
     subjects: {
       water: 'o líquido',
       salt: 'o sal',
