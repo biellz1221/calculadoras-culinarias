@@ -276,6 +276,25 @@ export const pastaPtBR = {
     },
   },
 
+
+  audit: {
+    title: 'Confira a massa que você já faz',
+    lead: 'Pese a farinha e o ovo (ou a água) da sua receita e veja onde ela cai frente ao que as fontes publicam. Escolha a base certa: massa de ovo se lê pela razão farinha:ovo, massa de água se lê por hidratação, e uma régua não responde pela outra.',
+
+    baseLabel: 'O que molha a sua massa',
+    eggBase: 'Ovo',
+    waterBase: 'Água',
+
+    flour: 'Farinha da sua massa',
+    egg: 'Ovo da sua massa',
+    eggHint: 'O peso do ovo sem casca. Um ovo grande dá cerca de 50 g.',
+    water: 'Água da sua massa',
+
+    flourPerEgg: 'Farinha por grama de ovo',
+    waterHydration: 'Hidratação da sua massa',
+    flourSubject: 'a farinha',
+    waterSubject: 'a água',
+  },
   sources: {
     title: 'Fontes desta calculadora',
     lead: 'Cada preset, cada faixa e cada espessura acima sai de uma destas obras, no capítulo indicado. Os três livros são EPUB, sem paginação física.',

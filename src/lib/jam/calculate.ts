@@ -108,11 +108,19 @@ export function sugarRatioFor(
  * regime que o livro testou: NCHFP manda não reduzir açúcar de receita testada
  * e trata doce de açúcar reduzido como doce de geladeira.
  */
+/**
+ * Tolerância de meio ponto percentual: quem escolhe `source` não pode cair em
+ * `below-source` por resíduo de ponto flutuante.
+ *
+ * Tem nome porque a conferência de receita trazida de fora usa a mesma, e duas
+ * tolerâncias diferentes para a mesma comparação seriam duas verdades sobre
+ * quando uma receita é a receita da fonte.
+ */
+export const SUGAR_RATIO_TOLERANCE = 0.005;
+
 export function statusFor(ratio: number, referenceRatio: number): JamStatus {
-  // Tolerância de meio ponto percentual: quem escolhe `source` não pode cair
-  // em `below-source` por resíduo de ponto flutuante.
-  if (ratio < referenceRatio - 0.005) return 'below-source';
-  if (ratio > referenceRatio + 0.005) return 'above-source';
+  if (ratio < referenceRatio - SUGAR_RATIO_TOLERANCE) return 'below-source';
+  if (ratio > referenceRatio + SUGAR_RATIO_TOLERANCE) return 'above-source';
   return 'source';
 }
 

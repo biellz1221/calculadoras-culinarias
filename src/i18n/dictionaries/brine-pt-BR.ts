@@ -222,6 +222,24 @@ export const brinePtBR = {
     },
   },
 
+
+  audit: {
+    title: 'Confira a salmoura que você já usa',
+    lead: 'Pese a proteína e o que entrou na salmoura, escolha o método e veja como a sua receita se compara com a da fonte. A comparação é com uma receita publicada, não com uma faixa: estar diferente dela não é estar errado, é estar em outra receita.',
+
+    methodLabel: 'Método que você usou',
+    protein: 'Peso da proteína',
+    salt: 'Sal da sua salmoura',
+    liquid: 'Líquido da sua salmoura',
+    sugar: 'Açúcar da sua salmoura',
+
+    saltRatio: 'Sal sobre a proteína',
+    liquidRatio: 'Líquido sobre a proteína',
+    sugarRatio: 'Açúcar sobre a proteína',
+    saltSubject: 'o sal',
+    liquidSubject: 'o líquido',
+    sugarSubject: 'o açúcar',
+  },
   sources: {
     title: 'Fontes desta calculadora',
     lead: 'Dois livros que mediram o assunto e um terceiro que entra por um motivo só: é o único da estante que publica quanto pesa uma xícara de sal kosher, o que torna a dose do Food Lab executável em gramas.',

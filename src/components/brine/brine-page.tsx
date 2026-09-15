@@ -1,3 +1,4 @@
+import { BrineAuditPanel } from './brine-audit-panel';
 import { BrineCalculator } from './brine-calculator';
 import {
   CalculatorLayout,
@@ -47,6 +48,10 @@ export function BrinePage({ locale }: { locale: Locale }) {
       {/* Não é `educational`: é a medição que sustenta a escolha entre os dois
           métodos, e some junto com o resto na interface simplificada seria
           esconder a razão de a página oferecer os dois. */}
+      <CalculatorSection label={dict.audit.title}>
+        <BrineAuditPanel dict={dict} locale={locale} />
+      </CalculatorSection>
+
       <CalculatorSection label={dict.trial.title} lead={dict.trial.lead}>
         <div className="mt-6 overflow-x-auto">
           <table className="w-full min-w-[26rem] border-collapse text-sm">

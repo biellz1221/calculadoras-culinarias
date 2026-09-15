@@ -485,6 +485,29 @@ export const jamEn: JamDictionary = {
     },
   },
 
+
+  audit: {
+    title: 'Check the jam you already make',
+    lead: 'Pick the fruit, weigh what went into the pan, and see how your ratio compares with the one the source publishes for that fruit. Each fruit has its own ruler, and the screen says which one answered.',
+
+    fruitLabel: 'Fruit in your jam',
+    fruit: 'Prepared fruit',
+    fruitHint: 'Already peeled, pitted and cut: the weight that goes into the pan.',
+    sugar: 'Sugar you used',
+    pectin: 'Powdered pectin',
+    pectinHint: 'Leave it at zero if your jam takes no powdered pectin.',
+
+    sugarRatio: 'Sugar per gram of fruit',
+    pectinPercent: 'Pectin against the sugar',
+    sugarSubject: 'the sugar',
+    pectinSubject: 'the pectin',
+
+    basis: {
+      recipe: 'The comparison is against the weighed recipe the source publishes for this fruit.',
+      fresh: 'No preserving book on the shelf covers this fruit: the comparison is against the fresh recipe from the MMA collection, which is a jam for immediate eating, not a shelf-stable preserve.',
+      norm: 'No book on the shelf publishes a weighed recipe for this fruit. The comparison is against the legal minimum for extra jam — a labelling ruler, not a tested recipe.',
+    },
+  },
   sources: {
     title: 'Sources for this calculator',
     lead: 'Two preserving books, a McGee, an American agency and two Embrapa publications. The ratios come from Saunders’s weighed recipes and Ferber’s house proportion; the temperature by altitude and the keeping rules from the NCHFP; the Brazilian fruit, the legal ruler, the pectin dose and the pH window from Embrapa.',

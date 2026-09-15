@@ -488,6 +488,29 @@ export const jamPtBR = {
     },
   },
 
+
+  audit: {
+    title: 'Confira a geleia que você já faz',
+    lead: 'Escolha a fruta, pese o que foi para a panela e veja como a sua proporção se compara com a que a fonte publica para aquela fruta. Cada fruta tem a sua régua, e a tela diz qual delas respondeu.',
+
+    fruitLabel: 'Fruta da sua geleia',
+    fruit: 'Fruta preparada',
+    fruitHint: 'Já descascada, sem caroço e cortada: é o peso que entra na panela.',
+    sugar: 'Açúcar que você usou',
+    pectin: 'Pectina em pó',
+    pectinHint: 'Deixe em zero se a sua geleia não leva pectina em pó.',
+
+    sugarRatio: 'Açúcar por grama de fruta',
+    pectinPercent: 'Pectina sobre o açúcar',
+    sugarSubject: 'o açúcar',
+    pectinSubject: 'a pectina',
+
+    basis: {
+      recipe: 'A comparação é com a receita pesada que a fonte publica para esta fruta.',
+      fresh: 'Esta fruta não tem receita de conserva em nenhuma obra da estante: a comparação é com a receita fresca do receituário do MMA, que é doce de consumo imediato, não conserva de prateleira.',
+      norm: 'Nenhuma obra da estante publica receita pesada para esta fruta. A comparação é com o mínimo legal de geleia extra — régua de rótulo, não receita testada.',
+    },
+  },
   sources: {
     title: 'Fontes desta calculadora',
     lead: 'Dois livros de conserva, um McGee, uma agência americana e duas publicações da Embrapa. As proporções saem das receitas pesadas de Saunders e da proporção da casa de Ferber; a temperatura por altitude e as regras de conservação, do NCHFP; a fruta brasileira, a régua legal, a dose de pectina e a janela de pH, da Embrapa.',

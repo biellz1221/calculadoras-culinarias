@@ -1,3 +1,4 @@
+import { JamAuditPanel } from './jam-audit-panel';
 import { JamCalculator } from './jam-calculator';
 import {
   CalculatorLayout,
@@ -80,6 +81,10 @@ export function JamPage({ locale }: { locale: Locale }) {
       {/* Não é `educational`: a tabela por altitude é a razão de ser desta
           página, e escondê-la na interface simplificada seria esconder
           justamente o que os livros não dão. */}
+      <CalculatorSection label={dict.audit.title}>
+        <JamAuditPanel dict={dict} locale={locale} />
+      </CalculatorSection>
+
       <CalculatorSection label={dict.point.title} lead={dict.point.lead}>
         <div className="mt-6 overflow-x-auto">
           <table className="w-full min-w-[28rem] border-collapse text-sm">
