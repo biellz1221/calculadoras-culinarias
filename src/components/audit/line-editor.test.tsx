@@ -2,7 +2,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { useState } from 'react';
 import { describe, expect, it } from 'vitest';
 
-import { LineEditor, sumRole, type AuditLine } from './line-editor';
+import {
+  LineEditor,
+  MAX_AUDIT_LINES,
+  sumRole,
+  type AuditLine,
+} from './line-editor';
 
 type Role = 'flour' | 'water';
 
@@ -120,6 +125,26 @@ describe('LineEditor', () => {
     // segunda reusaria a chave da primeira e o React perderia o campo.
     expect(screen.getByLabelText(`${LABELS.name} 1`)).toBeInTheDocument();
     expect(screen.getByLabelText(`${LABELS.name} 2`)).toBeInTheDocument();
+  });
+});
+
+describe('teto de linhas', () => {
+  it('para de acrescentar no limite, em vez de crescer sem fim', () => {
+    const full = Array.from({ length: MAX_AUDIT_LINES }, (_, index) => ({
+      id: `l${index}`,
+      name: `Ingrediente ${index}`,
+      grams: 10,
+      role: 'flour' as const,
+    }));
+
+    render(<Harness initial={full} />);
+    const button = screen.getByText(`+ ${LABELS.add}`);
+
+    expect(button).toBeDisabled();
+    fireEvent.click(button);
+    expect(
+      screen.queryByLabelText(`${LABELS.name} ${MAX_AUDIT_LINES + 1}`),
+    ).not.toBeInTheDocument();
   });
 });
 

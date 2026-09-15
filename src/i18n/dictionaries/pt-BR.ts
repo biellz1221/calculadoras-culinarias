@@ -125,8 +125,6 @@ export const ptBR = {
      título de seção ficam no dicionário de cada uma, porque falam de coisas
      diferentes; o que está aqui é a forma de dizer "isto cai aqui dentro". */
   audit: {
-    yourValue: 'Na sua receita',
-
     /* O mesmo vocabulário que o painel de balanço de cada calculadora já usa.
        Duas frases para a mesma ideia na mesma página é pior do que uma frase
        imperfeita repetida. */

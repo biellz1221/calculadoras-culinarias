@@ -106,8 +106,6 @@ export const en: Dictionary = {
   },
 
   audit: {
-    yourValue: 'In your recipe',
-
     status: {
       below: 'Below range',
       in: 'In range',

@@ -45,8 +45,18 @@ export function AuditReport({
     );
   }
 
+  const suggests = metrics.some((metric) => metric.correction);
+
   return (
     <div className="mt-4">
+      {/* A limitação da sugestão é dita uma vez, e não em cada linha: ela mexe
+          num ingrediente só. Vale para todas as correções abaixo. */}
+      {suggests && (
+        <p className="max-w-prose text-sm leading-relaxed text-ink-muted">
+          {copy.correctionLead}
+        </p>
+      )}
+
       {metrics.map((metric) => (
         <MetricRow
           key={metric.labelKey}

@@ -49,6 +49,15 @@ interface LineEditorProps<R extends string> {
 }
 
 /**
+ * Teto de linhas, na mesma ordem de grandeza dos tetos que os `parse…State` já
+ * aplicam (40 no pão, 50 no picles).
+ *
+ * Receita de cozinha não tem cinquenta ingredientes, e uma lista que cresce sem
+ * limite é um campo que a pessoa consegue travar sozinha segurando a tecla.
+ */
+export const MAX_AUDIT_LINES = 50;
+
+/**
  * Lista livre de ingredientes: nome, peso e papel, com apagar por linha.
  *
  * Nasceu dentro da calculadora de picles e saiu de lá quando a segunda tela
@@ -79,6 +88,7 @@ export function LineEditor<R extends string>({
 
   function add() {
     if (defaultRole === undefined) return;
+    if (lines.length >= MAX_AUDIT_LINES) return;
     nextId.current += 1;
     onChange([
       ...lines,
@@ -154,7 +164,8 @@ export function LineEditor<R extends string>({
         <button
           type="button"
           onClick={add}
-          className="rounded-full border border-rule bg-surface px-3.5 py-1.5 text-sm text-ink-soft transition-colors hover:border-accent hover:text-accent-deep"
+          disabled={lines.length >= MAX_AUDIT_LINES}
+          className="rounded-full border border-rule bg-surface px-3.5 py-1.5 text-sm text-ink-soft transition-colors hover:border-accent hover:text-accent-deep disabled:border-rule disabled:text-ink-muted disabled:hover:border-rule disabled:hover:text-ink-muted"
         >
           {`+ ${labels.add}`}
         </button>
