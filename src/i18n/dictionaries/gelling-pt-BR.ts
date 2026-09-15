@@ -255,6 +255,22 @@ export const gellingPtBR = {
     },
   },
 
+
+  audit: {
+    title: 'Confira a dose que você já usou',
+    lead: 'Diga o líquido, o agente e quanto você pesou. Se a dose não bate com a textura que você queria, a página diz em que textura ela bate — porque essa costuma ser a resposta: não houve erro de conta, houve outro produto.',
+
+    textureLabel: 'Textura que você queria',
+    agentLabel: 'Agente que você usou',
+    liquid: 'Líquido da sua receita',
+    agentWeight: 'Agente que você pesou',
+
+    dosePercent: 'Dose sobre o líquido',
+    agentSubject: 'o agente',
+
+    noDose: 'As fontes da estante não publicam dose deste agente para esta textura. Sem faixa publicada não há o que conferir — e inventar uma seria pior que ficar calado.',
+    alsoLands: 'Com este agente, essa mesma dose cai também em:',
+  },
   sources: {
     title: 'Fontes desta calculadora',
     lead: 'Os números são todos de uma obra só, e a página diz isso. O McGee entra para o que ele faz melhor que ninguém: explicar por que sal, açúcar e ácido mudam o gel — sem publicar quanto, que é o que ele honestamente não tem.',

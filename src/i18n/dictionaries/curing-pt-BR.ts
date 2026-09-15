@@ -219,6 +219,21 @@ export const curingPtBR = {
     },
   },
 
+
+  audit: {
+    title: 'Confira o que você já pesou',
+    lead: 'Pese a carne e o sal de cura que foi para ela, e a página devolve o nitrito de entrada em ppm. É a mesma conta da calculadora acima, lida ao contrário: nenhum número novo entra aqui, e piso e teto são os das mesmas normas.',
+
+    cureLabel: 'Sal de cura que você usou',
+    methodLabel: 'Como a cura foi aplicada',
+    meat: 'Peso da carne',
+    cureWeight: 'Sal de cura que você pesou',
+
+    ingoingPpm: 'Nitrito de entrada',
+    cureSubject: 'o sal de cura',
+
+    note: 'Abaixo do piso, o produto tem cor de curado e não tem a proteção da cura — é o lado perigoso desta faixa, ao contrário de quase todas as outras do site. Esta página não certifica conformidade com a norma brasileira: ela mostra a entrada, e o limite daqui é de resíduo.',
+  },
   sources: {
     title: 'Fontes desta calculadora',
     lead: 'Duas normas e dois livros. Os limites saem das normas, lidas no texto original; os livros entram para a composição dos sais de cura e para as doses de trabalho.',
