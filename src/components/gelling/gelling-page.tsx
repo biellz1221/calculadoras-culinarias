@@ -1,6 +1,8 @@
+import { DoseAuditPanel } from './dose-audit-panel';
 import { GellingCalculator } from './gelling-calculator';
 import { SpherificationPanel } from './spherification-panel';
 import {
+  CalculatorTool,
   CalculatorLayout,
   CalculatorSection,
   GlossaryList,
@@ -42,11 +44,17 @@ export function GellingPage({ locale }: { locale: Locale }) {
       title={dict.title}
       lead={dict.lead}
     >
-      <GellingCalculator dict={dict} locale={locale} />
+      <CalculatorTool label={dict.eyebrow}>
+        <GellingCalculator dict={dict} locale={locale} />
+      </CalculatorTool>
 
       {/* Não é `educational`: numa página em que o gel pode simplesmente não
           firmar, saber que o sal enfraquece e o açúcar reforça é parte do
           resultado, não curiosidade. */}
+      <CalculatorSection label={dict.audit.title}>
+        <DoseAuditPanel dict={dict} locale={locale} />
+      </CalculatorSection>
+
       <CalculatorSection label={dict.firmness.title} lead={dict.firmness.lead}>
         <dl className="mt-8 grid max-w-2xl gap-x-10 gap-y-4 sm:grid-cols-2">
           {GEL_MODIFIERS.map((modifier) => (

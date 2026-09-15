@@ -153,6 +153,27 @@ export const picklesPtBR = {
     unsafe: 'Abaixo do mínimo seguro',
   },
 
+  audit: {
+    title: 'Confira o pote que você já montou',
+    lead: 'Pese o que foi para o pote e veja onde o seu sal cai. As duas leituras aparecem juntas porque são a mesma colher de sal: sobre a água o número parece confortável, e é o pote inteiro que fermenta.',
+
+    modeLabel: 'Como você salgou',
+    brineMode: 'Salmoura',
+    dryMode: 'Salga direta',
+
+    vegetables: 'Vegetais no pote',
+    water: 'Água da salmoura',
+    salt: 'Sal que você usou',
+
+    saltOfTotal: 'O seu sal sobre o pote',
+    saltOfWater: 'O seu sal sobre a água',
+    drySaltReading: 'O seu sal sobre o vegetal',
+    saltSubject: 'o sal',
+
+    safetyNote:
+      'O piso de 1,5% sobre o peso total não é preferência de sabor: abaixo dele as fontes deixam de sustentar a fermentação como conserva segura. Corrigir o sal de um pote já fechado é mais difícil do que refazer a salmoura.',
+  },
+
   notes: {
     brineTotal:
       'Dois por cento sobre o peso total do pote é o ponto em que as três fontes se encontram: salgado o bastante para as bactérias láticas dominarem, ameno o bastante para o resultado ser comestível.',

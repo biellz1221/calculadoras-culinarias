@@ -100,3 +100,73 @@ describe('escalar uma receita colada', () => {
     expect(screen.getByText(copy.millilitersNote)).toBeInTheDocument();
   });
 });
+
+describe('sugerir o balanceamento', () => {
+  it('diz quanto líquido a faixa pede quando a massa está seca', () => {
+    paste('Farinha 1000 g\nÁgua 500 g\nSal 20 g');
+
+    expect(screen.getByText(dict.balance.status.below)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        `Para entrar na faixa: ${copy.subjects.water} entre 600,0 g e 700,0 g.`,
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it('não sugere nada para a receita que já está na faixa', () => {
+    paste(RECIPE);
+
+    expect(screen.queryByText(/Para entrar na faixa/)).not.toBeInTheDocument();
+  });
+
+  it('cita a fonte da faixa ao lado da leitura', () => {
+    paste(RECIPE);
+
+    expect(screen.getAllByText(/Kayser/).length).toBeGreaterThan(0);
+  });
+});
+
+describe('digitar a receita ingrediente por ingrediente', () => {
+  function typeRecipe() {
+    render(<ScalePanel dict={dict} locale="pt-BR" />);
+    fireEvent.click(screen.getByRole('button', { name: copy.byTyping }));
+  }
+
+  function addLine(name: string, grams: string, role: string, index: number) {
+    fireEvent.click(screen.getByText(`+ ${copy.manual.add}`));
+    fireEvent.change(screen.getByLabelText(`${copy.manual.name} ${index}`), {
+      target: { value: name },
+    });
+    fireEvent.change(screen.getAllByLabelText(copy.manual.amount)[index - 1]!, {
+      target: { value: grams },
+    });
+    fireEvent.change(screen.getAllByLabelText(copy.roleLabel)[index - 1]!, {
+      target: { value: role },
+    });
+  }
+
+  it('lê a receita digitada sem passar pelo adivinhador', () => {
+    typeRecipe();
+    addLine('Farinha', '1000', 'flour', 1);
+    addLine('Água', '650', 'water', 2);
+
+    expect(screen.getByText('65%')).toBeInTheDocument();
+  });
+
+  it('não mostra a tabela de conferência: não houve nada a adivinhar', () => {
+    typeRecipe();
+    addLine('Farinha', '1000', 'flour', 1);
+
+    expect(screen.queryByText(copy.readTitle)).not.toBeInTheDocument();
+  });
+
+  it('classifica pelo papel escolhido, não pelo nome escrito', () => {
+    // "Polenta" não está na lista de palavras de farinha, e aqui não precisa
+    // estar: quem digitou já disse o que ela é.
+    typeRecipe();
+    addLine('Polenta', '1000', 'flour', 1);
+    addLine('Água', '700', 'water', 2);
+
+    expect(screen.getByText('70%')).toBeInTheDocument();
+  });
+});

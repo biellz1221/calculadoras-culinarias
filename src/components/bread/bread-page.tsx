@@ -3,6 +3,7 @@ import { FermentationGuide } from './fermentation-guide';
 import { ScalePanel } from './scale-panel';
 import { YeastConverter } from './yeast-converter';
 import {
+  CalculatorTool,
   CalculatorLayout,
   CalculatorSection,
   DivergenceTable,
@@ -37,7 +38,9 @@ export function BreadPage({ locale }: { locale: Locale }) {
 
   return (
     <CalculatorLayout locale={locale} eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
-      <BreadCalculator dict={dict} locale={locale} />
+      <CalculatorTool label={dict.eyebrow}>
+        <BreadCalculator dict={dict} locale={locale} />
+      </CalculatorTool>
 
       <CalculatorSection label={dict.yeastTool.title} lead={dict.yeastTool.lead}>
         <YeastConverter dict={dict} locale={locale} />

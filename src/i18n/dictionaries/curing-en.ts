@@ -221,6 +221,21 @@ export const curingEn: typeof curingPtBR = {
     },
   },
 
+
+  audit: {
+    title: 'Check what you have already weighed',
+    lead: 'Weigh the meat and the curing salt that went into it, and the page gives back the ingoing nitrite in ppm. It is the same arithmetic as the calculator above, read backwards: no new number enters here, and the floor and ceiling come from the same regulations.',
+
+    cureLabel: 'Curing salt you used',
+    methodLabel: 'How the cure was applied',
+    meat: 'Weight of the meat',
+    cureWeight: 'Curing salt you weighed',
+
+    ingoingPpm: 'Ingoing nitrite of what you weighed',
+    cureSubject: 'the curing salt',
+
+    note: 'Below the floor the product has the colour of cured meat without the protection of curing — that is the dangerous side of this range, unlike almost every other range on the site. What this reading shows is **ingoing** nitrite; the Brazilian limit is a residual one, and the section on the two limits explains the difference.',
+  },
   sources: {
     title: 'Sources for this calculator',
     lead: 'Two regulations and two books. The limits come from the regulations, read in the original text; the books supply the composition of the curing salts and the working doses.',

@@ -120,6 +120,40 @@ export const ptBR = {
     dismiss: 'Entendi',
   },
 
+  /* Confira a receita que você já tem: o vocabulário que não muda de
+     calculadora para calculadora. Rótulo de métrica, nome de ingrediente e
+     título de seção ficam no dicionário de cada uma, porque falam de coisas
+     diferentes; o que está aqui é a forma de dizer "isto cai aqui dentro". */
+  audit: {
+    /* O mesmo vocabulário que o painel de balanço de cada calculadora já usa.
+       Duas frases para a mesma ideia na mesma página é pior do que uma frase
+       imperfeita repetida. */
+    status: {
+      below: 'Abaixo da faixa',
+      in: 'Na faixa',
+      above: 'Acima da faixa',
+    },
+    /* Fonte que publica receita, e não faixa, não tem "fora": tem "diferente".
+       Acusar de erro quem seguiu outra receita seria mentir sobre a fonte —
+       é o vocabulário que a calculadora de geleia já tinha. */
+    pointStatus: {
+      below: 'Abaixo da fonte',
+      in: 'A proporção da fonte',
+      above: 'Acima da fonte',
+    },
+    hardLimit: 'Fora do limite das fontes',
+
+    referenceRange: 'Faixa das fontes: {min} a {max}',
+    referencePoint: 'Na fonte: {value}',
+
+    correctionRange: 'Para entrar na faixa: {subject} entre {min} e {max}.',
+    correctionPoint: 'Para chegar à proporção da fonte: {subject} em {value}.',
+    correctionLead:
+      'A sugestão mexe em um ingrediente só e mantém o resto como está.',
+
+    empty: 'Preencha os pesos acima para ver onde a sua receita cai.',
+  },
+
   home: {
     eyebrow: 'Proporções de cozinha com fonte declarada',
     title: 'As proporções que fazem a receita funcionar',

@@ -1,5 +1,7 @@
+import { BrineAuditPanel } from './brine-audit-panel';
 import { BrineCalculator } from './brine-calculator';
 import {
+  CalculatorTool,
   CalculatorLayout,
   CalculatorSection,
   DivergenceTable,
@@ -42,11 +44,17 @@ export function BrinePage({ locale }: { locale: Locale }) {
       title={dict.title}
       lead={dict.lead}
     >
-      <BrineCalculator dict={dict} locale={locale} />
+      <CalculatorTool label={dict.eyebrow}>
+        <BrineCalculator dict={dict} locale={locale} />
+      </CalculatorTool>
 
       {/* Não é `educational`: é a medição que sustenta a escolha entre os dois
           métodos, e some junto com o resto na interface simplificada seria
           esconder a razão de a página oferecer os dois. */}
+      <CalculatorSection label={dict.audit.title}>
+        <BrineAuditPanel dict={dict} locale={locale} />
+      </CalculatorSection>
+
       <CalculatorSection label={dict.trial.title} lead={dict.trial.lead}>
         <div className="mt-6 overflow-x-auto">
           <table className="w-full min-w-[26rem] border-collapse text-sm">

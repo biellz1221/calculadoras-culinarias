@@ -212,6 +212,9 @@ export const gelatoEn: typeof gelatoPtBR = {
     recommended: 'Range for this base type',
     perKg: 'per kg of mix',
     ofMass: '% of mass',
+
+    correction:
+      'To land in the range for this {total} batch: {subject} between {min} and {max}.',
     status: {
       below: 'Below range',
       in: 'In range',

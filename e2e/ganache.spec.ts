@@ -1,4 +1,17 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+/**
+ * A ferramenta principal da página.
+ *
+ * Os mesmos controles existem duas vezes desde que a página ganhou o painel de
+ * "confira a sua receita", e é assim que tem de ser: o nome de uma textura ou
+ * de um método é o mesmo nos dois lugares. Quem desempata é a região.
+ */
+const TOOL = 'Calculadora de ganache';
+
+function tool(page: Page) {
+  return page.getByRole('region', { name: TOOL });
+}
 
 /**
  * Ganache: a calculadora que entrega um prazo de validade.
@@ -31,7 +44,7 @@ test('a proporção muda com a textura', async ({ page }) => {
 
   await expect(async () => {
     await page.getByLabel('Creme (g)').fill('100');
-    await page.getByRole('button', { name: 'Bola de trufa' }).click();
+    await tool(page).getByRole('button', { name: 'Bola de trufa' }).click();
     // 110 de chocolate, e a única das quatro sem manteiga.
     await expect(page.locator('#conteudo').getByText('110 g').first()).toBeVisible();
   }).toPass({ timeout: 15_000 });
@@ -39,7 +52,7 @@ test('a proporção muda com a textura', async ({ page }) => {
   await expect(page.getByText('Esta textura não leva')).toBeVisible();
 
   // O praliné cortado é o único com faixa, e ela é da fonte.
-  await page.getByRole('button', { name: 'Praliné cortado' }).click();
+  await tool(page).getByRole('button', { name: 'Praliné cortado' }).click();
   await expect(page.locator('#conteudo').getByText('130 g – 180 g').first()).toBeVisible();
 });
 

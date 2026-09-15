@@ -1,6 +1,8 @@
+import { PastaAuditPanel } from './pasta-audit-panel';
 import { PastaCalculator } from './pasta-calculator';
 import { DishTable, ShapeGuide } from './shape-guide';
 import {
+  CalculatorTool,
   CalculatorLayout,
   CalculatorSection,
   DivergenceTable,
@@ -47,7 +49,13 @@ export function PastaPage({ locale }: { locale: Locale }) {
 
   return (
     <CalculatorLayout locale={locale} eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
-      <PastaCalculator dict={dict} locale={locale} />
+      <CalculatorTool label={dict.eyebrow}>
+        <PastaCalculator dict={dict} locale={locale} />
+      </CalculatorTool>
+
+      <CalculatorSection label={dict.audit.title}>
+        <PastaAuditPanel dict={dict} locale={locale} />
+      </CalculatorSection>
 
       <CalculatorSection label={dict.shapes.title} lead={dict.shapes.lead}>
         <ShapeGuide dict={dict} locale={locale} />

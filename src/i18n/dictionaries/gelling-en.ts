@@ -257,6 +257,22 @@ export const gellingEn: typeof gellingPtBR = {
     },
   },
 
+
+  audit: {
+    title: 'Check the dose you already used',
+    lead: 'Give the liquid, the agent and how much you weighed. If the dose does not match the texture you were after, the page says which texture it does match — because that is usually the answer: no arithmetic went wrong, a different product came out.',
+
+    textureLabel: 'Texture you were after',
+    agentLabel: 'Agent you used',
+    liquid: 'Liquid in your recipe',
+    agentWeight: 'Agent you weighed',
+
+    dosePercent: 'Dose against the liquid',
+    agentSubject: 'the agent',
+
+    noDose: 'The books on the shelf publish no dose of this agent for this texture. With no published range there is nothing to check — and inventing one would be worse than staying quiet.',
+    alsoLands: 'With this agent, that same dose also lands in:',
+  },
   sources: {
     title: 'Sources for this calculator',
     lead: 'Every number comes from a single book, and the page says so. McGee is here for what he does better than anyone: explaining why salt, sugar and acid change the gel — without publishing how much, which he honestly does not have.',

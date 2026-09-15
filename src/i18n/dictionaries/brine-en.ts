@@ -224,6 +224,24 @@ export const brineEn: BrineDictionary = {
     },
   },
 
+
+  audit: {
+    title: 'Check the brine you already use',
+    lead: 'Weigh the protein and what went into the brine, pick the method, and see how your recipe compares with the source’s. The comparison is against a published recipe, not a range: differing from it is not being wrong, it is being a different recipe.',
+
+    methodLabel: 'Method you used',
+    protein: 'Weight of the protein',
+    salt: 'Salt in your brine',
+    liquid: 'Liquid in your brine',
+    sugar: 'Sugar in your brine',
+
+    saltRatio: 'Salt against the protein',
+    liquidRatio: 'Liquid against the protein',
+    sugarRatio: 'Sugar against the protein',
+    saltSubject: 'the salt',
+    liquidSubject: 'the liquid',
+    sugarSubject: 'the sugar',
+  },
   sources: {
     title: 'Sources for this calculator',
     lead: 'Two books that measured the subject and a third that enters for one reason only: it is the only one on the shelf that publishes what a cup of kosher salt weighs, which is what makes the Food Lab dose expressible in grams.',

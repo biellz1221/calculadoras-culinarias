@@ -80,6 +80,26 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
 
 ## Interface
 
+- **`aria-label` participa da busca por rótulo, então nome de região precisa ser
+  curto.** Ao dar landmark à ferramenta principal de cada calculadora, usei o
+  título da página como nome: `<section aria-label="Massa fresca para o número
+  de pessoas à mesa">`. A partir daí `getByLabel('Pessoas')` passou a achar
+  **dois** elementos — o campo e a seção inteira —, e três testes que passavam
+  quebraram. O nome de uma região descreve a região ("Calculadora de massa
+  fresca"), não repete a manchete.
+- **Título duplicado e controle duplicado têm saídas opostas.** Quando o painel
+  de balanço e o de auditoria mostravam os dois "Sal sobre o pote", a saída foi
+  renomear: o segundo ganhou nome próprio ("O seu sal sobre o pote") e ficou
+  melhor de ler. Quando os dois seletores de textura mostravam "Bola de trufa",
+  renomear seria inventar um segundo nome para a mesma coisa — ali a saída é dar
+  **região** a cada ferramenta e escopar. A pergunta que separa os casos: os dois
+  nós falam da mesma coisa, ou do mesmo assunto?
+- **Página com duas ferramentas precisa de dois landmarks.** Enquanto a
+  calculadora era a única ferramenta, a ausência de `<section>` nomeada não
+  aparecia. Com um painel de conferência embaixo, quem navega por regiões não
+  tem como pular de uma para a outra — e quem escreve teste não tem como dizer
+  de qual das duas está falando. `<section>` sem nome acessível não é landmark.
+
 - **`sr-only` dentro de `overflow-x-auto` alarga a página.** Ele é
   `position: absolute` e se ancora fora do container de rolagem. Para rótulo de
   campo em tabela rolável, use `aria-label` no input.
@@ -304,6 +324,28 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   com dois campos e dois e2e antigos quebraram por *strict mode*. A saída é
   `{ exact: true }` no teste, **não** renomear o campo: "Líquido a esferificar"
   é mais claro para quem lê a tela.
+- **Faixa de largura zero não é faixa, e comparada sem tolerância a fonte acusa
+  a si mesma.** Metade da tabela de gelificantes publica dose única (0,7% de ágar
+  no gel fluido). Lida com `statusFor`, a receita do próprio livro voltou como
+  "acima da faixa": 3,5 ÷ 500 × 100 é 0,7000000000000001 em ponto flutuante.
+  Onde a fonte publica **ponto**, a comparação precisa de tolerância — e a
+  tolerância honesta é a precisão com que a fonte publica (a tabela do Wybauw
+  anda de 10 em 10 por 100; o Modernist publica gramas inteiras). Quem pegou foi
+  o caso-verdade da própria fonte, na primeira rodada.
+- **Tolerância com nome, não tolerância repetida.** A geleia já tinha o literal
+  `0,005` dentro de `statusFor`; a conferência de receita precisava do mesmo
+  número. Duas cópias seriam duas respostas para "esta é a receita da fonte?".
+  Virou `SUGAR_RATIO_TOLERANCE`, usada nos dois lugares.
+- **Ação que acumula estado não entra em `toPass`.** O laço repete a função
+  inteira até a asserção passar, e um clique em "acrescentar ingrediente" lá
+  dentro soma uma linha por tentativa — o teste morreu com catorze. Dentro do
+  laço, só o que se pode repetir sem consequência; o resto vai depois dele.
+- **Teste que roda sobre a tabela inteira encontra o que falta numa.** O
+  invariante "a correção sugerida resolve a métrica que ela corrige", escrito com
+  `describe.each` sobre os nove motores, foi conferido quebrando `solveDominant`
+  de propósito: sete calculadoras falharam ao mesmo tempo. Um teste por
+  calculadora teria pego uma.
+
 - **Teste que virou mentira se inverte, não se apaga.** O e2e que protegia a
   declaração "esferificação fica de fora por falta de fonte" passou a afirmar o
   contrário quando a fonte chegou. Apagar perderia a cobertura; inverter guarda

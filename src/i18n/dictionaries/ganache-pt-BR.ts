@@ -216,6 +216,22 @@ export const ganachePtBR = {
     },
   },
 
+
+  audit: {
+    title: 'Confira a ganache que você já faz',
+    lead: 'Pese o que foi para a sua ganache e veja como ela se compara com a tabela do Wybauw. Três das quatro texturas são proporção única publicada, e uma é faixa — a tela diz qual das duas está respondendo.',
+
+    textureLabel: 'Textura que você quis',
+    soft: 'Substâncias moles',
+    softHint: 'Creme, leite, licor, glicose, açúcar invertido: tudo que é mole soma aqui. É a base 100 da tabela, e somar só o creme erra a proporção.',
+    chocolate: 'Chocolate da sua ganache',
+    butter: 'Manteiga da sua ganache',
+
+    chocolateRatio: 'Chocolate por grama de base',
+    butterRatio: 'Manteiga por grama de base',
+    chocolateSubject: 'o chocolate',
+    butterSubject: 'a manteiga',
+  },
   sources: {
     title: 'Fonte desta calculadora',
     lead: 'Um livro só, e a página diz isso em vez de disfarçar. Wybauw é a referência técnica de bombom recheado, e é dele tanto a tabela de proporções quanto os dados de atividade de água que nenhuma outra obra da estante traz.',

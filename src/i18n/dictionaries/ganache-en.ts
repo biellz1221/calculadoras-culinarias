@@ -217,6 +217,22 @@ export const ganacheEn: GanacheDictionary = {
     },
   },
 
+
+  audit: {
+    title: 'Check the ganache you already make',
+    lead: 'Weigh what went into your ganache and see how it compares with Wybauw’s table. Three of the four textures are a single published ratio, and one is a range — the screen says which of the two is answering.',
+
+    textureLabel: 'Texture you were after',
+    soft: 'Soft substances',
+    softHint: 'Cream, milk, liqueur, glucose, invert sugar: everything soft adds up here. It is the table’s base of 100, and adding only the cream gets the ratio wrong.',
+    chocolate: 'Chocolate in your ganache',
+    butter: 'Butter in your ganache',
+
+    chocolateRatio: 'Chocolate per gram of base',
+    butterRatio: 'Butter per gram of base',
+    chocolateSubject: 'the chocolate',
+    butterSubject: 'the butter',
+  },
   sources: {
     title: 'Source for this calculator',
     lead: 'One book, and the page says so rather than disguising it. Wybauw is the technical reference on filled chocolates, and both the proportion table and the water-activity data — which nothing else on the shelf carries — are his.',

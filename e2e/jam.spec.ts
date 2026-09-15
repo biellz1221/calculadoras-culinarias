@@ -1,4 +1,17 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+/**
+ * A ferramenta principal da página.
+ *
+ * Os mesmos controles existem duas vezes desde que a página ganhou o painel de
+ * "confira a sua receita", e é assim que tem de ser: o nome de uma textura ou
+ * de um método é o mesmo nos dois lugares. Quem desempata é a região.
+ */
+const TOOL = 'Calculadora de geleias';
+
+function tool(page: Page) {
+  return page.getByRole('region', { name: TOOL });
+}
 
 /**
  * Geleias: o que esta página faz e nenhum dos livros faz.
@@ -67,7 +80,7 @@ test('reduzir o açúcar abaixo da fonte carrega o aviso', async ({ page }) => {
   await expect(async () => {
     await page.getByRole('button', { name: 'Escolher' }).click();
     await page.getByLabel('Açúcar sobre a fruta (%)').fill('30');
-    await expect(page.getByText('Abaixo da fonte')).toBeVisible();
+    await expect(tool(page).getByText('Abaixo da fonte')).toBeVisible();
   }).toPass({ timeout: 15_000 });
 
   await expect(
@@ -147,7 +160,7 @@ test('o aviso de açúcar baixo muda de régua com a fruta', async ({ page }) =>
   await expect(async () => {
     await page.getByRole('button', { name: 'Escolher' }).click();
     await page.getByLabel('Açúcar sobre a fruta (%)').fill('30');
-    await expect(page.getByText('Abaixo da fonte')).toBeVisible();
+    await expect(tool(page).getByText('Abaixo da fonte')).toBeVisible();
   }).toPass({ timeout: 15_000 });
 
   // Fruta sem receita: a régua é a norma, e o aviso é de categoria, não o
@@ -255,7 +268,7 @@ test('a régua da fruta nativa é a receita, não a norma', async ({ page }) => 
   await expect(async () => {
     await page.getByRole('button', { name: 'Escolher' }).click();
     await page.getByLabel('Açúcar sobre a fruta (%)').fill('20');
-    await expect(page.getByText('Abaixo da fonte')).toBeVisible();
+    await expect(tool(page).getByText('Abaixo da fonte')).toBeVisible();
   }).toPass({ timeout: 15_000 });
 
   await expect(

@@ -2,13 +2,18 @@
 
 import { useMemo, useState } from 'react';
 
-import { MassField, NumberField, Segmented } from '@/components/field';
-import { MetricRow } from '@/components/range-badge';
-import { isBeyondHardLimit, statusFor } from '@/data/bread/ranges';
-import type { BreadDictionary } from '@/i18n/dictionaries/bread';
-import type { Locale } from '@/i18n/locales';
+import { AuditReport } from '@/components/audit/audit-report';
 import {
-  flourGramsOf,
+  LineEditor,
+  type AuditLine,
+  type LineRoleOption,
+} from '@/components/audit/line-editor';
+import { MassField, NumberField, Segmented } from '@/components/field';
+import type { BreadDictionary } from '@/i18n/dictionaries/bread';
+import { getDictionary } from '@/i18n';
+import type { Locale } from '@/i18n/locales';
+import { auditBread } from '@/lib/bread/audit';
+import {
   MAX_PASTED_LENGTH,
   parseRecipeText,
   scaleRecipe,
@@ -19,6 +24,7 @@ import {
 import { useFormatters } from '@/lib/use-formatters';
 
 type TargetKind = ScaleTarget['kind'];
+type InputMode = 'paste' | 'type';
 
 const ROLES: readonly LineRole[] = ['flour', 'water', 'salt', 'other'];
 
@@ -40,10 +46,14 @@ export function ScalePanel({
 }) {
   const fmt = useFormatters(locale);
   const copy = dict.scale;
+  const shared = getDictionary(locale);
+
+  const [mode, setMode] = useState<InputMode>('paste');
 
   const [text, setText] = useState('');
   const [overrides, setOverrides] = useState<Record<string, LineRole>>({});
   const [removed, setRemoved] = useState<ReadonlySet<string>>(new Set());
+  const [typed, setTyped] = useState<readonly AuditLine<LineRole>[]>([]);
 
   const [kind, setKind] = useState<TargetKind>('flour');
   const [flourGrams, setFlourGrams] = useState(500);
@@ -51,13 +61,19 @@ export function ScalePanel({
   const [unitCount, setUnitCount] = useState(8);
   const [unitGrams, setUnitGrams] = useState(90);
 
-  /** O que foi lido, já com as correções de papel e as linhas removidas. */
+  /**
+   * O que foi lido, já com as correções de papel e as linhas removidas — ou o
+   * que foi digitado, que não precisa de correção nenhuma porque ninguém
+   * adivinhou nada.
+   */
   const lines = useMemo<ScaleLine[]>(
     () =>
-      parseRecipeText(text)
-        .filter((line) => !removed.has(line.id))
-        .map((line) => ({ ...line, role: overrides[line.id] ?? line.role })),
-    [text, overrides, removed],
+      mode === 'type'
+        ? typed.map((line) => ({ ...line, fromMilliliters: false }))
+        : parseRecipeText(text)
+            .filter((line) => !removed.has(line.id))
+            .map((line) => ({ ...line, role: overrides[line.id] ?? line.role })),
+    [mode, typed, text, overrides, removed],
   );
 
   const target = useMemo<ScaleTarget>(() => {
@@ -66,30 +82,66 @@ export function ScalePanel({
     return { kind: 'flour', grams: flourGrams };
   }, [kind, flourGrams, totalGrams, unitCount, unitGrams]);
 
-  const hasFlour = flourGramsOf(lines) > 0;
   const recipe = useMemo(() => scaleRecipe(lines, target), [lines, target]);
+  const audit = useMemo(() => auditBread(lines), [lines]);
 
+  const hasFlour = recipe.flourGrams > 0;
   const usesMilliliters = lines.some((line) => line.fromMilliliters);
+
+  const typedRoles: readonly LineRoleOption<LineRole>[] = ROLES.map((role) => ({
+    value: role,
+    label: copy.roles[role],
+    totalLabel: role === 'flour' ? copy.totalFlour : undefined,
+  }));
 
   return (
     <div className="mt-8">
-      <label className="block">
-        <span className="text-sm text-ink-muted">{copy.inputLabel}</span>
-        <textarea
-          value={text}
-          onChange={(event) => {
-            setText(event.target.value);
-            setOverrides({});
-            setRemoved(new Set());
-          }}
-          rows={8}
-          maxLength={MAX_PASTED_LENGTH}
-          placeholder={copy.placeholder}
-          className="mt-2 w-full rounded-card border border-rule bg-surface px-4 py-3 font-mono text-sm leading-relaxed text-ink focus:border-accent focus:outline-none"
-        />
-      </label>
+      <Segmented
+        legend={copy.inputModeLabel}
+        value={mode}
+        onChange={setMode}
+        options={[
+          { value: 'paste' as const, label: copy.byPaste },
+          { value: 'type' as const, label: copy.byTyping },
+        ]}
+      />
 
-      {text.trim().length > 0 && lines.length === 0 && (
+      {mode === 'paste' ? (
+        <label className="mt-4 block">
+          <span className="text-sm text-ink-muted">{copy.inputLabel}</span>
+          <textarea
+            value={text}
+            onChange={(event) => {
+              setText(event.target.value);
+              setOverrides({});
+              setRemoved(new Set());
+            }}
+            rows={8}
+            maxLength={MAX_PASTED_LENGTH}
+            placeholder={copy.placeholder}
+            className="mt-2 w-full rounded-card border border-rule bg-surface px-4 py-3 font-mono text-sm leading-relaxed text-ink focus:border-accent focus:outline-none"
+          />
+        </label>
+      ) : (
+        <LineEditor
+          lines={typed}
+          onChange={setTyped}
+          roles={typedRoles}
+          locale={locale}
+          labels={{
+            name: copy.manual.name,
+            namePlaceholder: copy.manual.namePlaceholder,
+            amount: copy.manual.amount,
+            role: copy.roleLabel,
+            add: copy.manual.add,
+            remove: copy.removeLine,
+            empty: copy.manual.empty,
+            roleHint: copy.manual.roleHint,
+          }}
+        />
+      )}
+
+      {mode === 'paste' && text.trim().length > 0 && lines.length === 0 && (
         <p className="mt-3 max-w-prose rounded-card bg-warn-tint px-4 py-3 text-sm leading-relaxed text-warn">
           {copy.nothingRead}
         </p>
@@ -97,6 +149,11 @@ export function ScalePanel({
 
       {lines.length > 0 && (
         <>
+          {/* A tabela do que foi entendido só existe quando alguém adivinhou
+              algo. Quem digitou linha a linha já declarou o papel de cada
+              ingrediente e não tem o que conferir — e a tabela repetida no DOM
+              faria toda busca por texto achar duas coisas. */}
+          {mode === 'paste' && (
           <section className="mt-8">
             <h3 className="label-caps text-accent-deep">{copy.readTitle}</h3>
             <p className="mt-2 max-w-prose text-sm leading-relaxed text-ink-muted">
@@ -157,6 +214,7 @@ export function ScalePanel({
               </p>
             )}
           </section>
+          )}
 
           <fieldset className="mt-8">
             <Segmented
@@ -263,25 +321,19 @@ export function ScalePanel({
               </table>
             </div>
 
-            {recipe.analysis ? (
-              <div className="mt-6">
-                <Metric
-                  label={dict.balance.hydration}
-                  percent={recipe.analysis.hydration}
-                  rule={recipe.analysis.hydrationRule}
-                  note={dict.notes.hydration}
-                  dict={dict}
-                  locale={locale}
-                />
-                <Metric
-                  label={dict.balance.salt}
-                  percent={recipe.analysis.salt}
-                  rule={recipe.analysis.saltRule}
-                  note={dict.notes.salt}
-                  dict={dict}
-                  locale={locale}
-                />
-              </div>
+            {audit.metrics.length > 0 ? (
+              <AuditReport
+                metrics={audit.metrics}
+                labels={{
+                  hydration: dict.balance.hydration,
+                  saltPercent: dict.balance.salt,
+                  water: copy.subjects.water,
+                  salt: copy.subjects.salt,
+                }}
+                copy={shared.audit}
+                citationLabels={dict.sources}
+                locale={locale}
+              />
             ) : (
               <p className="mt-6 max-w-prose text-sm leading-relaxed text-ink-muted">
                 {copy.noAnalysis}
@@ -294,35 +346,3 @@ export function ScalePanel({
   );
 }
 
-/** Uma métrica da leitura em porcentagem de padeiro, com a faixa da fonte. */
-function Metric({
-  label,
-  percent,
-  rule,
-  note,
-  dict,
-  locale,
-}: {
-  label: string;
-  percent: number;
-  rule: Parameters<typeof statusFor>[1];
-  note: string;
-  dict: BreadDictionary;
-  locale: Locale;
-}) {
-  const fmt = useFormatters(locale);
-  const status = statusFor(percent, rule);
-  const beyond = isBeyondHardLimit(percent, rule);
-
-  return (
-    <MetricRow
-      label={label}
-      value={fmt.percent(percent)}
-      status={status}
-      statusLabel={beyond ? dict.balance.hardLimit : dict.balance.status[status]}
-      beyondHardLimit={beyond}
-      range={`${dict.balance.recommended}: ${fmt.percent(rule.min)} – ${fmt.percent(rule.max)}`}
-      note={status === 'in' ? undefined : note}
-    />
-  );
-}

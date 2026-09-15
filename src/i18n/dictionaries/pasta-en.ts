@@ -278,6 +278,25 @@ export const pastaEn: typeof pastaPtBR = {
     },
   },
 
+
+  audit: {
+    title: 'Check the dough you already make',
+    lead: 'Weigh the flour and the egg (or the water) of your recipe and see where it lands against what the sources publish. Pick the right base: egg dough is read as a flour-to-egg ratio, water dough is read as hydration, and one ruler does not answer for the other.',
+
+    baseLabel: 'What wets your dough',
+    eggBase: 'Egg',
+    waterBase: 'Water',
+
+    flour: 'Flour in your dough',
+    egg: 'Egg in your dough',
+    eggHint: 'The weight of the egg out of its shell. A large egg runs about 50 g.',
+    water: 'Water in your dough',
+
+    flourPerEgg: 'Flour per egg in your dough',
+    waterHydration: 'Hydration of your dough',
+    flourSubject: 'the flour',
+    waterSubject: 'the water',
+  },
   sources: {
     title: 'Sources for this calculator',
     lead: 'Every preset, every range and every thickness above comes from one of these works, at the chapter given. All three are EPUBs, with no physical pagination.',

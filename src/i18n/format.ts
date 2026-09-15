@@ -41,3 +41,28 @@ export function formatPercent(
   });
   return `${number}%`;
 }
+
+/* Quantificador limitado de propósito: nome de placeholder é curto, e teto
+   explícito é o que separa uma busca barata de uma que anda para trás. */
+const PLACEHOLDER = /\{([a-zA-Z]{1,20})\}/g;
+
+/**
+ * Preenche `{min}`, `{max}`, `{subject}` e afins numa frase do dicionário.
+ *
+ * Os valores chegam **já formatados** pelo idioma: quem interpola não sabe
+ * dividir grama de porcentagem, e essa ignorância é o que impede um
+ * `toFixed()` de vazar para o outro idioma.
+ *
+ * A leitura é por `Object.hasOwn` porque `values` costuma ser montado com
+ * chaves que vieram de dado, e `{constructor}` numa frase não pode devolver
+ * função. Placeholder sem valor fica no texto: aparece no teste, não derruba a
+ * página de quem está lendo.
+ */
+export function fillTemplate(
+  template: string,
+  values: Record<string, string>,
+): string {
+  return template.replace(PLACEHOLDER, (match, key: string) =>
+    Object.hasOwn(values, key) ? (values[key] ?? match) : match,
+  );
+}
