@@ -153,6 +153,27 @@ export const picklesEn: typeof picklesPtBR = {
     unsafe: 'Below the safe minimum',
   },
 
+  audit: {
+    title: 'Check the jar you have already packed',
+    lead: 'Weigh what went into the jar and see where your salt lands. Both readings show up together because they are the same spoonful of salt: measured against the water the number looks comfortable, and it is the whole jar that ferments.',
+
+    modeLabel: 'How you salted it',
+    brineMode: 'Brine',
+    dryMode: 'Dry salting',
+
+    vegetables: 'Vegetables in the jar',
+    water: 'Brine water',
+    salt: 'Salt you used',
+
+    saltOfTotal: 'Salt against the jar',
+    saltOfWater: 'Salt against the water',
+    drySaltReading: 'Salt against the vegetable',
+    saltSubject: 'the salt',
+
+    safetyNote:
+      'The 1.5% floor on total weight is not a matter of taste: below it the sources stop backing the ferment as a safe preserve. Fixing the salt of a jar already packed is harder than starting the brine again.',
+  },
+
   notes: {
     brineTotal:
       'Two percent of the jar’s total weight is where all three sources meet: salty enough for lactic bacteria to take over, mild enough for the result to be worth eating.',

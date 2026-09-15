@@ -1,5 +1,6 @@
 import { PicklesCalculator } from './pickles-calculator';
 import { SafetyPanel } from './safety-panel';
+import { SaltAudit } from './salt-audit';
 import {
   CalculatorLayout,
   CalculatorSection,
@@ -33,6 +34,10 @@ export function PicklesPage({ locale }: { locale: Locale }) {
 
       {/* Segurança vem logo depois do resultado, não no fim da página. */}
       <SafetyPanel dict={dict} />
+
+      <CalculatorSection label={dict.audit.title}>
+        <SaltAudit dict={dict} locale={locale} />
+      </CalculatorSection>
 
       <CalculatorSection label={dict.climate.title} educational>
         <div className="mt-8 grid gap-8 border-t border-rule pt-6 sm:grid-cols-2">

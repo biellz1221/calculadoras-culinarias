@@ -226,6 +226,27 @@ export const breadEn: typeof breadPtBR = {
     title: 'Scale a recipe you already have',
     lead: 'Paste the ingredients with their amounts, pick the new size, and the whole recipe adjusts in proportion. If flour, water and salt can be picked out, the reading in baker’s percentage comes with it.',
 
+    inputModeLabel: 'How you want to enter it',
+    byPaste: 'Paste the recipe',
+    byTyping: 'Type ingredient by ingredient',
+
+    manual: {
+      name: 'Ingredient',
+      namePlaceholder: 'Bread flour',
+      amount: 'Weight',
+      add: 'Add an ingredient',
+      empty: 'Add the first ingredient of your recipe.',
+      roleHint:
+        'The role is what drives the reading: flour is the 100% ruler, liquids add up to the hydration, and salt is worked out over the flour. Anything marked "other" counts towards the total weight and stays out of the percentages.',
+    },
+
+    totalFlour: 'Flour',
+
+    subjects: {
+      water: 'the liquid',
+      salt: 'the salt',
+    },
+
     inputLabel: 'Your recipe’s ingredients, one per line',
     placeholder: 'Bread flour 1000 g\nWater 650 g\nSalt 20 g\nDry yeast 7 g',
     nothingRead:

@@ -236,6 +236,27 @@ export const breadPtBR = {
     title: 'Escalar uma receita que você já tem',
     lead: 'Cole os ingredientes com as quantidades, escolha o novo tamanho e a receita inteira se ajusta na mesma proporção. Se der para identificar farinha, água e sal, a leitura em porcentagem de padeiro vem junto.',
 
+    inputModeLabel: 'Como você quer inserir',
+    byPaste: 'Colar a receita',
+    byTyping: 'Digitar ingrediente por ingrediente',
+
+    manual: {
+      name: 'Ingrediente',
+      namePlaceholder: 'Farinha de trigo',
+      amount: 'Peso',
+      add: 'Acrescentar ingrediente',
+      empty: 'Acrescente o primeiro ingrediente da sua receita.',
+      roleHint:
+        'O papel é o que define a leitura: a farinha é a régua dos 100%, os líquidos somam a hidratação e o sal sai sobre a farinha. O que for "outro" entra no peso total e fica de fora das porcentagens.',
+    },
+
+    totalFlour: 'Farinha',
+
+    subjects: {
+      water: 'o líquido',
+      salt: 'o sal',
+    },
+
     inputLabel: 'Ingredientes da sua receita, um por linha',
     placeholder: 'Farinha de trigo 1000 g\nÁgua 650 g\nSal 20 g\nFermento seco 7 g',
     nothingRead:

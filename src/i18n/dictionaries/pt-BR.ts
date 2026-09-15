@@ -127,19 +127,23 @@ export const ptBR = {
   audit: {
     yourValue: 'Na sua receita',
 
+    /* O mesmo vocabulário que o painel de balanço de cada calculadora já usa.
+       Duas frases para a mesma ideia na mesma página é pior do que uma frase
+       imperfeita repetida. */
     status: {
       below: 'Abaixo da faixa',
-      in: 'Dentro da faixa',
+      in: 'Na faixa',
       above: 'Acima da faixa',
     },
     /* Fonte que publica receita, e não faixa, não tem "fora": tem "diferente".
-       Acusar de erro quem seguiu outra receita seria mentir sobre a fonte. */
+       Acusar de erro quem seguiu outra receita seria mentir sobre a fonte —
+       é o vocabulário que a calculadora de geleia já tinha. */
     pointStatus: {
-      below: 'Menos que a fonte',
-      in: 'Como na fonte',
-      above: 'Mais que a fonte',
+      below: 'Abaixo da fonte',
+      in: 'A proporção da fonte',
+      above: 'Acima da fonte',
     },
-    hardLimit: 'Sem respaldo nas fontes',
+    hardLimit: 'Fora do limite das fontes',
 
     referenceRange: 'Faixa das fontes: {min} a {max}',
     referencePoint: 'Na fonte: {value}',

@@ -214,6 +214,13 @@ export const gelatoPtBR = {
     recommended: 'Faixa do tipo de base',
     perKg: 'por kg de calda',
     ofMass: '% da massa',
+
+    /* O alvo é da grandeza, e não de um ingrediente: num gelato o açúcar vem
+       de três ou quatro linhas ao mesmo tempo, e acrescentar qualquer uma
+       muda a massa total, que é o denominador de todas as métricas. Por isso a
+       frase amarra a sugestão ao lote como ele está agora. */
+    correction:
+      'Para entrar na faixa neste lote de {total}: {subject} entre {min} e {max}.',
     status: {
       below: 'Abaixo da faixa',
       in: 'Na faixa',

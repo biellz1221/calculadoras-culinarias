@@ -109,16 +109,16 @@ export const en: Dictionary = {
     yourValue: 'In your recipe',
 
     status: {
-      below: 'Below the range',
-      in: 'Within the range',
-      above: 'Above the range',
+      below: 'Below range',
+      in: 'In range',
+      above: 'Above range',
     },
     pointStatus: {
-      below: 'Less than the source',
-      in: 'As in the source',
-      above: 'More than the source',
+      below: 'Below the source',
+      in: 'The source ratio',
+      above: 'Above the source',
     },
-    hardLimit: 'Beyond what the sources back',
+    hardLimit: 'Outside what the sources support',
 
     referenceRange: 'Range across the sources: {min} to {max}',
     referencePoint: 'In the source: {value}',

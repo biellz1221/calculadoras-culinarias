@@ -5,8 +5,9 @@ import { GlossaryTerm } from '@/components/glossary-term';
 import { MetricRow, type RangeStatus } from '@/components/range-badge';
 import { GELATO_CITATIONS } from '@/data/gelato/source';
 import type { GelatoDictionary } from '@/i18n/dictionaries/gelato';
-import { formatNumber, formatPercent } from '@/i18n/format';
+import { fillTemplate, formatNumber, formatPercent } from '@/i18n/format';
 import type { Locale } from '@/i18n/locales';
+import { correctionForMetric } from '@/lib/gelato/audit';
 import { METRIC_KEYS, isPerKgMetric } from '@/lib/gelato/calc';
 import { formatMass, formatTemperature, type MassUnit } from '@/lib/gelato/mass';
 import type { MetricKey, MetricResult, MetricStatus, RecipeResult } from '@/lib/gelato/types';
@@ -61,7 +62,14 @@ export function BalancePanel({
 
       <div className="mt-6">
         {METRIC_KEYS.map((key) => (
-          <Metric key={key} metric={result.metrics[key]} dict={dict} locale={locale} />
+          <Metric
+            key={key}
+            metric={result.metrics[key]}
+            dict={dict}
+            locale={locale}
+            unit={unit}
+            totalGrams={result.totalGrams}
+          />
         ))}
       </div>
 
@@ -174,16 +182,21 @@ function Metric({
   metric,
   dict,
   locale,
+  unit,
+  totalGrams,
 }: {
   metric: MetricResult;
   dict: GelatoDictionary;
   locale: Locale;
+  unit: MassUnit;
+  totalGrams: number;
 }) {
   const status = STATUS[metric.status];
   const meta = dict.metrics[metric.key];
   const hint = dict.hints[metric.key];
   const scale = isPerKgMetric(metric.key) ? dict.balance.perKg : dict.balance.ofMass;
   const entryId = GLOSSARY_BY_METRIC[metric.key];
+  const correction = correctionForMetric(metric, totalGrams);
 
   return (
     <MetricRow
@@ -210,6 +223,17 @@ function Metric({
       )} – ${formatMetric(metric.key, metric.range.max, locale)} · ${scale}`}
       note={status === 'in' ? undefined : hint[status]}
     >
+      {correction && (
+        <p className="mt-2 max-w-prose rounded-card bg-accent-tint px-4 py-3 text-sm leading-relaxed text-accent-deep">
+          {fillTemplate(dict.balance.correction, {
+            subject: meta.label,
+            min: formatMass(correction.min, unit, locale),
+            max: formatMass(correction.max, unit, locale),
+            total: formatMass(totalGrams, unit, locale),
+          })}
+        </p>
+      )}
+
       <p className="mt-2 max-w-prose text-xs leading-relaxed text-ink-muted">{meta.help}</p>
     </MetricRow>
   );
