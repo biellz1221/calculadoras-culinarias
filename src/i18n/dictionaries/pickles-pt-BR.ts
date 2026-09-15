@@ -165,9 +165,9 @@ export const picklesPtBR = {
     water: 'Água da salmoura',
     salt: 'Sal que você usou',
 
-    saltOfTotal: 'Sal sobre o pote',
-    saltOfWater: 'Sal sobre a água',
-    drySaltReading: 'Sal sobre o vegetal',
+    saltOfTotal: 'O seu sal sobre o pote',
+    saltOfWater: 'O seu sal sobre a água',
+    drySaltReading: 'O seu sal sobre o vegetal',
     saltSubject: 'o sal',
 
     safetyNote:

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useId, type ReactNode } from 'react';
 
 import { CitationRef, type CitationLabels } from '@/components/citation';
 import type { CalculatorId } from '@/data/calculators';
@@ -98,6 +98,7 @@ export function CalculatorSection({
   children: ReactNode;
 }) {
   const { simplified } = usePreferences();
+  const headingId = useId();
 
   if (educational && simplified) {
     return (
@@ -110,10 +111,16 @@ export function CalculatorSection({
     );
   }
 
+  /* `aria-labelledby` é o que transforma a seção em região navegável: uma
+     `<section>` sem nome acessível não é landmark, e quem navega por regiões
+     passa direto por todas elas. De quebra, dá à página um jeito de dizer "o
+     seletor de textura desta seção" quando o mesmo rótulo existe em duas. */
   return (
-    <section className="mt-20 sm:mt-28">
+    <section className="mt-20 sm:mt-28" aria-labelledby={headingId}>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:gap-10">
-        <h2 className="label-caps shrink-0 pt-1 text-accent-deep">{label}</h2>
+        <h2 id={headingId} className="label-caps shrink-0 pt-1 text-accent-deep">
+          {label}
+        </h2>
         {lead && (
           <p className="max-w-xl text-base leading-relaxed text-ink-soft">{lead}</p>
         )}
@@ -121,6 +128,34 @@ export function CalculatorSection({
       {children}
     </section>
   );
+}
+
+/**
+ * A ferramenta principal da página, como região navegável.
+ *
+ * Desde que cada calculadora ganhou um painel de "confira a sua receita", a
+ * página tem **duas** ferramentas, e as duas oferecem os mesmos controles: o
+ * seletor de textura do ganache, o de método da salmoura, o de sal de cura.
+ * Os rótulos são iguais porque são a mesma coisa — renomear um deles seria
+ * inventar um segundo nome para a bola de trufa.
+ *
+ * O que separa os dois é onde cada um está, e é isso que a região declara.
+ * Quem navega por regiões passa a poder pular de uma ferramenta para a outra,
+ * e quem escreve teste passa a ter como dizer de qual das duas está falando.
+ *
+ * O nome é curto de propósito — "Calculadora de massa fresca", não o título da
+ * página. `aria-label` entra na busca por rótulo, e um nome longo faz a região
+ * inteira responder a qualquer palavra dele: com o título, procurar o campo
+ * "Pessoas" achava também a seção chamada "…para o número de pessoas à mesa".
+ */
+export function CalculatorTool({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return <section aria-label={label}>{children}</section>;
 }
 
 /** Bloco de prosa das seções explicativas. */

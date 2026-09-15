@@ -1,6 +1,19 @@
 import { expect, test, type Page } from '@playwright/test';
 
 /**
+ * A ferramenta principal da página.
+ *
+ * Os mesmos controles existem duas vezes desde que a página ganhou o painel de
+ * "confira a sua receita", e é assim que tem de ser: o nome de uma textura ou
+ * de um método é o mesmo nos dois lugares. Quem desempata é a região.
+ */
+const TOOL = 'Calculadora de gelificantes';
+
+function tool(page: Page) {
+  return page.getByRole('region', { name: TOOL });
+}
+
+/**
  * A calculadora de gelificantes (docs/research/gelificantes.md).
  *
  * O que estes testes protegem é a promessa da página: na quantidade de líquido
@@ -71,7 +84,7 @@ test('a xantana aparece como espessante, não como gelificante', async ({ page }
 
   await interactUntil(
     async () => {
-      await page.getByRole('button', { name: 'Molho', exact: true }).click();
+      await tool(page).getByRole('button', { name: 'Molho', exact: true }).click();
     },
     async () => {
       await expect(agentRow(page, 'Goma xantana')).toContainText('Só engrossa');
@@ -169,7 +182,7 @@ test('os agentes novos aparecem com o que os torna diferentes', async ({ page })
 
   await interactUntil(
     async () => {
-      await page.getByRole('button', { name: 'Gel duro, de cortar', exact: true }).click();
+      await tool(page).getByRole('button', { name: 'Gel duro, de cortar', exact: true }).click();
     },
     async () => {
       await expect(
@@ -180,7 +193,7 @@ test('os agentes novos aparecem com o que os torna diferentes', async ({ page })
 
   await interactUntil(
     async () => {
-      await page.getByRole('button', { name: 'Gel desenformável', exact: true }).click();
+      await tool(page).getByRole('button', { name: 'Gel desenformável', exact: true }).click();
     },
     async () => {
       await expect(

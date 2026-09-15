@@ -1,5 +1,18 @@
 import { expect, test, type Page } from '@playwright/test';
 
+/**
+ * A ferramenta principal da página.
+ *
+ * Os mesmos controles existem duas vezes desde que a página ganhou o painel de
+ * "confira a sua receita", e é assim que tem de ser: o nome de uma textura ou
+ * de um método é o mesmo nos dois lugares. Quem desempata é a região.
+ */
+const TOOL = 'Calculadora de picles';
+
+function tool(page: Page) {
+  return page.getByRole('region', { name: TOOL });
+}
+
 /** A página hidrata depois de servida; repete a interação até ela pegar. */
 async function interactUntil(
   action: () => Promise<void>,
@@ -12,7 +25,7 @@ async function interactUntil(
 }
 
 function metric(page: Page, name: string) {
-  return page.getByRole('heading', { name }).locator('..').locator('[data-numeric]');
+  return tool(page).getByRole('heading', { name }).locator('..').locator('[data-numeric]');
 }
 
 test('a home leva à calculadora de picles', async ({ page }) => {
@@ -36,7 +49,7 @@ test('calcula os 40 g de sal do exemplo do Noma', async ({ page }) => {
     },
     // Escopo na tela: a folha de impressão repete o mesmo número, e é para
     // repetir — ela é a outra saída da mesma receita.
-    () => expect(page.locator('#conteudo').getByText('40,0 g')).toBeVisible(),
+    () => expect(tool(page).getByText('40,0 g')).toBeVisible(),
   );
 });
 

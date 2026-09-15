@@ -1,4 +1,17 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+/**
+ * A ferramenta principal da página.
+ *
+ * Os mesmos controles existem duas vezes desde que a página ganhou o painel de
+ * "confira a sua receita", e é assim que tem de ser: o nome de uma textura ou
+ * de um método é o mesmo nos dois lugares. Quem desempata é a região.
+ */
+const TOOL = 'Calculadora de salmoura';
+
+function tool(page: Page) {
+  return page.getByRole('region', { name: TOOL });
+}
 
 /**
  * Salmoura: a calculadora que existe porque a fonte dá a dose em colher de uma
@@ -32,7 +45,7 @@ test('reproduz a salmoura de ave do Modernist', async ({ page }) => {
 
   await expect(async () => {
     await page.getByLabel('Peso da proteína (g)').fill('2000');
-    await page.getByRole('button', { name: 'Equilíbrio, ave' }).click();
+    await tool(page).getByRole('button', { name: 'Equilíbrio, ave' }).click();
     // 12 g de sal e 200 g de água para 2 kg de frango.
     await expect(page.locator('#conteudo').getByText('12 g').first()).toBeVisible();
   }).toPass({ timeout: 15_000 });
@@ -47,7 +60,7 @@ test('o aviso muda entre equilíbrio e relógio', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'De equilíbrio' })).toBeVisible();
 
   await expect(async () => {
-    await page.getByRole('button', { name: 'Imersão, peixe' }).click();
+    await tool(page).getByRole('button', { name: 'Imersão, peixe' }).click();
     await expect(page.getByRole('heading', { name: 'Contada por tempo' })).toBeVisible();
   }).toPass({ timeout: 15_000 });
 

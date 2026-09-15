@@ -165,9 +165,9 @@ export const picklesEn: typeof picklesPtBR = {
     water: 'Brine water',
     salt: 'Salt you used',
 
-    saltOfTotal: 'Salt against the jar',
-    saltOfWater: 'Salt against the water',
-    drySaltReading: 'Salt against the vegetable',
+    saltOfTotal: 'Your salt against the jar',
+    saltOfWater: 'Your salt against the water',
+    drySaltReading: 'Your salt against the vegetable',
     saltSubject: 'the salt',
 
     safetyNote:

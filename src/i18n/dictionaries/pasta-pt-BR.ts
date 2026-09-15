@@ -290,7 +290,7 @@ export const pastaPtBR = {
     eggHint: 'O peso do ovo sem casca. Um ovo grande dá cerca de 50 g.',
     water: 'Água da sua massa',
 
-    flourPerEgg: 'Farinha por grama de ovo',
+    flourPerEgg: 'Farinha por ovo na sua massa',
     waterHydration: 'Hidratação da sua massa',
     flourSubject: 'a farinha',
     waterSubject: 'a água',

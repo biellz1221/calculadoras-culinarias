@@ -1,6 +1,7 @@
 import { JamAuditPanel } from './jam-audit-panel';
 import { JamCalculator } from './jam-calculator';
 import {
+  CalculatorTool,
   CalculatorLayout,
   CalculatorSection,
   DivergenceTable,
@@ -76,7 +77,9 @@ export function JamPage({ locale }: { locale: Locale }) {
       title={dict.title}
       lead={dict.lead}
     >
-      <JamCalculator dict={dict} locale={locale} />
+      <CalculatorTool label={dict.eyebrow}>
+        <JamCalculator dict={dict} locale={locale} />
+      </CalculatorTool>
 
       {/* Não é `educational`: a tabela por altitude é a razão de ser desta
           página, e escondê-la na interface simplificada seria esconder

@@ -1,6 +1,7 @@
 import { GanacheAuditPanel } from './ganache-audit-panel';
 import { GanacheCalculator } from './ganache-calculator';
 import {
+  CalculatorTool,
   CalculatorLayout,
   CalculatorSection,
   DivergenceTable,
@@ -61,7 +62,9 @@ export function GanachePage({ locale }: { locale: Locale }) {
       title={dict.title}
       lead={dict.lead}
     >
-      <GanacheCalculator dict={dict} locale={locale} />
+      <CalculatorTool label={dict.eyebrow}>
+        <GanacheCalculator dict={dict} locale={locale} />
+      </CalculatorTool>
 
       {/* Não é `educational`: a validade é a razão de ser desta página, e o que
           a sustenta é a tabela de Aw. Some junto com o resto na interface

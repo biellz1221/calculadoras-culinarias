@@ -1,4 +1,17 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+/**
+ * A ferramenta principal da página.
+ *
+ * Os mesmos controles existem duas vezes desde que a página ganhou o painel de
+ * "confira a sua receita", e é assim que tem de ser: o nome de uma textura ou
+ * de um método é o mesmo nos dois lugares. Quem desempata é a região.
+ */
+const TOOL = 'Calculadora de cura';
+
+function tool(page: Page) {
+  return page.getByRole('region', { name: TOOL });
+}
 
 /**
  * Cura de carnes: a única calculadora do site em que o número errado machuca.
@@ -58,7 +71,7 @@ test('o teto muda com o método', async ({ page }) => {
   }).toPass({ timeout: 15_000 });
 
   // Cura seca aguenta 625 ppm: o sal fica na superfície e boa parte não entra.
-  await page.getByRole('button', { name: 'Cura seca em peça inteira' }).click();
+  await tool(page).getByRole('button', { name: 'Cura seca em peça inteira' }).click();
   await expect(page.getByText('Dentro da faixa')).toBeVisible();
 });
 
@@ -93,7 +106,7 @@ test('o sal nº 2 mostra a soma na moeda da norma, sem selo de conformidade', as
   await expect(content.getByText('Soma, como nitrito de sódio')).toHaveCount(0);
 
   await expect(async () => {
-    await page.getByRole('button', { name: /nº 2|#2/i }).click();
+    await tool(page).getByRole('button', { name: /nº 2|#2/i }).click();
     await expect(content.getByText('Soma, como nitrito de sódio')).toBeVisible();
   }).toPass({ timeout: 15_000 });
 

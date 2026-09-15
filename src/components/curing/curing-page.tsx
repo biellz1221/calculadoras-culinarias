@@ -1,6 +1,7 @@
 import { CureAuditPanel } from './cure-audit-panel';
 import { CuringCalculator } from './curing-calculator';
 import {
+  CalculatorTool,
   CalculatorLayout,
   CalculatorSection,
   DivergenceTable,
@@ -43,7 +44,9 @@ export function CuringPage({ locale }: { locale: Locale }) {
       title={dict.title}
       lead={dict.lead}
     >
-      <CuringCalculator dict={dict} locale={locale} />
+      <CalculatorTool label={dict.eyebrow}>
+        <CuringCalculator dict={dict} locale={locale} />
+      </CalculatorTool>
 
       {/* Não é `educational`: a diferença entre entrada e resíduo é a razão de
           ser desta página, e some junto com o resto na interface simplificada

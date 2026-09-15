@@ -2,6 +2,7 @@ import { PicklesCalculator } from './pickles-calculator';
 import { SafetyPanel } from './safety-panel';
 import { SaltAudit } from './salt-audit';
 import {
+  CalculatorTool,
   CalculatorLayout,
   CalculatorSection,
   DivergenceTable,
@@ -30,7 +31,9 @@ export function PicklesPage({ locale }: { locale: Locale }) {
 
   return (
     <CalculatorLayout locale={locale} eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
-      <PicklesCalculator dict={dict} locale={locale} />
+      <CalculatorTool label={dict.eyebrow}>
+        <PicklesCalculator dict={dict} locale={locale} />
+      </CalculatorTool>
 
       {/* Segurança vem logo depois do resultado, não no fim da página. */}
       <SafetyPanel dict={dict} />

@@ -292,7 +292,7 @@ export const pastaEn: typeof pastaPtBR = {
     eggHint: 'The weight of the egg out of its shell. A large egg runs about 50 g.',
     water: 'Water in your dough',
 
-    flourPerEgg: 'Flour per gram of egg',
+    flourPerEgg: 'Flour per egg in your dough',
     waterHydration: 'Hydration of your dough',
     flourSubject: 'the flour',
     waterSubject: 'the water',

@@ -1,6 +1,7 @@
 import { GelatoCalculator } from './gelato-calculator';
 import { OverrunBench } from './overrun-bench';
 import {
+  CalculatorTool,
   CalculatorLayout,
   CalculatorSection,
   GlossaryList,
@@ -43,7 +44,9 @@ export function GelatoPage({ locale }: { locale: Locale }) {
 
   return (
     <CalculatorLayout locale={locale} eyebrow={dict.eyebrow} title={dict.title} lead={dict.lead}>
-      <GelatoCalculator dict={dict} locale={locale} />
+      <CalculatorTool label={dict.eyebrow}>
+        <GelatoCalculator dict={dict} locale={locale} />
+      </CalculatorTool>
 
       {/* Não é `educational`: o ar é o que separa a calda que a calculadora
           balanceia do gelato que sai da máquina, e foi a única parte desta

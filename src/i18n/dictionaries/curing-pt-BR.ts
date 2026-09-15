@@ -229,10 +229,10 @@ export const curingPtBR = {
     meat: 'Peso da carne',
     cureWeight: 'Sal de cura que você pesou',
 
-    ingoingPpm: 'Nitrito de entrada',
+    ingoingPpm: 'Nitrito de entrada do que você pesou',
     cureSubject: 'o sal de cura',
 
-    note: 'Abaixo do piso, o produto tem cor de curado e não tem a proteção da cura — é o lado perigoso desta faixa, ao contrário de quase todas as outras do site. Esta página não certifica conformidade com a norma brasileira: ela mostra a entrada, e o limite daqui é de resíduo.',
+    note: 'Abaixo do piso, o produto tem cor de curado e não tem a proteção da cura — é o lado perigoso desta faixa, ao contrário de quase todas as outras do site. O que esta leitura mostra é o nitrito de **entrada**; o limite brasileiro é de resíduo, e a seção dos dois limites explica a diferença.',
   },
   sources: {
     title: 'Fontes desta calculadora',
