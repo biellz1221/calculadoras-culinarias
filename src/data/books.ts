@@ -42,7 +42,9 @@ export type BookId =
   | 'gelato-course'
   | 'scheft'
   | 'cho'
-  | 'modernist-1';
+  | 'modernist-1'
+  | 'scoolinary-spherification'
+  | 'scoolinary-gelation';
 
 export interface Book {
   id: BookId;
@@ -505,6 +507,35 @@ export const BOOKS: readonly Book[] = [
     // A calculadora de gelato nasceu da planilha de balanceamento de um curso,
     // não de um livro. Fica declarada como o que é, com autor e endereço, em
     // vez de virar uma "planilha" anônima com ares de bibliografia.
+    // Dois cursos de Rais Esteve, Head de P&D do 100%Lab, com passagem por
+    // Disfrutar e Dani García. São a única fonte da estante que publica dose de
+    // esferificação, e a segunda para ágar e xantana.
+    //
+    // `kind: 'course'` pela mesma razão do gelato: material de curso não é
+    // bibliografia e não pode se disfarçar de uma. Não tem paginação de livro —
+    // são slides —, então a citação nomeia o documento e o slide.
+    id: 'scoolinary-spherification',
+    title: 'Spherification Techniques (Basic e Advanced)',
+    authors: ['Rais Esteve'],
+    shortName: 'Esteve, Scoolinary',
+    publisher: 'Scoolinary',
+    url: 'https://www.scoolinary.com/',
+    year: 2025,
+    locator: 'chapter',
+    kind: 'course',
+  },
+  {
+    id: 'scoolinary-gelation',
+    title: 'Gelation Techniques',
+    authors: ['Rais Esteve'],
+    shortName: 'Esteve, Scoolinary',
+    publisher: 'Scoolinary',
+    url: 'https://www.scoolinary.com/',
+    year: 2025,
+    locator: 'chapter',
+    kind: 'course',
+  },
+  {
     id: 'gelato-course',
     title: 'Gelato Direto ao Ponto: planilha de balanceamento',
     authors: ['Luis Paulo dos Santos Barros'],

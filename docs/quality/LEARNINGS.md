@@ -252,6 +252,18 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   física, transformou o incômodo em resposta: a diferença interna é de
   arredondamento. Convergência externa é o que resolve contradição interna —
   procure a segunda fonte justamente onde a primeira se contradiz.
+- **Material de praticante é bom em proporção e ruim em revisão.** O curso do
+  Scoolinary acertou todas as faixas conferidas contra as próprias receitas —
+  oito de oito — e mesmo assim imprimiu "xantana" duas vezes numa linha e
+  "2%, 2 gramas por litro" onde 2% de um litro são 20 g. A autoconsistência
+  valida o **número**; ela não valida a **composição da página**. Confira toda
+  conversão de unidade que a fonte faz, mesmo quando confia na fonte.
+- **Chave de dicionário sem interface é bug silencioso.** Acrescentei
+  `irreversible` e `gelsWhenHot` aos dois idiomas e esqueci de renderizar: a
+  gelana e a metilcelulose entraram na tabela parecendo agentes comuns,
+  justamente as duas cujo comportamento é o motivo de existirem. O typecheck não
+  pega — chave a mais no dicionário é legal. Só o e2e pega, e por isso todo
+  campo novo de comportamento merece uma asserção de tela.
 - **Fonte oficial pode discordar de si mesma.** O NCHFP resume a temperatura por
   altitude como "subtract 2 degrees F" por mil pés, e a tabela da mesma página
   não segue a regra a partir de 5.000 pés. A tabela é o dado, a regra é a
@@ -286,6 +298,16 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   uma obra vira pendência de segunda fonte.
 
 ## Testes
+
+- **Página nova na mesma rota cria ambiguidade de rótulo.** Ao pôr a
+  esferificação junto dos gelificantes, `getByLabel('Líquido')` passou a casar
+  com dois campos e dois e2e antigos quebraram por *strict mode*. A saída é
+  `{ exact: true }` no teste, **não** renomear o campo: "Líquido a esferificar"
+  é mais claro para quem lê a tela.
+- **Teste que virou mentira se inverte, não se apaga.** O e2e que protegia a
+  declaração "esferificação fica de fora por falta de fonte" passou a afirmar o
+  contrário quando a fonte chegou. Apagar perderia a cobertura; inverter guarda
+  a história e continua protegendo a página.
 
 - **"Nenhum preset estoura o limite duro" é um invariante que se paga sozinho.**
   Escrito para os pães novos, ele derrubou um preset antigo: a broa do Camargo

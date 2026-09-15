@@ -119,6 +119,12 @@ export function GellingCalculator({
                         {agent.gels ? dict.result.gels : dict.result.thickens}
                         {' · '}
                         {agent.needsBoil ? dict.result.boil : dict.result.noBoil}
+                        {agent.setsAtCelsius !== undefined && (
+                          <>
+                            {' · '}
+                            {dict.result.sets} {fmt.temperature(agent.setsAtCelsius)}
+                          </>
+                        )}
                         {agent.holdsToCelsius !== undefined && (
                           <>
                             {' · '}
@@ -126,6 +132,16 @@ export function GellingCalculator({
                           </>
                         )}
                       </span>
+                      {/* O que separa estes dois do resto da tabela não é a
+                          dose, é o comportamento — e é a primeira coisa que
+                          decide se eles servem para o que a pessoa quer. */}
+                      {(agent.irreversible || agent.gelsWhenHot) && (
+                        <span className="mt-1 block text-sm text-accent-deep">
+                          {agent.irreversible && dict.result.irreversible}
+                          {agent.irreversible && agent.gelsWhenHot && ' · '}
+                          {agent.gelsWhenHot && dict.result.gelsWhenHot}
+                        </span>
+                      )}
                     </th>
                     <td className="py-3 pr-6 tabular-nums text-ink">
                       {range(grams, 2, 'mass')}

@@ -60,17 +60,21 @@ export const gellingPtBR = {
   textures: {
     thin: 'Caldo encorpado',
     sauce: 'Molho',
-    'fluid-gel': 'Gel fluido',
     puree: 'Consistência de purê',
+    'fluid-gel': 'Gel fluido',
+    'soft-set': 'Gel macio, de colher',
     set: 'Gel desenformável',
+    'hard-set': 'Gel duro, de cortar',
   },
 
   textureNotes: {
     thin: 'Um caldo que ganha corpo sem deixar de ser caldo — ainda corre na colher.',
     sauce: 'Espessura de molho de salada ou ketchup: cobre as costas da colher.',
-    'fluid-gel': 'Firma por inteiro e depois é batido no liquidificador. Fica espesso na colher e afina na boca, com textura mais cremosa que molho engrossado com amido.',
     puree: 'Tão espesso quanto um purê, e ainda assim um líquido puro por baixo.',
-    set: 'Firma no molde e sai inteiro: panna cotta, aspic, geleia de fruta.',
+    'fluid-gel': 'Firma por inteiro e depois é batido no liquidificador. Fica espesso na colher e afina na boca, com textura mais cremosa que molho engrossado com amido.',
+    'soft-set': 'Firma, mas treme e derrete na boca: flan, panna cotta, creme de colher.',
+    set: 'Firma no molde e sai inteiro: panna cotta firme, aspic, geleia de fruta.',
+    'hard-set': 'Firme o bastante para cortar em cubos, laminar ou ralar — e, em alguns agentes, para ir ao forno.',
   },
 
   agents: {
@@ -79,15 +83,21 @@ export const gellingPtBR = {
     xanthan: 'Goma xantana',
     iota: 'Carragena iota',
     kappa: 'Carragena kappa',
+    gellan: 'Goma gelana',
+    methylcellulose: 'Metilcelulose',
+    pectin: 'Pectina',
     wondra: 'Amido Wondra',
   },
 
   agentNotes: {
     gelatin: 'Derrete a 37 °C — a temperatura do corpo, que é exatamente por que ela desmancha na boca. Não serve para nada que vá ao calor.',
-    agar: 'Precisa ferver para hidratar, o que a desqualifica para preparo cru ou sopa fria. Em compensação aguenta 85 °C depois de pronta.',
+    agar: 'Precisa ferver para hidratar, o que a desqualifica para preparo cru ou sopa fria. Em compensação aguenta 85 °C depois de pronta — e esse número é o único da página em que duas obras independentes dizem exatamente a mesma coisa.',
     xanthan: 'Engrossa e não gelifica. Trabalha a frio, sem ferver. É potente: pese, não meça de colher — líquido pegajoso é sinal de que passou.',
-    iota: 'Faz gel macio e elástico. A fonte sempre a usa junto com a kappa.',
-    kappa: 'Faz gel firme e quebradiço. A fonte sempre a usa junto com a iota.',
+    iota: 'Faz gel macio e elástico, de flan ou panna cotta. É tixotrópica: depois de firme, você pode quebrar a textura no fouet e ela se refaz descansando no frio.',
+    kappa: 'Faz gel firme e quebradiço, de gelatina moldada. Gelifica rápido, a 50 °C — trabalhe quente e em movimento.',
+    gellan: 'O único da lista que não derrete depois de firme. Vai ao forno, aguenta maçarico e serve de recheio de confeitaria — nenhum outro agente daqui faz isso.',
+    methylcellulose: 'Funciona ao contrário de todos os outros: gelifica quando esquenta e derrete quando esfria. É o que torna gel frito possível. Dissolve no frio, a 3–4 °C, e firma a 60 °C — com só dez graus entre derreter e gelificar, a menor margem de manobra da página.',
+    pectin: 'A mesma da geleia, aqui em dose de gel. As de baixa metoxilação dão gel macio; as de alta, gel firme de pâte de fruit.',
     wondra: 'Amido, não hidrocoloide — por isso a dose é dez vezes maior. Polvilhe e misture no fouet; bater no liquidificador deixa a textura emborrachada.',
   },
 
@@ -101,6 +111,9 @@ export const gellingPtBR = {
     boil: 'Ferve',
     noBoil: 'Não precisa ferver',
     holds: 'Aguenta até',
+    sets: 'Gelifica a',
+    irreversible: 'Não derrete depois de pronto',
+    gelsWhenHot: 'Gelifica no calor',
     pairNote: 'Iota e kappa andam juntas nesta receita: a mistura fica entre o gel macio de uma e o firme da outra.',
     empty: 'A fonte não publica dose de nenhum agente para esta textura.',
   },
@@ -158,11 +171,50 @@ export const gellingPtBR = {
   },
 
   spherification: {
-    title: 'Esferificação fica de fora, e por quê',
+    title: 'Esferificação',
+    lead: 'Quanto líquido você vai esferificar, e por qual das duas técnicas. A dose do produto e a do banho saem separadas, porque são porcentagens de coisas diferentes.',
+    liquid: 'Líquido a esferificar',
+    liquidHint: 'A base com sabor que vira a esfera.',
+    bath: 'Água do banho',
+    bathHint: 'O banho é reaproveitável: faça um volume que caiba na sua vasilha.',
+    method: 'Técnica',
+    methods: {
+      direct: 'Direta (caviar)',
+      reverse: 'Reversa',
+    },
+    methodNotes: {
+      direct: 'O alginato vai no líquido e a esfera cai num banho de cálcio. O cálcio entra e não para: em cerca de 30 minutos a esfera gelifica até o centro e vira textura única. Caviar se come na hora.',
+      reverse: 'O cálcio vai no líquido e a esfera cai num banho de alginato. O alginato é molécula grande demais para entrar, então reage só na superfície: a membrana fecha e o miolo continua líquido. É a que se guarda.',
+    },
+    baseTitle: 'No líquido',
+    bathTitle: 'No banho',
+    optional: 'opcional',
+    limitsTitle: 'O que a direta não aceita',
+    limits: {
+      fat: 'Gordura.',
+      dairy: 'Laticínio, ou qualquer coisa que já tenha cálcio — o cálcio de dentro reagiria com o alginato antes da hora. É por isso que o molho de parmesão do curso é feito pela reversa.',
+      alcohol: 'Álcool puro acima de 30°.',
+      acid: 'Meio ácido: o alginato precipita. O citrato de sódio da lista existe justamente para corrigir a acidez da base.',
+      irreversible: 'A reação não pode ser interrompida. Lavar a esfera não adianta: o cálcio já está dentro.',
+    },
+    additives: {
+      alginate: 'Alginato de sódio',
+      'calcium-chloride': 'Cloreto de cálcio',
+      gluconolactate: 'Gluconolactato',
+      xanthan: 'Goma xantana',
+      'sodium-citrate': 'Citrato de sódio',
+    },
+    truthTitle: 'As receitas do curso',
+    truthBody:
+      'As duas receitas de caviar do próprio curso caem em 0,489% e 0,495% de alginato — consistentes entre si e um fio abaixo do piso de 0,5% que ele declara. Não é contradição, é onde a chef trabalha de fato dentro da faixa que publica: no piso dela. E nas oito receitas de esferificação reversa, o gluconolactato e a xantana ficam dentro das faixas genéricas do curso sem uma única exceção.',
+  },
+
+  sourceNote: {
+    title: 'Sobre a fonte desta parte',
     body: [
-      'Alginato de sódio e cloreto de cálcio não têm uma única dose em nenhuma obra da nossa estante. O volume 1 do Modernist Cuisine cita a técnica e manda procurar no volume 4; o volume para casa não cobre esferificação; McGee descreve o mecanismo sem publicar quantidade.',
-      'O mecanismo, esse tem fonte: o alginato só gelifica na presença de cálcio. Prepara-se uma solução de alginato sem cálcio, com o sabor e a cor desejados, e pinga-se ou injeta-se ela numa solução de cálcio, onde gelifica na hora.',
-      'Falta o número, e número sem fonte não vai para a tela. Quando o volume 4 entrar na estante, esta seção vira calculadora.',
+      'As doses de esferificação e dos agentes novos vêm de material de curso — dois cursos de Rais Esteve, chefe de P&D do 100%Lab, publicados pela Scoolinary. Material de curso não é bibliografia, e a página prefere dizer isso a disfarçar: não tem paginação de livro, não tem bibliografia própria e não se abre de graça. Citamos por documento e número do slide.',
+      'Também não é fonte impecável, e os defeitos estão registrados porque mudam o que se deve ler. O slide das proporções da esferificação direta imprime "xantana" duas vezes na mesma linha. E o slide da metilcelulose escreve "2%, 2 gramas por litro" — 2% de um litro são 20 g, erro de uma ordem de grandeza. Que é erro e não outra convenção, o próprio curso prova: ele acerta a mesma conversão na kappa e na gelana. Usamos as porcentagens e descartamos o parêntese.',
+      'O que sustenta a confiança no resto é a coerência interna: as receitas do curso obedecem às proporções que ele mesmo enuncia, nas oito que dá para conferir. É o mesmo teste que validou o Wybauw na ganache e o Corvitto no gelato.',
     ],
   },
 
