@@ -136,7 +136,85 @@ na imagem: p=0 dá 999,84 a 0 °C e 999,70 a 10 °C, os dois corretos.
 
 Como o OIML é scan, o caminho é implementar a fórmula analítica que a
 Recomendação publica e **conferir contra a tabela impressa** — o mesmo padrão de
-"fonte que se confere sozinha" que autorizou transcrever o Wybauw.
+"fonte que se confere sozinha" que autorizou transcrever o Wybauw. Feito na
+Parte IV-A.
+
+---
+
+## Parte IV-A — A fórmula da OIML R 22, transcrita e conferida
+
+**A tabela não é a fonte: a fórmula é.** O documento diz, em 19.5 §4, que
+"*Tables I and IIIa are calculated directly from the general formula*". Ou seja,
+usar a fórmula não é aproximar a tabela — é usar o que gerou a tabela. Não há
+diferença a declarar na página.
+
+Forma geral (p. 5):
+
+    ρ = A₁ + Σ(k=2..12) A_k·p^(k−1) + Σ(k=1..6) B_k·(t−20)^k
+          + Σ(i=1..5) Σ(k) C_i,k·p^k·(t−20)^i
+
+`p` é **fração mássica** de etanol, `t` em °C. Faixa de validade: −20 a +40 °C.
+
+Os 44 coeficientes estão na p. 13 e foram **transcritos da imagem renderizada**,
+porque o PDF não tem camada de texto. O documento usa vírgula decimal e espaços
+como separador de grupo (`9,982 012 300 · 10²` = 998,2012300).
+
+```
+A₁..A₁₂ (kg/m³)
+   998.2012300      -192.9769495       389.1238958     -1668.103923
+ 13522.15441      -88292.78388      306287.4042      -613838.1234
+747017.2998      -547846.1354      223446.0334       -39032.85426
+
+B₁..B₆
+  -0.20618513   -5.2682542e-3   3.6130013e-5   -3.8957702e-7
+   7.1693540e-9  -9.9739231e-11
+
+C₁,ₖ (k=1..11)
+   0.1693443461530087   -10.46914743455169     71.96353469546523
+-704.7478054272792     3924.090430035045  -12101.64659068747
+22486.46550400788    -26055.62982188164   18523.73922069467
+-7420.201433430137     1285.617841998974
+
+C₂,ₖ (k=1..10)
+  -0.01193013005057010   0.2517399633803461   -2.170575700536993
+  13.53034988843029    -50.29988758547014   109.6355666577570
+-142.2753946421155     108.0435942856230    -44.14153236817392
+   7.442971530188783
+
+C₃,ₖ (k=1..9)
+  -6.802995733503803e-4   1.876837790289664e-2  -0.2002561813734156
+   1.022992966719220     -2.895696483903638     4.810060584300675
+  -4.672147440794683      2.458043105903461    -0.5411227621436812
+
+C₄,ₖ (k=1..4)
+   4.075376675622027e-6  -8.763058573471110e-6
+   6.515031360099368e-6  -1.515784836987210e-6
+
+C₅,ₖ (k=1..2)
+  -2.788074354782409e-8   1.345612883493354e-8
+```
+
+Ponte entre as duas grandezas (p. 5), necessária porque OIML trabalha em massa e
+OIV em volume — **confundir as duas é erro de dez pontos**:
+
+    q = ρ₂₀(p) · p / ρ₂₀(100%),   com ρ₂₀(100%) = 789,24 kg/m³
+
+### Conferência — quatro casos-verdade, dois deles independentes
+
+| Prova | Resultado |
+| --- | --- |
+| Tabela I do próprio OIML, água de 0 a 10 °C (11 pontos, lidos na imagem) | pior diferença **0,005 kg/m³** |
+| Tabela I do **OIV**, 0 a 11% vol a 20 °C (documento diferente, outra grandeza, texto nativo) | pior diferença **0,008 kg/m³** |
+| Etanol puro a 20 °C — errata impressa na capa diz 789,24 | fórmula dá **789,239** |
+| Máximo de densidade da água (fenômeno físico, ~3,98 °C) | fórmula põe em **4 °C** |
+
+As diferenças são o arredondamento das tabelas, que têm duas casas. O único
+ponto acima de 0,01 é o de 2% vol, onde o OIV imprime `995.2` com uma casa só —
+defeito de composição da tabela, não da fórmula.
+
+Os dois últimos casos são **independentes das tabelas**: se algum dos 44
+coeficientes tivesse um dígito errado, nenhum dos quatro fecharia. A transcrição
+está correta.
 
 ### 3. Calda de açúcar → Brix
 
@@ -163,10 +241,13 @@ renderizada, nunca da camada de texto.
 
 ## Pendências antes de escrever código
 
-- [ ] Achar a fórmula analítica da OIML R 22 (o PDF é scan; a equação é citada em
-      literatura secundária) e conferi-la contra ≥3 pontos da tabela impressa.
+- [x] ~~Achar a fórmula analítica da OIML R 22 e conferi-la contra ≥3 pontos da
+      tabela impressa.~~ Feito na Parte IV-A: quatro casos-verdade, pior
+      diferença 0,008 kg/m³. Os coeficientes não estão em fonte secundária
+      nenhuma — saíram da imagem da p. 13 do documento oficial.
 - [ ] Decidir o recorte de ingredientes: o SR Legacy tem 7793 alimentos com
       composição, e a calculadora precisa de algumas dezenas de líquidos.
+      **Decisão de produto, não técnica.**
 - [ ] Conferir na imagem os pontos do NBS 457 que virarem código.
 - [ ] Ler Phinney et al. (2017) por inteiro — só o resumo foi lido; o paper está
       atrás de paywall na Wiley.
