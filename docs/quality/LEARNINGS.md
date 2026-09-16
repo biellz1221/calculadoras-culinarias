@@ -324,6 +324,42 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   batem com as gramas). Coerência interna não valida um valor: é o padrão de um
   erro de edição. Divergência entre obras vira conteúdo; discrepância dentro de
   uma obra vira pendência de segunda fonte.
+- **Número escrito na pesquisa antes da ferramenta que o produz é chute com
+  formatação de fonte.** A pesquisa de densidade dizia "tabela OIML, 36% em
+  massa → 0,948 g/mL" antes de existir a fórmula. 0,948 é a densidade de 40% em
+  **volume**; 36% em massa dá 0,943. A troca de grandeza estava no mesmo
+  documento que avisava ser "erro de dez pontos". Na mesma rodada, uma coluna
+  inteira de "valor aceito" (óleo, leite, mel, creme) era de memória. Se o
+  número ainda não tem fonte, a célula diz "sem fonte", não um número plausível.
+  Vale para contagem também: escrevi "44 coeficientes" em seis lugares — código,
+  teste, pesquisa, relatório, commit — sem nunca ter contado. São 54 (12 + 6 +
+  36). Quem contou foi a revisão.
+- **Passar no teste da água não valida o resto da tabela.** O peso de porção do
+  USDA dá 1,0009 g/mL para a água — fecha. O creme de leite fresco dá ~1,01 em
+  três porções coerentes entre si, e a física da própria composição (36% de
+  gordura a 0,92) não deixa passar de ~0,99. Nenhuma porção declara
+  proveniência. O valor conhecido prova que o **método** não é absurdo; cada
+  item que vira número de tela precisa da sua própria segunda forma de conferir.
+- **"Peso no ar" não é densidade — e o método está no começo da obra, não ao lado
+  da tabela.** O NBS 457 publica peso de calda por galão como numa balança. Li o
+  ar na p. 28, logo abaixo da tabela, apliquei, e a água passou a bater com a da
+  OIML em 0,025%. Parei ali e escrevi, em código e na pesquisa, que o empuxo
+  sobre os pesos "não é declarado". A p. 2 declara: "for brass weights (density,
+  8.4)". Com ele o resto cai para 0,011%, com sinal alternando — assinatura de
+  arredondamento, e não de erro sistemático. **Um resto sistemático que "sobra"
+  numa conferência entre fontes é pergunta, não tolerância**: antes de
+  atribuí-lo a algo que a fonte não diz, leia o parágrafo de método inteiro.
+- **Tabela em duas unidades pega erro da própria fonte, não só da transcrição.**
+  A circular de 1946 imprime 12.644 lb ao lado de 5,744 g numa célula; as duas
+  não fecham, e a suavidade da coluna diz qual errou. A 500 dpi o "644" está
+  impresso — não é o scan. Sem a segunda unidade, o número errado teria entrado
+  calado ou, pior, "corrigido" na direção errada.
+- **OCR localiza, imagem lê.** Com 71 páginas de scan sem texto, o Tesseract
+  achou em segundos a página "NUMERICAL COEFFICIENTS OF THE FORMULA"; os 54
+  números saíram do recorte da imagem. E ele **falha calado fora do scratchpad**:
+  em `/tmp` o sandbox bloqueia a leitura, o Tesseract sai com código 0 e texto
+  vazio, e a varredura parece dizer que as páginas estão em branco. Teste numa
+  página que você sabe ter texto antes de concluir qualquer coisa.
 
 ## Testes
 
@@ -502,3 +538,21 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   arredonda para número redondo. Teste a extração contra um valor que você já
   conhece: se ele não fecha, o método não serve para os que você não conhece.
 
+- **Fórmula com termos cruzados precisa de caso-verdade com as duas variáveis
+  fora da referência.** Os casos da OIML eram água (teor zero) e 20 °C (OIV,
+  etanol puro). Os 36 coeficientes `Cᵢ,ₖ` multiplicam `p^k·(t−20)^i`, que se
+  anula nos dois — corromper um deles passou por todos os testes, e a pesquisa
+  já afirmava por escrito que "qualquer dígito errado" seria pego. Uma grade de
+  38 células com teor e temperatura variando juntos derruba 29. Antes de dizer
+  que um teste cobre uma transcrição, corrompa um coeficiente de **cada grupo** e
+  veja cair.
+- **Teste que só confere ordem não pega ponderação errada.** A interpolação da
+  calda tinha três testes fora dos pontos da tabela — "fica entre os vizinhos",
+  "fica mais leve com o calor" — e elevar o peso da interpolação ao quadrado
+  passava por todos, errando 0,5%. Ordem sobrevive a conta errada. Para conta de
+  ponderação, um caso fora do meio do intervalo, com os pesos escritos à mão.
+- **Rede parcial se declara com o número.** O teste de suavidade da coluna de
+  libras parecia fechar o que a redundância libra × grama deixa passar. Simulado
+  um a um, pega 115 dos 223 erros de ±0,001–0,002 lb que escapam — pouco mais da
+  metade. O comentário do teste diz isso; "pega o que a outra deixa passar",
+  sem número, teria sido a mesma afirmação sem fonte que este arquivo cataloga.

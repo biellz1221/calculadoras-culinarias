@@ -81,8 +81,9 @@ export function volumeFractionFromMass(massFraction: number): number | null {
  * Teor em massa a partir do teor em volume — o que o rótulo da garrafa traz.
  *
  * A ponte não se inverte por álgebra, mas é crescente de 0 a 1, então bisseção
- * resolve. Sessenta passos deixam o erro abaixo de 10⁻¹⁸, muito além do que a
- * fórmula sustenta.
+ * resolve. Em ponto flutuante o intervalo para de encolher por volta do passo 53
+ * (~10⁻¹⁶); os sessenta passos só garantem que ele chegou lá, e isso fica muito
+ * além do que a fórmula sustenta.
  */
 export function massFractionFromVolume(volumeFraction: number): number | null {
   if (!isFraction(volumeFraction)) return null;

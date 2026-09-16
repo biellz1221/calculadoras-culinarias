@@ -509,9 +509,12 @@ export const BOOKS: readonly Book[] = [
     /**
      * A norma de alcoometria: densidade de mistura de água e etanol em função
      * do teor e da temperatura. A tabela impressa sai de uma fórmula que o
-     * próprio documento publica, e é a fórmula que o motor usa — 44
+     * próprio documento publica, e é a fórmula que o motor usa — 54
      * coeficientes transcritos da imagem da p. 13, porque o PDF oficial é
      * digitalização sem camada de texto.
+     *
+     * O ano é o da Recomendação ("First edition 1973", p. 9). O arquivo é a
+     * tradução inglesa do BIML, e é dela que vêm as páginas citadas.
      *
      * Paginação conferida: os fólios impressos ("— 5 —") coincidem com a
      * página do PDF em seis pontos (1, 5, 6, 8, 13, 20). Triagem e conferência
@@ -538,13 +541,15 @@ export const BOOKS: readonly Book[] = [
      * Paginação conferida: deslocamento constante de 2 entre PDF e impresso
      * (PDF 4 → 2, 16 → 14, 29 → 27, 30 → 28). É digitalização com OCR em
      * Courier: todo número saiu da imagem.
+     *
+     * Autoria: a folha de rosto diz "By Carl F. Snyder and Lester D. Hammond".
+     * A instituição fica no nome curto, como nos Documentos da Embrapa.
      */
     id: 'nbs-457',
     title:
       'Circular 457 — Weights per United States gallon and weights per cubic foot of sugar solutions',
-    authors: ['National Bureau of Standards'],
-    authorKind: 'organization',
-    shortName: 'NBS',
+    authors: ['Carl F. Snyder', 'Lester D. Hammond'],
+    shortName: 'NBS, Circular 457',
     publisher: 'U.S. Government Printing Office',
     year: 1946,
     url: 'https://nvlpubs.nist.gov/nistpubs/Legacy/circ/nbscircular457.pdf',

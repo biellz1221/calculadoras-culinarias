@@ -186,7 +186,7 @@ Forma geral (p. 5):
 
 `p` é **fração mássica** de etanol, `t` em °C. Faixa de validade: −20 a +40 °C.
 
-Os 44 coeficientes estão na p. 13 e foram **transcritos da imagem renderizada**,
+Os 54 coeficientes (12 A, 6 B, 36 C) estão na p. 13 e foram **transcritos da imagem renderizada**,
 porque o PDF não tem camada de texto. O documento usa vírgula decimal e espaços
 como separador de grupo (`9,982 012 300 · 10²` = 998,2012300).
 
@@ -248,7 +248,7 @@ defeito de composição da tabela, não da fórmula.
 tivesse um dígito errado, nenhum dos quatro fecharia". Era falso**, e só
 apareceu ao corromper um coeficiente de propósito: `C₂,₄` trocado de 13,53 para
 13,35 passou por todos os testes. Os quatro primeiros casos têm teor zero (água)
-ou temperatura de 20 °C (OIV, etanol puro), e os 32 coeficientes `Cᵢ,ₖ`
+ou temperatura de 20 °C (OIV, etanol puro), e os 36 coeficientes `Cᵢ,ₖ`
 multiplicam `p^k·(t−20)^i`, que se anula nos dois. Só a grade de 38 células
 exercita os termos cruzados; com a mesma corrupção, 29 delas caem. Canto
 conferido de fora: etanol puro a 40 °C dá 771,93, que é o piso de faixa que
@@ -273,31 +273,45 @@ linha em libras pularia só 0,005 de 15 para 20 °C, onde todas as outras pulam
 ~0,025. O valor coerente é 12,664. Conferido a 500 dpi: é o que está impresso,
 não defeito da digitalização.
 
-**Extrapolação declarada:** acima de 70% Plato só mediu a 15 e 20 °C; de 75 a 95
-°Brix a 10, 25 e 30 °C os valores são extrapolados, "given in italics" (p. 27).
-O motor marca a resposta quando uma dessas células pesa nela.
+**Extrapolação declarada:** de 75 a 95 °Brix a 10, 25 e 30 °C os valores são
+extrapolados, "given in italics" (p. 27). A 15 °C também houve extrapolação, mas
+ela coincidiu "to less than one in the last figure given" com a tabela de Plato
+a 15°/15° C e sai em tipo normal. O motor segue o itálico, e marca a resposta
+quando uma célula itálica pesa nela.
 
-**Peso no ar, não densidade.** A p. 28 declara o ar usado: "the density of air
-(at 20° C, and barometer reading 760 mm of mercury) was taken as 0.0012". Somado
-ao peso no ar por mililitro, devolve a densidade verdadeira. O empuxo sobre os
-pesos da balança não é declarado e fica de fora (~0,014%).
+**Peso no ar, não densidade.** A p. 2, no parágrafo de método, declara as duas
+coisas que a conversão precisa: o peso no vácuo foi convertido em peso no ar com
+"density of air, 0.0012" e "for brass weights (density, 8.4)". Invertendo:
+`ρ = W/V · (1 − ρ_ar/ρ_latão) + ρ_ar`. A mesma página diz que a circular usou
+**453,5924 g por libra** — a libra de antes de 1959.
+
+Uma primeira versão desta seção — e do motor — leu só o ar, que a p. 28 repete
+para a Tabela 2, e afirmou que o empuxo sobre os pesos "não é declarado". É
+declarado. Quem achou foi a revisão de código, ao ler a obra desde a p. 2; a
+conferência com a OIML mostrava um resto sistemático de +0,01 a +0,025% que eu
+atribuí ao que não estava lá.
 
 **Duas fontes independentes para a mesma água** — Plato (1900, tabelado em 1946)
 contra Wagenbreth & Blanke (adotados pela OIML em 1973):
 
-| °C | NBS no ar | NBS + ar da p. 28 | OIML | diferença | sem a correção |
+| °C | NBS no ar | NBS convertido (p. 2) | OIML | diferença | sem conversão |
 | --- | --- | --- | --- | --- | --- |
-| 10 | 0,99857 | 0,99977 | 0,99970 | +0,007% | −0,113% |
-| 15 | 0,99804 | 0,99924 | 0,99910 | +0,015% | −0,105% |
-| 20 | 0,99725 | 0,99845 | 0,99820 | +0,025% | −0,095% |
-| 25 | 0,99593 | 0,99713 | 0,99704 | +0,009% | −0,112% |
-| 30 | 0,99461 | 0,99581 | 0,99565 | +0,016% | −0,104% |
+| 10 | 0,99857 | 0,99963 | 0,99970 | −0,0068% | −0,113% |
+| 15 | 0,99804 | 0,99910 | 0,99910 | +0,0004% | −0,105% |
+| 20 | 0,99725 | 0,99831 | 0,99820 | +0,0106% | −0,095% |
+| 25 | 0,99593 | 0,99699 | 0,99704 | −0,0057% | −0,112% |
+| 30 | 0,99461 | 0,99567 | 0,99565 | +0,0020% | −0,104% |
 
-A correção de ar não é enfeite: sem ela as fontes discordariam dez vezes mais.
+Com a conversão inteira, a diferença troca de sinal entre as temperaturas e fica
+abaixo do arredondamento do grama impresso (±0,5 g em 3.765 g, 0,0133%) — que é
+o que duas fontes certas devem mostrar. Sem conversão, as fontes discordariam
+dez vezes mais.
 
 **Interpolação:** linear em Brix e em temperatura. O erro no meio de um
 intervalo é a segunda diferença ÷ 8; com a maior da tabela (5 g), 0,63 g por
-galão — menos que o arredondamento do grama impresso.
+galão — **0,014%** no pior ponto (45 °Brix, 10 °C), da ordem do arredondamento
+do grama impresso, e não abaixo dele. Uma versão anterior dizia "menos que o
+arredondamento": 0,63 g é maior que os 0,5 g do arredondamento.
 
 **Fora da tabela, nulo:** calda quente (acima de 30 °C) não tem fonte aqui.
 
@@ -358,6 +372,7 @@ galão — menos que o arredondamento do grama impresso.
   Groups and Prediction Models". *Journal of Food Science*.
 - USDA. *FoodData Central, SR Legacy*. Domínio público (CC0).
 - OIV. *Compendium of International Methods of Analysis*, OIV-MA-AS312-02.
-- OIML. *R 22 — International Alcoholometric Tables* (1975, tradução BIML).
-- NBS. *Circular 457 — Weights per United States gallon and weights per cubic
-  foot of sugar solutions*. Domínio público.
+- OIML. *R 22 — Alcoholometry: International alcoholometric tables*. Primeira
+  edição 1973; arquivo na tradução inglesa do BIML.
+- Snyder, C. F. & Hammond, L. D. (1946). *Weights per United States gallon and
+  weights per cubic foot of sugar solutions*. NBS Circular 457. Domínio público.

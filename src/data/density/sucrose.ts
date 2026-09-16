@@ -10,7 +10,8 @@ import { cite } from '../citations';
  * todo número saiu da imagem.
  *
  * O peso é **no ar**, como numa balança. Para voltar à densidade verdadeira a
- * circular declara o ar que usou (ver `NBS_AIR_DENSITY`).
+ * circular declara o ar e os pesos da balança que usou (ver `NBS_AIR_DENSITY`
+ * e `NBS_BRASS_WEIGHT_DENSITY`).
  */
 
 /** Temperaturas das colunas, em °C. */
@@ -21,8 +22,11 @@ export const SUCROSE_BRIX = [
   0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95,
 ] as const;
 
-/** `[libras, gramas]` por galão, no ar. Linha = Brix, coluna = temperatura. */
-export const SUCROSE_WEIGHTS: readonly (readonly (readonly [number, number])[])[] = [
+/** Peso de um galão no ar, nas duas unidades em que a circular imprime. */
+export type GallonWeight = readonly [pounds: number, grams: number];
+
+/** Linha = Brix, coluna = temperatura. */
+export const SUCROSE_WEIGHTS: readonly (readonly GallonWeight[])[] = [
   [[8.334, 3780], [8.329, 3778], [8.322, 3775], [8.312, 3770], [8.301, 3765]],
   [[8.5, 3856], [8.494, 3853], [8.485, 3849], [8.475, 3844], [8.463, 3839]],
   [[8.672, 3933], [8.664, 3930], [8.655, 3926], [8.644, 3921], [8.631, 3915]],
@@ -52,24 +56,42 @@ export const SUCROSE_WEIGHTS: readonly (readonly (readonly [number, number])[])[
 ];
 
 /**
- * Células impressas em itálico, que a circular declara extrapoladas: Plato só
- * mediu acima de 70% a 15 e a 20 °C, "and the values obtained by extrapolation
- * are given in italics" (p. 27). A 10, 25 e 30 °C, de 75 a 95 °Brix.
+ * Células impressas em itálico, que a circular declara extrapoladas: de 75 a 95
+ * °Brix a 10, 25 e 30 °C, "and the values obtained by extrapolation are given in
+ * italics" (p. 27).
+ *
+ * A 15 °C também houve extrapolação, e ela sai em tipo normal de propósito: a
+ * mesma página diz que os valores extrapolados a 15 °C coincidiram, "to less
+ * than one in the last figure given", com os calculados da tabela de Plato a
+ * 15°/15° C. Seguir o itálico é seguir o que a fonte afirma ter medido — não é
+ * esquecimento a consertar.
  */
 export function isExtrapolatedCell(brix: number, celsius: number): boolean {
   return brix >= 75 && (celsius === 10 || celsius === 25 || celsius === 30);
 }
 
 /**
- * Densidade do ar usada no cálculo das tabelas, em g/mL: "the density of air
- * (at 20° C, and barometer reading 760 mm of mercury) was taken as 0.0012"
- * (p. 28).
- *
- * Somada ao peso no ar por mililitro, devolve a densidade verdadeira. Fica de
- * fora o empuxo sobre os pesos da balança, que a circular não declara: é da
- * ordem de 0,014%, abaixo do arredondamento do grama impresso.
+ * Densidade do ar usada no cálculo das tabelas, em g/mL: "density of air,
+ * 0.0012" (p. 2), repetida na p. 28 para a Tabela 2.
  */
 export const NBS_AIR_DENSITY = 0.0012;
 
+/**
+ * Densidade dos pesos da balança, em g/mL: o peso no vácuo foi convertido em
+ * peso no ar "for brass weights (density, 8.4)" (p. 2).
+ *
+ * Uma primeira versão deste arquivo lia só o ar da p. 28 e dizia que a circular
+ * não declarava os pesos. Declara, no parágrafo de método, e a diferença
+ * aparecia como um resto de 0,01–0,025% na conferência com a OIML.
+ */
+export const NBS_BRASS_WEIGHT_DENSITY = 8.4;
+
+/**
+ * Grama por libra que a circular usou: "one pound avoirdupois in grams, which is
+ * 453.5924" (p. 2) — a libra de antes de 1959. A atual (453,59237) difere em
+ * menos de 0,0004 g na maior célula, abaixo de qualquer arredondamento da tabela.
+ */
+export const NBS_GRAMS_PER_POUND = 453.5924;
+
 export const SUCROSE_TABLE_CITATIONS = [cite('nbs-457', 27)];
-export const SUCROSE_AIR_CITATIONS = [cite('nbs-457', 28)];
+export const SUCROSE_BUOYANCY_CITATIONS = [cite('nbs-457', 2), cite('nbs-457', 28)];

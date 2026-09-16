@@ -110,6 +110,9 @@ export function formatTemperatureRange(
 /** Volume: mililitros no métrico, onças líquidas no imperial. */
 export const MILLILITERS_PER_FLUID_OUNCE = 29.5735295625;
 
+/** Galão americano: 128 onças líquidas, pela definição legal (231 pol³). */
+export const MILLILITERS_PER_US_GALLON = 128 * MILLILITERS_PER_FLUID_OUNCE;
+
 export function formatVolume(
   milliliters: number,
   locale: Locale,

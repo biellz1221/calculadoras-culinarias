@@ -1,25 +1,23 @@
 import {
   NBS_AIR_DENSITY,
+  NBS_BRASS_WEIGHT_DENSITY,
   SUCROSE_BRIX,
   SUCROSE_CELSIUS,
   SUCROSE_WEIGHTS,
   isExtrapolatedCell,
 } from '@/data/density/sucrose';
-import { MILLILITERS_PER_FLUID_OUNCE } from '@/lib/units';
+import { MILLILITERS_PER_US_GALLON } from '@/lib/units';
 
 /**
  * Densidade de calda de sacarose, da tabela do NBS 457.
  *
  * A tabela dá peso por galão no ar, de 5 em 5 °Brix e de 5 em 5 °C. Entre os
  * pontos, interpolação linear nas duas direções. A curva é lisa o bastante para
- * isso: a segunda diferença da própria tabela fica entre 1 e 5 g por galão a
- * cada passo, o que limita o erro no meio do intervalo a uns 0,6 g em ~4.000 —
- * menos que o arredondamento do grama impresso. O teste confere essa conta a
- * partir dos dados, não desta frase.
+ * isso: a segunda diferença da própria tabela chega a 5 g por galão, o que põe o
+ * erro no meio de um intervalo em até 0,63 g — 0,014% no pior ponto, da ordem do
+ * arredondamento do grama impresso (0,013%). O teste dos dados confere essa conta
+ * a partir da tabela, não desta frase.
  */
-
-/** Galão americano: 128 onças fluidas, pela definição legal (231 pol³). */
-export const MILLILITERS_PER_US_GALLON = 128 * MILLILITERS_PER_FLUID_OUNCE;
 
 export interface SucroseDensity {
   /** Densidade verdadeira, em g/mL. */
@@ -52,10 +50,15 @@ function bracketIn(grid: readonly number[], value: number): Bracket | null {
   return { low, high: low + 1, weight: (value - from) / (to - from) };
 }
 
-/** Peso no ar por mililitro, somado ao ar declarado na p. 28. */
+/**
+ * Densidade verdadeira a partir do peso no ar, invertendo a conversão que a
+ * circular descreve na p. 2: numa balança de pesos de latão, o peso no ar `W` de
+ * um volume `V` vale `V·(ρ − ρ_ar) ÷ (1 − ρ_ar/ρ_latão)`.
+ */
 function trueDensityAt(brixIndex: number, celsiusIndex: number): number {
-  const grams = SUCROSE_WEIGHTS[brixIndex]![celsiusIndex]![1];
-  return grams / MILLILITERS_PER_US_GALLON + NBS_AIR_DENSITY;
+  const [, grams] = SUCROSE_WEIGHTS[brixIndex]![celsiusIndex]!;
+  const buoyancy = 1 - NBS_AIR_DENSITY / NBS_BRASS_WEIGHT_DENSITY;
+  return (grams / MILLILITERS_PER_US_GALLON) * buoyancy + NBS_AIR_DENSITY;
 }
 
 /**

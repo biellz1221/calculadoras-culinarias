@@ -9,9 +9,9 @@ import {
 /**
  * A fórmula da OIML R 22 contra o que ela deveria reproduzir.
  *
- * Os 44 coeficientes foram transcritos à mão de uma imagem. A conferência
+ * Os 54 coeficientes foram transcritos à mão de uma imagem. A conferência
  * precisa variar teor e temperatura ao mesmo tempo — só água, ou só 20 °C,
- * deixa 32 coeficientes sem teste (ver a grade da Tabela I). Os casos do etanol
+ * deixa os 36 coeficientes cruzados sem teste (ver a grade da Tabela I). Os casos do etanol
  * puro e do máximo da água não saem de tabela nenhuma.
  * Extração e conferência em docs/research/densidade.md, Parte IV-A.
  */
@@ -39,7 +39,7 @@ describe('a fórmula reproduz as tabelas', () => {
   /**
    * Teor e temperatura variando juntos.
    *
-   * Os casos de água (teor zero) e os de 20 °C deixam de fora 32 dos 44
+   * Os casos de água (teor zero) e os de 20 °C deixam de fora 36 dos 54
    * coeficientes: os `Cᵢ,ₖ` multiplicam `p^k·(t−20)^i`, que se anula nos dois.
    * Corromper `C₂,₄` passava por todos os outros testes deste arquivo; nesta
    * grade, derruba 29 das 38 células. Lidas na imagem girada da Tabela I.
@@ -91,7 +91,8 @@ describe('a fórmula acerta o que não sai de tabela', () => {
   });
 
   it('põe o máximo de densidade da água perto de 4 °C', () => {
-    // Fato físico (3,98 °C), não número de tabela. Varre de décimo em décimo.
+    // Fato físico (3,98 °C), não número de tabela. Na varredura de décimo em
+    // décimo o máximo cai exatamente em 4,0.
     let densestCelsius = 0;
     let best = 0;
     for (let tenth = 0; tenth <= 100; tenth++) {
@@ -101,8 +102,7 @@ describe('a fórmula acerta o que não sai de tabela', () => {
         densestCelsius = tenth / 10;
       }
     }
-    expect(densestCelsius).toBeGreaterThanOrEqual(3.8);
-    expect(densestCelsius).toBeLessThanOrEqual(4.2);
+    expect(densestCelsius).toBe(4);
   });
 });
 
@@ -112,11 +112,11 @@ describe('teor em massa não é teor em volume', () => {
     // haver fórmula. 0,948 é a densidade de 40% em VOLUME. O teste nasce da
     // correção, para que a troca não volte calada.
     const massFraction = massFractionFromVolume(0.4)!;
-    expect(massFraction).toBeCloseTo(0.333, 3);
-    expect(ethanolWaterDensity(massFraction, 20)).toBeCloseTo(0.948, 3);
+    expect(massFraction).toBeCloseTo(0.333, 5);
+    expect(ethanolWaterDensity(massFraction, 20)).toBeCloseTo(0.948, 4);
 
-    expect(volumeFractionFromMass(0.36)).toBeCloseTo(0.43, 2);
-    expect(ethanolWaterDensity(0.36, 20)).toBeCloseTo(0.943, 3);
+    expect(volumeFractionFromMass(0.36)).toBeCloseTo(0.43015, 5);
+    expect(ethanolWaterDensity(0.36, 20)).toBeCloseTo(0.94303, 5);
   });
 
   it('ida e volta entre massa e volume devolve o mesmo teor', () => {
