@@ -3,9 +3,13 @@
 **Data:** 2026-09-16 · **Branch:** `feature/motor-densidade` (a partir de
 `docs/pesquisa-densidade`)
 
-Motor puro, sem página: densidade de mistura de água e etanol (OIML R 22) e de
-calda de sacarose (NBS Circular 457), mais a conversão mililitro ↔ grama.
+Motor puro, sem página: densidade de mistura de água e etanol (OIML R 22), de
+calda de sacarose (NBS Circular 457) e de líquido de composição conhecida
+(Choi & Okos, via ASHRAE e Fricke & Becker), mais a conversão mililitro ↔ grama.
 Pesquisa em `docs/research/densidade.md`.
+
+O relatório tem duas rodadas. A primeira entregou as duas réguas medidas; a
+segunda, depois de o dono autorizar citar o ASHRAE, o modelo composicional.
 
 ## Verificação
 
@@ -173,11 +177,8 @@ mensagens dos commits `8cdbe9c` (já empurrado), `66f28e5` e `55267fe` repetem
 
 ## Decisões que ficaram, com o porquê
 
-- **Duas réguas, não três.** O modelo composicional (Choi & Okos) ficou fora: os
-  coeficientes só foram lidos no ASHRAE, obra paga. Não houve reprodução aberta
-  alcançável (EOLSS corta na seção; auto-arquivo de Becker & Fricke em 404;
-  Internet Archive fora do ar). Citar o artigo de 1986 sem lê-lo seria
-  localizador inventado.
+- **Duas réguas, não três — na primeira rodada.** O modelo composicional ficou
+  fora por falta de fonte aberta alcançável. Revertido na segunda rodada (abaixo).
 - **Densidade verdadeira, em g/mL.** É a grandeza da OIML e a unidade que o repo
   já usa. A balança lê peso no ar, ~0,12% abaixo — irrelevante na cozinha e
   declarado nos comentários.
@@ -190,7 +191,132 @@ mensagens dos commits `8cdbe9c` (já empurrado), `66f28e5` e `55267fe` repetem
 
 ## Pendências
 
-- Fonte aberta para os coeficientes do Choi & Okos (ou decisão sobre citar o
-  ASHRAE) — trava leite, creme, óleo e mel.
+- ~~Fonte para os coeficientes do Choi & Okos~~ — resolvida na segunda rodada.
+- Densidade medida de líquido gorduroso, para conferir o coeficiente da gordura.
 - Recorte do catálogo de líquidos — decisão de produto.
 - Página da calculadora (skill `nova-calculadora`).
+
+---
+
+# Segunda rodada — o modelo composicional
+
+**Commits:** `de7ba6e` (modelo) e o seguinte (correções da revisão e da
+auditoria). O dono autorizou citar o ASHRAE e pediu nova tentativa pelo
+Internet Archive.
+
+## Verificação
+
+| Etapa | Resultado |
+| --- | --- |
+| `pnpm verify`, cache de tipos apagado, estado final | **exit 0** — 1389 testes em 73 arquivos |
+| `pnpm test:e2e` em `de7ba6e` | **404 de 404**, rodada completa, com a máquina sem a carga externa |
+| `pnpm test:e2e`, estado final | **404 de 404** |
+| Testes do modelo composicional | 29 |
+| Prova por mutação | carboidrato 1599,1 → 1509,1: caem os testes contra o NBS · normalizar a equação (6): cai o exemplo do ASHRAE · e cada uma das seis travas novas removida derruba exatamente o seu teste (folga de ponto flutuante, chave desconhecida, leitura pelo protótipo, fibra maior que o total, estouro da mistura, álcool) · fibra 1311,5 → 1131,5: **não cai nada** (declarado) |
+
+## Arquivos
+
+- `src/data/density/composition.ts`, `src/lib/density/composition.ts` (+ teste)
+- `src/data/books.ts` — `ashrae-refrigeration` (`book`, `chapter`), `fricke-becker-2001` (`article`, `page`) e o `kind: 'article'`
+- `src/lib/structured-data.ts` (+ teste), `src/app/llms.txt/route.ts`, `src/data/citations.test.ts`
+
+## O que a própria rodada achou
+
+- **Teste de recusa de álcool passava pelo motivo errado.** Com a trava removida,
+  o destilado seguia recusado pela checagem da soma. Achado por mutação; a
+  primeira correção ainda dependia da tolerância (ver R3).
+- **Fibra sem caso-verdade.** Nenhuma fonte exercita o coeficiente; corrompê-lo
+  não derruba nada. Custo medido: 0,13% no suco de ameixa. Declarado.
+- **Dois artigos dos mesmos autores.** A pista "Becker & Fricke, 1999" e o
+  arquivo "Fricke & Becker, 2001" são trabalhos diferentes; o cap. 19 cita os
+  dois. O recuperado é o de 2001.
+
+## Revisão de código
+
+Agente `code-reviewer`. Conferiu os seis coeficientes nas imagens das duas
+fontes (a 300 dpi), recalculou o exemplo 4, o viés da água e os erros contra o
+NBS (85 células) — tudo confere. Rodou 21 mutações numa cópia fora do repo.
+Achou:
+
+### R1. ALTO — pesquisa e relatório fora do commit
+
+Estavam na árvore de trabalho esperando a revisão. **Entram no commit das
+correções.** A regra do projeto é que a pesquisa preceda os dados; neste branch
+o commit do modelo veio antes do texto que o autoriza.
+
+### R2. ALTO — "recusa fibra contada duas vezes" era falso
+
+A checagem da soma só recusava a ameixa, e por 0,0001; as outras dez bebidas da
+Tabela 3 passavam errando até 0,33%. **Corrigido pelo contrato**, não pela
+detecção: o motor recebe `totalCarbohydrate` e `fiber` como a tabela imprime e
+subtrai por dentro; fibra maior que o total é recusada. O erro deixou de ser
+possível.
+
+### R3. ALTO — bordas 0,99 e 1,01 recusadas por ponto flutuante
+
+`Math.abs(0,99 − 1)` = 0,010000000000000009. **Corrigido** com folga explícita
+de 10⁻⁹ e testes das quatro bordas.
+
+### Médios e baixos, todos aplicados
+
+- **Teste do álcool ainda dependia da tolerância**: com ela em 0,004 e a trava
+  removida, passava de novo. Agora usa frações que somam exatamente 1 sem o
+  álcool. Também entrou o caso do exemplo 4 (soma 1,0034) passando pelo motor,
+  que é o motivo escrito da tolerância.
+- **Chave desconhecida era ignorada**: `{ ethanol: 0,005 }` furava a trava do
+  álcool. Recusada agora (`Record<keyof Composition, true>` + `Object.hasOwn`).
+- **Bordas 100 °C e 150 °C, álcool negativo e NaN** sem teste — acrescentados.
+- **Limites da calda**: `> 0,003` virou `≥ 0,0035`; o teste até 70 °Brix passou
+  a fixar as duas pontas e a exigir que haja células.
+- **Inclinação do carboidrato**: a revisão mediu que passava de −0,36 a −0,31.
+  Com os limites apertados, remedido: −0,3105 a −0,3090. O comentário diz o
+  número novo — e registrou-se no LEARNINGS que eu tinha copiado o antigo antes
+  de apertar os testes.
+- **Janela de temperatura validada** (10–30 °C) menor que a de resposta
+  (0–100 °C), com o erro crescendo com o calor. Declarado nos dados e na
+  pesquisa.
+- **Afirmação sem fonte em `books.ts`** ("os autores escrevem o capítulo"): o
+  cap. 19 é atribuído ao TC 10.5. Trocada pelo que se cita: o cap. 19 cita o
+  artigo (p. 19.25).
+- **"6% or less"** é sobre as equações das Tabelas 1 e 2, não sobre a densidade
+  de um alimento. A constante que convidava a tela a dizer "erra até 6%" saiu, e
+  a pesquisa diz o que a frase cobre.
+- **Citações do ASHRAE com fólio**: `cap. 19, pp. 19.1–19.2, Tabelas 1 e 2` e
+  `p. 19.6, equação (6); p. 19.11, Example 4`.
+- **`publisher` com "nº"** em português saindo no JSON-LD: virou `HVAC&R Research 7(4)`.
+- **Teste do JSON-LD reimplementava o mapeamento**: acrescentado
+  `getBook('fricke-becker-2001').kind === 'article'` em `citations.test.ts`.
+- **JSDoc deslocado** em `structured-data.ts`: cada comentário no seu lugar.
+- **Números menores**: fibra "~0,12%" → 0,13%; "reproduz tudo" → o gelo entra
+  como a página imprime, o motor não o calcula.
+
+## Segurança
+
+Agente `security-auditor`: 0 crítico, 0 alto, 0 médio, **2 baixos**, ambos
+aplicados.
+
+- **SEV-001** — `composition[constituent]` subia a cadeia de protótipo:
+  `Object.create({ water: 1 })` respondia como água. Leitura agora só por
+  propriedade própria. Teste e mutação.
+- **SEV-002** — `mixtureDensity` com densidade subnormal estourava para
+  `1/∞ = 0`. Agora devolve nulo. Teste e mutação.
+
+Confirmado seguro: o JSON-LD escapa todo `<` (o `&` de "HVAC&R" é seguro ali); a
+URL do Wayback é uma requisição HTTPS só, sem conteúdo misto; o link de citação
+usa `rel="noreferrer"` sem `target="_blank"`; nenhuma dependência nova.
+
+## Decisões, com o porquê
+
+- **Modelo publicado, não híbrido.** A água da OIML melhoraria a média contra o
+  NBS (0,30% contra 0,42%), mas seria um modelo que nenhuma fonte publica. O viés
+  da água fica declarado e testado.
+- **Sem normalizar as frações**, como o exemplo resolvido do ASHRAE.
+- **Fibra pelo contrato**, não pela soma.
+- **Soma dentro de 1 ± 0,01**, com folga de ponto flutuante: cobre arredondamento
+  de tabela, e só isso.
+- **Recusa álcool e chave desconhecida.**
+- **Artigo não é livro**: `kind: 'article'`, fora da vitrine, `ScholarlyArticle`.
+- **ASHRAE como `book` aparece na estante da home** antes de a página de
+  densidade existir — a revisão confirmou que contraria o texto da estante
+  ("toda proporção exibida aponta para uma delas"). Aceito até a página sair;
+  alternativa é segurar o merge deste branch até lá.

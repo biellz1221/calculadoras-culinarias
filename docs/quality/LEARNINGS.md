@@ -354,6 +354,26 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   não fecham, e a suavidade da coluna diz qual errou. A 500 dpi o "644" está
   impresso — não é o scan. Sem a segunda unidade, o número errado teria entrado
   calado ou, pior, "corrigido" na direção errada.
+- **Mesmos autores, dois artigos: a pista de memória mistura os dois.** Eu
+  procurava "Becker & Fricke, 1999" e o arquivo recuperado era "Fricke & Becker,
+  2001". Os dois existem — o cap. 19 do ASHRAE cita ambos na mesma frase. A ordem
+  dos autores e o ano são o que distingue um do outro; a folha de rosto do
+  arquivo que você tem na mão é a única que diz qual é. É o caso do Ruhlman de
+  novo, em artigo.
+- **Exemplo resolvido cujas frações não fecham em 1 é para ser seguido, não
+  corrigido.** O exemplo 4 do ASHRAE soma frações que dão 1,0034 e publica
+  ρ = 996 kg/m³ sem normalizar. Normalizar "para ficar certo" daria 999,6 e
+  poria o motor em desacordo com a fonte que ele cita. Reproduzir o exemplo como
+  a página faz é o teste; melhorar a conta é outro modelo.
+- **Carboidrato total de tabela de composição já inclui a fibra.** A amêndoa da
+  Tabela 3 do ASHRAE fecha em 100,01% sem a coluna de fibra; o USDA calcula
+  carboidrato "by difference", que também a contém. Um modelo que tem fibra como
+  constituinte separado recebe a fibra duas vezes se ninguém subtrair — e erra
+  calado, porque 1% a mais de massa não parece nada. **Conferir a soma não
+  resolve**: medido nas 11 bebidas da Tabela 3, a checagem só recusava a ameixa,
+  e por 0,0001. O que resolve é o contrato receber as duas colunas como a tabela
+  imprime e subtrair por dentro. Trava que detecta cobre menos do que parece;
+  contrato que impede cobre tudo.
 - **OCR localiza, imagem lê.** Com 71 páginas de scan sem texto, o Tesseract
   achou em segundos a página "NUMERICAL COEFFICIENTS OF THE FORMULA"; os 54
   números saíram do recorte da imagem. E ele **falha calado fora do scratchpad**:
@@ -556,3 +576,25 @@ já custou tempo aqui; a ideia é não pagar duas vezes.
   um a um, pega 115 dos 223 erros de ±0,001–0,002 lb que escapam — pouco mais da
   metade. O comentário do teste diz isso; "pega o que a outra deixa passar",
   sem número, teria sido a mesma afirmação sem fonte que este arquivo cataloga.
+- **Duas travas que recusam o mesmo caso escondem uma da outra.** O teste "recusa
+  álcool" usava um destilado e passou com a trava do álcool removida: sem o
+  álcool as frações somavam 0,64, e a checagem da soma recusou no lugar. A trava
+  só é necessária onde a outra não alcança — e "onde não alcança" precisa valer
+  para qualquer valor da outra. A segunda tentativa (0,5% de álcool, resto
+  somando 0,995) ainda dependia da tolerância: apertada, voltava a esconder. O
+  caso final soma **exatamente 1** sem o álcool. Para cada trava, o teste precisa
+  de um caso que **só ela** recusa, qualquer que seja a configuração das outras;
+  mutação é o jeito de saber qual é.
+- **Coeficiente sem caso-verdade: meça o que o erro custa, e escreva.** A fibra
+  do Choi & Okos não aparece em nenhum exemplo nem em nenhuma régua medida
+  (carne e calda não têm fibra); corrompê-la não derruba teste nenhum. Em vez de
+  um teste que repete a constante — que protege de edição, não de leitura
+  errada —, a conta: 14% de erro no coeficiente move um suco com 1% de fibra em
+  0,13% (o suco de ameixa). O número fica ao lado da constante, e a lacuna fica
+  dita.
+- **Número sobre o que o teste trava muda quando o teste muda.** A revisão mediu
+  que a inclinação do carboidrato passava pelos testes de −0,36 a −0,31, e eu
+  copiei isso para o comentário ao lado da constante — no mesmo passo em que
+  apertava os limites dos testes. Remedido depois: −0,3105 a −0,3090. O
+  comentário dizia que um dígito errado passaria, e já não passava. Afirmação
+  sobre cobertura se mede **depois** da última mudança nos testes, nunca antes.

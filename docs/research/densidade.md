@@ -1,8 +1,9 @@
 # Densidade de líquidos — converter mililitro em grama
 
-Pesquisa que precede a calculadora de densidade. Autorizou o motor v1
-(`src/data/density/`, `src/lib/density/`): água e etanol pela OIML R 22, calda
-de sacarose pelo NBS 457. O modelo composicional **não** entrou — ver Parte V.
+Pesquisa que precede a calculadora de densidade. Autorizou o motor
+(`src/data/density/`, `src/lib/density/`) com três réguas: água e etanol pela
+OIML R 22, calda de sacarose pelo NBS 457, e os demais líquidos pela composição
+(Choi & Okos, via ASHRAE e Fricke & Becker) — Parte IV-B.
 
 O problema: receita que dá líquido em volume ("200 mL de leite", "meia xícara de
 mel") não se pesa. Converter exige a densidade, que muda com o ingrediente e com
@@ -22,6 +23,7 @@ conteúdo.
 | OIML R 22 | `Producer: Xerox`, **zero fontes** | **scan puro, sem camada de texto**; todo número sai da imagem |
 | NBS Circular 457 | `Creator: Digitized by the Internet Archive`, fonte única `Courier` | **OCR sobre imagem**; número só vale conferido na imagem |
 | USDA SR Legacy | CSV, dado estruturado | n/a |
+| Fricke & Becker (2001), *HVAC&R Research* 7(4) | `Creator: FrameMaker 6.0`, Times não embutida | **texto digital**; versão diagramada da revista. Impressa = PDF + 310, conferido em 4 pontos |
 
 Duas observações que valem para o futuro:
 
@@ -133,8 +135,8 @@ qualquer uso desses ingredientes em conta de densidade herdaria os 5%.
 ## Parte IV — As três réguas
 
 Nenhuma delas cobre o que as outras cobrem, e a tela precisa **declarar qual
-respondeu** em cada caso. No motor v1 entraram a 2 e a 3; a 1 espera fonte
-aberta (Parte V).
+respondeu** em cada caso. As três estão no motor; a 1 está detalhada na Parte
+IV-B.
 
 ### 1. Líquido comum → modelo composicional
 
@@ -317,6 +319,97 @@ arredondamento": 0,63 g é maior que os 0,5 g do arredondamento.
 
 ---
 
+## Parte IV-B — O modelo composicional, citado e medido
+
+**Fontes.** O dono do projeto autorizou citar o ASHRAE (obra comercial). A nova
+tentativa pelo Internet Archive recuperou o auto-arquivo dos autores: **Fricke,
+B. A. & Becker, B. R. (2001)**, *HVAC&R Research* 7(4): 311–330. A pista que eu
+tinha era "Becker & Fricke, 1999" — e os dois existem: o próprio cap. 19 do
+ASHRAE cita "Becker and Fricke (1999) and Fricke and Becker (2001, 2002)"
+(p. 19.25). A pista misturou dois trabalhos dos mesmos autores; o arquivo
+recuperado é o de 2001, conferido na folha de rosto. O artigo reproduz as seis
+equações na p. 312, iguais às das Tabelas 1 e 2 do ASHRAE em coeficiente,
+expoente e sinal (conferido na imagem das duas obras). É a segunda fonte que
+confere a transcrição. **Não traz densidade medida.** A frase "the equations
+presented in Tables 1 and 2 produce an error of 6% or less" é sobre as equações
+de todas as propriedades, não sobre a densidade prevista de um alimento, e não
+deve virar "o modelo erra até 6%" na tela.
+
+Um tipo novo na estante: artigo de periódico não é livro. `kind: 'article'`
+fica fora da vitrine da home, sai como `ScholarlyArticle` no JSON-LD e com
+rótulo próprio no `llms.txt`.
+
+**O caso-verdade da conta — o exemplo resolvido do ASHRAE** (cap. 19, Example
+4, carne de porco a −40 °C). A página imprime a densidade de cada constituinte
+(água 991,04, gelo 922,12, proteína 1350,6, gordura 942,29, cinza 2435,0 kg/m³),
+a soma da equação (6) — `Σ xᵢ/ρᵢ = 1,0038 × 10⁻³` — e `ρ = 996 kg/m³`. O motor
+reproduz as quatro densidades que calcula (água, proteína, gordura, cinza) e a
+soma, dentro do arredondamento impresso (996,24). O gelo o motor não calcula:
+entra no teste como a página imprime.
+
+As frações do exemplo **somam 1,0034**, e a fonte usa assim, sem normalizar. O
+motor faz o mesmo: normalizar "para ficar certo" discordaria do livro em 0,34%.
+A composição só é recusada quando a soma se afasta de 1 mais que 0,01.
+
+**O caso-verdade da física — as outras duas réguas do motor.**
+
+| Comparação | Resultado |
+| --- | --- |
+| Água do modelo × OIML, 0 a 40 °C | **sempre abaixo**, de −0,09% (40 °C) a −0,29% (7 °C) |
+| Calda do modelo (água + carboidrato) × NBS, até 70 °Brix, 10 a 30 °C | de **−0,62%** (40 °Brix, 10 °C) a **+0,43%** (70 °Brix, 30 °C) |
+| Idem, de 75 a 95 °Brix (15 e 20 °C, medidos) | **sempre acima**, de +0,35% a **+2,05%** (95 °Brix, 20 °C) |
+
+O modelo soma volumes, e açúcar dissolvido contrai: acima de 70% de sólidos ele
+superestima, e é a faixa do mel. **O erro cresce com o calor**: a 70 °Brix vai
+de −0,005% a 10 °C para +0,43% a 30 °C, e a célula extrapolada de 95 °Brix a
+30 °C dá +2,28%. As caldas só foram medidas de 10 a 30 °C; o motor responde de
+0 a 100 °C, e fora daquela janela ninguém conferiu.
+
+**Quanto os testes travam os coeficientes.** Com os limites acima, a inclinação
+do carboidrato só passa entre −0,3105 e −0,3090 — um dígito errado na segunda
+ou terceira casa cai. Uma primeira versão, com limites mais frouxos, deixava
+passar de −0,36 a −0,31; foi a revisão de código que mediu.
+
+**Modelo publicado, não híbrido.** Trocar a água do Choi & Okos pela da OIML
+melhora a média contra o NBS (0,30% contra 0,42%) e zera o erro da água pura.
+Mas seria um modelo que nenhuma fonte publica, e quem abrir o ASHRAE não
+reproduziria o número. A diferença entre os dois (0,24%) é menor que o erro do
+próprio modelo. Fica o publicado, com o viés declarado.
+
+**Fibra: o contrato impede, a soma não detecta.** Nas tabelas de composição o
+carboidrato total já inclui a fibra: a amêndoa do ASHRAE (Tabela 3) fecha em
+100,01% **sem** a coluna de fibra (10,90%). Uma primeira versão do motor recebia
+carboidrato sem fibra e confiava na checagem da soma para recusar a fibra
+contada duas vezes. A revisão mediu: nas 11 bebidas da Tabela 3, a soma só
+recusava a ameixa, e por 0,0001 — as outras dez passavam errando até 0,33%.
+**Agora o motor recebe `totalCarbohydrate` e `fiber`, como a tabela imprime, e
+subtrai por dentro**; fibra maior que o total é recusada. O erro deixou de ser
+possível em vez de depender de ser pego.
+
+**Fibra sem caso-verdade.** Carne e calda não têm fibra, então nenhum dos casos
+acima exercita esse coeficiente. Corrompido de 1311,5 para 1131,5, não derruba
+teste nenhum. Medido o que isso custa: o suco de ameixa (1% de fibra) muda
+0,13%, dentro do erro do próprio modelo. Declarado ao lado do número.
+
+**Álcool recusado.** O modelo não tem etanol. O primeiro teste da recusa usava o
+destilado do USDA e passava com a trava removida: sem o álcool, as frações
+somavam 0,64 e a checagem da soma recusava por outro motivo. A segunda versão
+usava 0,5% de álcool com o resto somando 0,995 — e ainda dependia da tolerância:
+com ela apertada, voltava a passar pelo motivo errado. A versão final usa
+frações que, sem o álcool, somam **exatamente 1**: nenhuma tolerância recusa, só
+a trava. Chave desconhecida (`ethanol` em vez de `alcohol`) também é recusada,
+senão o álcool com nome errado passaria como ausente.
+
+**Soma e ponto flutuante.** `Math.abs(0,99 − 1)` vale 0,010000000000000009, e a
+borda que a tolerância promete aceitar era recusada. O motor compara com uma
+folga explícita de 10⁻⁹, e os testes fixam 0,99 e 1,01 aceitos, 0,9899 e 1,0101
+recusados.
+
+**Faixa:** as equações valem de −40 a 150 °C; o motor responde de 0 a 100 °C,
+onde o alimento é líquido sem precisar de fração de gelo.
+
+---
+
 ## Parte V — O que ficou decidido
 
 - **A calculadora é de líquidos, e recusa sólidos.** Não é escopo tímido: é onde
@@ -327,15 +420,13 @@ arredondamento": 0,63 g é maior que os 0,5 g do arredondamento.
 - **A tela diz qual régua respondeu.** Modelo composicional, tabela alcoométrica
   e curva de Brix têm autoridades diferentes, como a geleia já faz com receita
   citada / receita fresca / norma.
-- **O ASHRAE não vai para a estante — e por isso o modelo composicional ficou
-  fora do motor.** Os coeficientes do Choi & Okos só foram lidos no handbook,
-  que é obra comercial. Procurou-se reprodução aberta e citável: o capítulo da
-  EOLSS é *sample chapter* e corta exatamente na seção "Theoretical Density
-  Models"; o artigo de Becker & Fricke auto-arquivado na UMKC devolve 404; o
-  Internet Archive estava fora do ar. Citar o artigo original de 1986 sem tê-lo
-  lido seria localizador inventado. **O motor v1 tem duas réguas, não três:**
-  OIML para água e etanol, NBS para calda de sacarose. Leite, creme, óleo e mel
-  esperam decisão sobre a fonte (ver pendências).
+- **O ASHRAE entra na estante, com o Fricke & Becker ao lado.** Uma primeira
+  versão desta pesquisa deixava o modelo composicional fora por falta de fonte
+  aberta: o capítulo da EOLSS corta na seção de densidade, o auto-arquivo da
+  UMKC devolvia 404 e o Internet Archive estava fora do ar. O dono autorizou
+  citar o handbook, e a nova tentativa achou o artigo no Internet Archive.
+  O artigo original de Choi & Okos (1986) segue sem leitura, e por isso não é
+  citado no site: cita-se quem foi lido.
 
 ## Pendências
 
@@ -349,11 +440,13 @@ arredondamento": 0,63 g é maior que os 0,5 g do arredondamento.
 - [x] ~~Conferir na imagem os pontos do NBS 457 que virarem código.~~ Tabela 2
       inteira, conferida por redundância libra × grama; um erro tipográfico da
       fonte achado e documentado.
-- [ ] **Fonte do modelo composicional** (leite, creme, óleo, mel). Opções: (a)
-      citar o ASHRAE, obra paga — pede decisão do dono; (b) tentar de novo o
-      auto-arquivo de Becker & Fricke quando o Internet Archive voltar; (c)
-      deixar esses líquidos fora. Recomendação: (b), com (c) como padrão enquanto
-      não houver fonte aberta.
+- [x] ~~Fonte do modelo composicional.~~ ASHRAE autorizado pelo dono; Fricke &
+      Becker (2001) recuperado no Internet Archive. Parte IV-B.
+- [ ] Densidade **medida** de algum líquido gorduroso (óleo, creme). Nenhuma das
+      fontes lidas tem: o ASHRAE só traz "0,92 g/cm³" de óleo de amêndoa
+      (Wachsmuth, 1892, duas casas, sem temperatura), e o Fricke & Becker não
+      mede densidade. O coeficiente da gordura hoje só se confere pela
+      transcrição e pelo exemplo a −40 °C.
 - [ ] Peso de porção do USDA não serve como densidade sem conferência item a
       item (Parte II): se o catálogo usar, cada entrada precisa de uma segunda
       forma de conferir.
@@ -363,10 +456,14 @@ arredondamento": 0,63 g é maior que os 0,5 g do arredondamento.
 ## Fontes
 
 - ASHRAE. *2022 ASHRAE Handbook—Refrigeration (SI)*, cap. 19, "Thermal
-  Properties of Foods". Obra comercial; usada como mapa, não citada no site.
+  Properties of Foods". Obra comercial; citada por autorização do dono.
+- Fricke, B. A. & Becker, B. R. (2001). "Evaluation of Thermophysical Property
+  Models for Foods". *HVAC&R Research* 7(4): 311–330. Auto-arquivo dos autores,
+  recuperado do Internet Archive.
 - Choi, Y. & Okos, M. R. (1986). "Effects of temperature and composition on the
   thermal properties of foods". Em *Food Engineering and Process Applications,
-  Vol. 1: Transport Phenomena*, pp. 93–101. Elsevier.
+  Vol. 1: Transport Phenomena*, pp. 93–101. Elsevier. **Não lido**; as equações
+  vêm das duas reproduções acima.
 - Phinney, D. M. et al. (2017). "Composition-Based Prediction of
   Temperature-Dependent Thermophysical Food Properties: Reevaluating Component
   Groups and Prediction Models". *Journal of Food Science*.

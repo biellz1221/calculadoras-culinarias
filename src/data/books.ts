@@ -565,9 +565,8 @@ export const BOOKS: readonly Book[] = [
      * com a densidade de cada constituinte em função da temperatura e um
      * exemplo resolvido que o motor reproduz.
      *
-     * Obra comercial. Entrou por decisão do dono do projeto, depois de a busca
-     * por reprodução aberta ter achado o artigo de Fricke & Becker, que confere
-     * as mesmas equações.
+     * Obra comercial, citada por decisão do dono do projeto. As mesmas equações
+     * estão no artigo aberto de Fricke & Becker, que confere a transcrição.
      *
      * A paginação do handbook é por capítulo ("19.6"), e o campo de página é
      * número: cita-se por capítulo e seção. Fólios conferidos em quatro pontos
@@ -586,12 +585,14 @@ export const BOOKS: readonly Book[] = [
   {
     /**
      * A reprodução aberta das equações de densidade de Choi & Okos: Tabelas 1
-     * e 2, p. 312, iguais às do ASHRAE em coeficiente, expoente e sinal. Os
-     * autores escrevem também o capítulo do handbook.
+     * e 2, p. 312, iguais às do ASHRAE em coeficiente, expoente e sinal. O
+     * próprio cap. 19 do ASHRAE cita este artigo (p. 19.25) — e cita também um
+     * Becker & Fricke de 1999, que é outro trabalho dos mesmos autores.
      *
-     * Não traz densidade medida — só repassa que Choi & Okos declaram erro "of
-     * 6% or less" (p. 312). Serve de segunda fonte da transcrição, não de
-     * caso-verdade.
+     * Não traz densidade medida. A frase "an error of 6% or less" (p. 312) é
+     * sobre as equações das Tabelas 1 e 2, de todas as propriedades, e não
+     * sobre a densidade prevista de um alimento. Serve de segunda fonte da
+     * transcrição, não de caso-verdade.
      *
      * Cópia: auto-arquivo dos autores na UMKC, hoje fora do ar, recuperado do
      * Internet Archive. Paginação conferida: impressa = PDF + 310 em quatro
@@ -600,7 +601,7 @@ export const BOOKS: readonly Book[] = [
     id: 'fricke-becker-2001',
     title: 'Evaluation of Thermophysical Property Models for Foods',
     authors: ['Brian A. Fricke', 'Bryan R. Becker'],
-    publisher: 'HVAC&R Research, vol. 7, nº 4',
+    publisher: 'HVAC&R Research 7(4)',
     year: 2001,
     url: 'https://web.archive.org/web/20160705041742/http://b.web.umkc.edu/beckerb/publications/journals/thermophysical.pdf',
     locator: 'page',

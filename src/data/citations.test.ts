@@ -90,6 +90,9 @@ describe('estante', () => {
     // de segurança é exceção declarada (TD-004).
     expect(getBook('nchfp').kind).toBe('official');
     expect(getBook('gelato-course').kind).toBe('course');
+    // Artigo de periódico não se passa por livro — e o teste do JSON-LD, que
+    // deriva o tipo do próprio `kind`, não pegaria se passasse.
+    expect(getBook('fricke-becker-2001').kind).toBe('article');
     expect(BOOKS.filter((book) => book.kind === 'book').length).toBeGreaterThanOrEqual(8);
   });
 });

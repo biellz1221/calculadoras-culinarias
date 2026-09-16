@@ -38,12 +38,10 @@ function publisher(locale: Locale): Node {
 }
 
 /**
- * Uma obra da estante em schema.org.
- *
- * O tipo acompanha o que a obra é de verdade: livro é `Book`, artigo de
- * periódico é `ScholarlyArticle`, orientação oficial e planilha de curso são
- * `CreativeWork`. Chamar todas de livro facilitaria o código e mentiria na
- * saída.
+ * O tipo schema.org de uma obra, que acompanha o que ela é de verdade: livro é
+ * `Book`, artigo de periódico é `ScholarlyArticle`, orientação oficial e
+ * planilha de curso são `CreativeWork`. Chamar todas de livro facilitaria o
+ * código e mentiria na saída.
  */
 function schemaTypeOf(book: Book): string {
   if (book.kind === 'book') return 'Book';
@@ -51,6 +49,7 @@ function schemaTypeOf(book: Book): string {
   return 'CreativeWork';
 }
 
+/** Uma obra da estante em schema.org. */
 function creativeWork(book: Book): Node {
   const authorType = book.authorKind === 'organization' ? 'Organization' : 'Person';
 
