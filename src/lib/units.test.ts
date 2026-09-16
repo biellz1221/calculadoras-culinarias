@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   GRAMS_PER_OUNCE,
   GRAMS_PER_POUND,
+  MILLILITERS_PER_US_GALLON,
   celsiusToFahrenheit,
   formatMass,
   formatTemperature,
@@ -68,6 +69,10 @@ describe('temperatura', () => {
 });
 
 describe('volume', () => {
+  it('o galão americano tem 3.785,411784 mL, que é a definição legal', () => {
+    expect(MILLILITERS_PER_US_GALLON).toBeCloseTo(3785.411784, 9);
+  });
+
   it('usa mililitros no métrico e onças líquidas no imperial', () => {
     expect(formatVolume(500, 'pt-BR', 'metric')).toBe('500 ml');
     expect(formatVolume(500, 'en', 'imperial')).toBe('16.9 fl oz');

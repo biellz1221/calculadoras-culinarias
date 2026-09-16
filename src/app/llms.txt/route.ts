@@ -43,9 +43,11 @@ function shelfSection(): string {
     const kind =
       book.kind === 'official'
         ? ' [orientação oficial / official guidance]'
-        : book.kind === 'course'
-          ? ' [material de curso / course material]'
-          : '';
+        : book.kind === 'article'
+          ? ' [artigo científico / scholarly article]'
+          : book.kind === 'course'
+            ? ' [material de curso / course material]'
+            : '';
     return `- ${book.title}, ${formatAuthors(book)} (${book.publisher}${year})${kind}`;
   });
 

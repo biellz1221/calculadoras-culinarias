@@ -44,7 +44,11 @@ export type BookId =
   | 'cho'
   | 'modernist-1'
   | 'scoolinary-spherification'
-  | 'scoolinary-gelation';
+  | 'scoolinary-gelation'
+  | 'oiml-r22'
+  | 'nbs-457'
+  | 'ashrae-refrigeration'
+  | 'fricke-becker-2001';
 
 export interface Book {
   id: BookId;
@@ -73,12 +77,12 @@ export interface Book {
   /** Como as citações endereçam a obra. */
   locator: 'page' | 'chapter';
   /**
-   * `book` = obra da estante; `official` = fonte oficial complementar
-   * (NCHFP/USDA), usada só em regras de segurança alimentar (TD-004);
-   * `course` = material de curso, que não é bibliografia e não deve se
-   * disfarçar de uma.
+   * `book` = obra da estante; `official` = norma ou publicação de órgão
+   * público (NCHFP, ANVISA, OIML, NBS); `article` = artigo de periódico
+   * revisado por pares; `course` = material de curso, que não é bibliografia e
+   * não deve se disfarçar de uma. Só `book` aparece na estante da home.
    */
-  kind: 'book' | 'official' | 'course';
+  kind: 'book' | 'official' | 'article' | 'course';
 }
 
 export const BOOKS: readonly Book[] = [
@@ -502,6 +506,106 @@ export const BOOKS: readonly Book[] = [
     url: 'https://www.ecfr.gov/current/title-9/section-424.21',
     locator: 'chapter',
     kind: 'official',
+  },
+  {
+    /**
+     * A norma de alcoometria: densidade de mistura de água e etanol em função
+     * do teor e da temperatura. A tabela impressa sai de uma fórmula que o
+     * próprio documento publica, e é a fórmula que o motor usa — 54
+     * coeficientes transcritos da imagem da p. 13, porque o PDF oficial é
+     * digitalização sem camada de texto.
+     *
+     * O ano é o da Recomendação ("First edition 1973", p. 9). O arquivo é a
+     * tradução inglesa do BIML, e é dela que vêm as páginas citadas.
+     *
+     * Paginação conferida: os fólios impressos ("— 5 —") coincidem com a
+     * página do PDF em seis pontos (1, 5, 6, 8, 13, 20). Triagem e conferência
+     * da transcrição em docs/research/densidade.md.
+     */
+    id: 'oiml-r22',
+    title: 'International Recommendation No. 22 — Alcoholometry: International alcoholometric tables',
+    authors: ['International Organization of Legal Metrology'],
+    authorKind: 'organization',
+    shortName: 'OIML',
+    publisher: 'Bureau International de Métrologie Légale',
+    year: 1973,
+    url: 'https://www.oiml.org/en/files/pdf_r/r022-e75.pdf',
+    locator: 'page',
+    kind: 'official',
+  },
+  {
+    /**
+     * Peso por galão de calda de sacarose, de 0 a 95 °Brix e de 10 a 30 °C,
+     * calculado das densidades de Plato. Publica cada valor em libra e em
+     * grama, e é essa redundância que confere a transcrição: 99 das 100
+     * células fecham, e a que não fecha é erro tipográfico da circular.
+     *
+     * Paginação conferida: deslocamento constante de 2 entre PDF e impresso
+     * (PDF 4 → 2, 16 → 14, 29 → 27, 30 → 28). É digitalização com OCR em
+     * Courier: todo número saiu da imagem.
+     *
+     * Autoria: a folha de rosto diz "By Carl F. Snyder and Lester D. Hammond".
+     * A instituição fica no nome curto, como nos Documentos da Embrapa.
+     */
+    id: 'nbs-457',
+    title:
+      'Circular 457 — Weights per United States gallon and weights per cubic foot of sugar solutions',
+    authors: ['Carl F. Snyder', 'Lester D. Hammond'],
+    shortName: 'NBS, Circular 457',
+    publisher: 'U.S. Government Printing Office',
+    year: 1946,
+    url: 'https://nvlpubs.nist.gov/nistpubs/Legacy/circ/nbscircular457.pdf',
+    locator: 'page',
+    kind: 'official',
+  },
+  {
+    /**
+     * Capítulo 19, "Thermal Properties of Foods": o modelo que calcula a
+     * densidade de um alimento a partir da composição (Choi & Okos, 1986),
+     * com a densidade de cada constituinte em função da temperatura e um
+     * exemplo resolvido que o motor reproduz.
+     *
+     * Obra comercial, citada por decisão do dono do projeto. As mesmas equações
+     * estão no artigo aberto de Fricke & Becker, que confere a transcrição.
+     *
+     * A paginação do handbook é por capítulo ("19.6"), e o campo de página é
+     * número: cita-se por capítulo e seção. Fólios conferidos em quatro pontos
+     * (PDF 309 → 19.1, 312 → 19.4, 316 → 19.8, 320 → 19.12). Texto digital.
+     */
+    id: 'ashrae-refrigeration',
+    title: '2022 ASHRAE Handbook — Refrigeration (SI Edition)',
+    authors: ['American Society of Heating, Refrigerating and Air-Conditioning Engineers'],
+    authorKind: 'organization',
+    shortName: 'ASHRAE',
+    publisher: 'ASHRAE',
+    year: 2022,
+    locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    /**
+     * A reprodução aberta das equações de densidade de Choi & Okos: Tabelas 1
+     * e 2, p. 312, iguais às do ASHRAE em coeficiente, expoente e sinal. O
+     * próprio cap. 19 do ASHRAE cita este artigo (p. 19.25) — e cita também um
+     * Becker & Fricke de 1999, que é outro trabalho dos mesmos autores.
+     *
+     * Não traz densidade medida. A frase "an error of 6% or less" (p. 312) é
+     * sobre as equações das Tabelas 1 e 2, de todas as propriedades, e não
+     * sobre a densidade prevista de um alimento. Serve de segunda fonte da
+     * transcrição, não de caso-verdade.
+     *
+     * Cópia: auto-arquivo dos autores na UMKC, hoje fora do ar, recuperado do
+     * Internet Archive. Paginação conferida: impressa = PDF + 310 em quatro
+     * pontos (1 → 311, 2 → 312, 10 → 320, 20 → 330). Texto digital.
+     */
+    id: 'fricke-becker-2001',
+    title: 'Evaluation of Thermophysical Property Models for Foods',
+    authors: ['Brian A. Fricke', 'Bryan R. Becker'],
+    publisher: 'HVAC&R Research 7(4)',
+    year: 2001,
+    url: 'https://web.archive.org/web/20160705041742/http://b.web.umkc.edu/beckerb/publications/journals/thermophysical.pdf',
+    locator: 'page',
+    kind: 'article',
   },
   {
     // A calculadora de gelato nasceu da planilha de balanceamento de um curso,
