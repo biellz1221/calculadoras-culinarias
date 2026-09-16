@@ -40,15 +40,22 @@ function publisher(locale: Locale): Node {
 /**
  * Uma obra da estante em schema.org.
  *
- * O tipo acompanha o que a obra é de verdade: livro é `Book`, orientação
- * oficial e planilha de curso são `CreativeWork`. Chamar as três de livro
- * facilitaria o código e mentiria na saída.
+ * O tipo acompanha o que a obra é de verdade: livro é `Book`, artigo de
+ * periódico é `ScholarlyArticle`, orientação oficial e planilha de curso são
+ * `CreativeWork`. Chamar todas de livro facilitaria o código e mentiria na
+ * saída.
  */
+function schemaTypeOf(book: Book): string {
+  if (book.kind === 'book') return 'Book';
+  if (book.kind === 'article') return 'ScholarlyArticle';
+  return 'CreativeWork';
+}
+
 function creativeWork(book: Book): Node {
   const authorType = book.authorKind === 'organization' ? 'Organization' : 'Person';
 
   const node: Node = {
-    '@type': book.kind === 'book' ? 'Book' : 'CreativeWork',
+    '@type': schemaTypeOf(book),
     name: book.title,
     author: book.authors.map((name) => ({ '@type': authorType, name })),
     publisher: { '@type': 'Organization', name: book.publisher },

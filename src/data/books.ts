@@ -46,7 +46,9 @@ export type BookId =
   | 'scoolinary-spherification'
   | 'scoolinary-gelation'
   | 'oiml-r22'
-  | 'nbs-457';
+  | 'nbs-457'
+  | 'ashrae-refrigeration'
+  | 'fricke-becker-2001';
 
 export interface Book {
   id: BookId;
@@ -75,12 +77,12 @@ export interface Book {
   /** Como as citações endereçam a obra. */
   locator: 'page' | 'chapter';
   /**
-   * `book` = obra da estante; `official` = fonte oficial complementar
-   * (NCHFP/USDA), usada só em regras de segurança alimentar (TD-004);
-   * `course` = material de curso, que não é bibliografia e não deve se
-   * disfarçar de uma.
+   * `book` = obra da estante; `official` = norma ou publicação de órgão
+   * público (NCHFP, ANVISA, OIML, NBS); `article` = artigo de periódico
+   * revisado por pares; `course` = material de curso, que não é bibliografia e
+   * não deve se disfarçar de uma. Só `book` aparece na estante da home.
    */
-  kind: 'book' | 'official' | 'course';
+  kind: 'book' | 'official' | 'article' | 'course';
 }
 
 export const BOOKS: readonly Book[] = [
@@ -555,6 +557,54 @@ export const BOOKS: readonly Book[] = [
     url: 'https://nvlpubs.nist.gov/nistpubs/Legacy/circ/nbscircular457.pdf',
     locator: 'page',
     kind: 'official',
+  },
+  {
+    /**
+     * Capítulo 19, "Thermal Properties of Foods": o modelo que calcula a
+     * densidade de um alimento a partir da composição (Choi & Okos, 1986),
+     * com a densidade de cada constituinte em função da temperatura e um
+     * exemplo resolvido que o motor reproduz.
+     *
+     * Obra comercial. Entrou por decisão do dono do projeto, depois de a busca
+     * por reprodução aberta ter achado o artigo de Fricke & Becker, que confere
+     * as mesmas equações.
+     *
+     * A paginação do handbook é por capítulo ("19.6"), e o campo de página é
+     * número: cita-se por capítulo e seção. Fólios conferidos em quatro pontos
+     * (PDF 309 → 19.1, 312 → 19.4, 316 → 19.8, 320 → 19.12). Texto digital.
+     */
+    id: 'ashrae-refrigeration',
+    title: '2022 ASHRAE Handbook — Refrigeration (SI Edition)',
+    authors: ['American Society of Heating, Refrigerating and Air-Conditioning Engineers'],
+    authorKind: 'organization',
+    shortName: 'ASHRAE',
+    publisher: 'ASHRAE',
+    year: 2022,
+    locator: 'chapter',
+    kind: 'book',
+  },
+  {
+    /**
+     * A reprodução aberta das equações de densidade de Choi & Okos: Tabelas 1
+     * e 2, p. 312, iguais às do ASHRAE em coeficiente, expoente e sinal. Os
+     * autores escrevem também o capítulo do handbook.
+     *
+     * Não traz densidade medida — só repassa que Choi & Okos declaram erro "of
+     * 6% or less" (p. 312). Serve de segunda fonte da transcrição, não de
+     * caso-verdade.
+     *
+     * Cópia: auto-arquivo dos autores na UMKC, hoje fora do ar, recuperado do
+     * Internet Archive. Paginação conferida: impressa = PDF + 310 em quatro
+     * pontos (1 → 311, 2 → 312, 10 → 320, 20 → 330). Texto digital.
+     */
+    id: 'fricke-becker-2001',
+    title: 'Evaluation of Thermophysical Property Models for Foods',
+    authors: ['Brian A. Fricke', 'Bryan R. Becker'],
+    publisher: 'HVAC&R Research, vol. 7, nº 4',
+    year: 2001,
+    url: 'https://web.archive.org/web/20160705041742/http://b.web.umkc.edu/beckerb/publications/journals/thermophysical.pdf',
+    locator: 'page',
+    kind: 'article',
   },
   {
     // A calculadora de gelato nasceu da planilha de balanceamento de um curso,

@@ -36,9 +36,9 @@ describe('JSON-LD da home', () => {
     );
 
     for (const book of BOOKS) {
-      expect(byName.get(book.title), book.id).toBe(
-        book.kind === 'book' ? 'Book' : 'CreativeWork',
-      );
+      const expected =
+        book.kind === 'book' ? 'Book' : book.kind === 'article' ? 'ScholarlyArticle' : 'CreativeWork';
+      expect(byName.get(book.title), book.id).toBe(expected);
     }
   });
 
