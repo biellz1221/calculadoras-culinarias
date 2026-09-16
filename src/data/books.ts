@@ -44,7 +44,9 @@ export type BookId =
   | 'cho'
   | 'modernist-1'
   | 'scoolinary-spherification'
-  | 'scoolinary-gelation';
+  | 'scoolinary-gelation'
+  | 'oiml-r22'
+  | 'nbs-457';
 
 export interface Book {
   id: BookId;
@@ -501,6 +503,52 @@ export const BOOKS: readonly Book[] = [
     publisher: 'Code of Federal Regulations',
     url: 'https://www.ecfr.gov/current/title-9/section-424.21',
     locator: 'chapter',
+    kind: 'official',
+  },
+  {
+    /**
+     * A norma de alcoometria: densidade de mistura de água e etanol em função
+     * do teor e da temperatura. A tabela impressa sai de uma fórmula que o
+     * próprio documento publica, e é a fórmula que o motor usa — 44
+     * coeficientes transcritos da imagem da p. 13, porque o PDF oficial é
+     * digitalização sem camada de texto.
+     *
+     * Paginação conferida: os fólios impressos ("— 5 —") coincidem com a
+     * página do PDF em seis pontos (1, 5, 6, 8, 13, 20). Triagem e conferência
+     * da transcrição em docs/research/densidade.md.
+     */
+    id: 'oiml-r22',
+    title: 'International Recommendation No. 22 — Alcoholometry: International alcoholometric tables',
+    authors: ['International Organization of Legal Metrology'],
+    authorKind: 'organization',
+    shortName: 'OIML',
+    publisher: 'Bureau International de Métrologie Légale',
+    year: 1973,
+    url: 'https://www.oiml.org/en/files/pdf_r/r022-e75.pdf',
+    locator: 'page',
+    kind: 'official',
+  },
+  {
+    /**
+     * Peso por galão de calda de sacarose, de 0 a 95 °Brix e de 10 a 30 °C,
+     * calculado das densidades de Plato. Publica cada valor em libra e em
+     * grama, e é essa redundância que confere a transcrição: 99 das 100
+     * células fecham, e a que não fecha é erro tipográfico da circular.
+     *
+     * Paginação conferida: deslocamento constante de 2 entre PDF e impresso
+     * (PDF 4 → 2, 16 → 14, 29 → 27, 30 → 28). É digitalização com OCR em
+     * Courier: todo número saiu da imagem.
+     */
+    id: 'nbs-457',
+    title:
+      'Circular 457 — Weights per United States gallon and weights per cubic foot of sugar solutions',
+    authors: ['National Bureau of Standards'],
+    authorKind: 'organization',
+    shortName: 'NBS',
+    publisher: 'U.S. Government Printing Office',
+    year: 1946,
+    url: 'https://nvlpubs.nist.gov/nistpubs/Legacy/circ/nbscircular457.pdf',
+    locator: 'page',
     kind: 'official',
   },
   {
